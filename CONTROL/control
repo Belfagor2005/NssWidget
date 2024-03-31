@@ -1,0 +1,10 @@
+Package: enigma2-plugin-extensions-enigma2-plugin-extensions-widget
+Version: 1.0.0
+Description: extra
+Architecture: all
+Section: extra
+Priority: optional
+Maintainer: *
+Homepage: http://www.nonsolosat.net
+Depends: 
+Source: *
