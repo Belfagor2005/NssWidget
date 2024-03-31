@@ -2588,7 +2588,11 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
         <panel name="bLogo"/>
     </screen>
     <screen name="QuitMainloopScreen" position="0,0" size="1920,1080" backgroundColor="background" flags="wfNoBorder">
+<<<<<<< Updated upstream
         <ePixmap pixmap="Aglare-FHD-NSS/image_logo/nss/zlogo.png" position="center,center" size="445,440" scale="1" alphatest="blend"/>
+=======
+        <ePixmap pixmap="Aglare-FHD-NSS/image_logo/nss/zlogo.png" position="center,center" size="445,350" scale="1" alphatest="blend"/>
+>>>>>>> Stashed changes
         <widget name="text" position="center,850" size="1770,150" font="Regular; 60" halign="center"/>
         <eLabel name="" position="1498,1000" size="400,80" backgroundColor="background" text="Designed by MNASR" transparent="1" halign="center" foregroundColor="yellow" font="Regular; 34"/>
         <eLabel name="" position="24,1000" size="400,80" backgroundColor="background" text="Edit by LULULLA" transparent="1" halign="center" foregroundColor="yellow" font="Regular; 34"/>
@@ -2691,7 +2695,11 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
         <widget name="pused" position="46,908" size="120,40" font="Regular; 28" zPosition="1" halign="left" backgroundColor="background" transparent="1" valign="center"/>
         <widget name="slide" render="Progress" position="170,921" size="1600,14" zPosition="8" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10"/>
     </screen>
+<<<<<<< Updated upstream
     <screen name="CacheFlushAutoScreen" position="35,77" size="420,40" title="CacheFlush Status" zPosition="10" flags="wfNoBorder">
+=======
+    <screen name="CacheFlushAutoScreen" position="35,77" size="420,40" title="CacheFlush Status" zPosition="10" flags="wfBorder">
+>>>>>>> Stashed changes
         <widget name="message_label" position="1,0" size="418,39" font="Regular;28" valign="center" halign="center" backgroundColor="background" transparent="1"/>
     </screen>
     <screen backgroundColor="transparent" flags="wfNoBorder" name="SoftcamSetup" position="0,0" size="1920,1080" title="">
@@ -6484,6 +6492,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <eLabel backgroundColor="mcolor3" cornerRadius="3" position="440,931" size="850,3" zPosition="99"/>
         <eLabel name="" position="551,916" size="132,40" font="FA; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
     </screen>
+<<<<<<< Updated upstream
     <screen name="NcamInfoMenu" position="fill" title="NcamInfoMenu" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
@@ -6521,6 +6530,8 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <eLabel backgroundColor="mcolor3" cornerRadius="3" position="440,931" size="850,3" zPosition="99"/>
         <eLabel name="" position="551,916" size="132,40" font="FA; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
     </screen>
+=======
+>>>>>>> Stashed changes
     <screen name="HotkeySetupSelect" position="0,0" size="1920,1080" title="Input" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
