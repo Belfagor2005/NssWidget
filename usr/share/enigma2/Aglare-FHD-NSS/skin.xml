@@ -7058,7 +7058,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
         <widget name="mainmenu" position="36,98" size="890,868" itemHeight="62" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center"/>
-        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/oscam-logo.png" transparent="1" alphatest="on"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/ncam-logo.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="NcamInfoConfigScreen" position="fill" title="Ncam Info Setup" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="titletemp"/>
@@ -7068,7 +7068,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
         <widget name="status" render="Label" position="997,607" size="885,180" font="Regular; 24" halign="left" valign="top" backgroundColor="background" transparent="1" zPosition="55"/>
-        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/oscam-logo.png" transparent="1" alphatest="on"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/ncam-logo.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="ncInfo" position="0,0" size="1920,1080" title="Ncam Info Log" backgroundColor="background" flags="wfNoBorder">
         <panel name="timedate"/>
@@ -7084,7 +7084,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <widget source="session.CurrentService" render="Label" position="1376,394" size="494,30" font="Regular; 24" borderWidth="1" backgroundColor="background" transparent="1" halign="center" zPosition="5" valign="center" noWrap="1" foregroundColor="white">
             <convert type="ServiceName">Name</convert>
         </widget>
-        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/oscam-logo.png" transparent="1" alphatest="on"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/ncam-logo.png" transparent="1" alphatest="on"/>
         <eLabel backgroundColor="mcolor3" cornerRadius="3" position="35,931" size="850,3" zPosition="99"/>
         <eLabel backgroundColor="mcolor3" cornerRadius="3" position="440,931" size="850,3" zPosition="99"/>
         <eLabel name="" position="551,916" size="132,40" font="FA; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
