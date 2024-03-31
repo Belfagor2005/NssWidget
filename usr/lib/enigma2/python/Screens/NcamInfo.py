@@ -30,15 +30,16 @@ import struct
 global NAMEBIN
 
 config.NcamInfo = ConfigSubsection()
-config.NcamInfo.userdatafromconf = ConfigYesNo(default = True)
-#config.NcamInfo.usehostname = ConfigYesNo(default = False)
-config.NcamInfo.autoupdate = ConfigYesNo(default = False)
-config.NcamInfo.username = ConfigText(default = "username", fixed_size = False, visible_width=12)
-config.NcamInfo.password = ConfigPassword(default = "password", fixed_size = False)
-config.NcamInfo.ip = ConfigIP( default = [ 127,0,0,1 ], auto_jump=True)
-config.NcamInfo.hostname = ConfigText(default = "", fixed_size = False)
-config.NcamInfo.port = ConfigInteger(default = 8181, limits=(0,65536) )
-config.NcamInfo.intervall = ConfigInteger(default = 10, limits=(1,600) )
+config.NcamInfo.showInExtensions = ConfigYesNo(default=False)
+config.NcamInfo.userdatafromconf = ConfigYesNo(default=True)
+# config.NcamInfo.usehostname = ConfigYesNo(default=False)
+config.NcamInfo.autoupdate = ConfigYesNo(default=False)
+config.NcamInfo.username = ConfigText(default="username", fixed_size=False, visible_width=12)
+config.NcamInfo.password = ConfigPassword(default="password", fixed_size=False)
+config.NcamInfo.ip = ConfigIP(default=[127, 0, 0, 1], auto_jump=True)
+config.NcamInfo.hostname = ConfigText(default="", fixed_size=False)
+config.NcamInfo.port = ConfigInteger(default=8181, limits=(0, 65536))
+config.NcamInfo.intervall = ConfigInteger(default=10, limits=(1, 600))
 
 
 def check_NAMEBIN():
@@ -1327,3 +1328,4 @@ class NcamInfoConfigScreen(ConfigListScreen, Screen):
         config.NcamInfo.port.save()
         config.NcamInfo.autoupdate.save()
         config.NcamInfo.intervall.save()
+        self.close()
