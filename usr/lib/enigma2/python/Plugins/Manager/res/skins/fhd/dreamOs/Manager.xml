@@ -1,0 +1,34 @@
+<!-- Skin Manager 01/12/2023 -->
+<screen name="Manager" position="0,0" size="1920,1080" title="..::NSS Cam Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+	<eLabel position="0,735" size="1920,347" backgroundColor="#20000000" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/logo.png" position="1679,740" size="150,60" alphatest="blend" scale="1" zPosition="5" />
+	<widget name="title" position="879,746" size="820,50" font="Regular;26" halign="left" valign="center" foregroundColor="#606060" backgroundColor="#20000000" transparent="1" zPosition="5" />
+	<eLabel position="0,800" size="1920,3" backgroundColor="#303030" zPosition="3" />
+	<eLabel position="0,1075" size="1920,3" backgroundColor="#303030" zPosition="3" />
+	<eLabel position="1620,815" size="3,245" backgroundColor="#202020" zPosition="3" />
+	<widget name="info" position="880,810" size="704,250" font="Regular; 20" halign="right" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5" />
+	<widget name="description" position="32,742" size="700,50" font="Regular;30" halign="left" valign="center" foregroundColor="#b0b0b0" backgroundColor="#202020" transparent="1" zPosition="5" />
+    	<widget source="list" render="Listbox" position="28,810" size="745,250" scrollbarMode="showOnDemand" foregroundColor="#00a0a0a0" backgroundColorSelected="#00000000" enableWrapAround="1" transparent="1" zPosition="5">
+        	<convert type="TemplatedMultiContent">
+        	    {"template": [
+        	            MultiContentEntryPixmapAlphaTest(pos=(5, 0), size=(70, 40), png=1), # index 1 is the pixmap   
+        	            MultiContentEntryText(pos = (95, 0), size = (490, 45), flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER, text=0, color=0x72d000, color_sel=0xffffff, backcolor_sel=0x0066cc), # index 0 is the text name,
+        	            MultiContentEntryText(pos = (585, 0), size = (160, 45), flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER, text=2, color=0x72d000, color_sel=0xffffff, backcolor_sel=0x0066cc), # index 2 is the text name,
+        	        ],
+        	     "fonts": [gFont("Regular", 30)],
+        	     "itemHeight": 50
+        	    }
+        	</convert>
+    	</widget>
+    	<!-- Colors -->
+	<eLabel position="1860,820" size="40,25" backgroundColor="red" cornerRadius="10" zPosition="5" />
+	<eLabel position="1860,860" size="40,25" backgroundColor="green" cornerRadius="10" zPosition="5" />
+	<eLabel position="1860,900" size="40,25" backgroundColor="yellow" cornerRadius="10" zPosition="5" />
+	<eLabel position="1860,940" size="40,25" backgroundColor="blue" cornerRadius="10" zPosition="5" />
+	<widget name="key_red" position="1640,817" size="200,30" font="Regular;28" halign="right" valign="center" backgroundColor="black" transparent="1" zPosition="5" />
+	<widget name="key_green" position="1640,857" size="200,30" font="Regular;28" halign="right" valign="center" backgroundColor="black" transparent="1" zPosition="5" />
+	<widget name="key_yellow" position="1640,897" size="200,30" font="Regular;28" halign="right" valign="center" backgroundColor="black" zPosition="5" transparent="1" />
+	<widget name="key_blue" position="1640,937" size="200,30" font="Regular;28" halign="right" valign="center" backgroundColor="black" zPosition="5" transparent="1" />
+	<eLabel text="Menu" position="1680,1020" size="100,35" font="Regular;28" foregroundColor="#b0b0b0" backgroundColor="#707070" halign="center" valign="center" cornerRadius="10" zPosition="5" />
+	<eLabel text="Info" position="1800,1020" size="100,35" font="Regular;28" foregroundColor="#b0b0b0" backgroundColor="#707070" halign="center" valign="center" cornerRadius="10" zPosition="5" />
+</screen>
