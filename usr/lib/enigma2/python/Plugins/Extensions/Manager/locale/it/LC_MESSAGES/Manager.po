@@ -1,0 +1,371 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: nssManager\n"
+"POT-Creation-Date: 2024-03-27 21:37+0100\n"
+"PO-Revision-Date: 2024-03-27 21:39+0100\n"
+"Last-Translator: \n"
+"Language-Team: lululla\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-SourceCharset: iso-8859-1\n"
+"X-Poedit-SearchPath-0: plugin.py\n"
+"X-Poedit-SearchPath-1: data/datas.py\n"
+
+#: data/datas.py:269 data/datas.py:272 data/datas.py:275 data/datas.py:278
+#: data/datas.py:281 data/datas.py:284
+msgid "Write"
+msgstr "Scrivi"
+
+#: data/datas.py:300 plugin.py:692 plugin.py:786 plugin.py:945
+msgid "Back"
+msgstr "Indietro"
+
+#: data/datas.py:306
+msgid "Wait please..."
+msgstr "Attendi prego..."
+
+#: data/datas.py:327 data/datas.py:451
+msgid "Get Link"
+msgstr "Ottieni link"
+
+#: data/datas.py:328 data/datas.py:446 data/datas.py:452
+msgid "Reset"
+msgstr "Reset"
+
+#: data/datas.py:341
+msgid "Select Your Choice"
+msgstr "Seleziona"
+
+#: data/datas.py:354 data/datas.py:399 data/datas.py:475
+msgid ""
+"\n"
+"....\n"
+".....\n"
+msgstr ""
+
+#: data/datas.py:364 data/datas.py:407
+msgid "Card Updated!"
+msgstr ""
+
+#: data/datas.py:367 data/datas.py:410
+msgid "Card Not Updated!"
+msgstr ""
+
+#: data/datas.py:378 data/datas.py:422 data/datas.py:487
+msgid "READ EMM....\n"
+msgstr ""
+
+#: data/datas.py:382 data/datas.py:426 data/datas.py:491
+msgid "CURRENT EMM IS:\n"
+msgstr ""
+
+#: data/datas.py:384 data/datas.py:428 data/datas.py:493
+msgid ""
+"\n"
+"Current Emm saved to /tmp/emm.txt"
+msgstr ""
+
+#: data/datas.py:387 data/datas.py:431 data/datas.py:496
+msgid "\n"
+msgstr ""
+
+#: data/datas.py:388 data/datas.py:432 data/datas.py:497
+#, python-format
+msgid "Please wait, %s."
+msgstr ""
+
+#: data/datas.py:390
+msgid "File no exist /tmp/emm.txt"
+msgstr ""
+
+#: data/datas.py:392
+msgid "The Cam is not active, send the command anyway?"
+msgstr ""
+
+#: data/datas.py:434 data/datas.py:499
+msgid ""
+"No Action!\n"
+"File no exist /tmp/emm.txt"
+msgstr ""
+
+#: data/datas.py:436
+msgid "Command Cancelled"
+msgstr ""
+
+#: data/datas.py:504
+msgid "Activate Insert line in Config File:"
+msgstr "Attivare inserimento in File Cfg 3C"
+
+#: data/datas.py:504
+msgid "If Active: Download/Reset Server Config"
+msgstr "Se Attivo: Scarica/Reset Config .serv"
+
+#: data/datas.py:506
+msgid "Server Config"
+msgstr "Server Config"
+
+#: data/datas.py:507
+msgid "Server Link"
+msgstr "Url del Server"
+
+#: data/datas.py:507
+msgid "Select Get Link"
+msgstr "Seleziona Link Server"
+
+#: data/datas.py:508
+msgid "Server URL"
+msgstr "Server URL"
+
+#: data/datas.py:508
+msgid "Server Url i.e. 012.345.678.900"
+msgstr "Url Server Es. 012.345.678.900"
+
+#: data/datas.py:509
+msgid "Server Port"
+msgstr "Porta del Server"
+
+#: data/datas.py:509
+msgid "Port"
+msgstr "Port"
+
+#: data/datas.py:510
+msgid "Server Username"
+msgstr "Server Username"
+
+#: data/datas.py:510
+msgid "Username"
+msgstr "Username"
+
+#: data/datas.py:511
+msgid "Server Password"
+msgstr "Server Password"
+
+#: data/datas.py:511
+msgid "Password"
+msgstr "Password"
+
+#: data/datas.py:572
+msgid "Select CCcam"
+msgstr "Seleziona CCcam"
+
+#: data/datas.py:583 data/datas.py:601 data/datas.py:626
+msgid "Please Reset - No File CFG"
+msgstr "Prego Reset - nessun file di Config"
+
+#: data/datas.py:590 data/datas.py:608 data/datas.py:633
+msgid "Server Copy in "
+msgstr "Server copiato in "
+
+#: data/datas.py:613
+msgid "Select Ncam"
+msgstr "Seleziona Ncam"
+
+#: plugin.py:213
+msgid "Start/Restart"
+msgstr "Avvio/Riavvio"
+
+#: plugin.py:214
+msgid "Download"
+msgstr "Download"
+
+#: plugin.py:215
+msgid "Stop"
+msgstr "Stop"
+
+#: plugin.py:216
+msgid "Softcam"
+msgstr "Softcam"
+
+#: plugin.py:219
+msgid "Scanning and retrieval list softcam ..."
+msgstr "Scansione e recupero lista softcam"
+
+#: plugin.py:341
+msgid "Update SoftcamKeys from google search?"
+msgstr "Aggiornamento SoftcamKeys da ricerca google?"
+
+#: plugin.py:351
+msgid "SoftcamKeys Updated!"
+msgstr "SoftcamKeys Aggiornata!"
+
+#: plugin.py:364
+msgid "Select a cam to run ..."
+msgstr "Selezionare una cam da avviare ..."
+
+#: plugin.py:366
+msgid "Install Cam first!!!"
+msgstr "Installa prima una Cam!!!"
+
+#: plugin.py:439
+msgid ""
+"Please wait..\n"
+"RESTART CAM"
+msgstr ""
+
+#: plugin.py:444
+msgid ""
+"Please wait..\n"
+"STOP & RESTART CAM"
+msgstr ""
+
+#: plugin.py:452
+msgid ""
+"Please wait..\n"
+"START UP CAM"
+msgstr ""
+
+#: plugin.py:519
+msgid ""
+"Please wait..\n"
+"STOP CAM"
+msgstr ""
+
+#: plugin.py:638
+msgid "Autocam assigned to the current channel"
+msgstr "Autocam assegnato al canale corrente"
+
+#: plugin.py:690
+msgid "Getting the list, please wait ..."
+msgstr "Getting the list, please wait ..."
+
+#: plugin.py:693
+msgid "Load"
+msgstr ""
+
+#: plugin.py:737 plugin.py:754
+msgid "Try again later ..."
+msgstr "Riprova piu tardi ..."
+
+#: plugin.py:750
+msgid "Please select ..."
+msgstr "Seleziona prego..."
+
+#: plugin.py:785
+msgid "Select and Install"
+msgstr "Seleziona e Installa"
+
+#: plugin.py:825
+msgid "Do you want to install?"
+msgstr "Vuoi installare?"
+
+#: plugin.py:877 plugin.py:904
+#, fuzzy, python-format
+#| msgid "Installing: %s"
+msgid "Downloading-installing: %s"
+msgstr "Installazione: %s"
+
+#: plugin.py:896
+msgid "Unknow Image!"
+msgstr "Unknow Image!"
+
+#: plugin.py:908
+#, python-format
+msgid "Downloading: %s"
+msgstr "Downloading: %s"
+
+#: plugin.py:909
+msgid "Download file in /tmp successful!"
+msgstr "Download del file in /tmp riuscito!"
+
+#: plugin.py:912
+msgid "Download failur!"
+msgstr ""
+
+#: plugin.py:923
+msgid "All file Download are removed!"
+msgstr "Tutti i file scaricati sono stati rimossi!"
+
+#: plugin.py:955
+msgid "Path Configuration Folder"
+msgstr "Configurazione cartelle"
+
+#: plugin.py:1101
+msgid "Softcam Manager"
+msgstr ""
+
+#~ msgid "FTA"
+#~ msgstr "FTA"
+
+#~ msgid "Start"
+#~ msgstr "Avvio"
+
+#, python-format
+#~ msgid "Update Softcam.key: %s"
+#~ msgstr "Aggiornamento SoftCam.Key: %s"
+
+#~ msgid "Send Oscam Emm"
+#~ msgstr "Invio Oscam Emm"
+
+#~ msgid "SEND EMM TO OSCAM"
+#~ msgstr "INVIO EMM ALLA OSCAM"
+
+#~ msgid "CCcam"
+#~ msgstr "CCcam"
+
+#~ msgid "Oscam"
+#~ msgstr "Oscam"
+
+#~ msgid "Ncam"
+#~ msgstr "Ncam"
+
+#~ msgid "Link1"
+#~ msgstr "Link1"
+
+#~ msgid "Link2"
+#~ msgstr "Link2"
+
+#~ msgid "Link3"
+#~ msgstr "Link3"
+
+#~ msgid "Link4"
+#~ msgstr "Link4"
+
+#~ msgid "Link5"
+#~ msgstr "Link5"
+
+#~ msgid "Link6"
+#~ msgstr "Link6"
+
+#~ msgid "Select Oscam"
+#~ msgstr "Seleziona Oscam"
+
+#~ msgid "PLEASE SELECT..."
+#~ msgstr "SELEZIONA PREGO..."
+
+#~ msgid "Folder Config Path tvManager"
+#~ msgstr "Percorso Config tvManager"
+
+#~ msgid "Cam tvManager"
+#~ msgstr "Cam tvManager"
+
+#~ msgid "TiVuStream Cam Manager..."
+#~ msgstr "TiVuStream Cam Manager..."
+
+#~ msgid "TiVuStream Cam Manager"
+#~ msgstr "TiVuStream Cam Manager"
+
+#~ msgid "..:: tvStream Softcam Manager ::.."
+#~ msgstr "..:: tvStream Softcam Manager ::.."
+
+#~ msgid "Secret Link"
+#~ msgstr "Secret Link"
+
+#~ msgid "..:: tvStream Softcam Manager V. %s ::.."
+#~ msgstr "..:: tvStream Softcam Manager V. %s ::.."
+
+#~ msgid "Server Offline or No Internet Connection!"
+#~ msgstr "Server Offline o nessuna connessione a Internet!"
+
+#~ msgid "TiVuStream Softcam Management"
+#~ msgstr "TiVuStream Softcam Management"
+
+#~ msgid "Info Ecm"
+#~ msgstr "Info Ecm"
+
+#~ msgid "Installare..."
+#~ msgstr "Installare..."

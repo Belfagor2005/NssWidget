@@ -1,0 +1,27 @@
+Please Plugin Support on Forum
+>>>>>>nonsolosat<<<<<<<
+>Path folder for config cam:
+CCcam
+/etc/cccam.cfg
+Doscam
+/etc/tuxbox/doscam.cfg
+Gbox
+/usr/keys/
+Gcam
+/etc/tuxbox/config/gcam.server
+Mgcamd
+/usr/keys/cccamd.list
+Ncam
+/etc/tuxbox/config/ncam.conf
+Oscamymod
+/etc/tuxbox/config/oscam.server
+Oscam
+/etc/tuxbox/config/oscam.server
+Oscam-Emu
+/etc/tuxbox/config/oscam-emu/oscam.server
+Oscam-icam
+/etc/tuxbox/config/oscam-icam/oscam.server
+Unicam
+/etc/tuxbox/config/unicam.conf
+Wicardd
+/usr/cfmngr/wicardd/wicardd.conf
