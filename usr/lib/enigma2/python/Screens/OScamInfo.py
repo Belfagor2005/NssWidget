@@ -1316,7 +1316,8 @@ class OscamInfoConfigScreen(ConfigListScreen, Screen):
         self["config"].list = oscamconfig
 
     def exit(self):
-        
+        self.close()
+
     def savx(self):
         config.oscaminfo.userdatafromconf.save()
         config.oscaminfo.username.save()
