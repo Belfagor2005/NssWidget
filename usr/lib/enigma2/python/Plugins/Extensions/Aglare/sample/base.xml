@@ -2588,7 +2588,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
         <panel name="bLogo"/>
     </screen>
     <screen name="QuitMainloopScreen" position="0,0" size="1920,1080" backgroundColor="background" flags="wfNoBorder">
-        <ePixmap pixmap="Aglare-FHD-NSS/image_logo/nss/zlogo.png" position="center,center" size="445,350" scale="1" alphatest="blend"/>
+        <ePixmap pixmap="Aglare-FHD-NSS/image_logo/nss/zlogo.png" position="center,center" size="445,440" scale="1" alphatest="blend"/>
         <widget name="text" position="center,850" size="1770,150" font="Regular; 60" halign="center"/>
         <eLabel name="" position="1498,1000" size="400,80" backgroundColor="background" text="Designed by MNASR" transparent="1" halign="center" foregroundColor="yellow" font="Regular; 34"/>
         <eLabel name="" position="24,1000" size="400,80" backgroundColor="background" text="Edit by LULULLA" transparent="1" halign="center" foregroundColor="yellow" font="Regular; 34"/>
@@ -2691,7 +2691,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
         <widget name="pused" position="46,908" size="120,40" font="Regular; 28" zPosition="1" halign="left" backgroundColor="background" transparent="1" valign="center"/>
         <widget name="slide" render="Progress" position="170,921" size="1600,14" zPosition="8" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10"/>
     </screen>
-    <screen name="CacheFlushAutoScreen" position="35,77" size="420,40" title="CacheFlush Status" zPosition="10" flags="wfBorder">
+    <screen name="CacheFlushAutoScreen" position="35,77" size="420,40" title="CacheFlush Status" zPosition="10" flags="wfNoBorder">
         <widget name="message_label" position="1,0" size="418,39" font="Regular;28" valign="center" halign="center" backgroundColor="background" transparent="1"/>
     </screen>
     <screen backgroundColor="transparent" flags="wfNoBorder" name="SoftcamSetup" position="0,0" size="1920,1080" title="">
@@ -6480,6 +6480,43 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
             <convert type="ServiceName">Name</convert>
         </widget>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/oscam-logo.png" transparent="1" alphatest="on"/>
+        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="35,931" size="850,3" zPosition="99"/>
+        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="440,931" size="850,3" zPosition="99"/>
+        <eLabel name="" position="551,916" size="132,40" font="FA; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
+    </screen>
+    <screen name="NcamInfoMenu" position="fill" title="NcamInfoMenu" backgroundColor="transparent" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="pigscreen885"/>
+        <panel name="bLogo"/>
+        <widget name="mainmenu" position="36,98" size="890,868" itemHeight="62" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/ncam-logo.png" transparent="1" alphatest="on"/>
+    </screen>
+    <screen name="NcamInfoConfigScreen" position="fill" title="Ncam Info Setup" backgroundColor="transparent" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button1temp"/>
+        <panel name="configlist45"/>
+        <panel name="pigscreen885"/>
+        <panel name="bLogo"/>
+        <widget name="status" render="Label" position="997,607" size="885,180" font="Regular; 24" halign="left" valign="top" backgroundColor="background" transparent="1" zPosition="55"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/ncam-logo.png" transparent="1" alphatest="on"/>
+    </screen>
+    <screen name="ncInfo" position="0,0" size="1920,1080" title="Ncam Info Log" backgroundColor="background" flags="wfNoBorder">
+        <panel name="timedate"/>
+        <widget name="output" position="35,95" size="1241,836" itemHeight="40" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/>
+        <eLabel name="" position="35,95" size="1242,836" zPosition="-90" cornerRadius="20" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
+        <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
+        <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
+        <widget source="session.VideoPicture" render="Pig" position="1376,110" zPosition="1" size="494,272" backgroundColor="transparent" transparent="0" cornerRadius="14"/>
+        <widget source="Title" render="Label" position="36,20" size="1303,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
+        <widget source="Event" render="Progress" position="1376,444" size="494,10" backgroundColor="progbg" foregroundColor="yellow" cornerRadius="10" zPosition="33">
+            <convert type="EventTime">Progress</convert>
+        </widget>
+        <widget source="session.CurrentService" render="Label" position="1376,394" size="494,30" font="Regular; 24" borderWidth="1" backgroundColor="background" transparent="1" halign="center" zPosition="5" valign="center" noWrap="1" foregroundColor="white">
+            <convert type="ServiceName">Name</convert>
+        </widget>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/ncam-logo.png" transparent="1" alphatest="on"/>
         <eLabel backgroundColor="mcolor3" cornerRadius="3" position="35,931" size="850,3" zPosition="99"/>
         <eLabel backgroundColor="mcolor3" cornerRadius="3" position="440,931" size="850,3" zPosition="99"/>
         <eLabel name="" position="551,916" size="132,40" font="FA; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
