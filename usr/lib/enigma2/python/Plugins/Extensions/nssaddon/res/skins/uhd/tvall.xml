@@ -1,0 +1,25 @@
+<!-- Skin tvAll 11/05/2021 -->
+<screen name="tvall" position="0,0" size="2560,1440" title="..::NSS Panel Addon Manager::.." backgroundColor="#ff000000" flags="wfNoBorder">
+	<widget name="title" position="1134,26" size="1366,78" font="Regular;40" halign="left" valign="center" foregroundColor="#002a79b8" backgroundColor="black" transparent="1" zPosition="5" />
+	<widget name="info" position="1134,117" size="1372,66" font="Regular;40" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
+    <ePixmap position="0,0" size="2560,1440" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/fulltophd.png" scale="stretch" zPosition="1" />
+	<ePixmap position="1137,197" size="1366,12" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/sep.png" zPosition="5" />
+	<ePixmap position="1138,1029" size="1372,10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/sep.png" zPosition="5" />	
+    <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/key_menu.png" scale="strech" position="974,135" size="106,46" zPosition="10" />
+	<!-- Menu List -->
+	<widget name="list" position="1134,223" size="1372,789" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="1" zPosition="10" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#000b2049" backgroundColorSelected="#0b2049" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/sliderb.png" />
+	<!-- Colors -->
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/key_red.png" position="86,1186" size="40,40" alphatest="on" zPosition="5" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/key_green.png" position="90,1280" size="40,40" alphatest="on" zPosition="5" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/key_yellow.png" position="999,1186" size="40,40" alphatest="on" zPosition="5" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/key_blue.png" position="994,1277" size="40,40" alphatest="on" zPosition="5" />
+	<widget name="key_red" position="132,1183" size="400,52" font="Regular;40" halign="left" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
+	<widget name="key_green" position="135,1272" size="400,52" font="Regular;40" halign="left" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
+	<widget name="key_yellow" position="568,1184" size="400,52" font="Regular;40" halign="right" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
+	<widget name="key_blue" position="566,1272" size="400,52" font="Regular;40" halign="right" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
+	<widget name="pth" position="1142,1043" size="1372,66" font="Regular;40" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5" />
+	<widget name="pform" position="1146,1110" size="1372,129" font="Regular;40" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5" />
+	<widget name="progress" position="780,1286" size="400,66" foregroundColor="#2a70a4" backgroundColor="#10000000" transparent="1" zPosition="5" />
+	<widget source="progresstext" render="Label" font="Regular;26" position="780,1286" size="400,66" backgroundColor="#202020" transparent="1" halign="center" zPosition="6" />
+    <eLabel name="" position="46,1163" size="1032,180" zPosition="3" />
+</screen>

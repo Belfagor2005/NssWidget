@@ -1,0 +1,20 @@
+<screen name="Script Panel" position="0,0" size="1920,1080" title="..::NSS Addon Manager::.." backgroundColor="#ff000000" flags="wfNoBorder">
+	<widget name="title" position="838,18" size="1021,50" font="Regular;30" halign="left" valign="center" foregroundColor="#002a79b8" backgroundColor="black" transparent="1" zPosition="5" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/fulltophd.png" position="0,0" size="1920,1080" zPosition="1" />
+	
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/sep.png" position="830,70" size="1030,8" zPosition="5" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/sep.png" position="833,745" size="1030,8" zPosition="5" />
+	<widget name="labstatus" position="832,88" size="1030,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
+
+	<!-- Menu List -->
+	<widget source="list" render="Listbox" position="838,144" size="1030,598" itemHeight="50" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/sliderb.png">
+		<convert type="StringList" />
+	</widget>
+    
+    <!-- Colors -->
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/key_red.png" position="31,888" size="30,30" alphatest="on" zPosition="5" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/key_green.png" position="29,935" size="30,30" alphatest="on" zPosition="5" />
+	<widget name="key_red" position="71,881" size="300,40" font="Regular;30" halign="left" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
+    <widget name="key_green" position="70,932" size="300,40" font="Regular;30" halign="left" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
+<eLabel name="" position="16,876" size="759,100" zPosition="3" />
+</screen>
