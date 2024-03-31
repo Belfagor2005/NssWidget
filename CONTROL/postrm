@@ -1,0 +1,24 @@
+﻿#!/bin/sh
+# <!-- **************************************  -->
+# <!-- Don't Remove this Disclaimer            -->
+# <!-- **************************************  -->
+echo
+echo "*****************************************"
+echo "*     Uninstall nssddon -nssmanager     *"
+echo "*****************************************"
+EXTDIR="/usr/lib/enigma2/python/Plugins/Extensions/nssddon"
+if [ -d "$EXTDIR" ]; then
+   rm -rf "$EXTDIR" > /dev/null 2>&1
+fi
+echo "Checking for an older version of nssddon Panel in the system..."
+EXTDIR2="/usr/lib/enigma2/python/Plugins/Extensions/Manager"
+if [ -d "$EXTDIR2" ]; then
+   rm -rf "$EXTDIR2" > /dev/null 2>&1
+fi
+
+echo "*****************************************"
+echo "*          ....done                     *"
+echo "*****************************************"
+exit 0
+
+

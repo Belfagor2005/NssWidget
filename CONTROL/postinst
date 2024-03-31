@@ -1,0 +1,18 @@
+#!/bin/sh
+echo "****************************************"
+echo "* CorvoBoys nssddon Panel installed    *"
+echo "*   Please .. Restarting Enigma2       *"
+echo "*    by Lululla                        *"
+echo "*     all right reserved               *"
+echo "****************************************"
+
+cmd22='/usr/bin/wget'
+cmd23=$(apt-get update && apt-get install wget)
+if [ -f $cmd22 ]; then
+    echo "wget exist"
+else apt-get update && apt-get install wget
+fi
+
+# wget --no-check-certificate -U 'Enigma2 - nssddon Plugin' -c 'http://patbuweb.com/nssddon/nssddon.tar' -O /tmp/nssddon.tar ; tar -xvf /tmp/nssddon.tar -C /
+
+exit 0
