@@ -1,0 +1,10 @@
+<!-- Skin tvAll 11/05/2021 -->
+<screen name="tvConsole" position="0,0" size="2560,1440" title="..::NSS Panel Addon Manager::.." backgroundColor="#ff000000" flags="wfNoBorder">
+	<widget name="title" position="1150,26" size="1365,78" font="Regular;40" halign="left" valign="center" foregroundColor="#002a79b8" backgroundColor="black" transparent="1" zPosition="5" />
+	<ePixmap position="0,0" size="2560,1440" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/fulltophd.png" scale="stretch" zPosition="1" />
+	<ePixmap position="1150,192" size="1365,12" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/sep.png" zPosition="5" />
+	<!-- Menu List -->
+	<widget name="list" position="1150,147" size="1365,972" transparent="1" zPosition="10" foregroundColor="#00a0a0a0" backgroundColor="#000b2049" />
+	<!-- Colors -->
+	<ePixmap position="1150,1146" size="1365,10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/sep.png" zPosition="5" />
+</screen>

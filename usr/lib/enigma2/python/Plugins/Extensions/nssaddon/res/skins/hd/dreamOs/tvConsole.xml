@@ -1,0 +1,6 @@
+<!-- Skin tvIPK 11/5/2021 -->
+<screen name="tvConsole" position="center,center" size="1280,720" title="..::NSS Addon Manager::.." backgroundColor="#ff000000" flags="wfNoBorder">
+	<widget name="title" position="550,28" size="715,32" font="Console;20" backgroundColor="#000000" foregroundColor="#00a0a0a0" transparent="1" zPosition="4" />
+	<widget name="list" position="550,67" size="715,506" font="Console;16" backgroundColor="#000000" foregroundColor="#00a0a0a0" zPosition="5" transparent="1" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/fulltophd.png" scale="stretch" position="0,0" size="1280,720" zPosition="1" />
+</screen>

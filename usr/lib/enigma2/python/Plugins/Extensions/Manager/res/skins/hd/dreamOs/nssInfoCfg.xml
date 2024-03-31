@@ -1,0 +1,21 @@
+<!-- Skin InfoCFG 15/08/2020 -->
+<screen name="InfoCfg" position="0,0" size="1280,720" title="..::NSS Panel Cam Manager::.." backgroundColor="#ff000000" flags="wfNoBorder">
+	<widget name="title" position="146,60" size="685,30" font="Regular;20" halign="left" valign="center" foregroundColor="#002a79b8" backgroundColor="black" transparent="1" zPosition="5" />
+	<widget name="description" position="151,98" size="676,45" font="Regular;20" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />	
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/main22.png" position="0,0" size="1280,720" zPosition="1" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/logo.png" position="143,0" size="160,60" alphatest="blend" zPosition="5" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/sep.png" position="146,86" size="686,5" alphatest="blend" zPosition="5" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/sep.png" position="146,606" size="686,5" alphatest="blend" zPosition="5" />
+	<!-- Menu List -->
+	<widget name="list" position="146,151" size="686,440" font="Regular;20" halign="center" foregroundColor="#ffffff" backgroundColor="#20000000" transparent="1" zPosition="5" />
+	<!-- Colors 1220 -->
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/key_red.png" position="146,630" size="20,20" alphatest="blend" zPosition="5" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/key_green.png" position="146,670" size="20,20" alphatest="blend" zPosition="5" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/key_yellow.png" position="813,630" size="20,20" alphatest="blend" zPosition="5" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/key_blue.png" position="813,670" size="20,20" alphatest="blend" zPosition="5" />
+	<widget name="key_red" position="180,626" size="200,26" font="Regular;20" halign="left" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
+	<widget name="key_green" position="180,666" size="200,26" font="Regular;20" halign="left" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
+	<widget name="key_yellow" position="603,626" size="200,26" font="Regular;20" halign="right" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
+	<widget name="key_blue" position="603,666" size="200,26" font="Regular;20" halign="right" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
+</screen>
+

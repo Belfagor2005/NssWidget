@@ -1,0 +1,618 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: cbpanel\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-15 18:25+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: ))^^(( <>\n"
+"Language-Team: *\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.8.7\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Basepath: ../../../..\n"
+"X-Poedit-SearchPath-0: plugin.py\n"
+
+#: plugin.py:266 plugin.py:508
+msgid "DAILY PICONS"
+msgstr ""
+
+#: plugin.py:267 plugin.py:510
+msgid "DAILY SETTINGS"
+msgstr ""
+
+#: plugin.py:268 plugin.py:502
+msgid "DEBIAN DREAMOS"
+msgstr "DEBIAN DREAMOS"
+
+#: plugin.py:269 plugin.py:512
+msgid "KODILITE BY PCD"
+msgstr "KODILITE BY PCD"
+
+#: plugin.py:270 plugin.py:506
+msgid "DEPENDENCIES"
+msgstr "DEPENDENCIES"
+
+#: plugin.py:271 plugin.py:504
+msgid "DRIVERS"
+msgstr "DRIVERS"
+
+#: plugin.py:272 plugin.py:514
+msgid "PLUGIN BACKUP"
+msgstr "PLUGIN BACKUP"
+
+#: plugin.py:273 plugin.py:518
+msgid "PLUGIN EPG"
+msgstr "PLUGIN EPG"
+
+#: plugin.py:274 plugin.py:516
+msgid "PLUGIN EMULATORS CAMS"
+msgstr "PLUGIN EMULATORS CAMS"
+
+#: plugin.py:275 plugin.py:520
+msgid "PLUGIN MULTIBOOT"
+msgstr "PLUGIN MULTIBOOT"
+
+#: plugin.py:276 plugin.py:522
+msgid "PLUGIN MULTIMEDIA"
+msgstr "PLUGIN MULTIMEDIA"
+
+#: plugin.py:277 plugin.py:524
+msgid "PLUGIN PICONS"
+msgstr "PLUGIN PICONS"
+
+#: plugin.py:278 plugin.py:526
+msgid "PLUGIN PPANEL"
+msgstr "PLUGIN PPANEL"
+
+#: plugin.py:279 plugin.py:528
+msgid "PLUGIN SETTINGS PANEL"
+msgstr "PLUGIN SETTINGS PANEL"
+
+#: plugin.py:280 plugin.py:530
+msgid "PLUGIN SKINS"
+msgstr "PLUGIN SKINS"
+
+#: plugin.py:281 plugin.py:532
+msgid "PLUGIN SPORT"
+msgstr "PLUGIN SPORT"
+
+#: plugin.py:282 plugin.py:534
+msgid "PLUGIN UTILITY"
+msgstr "PLUGIN UTILITY"
+
+#: plugin.py:283 plugin.py:536
+msgid "PLUGIN WEATHER"
+msgstr "PLUGIN WEATHER"
+
+#: plugin.py:299 plugin.py:3923
+msgid "MMARK PICONS BLACK"
+msgstr "MMARK PICONS BLACK"
+
+#: plugin.py:300 plugin.py:3925
+msgid "MMARK PICONS TRANSPARENT"
+msgstr "MMARK PICONS TRANSPARENT"
+
+#: plugin.py:301 plugin.py:3927
+msgid "MMARK PICONS MOVIE"
+msgstr "MMARK PICONS MOVIE"
+
+#: plugin.py:302 plugin.py:3929
+msgid "COLOMBO PICONS"
+msgstr "COLOMBO PICONS"
+
+#: plugin.py:374
+msgid "Exit"
+msgstr "Ausfahrt"
+
+#: plugin.py:375
+msgid "Extensions Installer"
+msgstr ""
+
+#: plugin.py:376 plugin.py:3478
+msgid "Uninstall"
+msgstr "Deinstallieren"
+
+#: plugin.py:377 plugin.py:381 plugin.py:384
+msgid "tvManager"
+msgstr "tvManager"
+
+#: plugin.py:545 plugin.py:3429
+msgid ""
+"New update available!!\n"
+"Do you want update plugin ?\n"
+"Please Reboot GUI after install!"
+msgstr ""
+"Neues Update verfügbar!!\n"
+"Möchten Sie ein Update-Plugin?\n"
+"Bitte starten Sie die GUI nach der Installation neu!"
+
+#: plugin.py:554 plugin.py:558 plugin.py:3444 plugin.py:3448
+#, python-format
+msgid "Install Update: %s"
+msgstr "Installieren Sie Update: %s"
+
+#: plugin.py:561 plugin.py:3451 plugin.py:3538
+msgid "Do you want restart enigma2 ?"
+msgstr "Wollen Sie enigma2 neu starten ?"
+
+#: plugin.py:588 plugin.py:657 plugin.py:726 plugin.py:795 plugin.py:865
+#: plugin.py:934 plugin.py:1004 plugin.py:1073 plugin.py:1142 plugin.py:1211
+#: plugin.py:1280 plugin.py:1349 plugin.py:1419 plugin.py:1488 plugin.py:1557
+#: plugin.py:1631 plugin.py:1746 plugin.py:1880 plugin.py:2003 plugin.py:2120
+#: plugin.py:2246 plugin.py:2369 plugin.py:2484 plugin.py:2599
+msgid "Getting the list, please wait ..."
+msgstr "die Liste bekommen , bitte warten ..."
+
+#: plugin.py:593 plugin.py:662 plugin.py:731 plugin.py:800 plugin.py:870
+#: plugin.py:939 plugin.py:1009 plugin.py:1078 plugin.py:1147 plugin.py:1216
+#: plugin.py:1285 plugin.py:1354 plugin.py:1424 plugin.py:1493 plugin.py:1562
+#: plugin.py:1751 plugin.py:1885 plugin.py:2008 plugin.py:2125 plugin.py:2251
+#: plugin.py:2374 plugin.py:2489 plugin.py:2604 plugin.py:2732 plugin.py:3190
+#: plugin.py:4057 plugin.py:4272 plugin.py:4395 plugin.py:4517 plugin.py:4715
+#: plugin.py:4835 plugin.py:4954 plugin.py:5096 plugin.py:5216
+msgid "Install"
+msgstr "Installieren"
+
+#: plugin.py:594 plugin.py:663 plugin.py:732 plugin.py:801 plugin.py:871
+#: plugin.py:940 plugin.py:1010 plugin.py:1079 plugin.py:1148 plugin.py:1217
+#: plugin.py:1286 plugin.py:1355 plugin.py:1425 plugin.py:1494 plugin.py:1563
+#: plugin.py:1633 plugin.py:1752 plugin.py:1886 plugin.py:2009 plugin.py:2126
+#: plugin.py:2252 plugin.py:2375 plugin.py:2490 plugin.py:2605 plugin.py:2733
+#: plugin.py:3193 plugin.py:3350 plugin.py:3480 plugin.py:3732 plugin.py:3882
+#: plugin.py:3969 plugin.py:4058 plugin.py:4186 plugin.py:4273 plugin.py:4396
+#: plugin.py:4518 plugin.py:4648 plugin.py:4716 plugin.py:4836 plugin.py:4955
+#: plugin.py:5097 plugin.py:5217
+msgid "Back"
+msgstr "Zurück"
+
+#: plugin.py:618 plugin.py:687 plugin.py:756 plugin.py:825 plugin.py:895
+#: plugin.py:964 plugin.py:1034 plugin.py:1103 plugin.py:1172 plugin.py:1241
+#: plugin.py:1310 plugin.py:1379 plugin.py:1449 plugin.py:1518 plugin.py:1587
+#: plugin.py:1776 plugin.py:1910 plugin.py:2033 plugin.py:2150 plugin.py:2276
+#: plugin.py:2399 plugin.py:2514 plugin.py:2629 plugin.py:3998 plugin.py:4089
+#: plugin.py:4215 plugin.py:4304 plugin.py:4427 plugin.py:4547 plugin.py:4740
+#: plugin.py:4860 plugin.py:4979 plugin.py:5121 plugin.py:5241
+msgid "Try again later ..."
+msgstr "Versuchen Sie es später noch einmal ..."
+
+#: plugin.py:627 plugin.py:696 plugin.py:765 plugin.py:834 plugin.py:904
+#: plugin.py:973 plugin.py:1043 plugin.py:1112 plugin.py:1181 plugin.py:1250
+#: plugin.py:1319 plugin.py:1388 plugin.py:1458 plugin.py:1527 plugin.py:1596
+#: plugin.py:1666 plugin.py:1803 plugin.py:1932 plugin.py:2057 plugin.py:2171
+#: plugin.py:2300 plugin.py:2421 plugin.py:2536 plugin.py:2651 plugin.py:2949
+#: plugin.py:3880 plugin.py:3946 plugin.py:4018 plugin.py:4109 plugin.py:4146
+#: plugin.py:4234 plugin.py:4324 plugin.py:4361 plugin.py:4447 plugin.py:4484
+#: plugin.py:4570 plugin.py:4605 plugin.py:4646 plugin.py:4798 plugin.py:4917
+#: plugin.py:5059 plugin.py:5143 plugin.py:5179 plugin.py:5263 plugin.py:5299
+msgid "Please select ..."
+msgstr "Bitte auswählen ..."
+
+#: plugin.py:1632 plugin.py:3881 plugin.py:3968 plugin.py:4185 plugin.py:4647
+msgid "Select"
+msgstr "Wählen"
+
+#: plugin.py:1634
+msgid "Lcn"
+msgstr ""
+
+#: plugin.py:1649
+msgid "Reorder Terrestrial channels with Lcn rules"
+msgstr ""
+
+#: plugin.py:1673
+msgid "UPDATE SATELLITES.XML"
+msgstr "UPDATE SATELLITES.XML"
+
+#: plugin.py:1675
+msgid "UPDATE TERRESTRIAL.XML"
+msgstr "UPDATE TERRESTRIAL.XML"
+
+#: plugin.py:1695 plugin.py:1714 plugin.py:1812 plugin.py:1941 plugin.py:2066
+#: plugin.py:2180 plugin.py:2309 plugin.py:2430 plugin.py:2545 plugin.py:2660
+#: plugin.py:2749
+msgid "Do you want to install?"
+msgstr "Möchten Sie installieren ?"
+
+#: plugin.py:1706
+msgid "Satellites.xml Updated!"
+msgstr ""
+
+#: plugin.py:1707 plugin.py:1726 plugin.py:2788 plugin.py:2799 plugin.py:2810
+#: plugin.py:2851 plugin.py:2858 plugin.py:2866 plugin.py:2879 plugin.py:3005
+#: plugin.py:3047
+msgid "Installation done !!!"
+msgstr ""
+
+#: plugin.py:1725
+msgid "Terrestrial.xml Updated!"
+msgstr ""
+
+#: plugin.py:1805 plugin.py:1934 plugin.py:2059 plugin.py:2173 plugin.py:2302
+#: plugin.py:2423 plugin.py:2538 plugin.py:2653 plugin.py:4572 plugin.py:5145
+#: plugin.py:5265
+msgid "no data ..."
+msgstr ""
+
+#: plugin.py:1860 plugin.py:1983 plugin.py:2101 plugin.py:2226 plugin.py:2349
+#: plugin.py:2464 plugin.py:2579 plugin.py:2694
+msgid "Installation Settings"
+msgstr "Installationseinstellungen"
+
+#: plugin.py:2717 plugin.py:2770 plugin.py:2860 plugin.py:2889 plugin.py:4119
+#: plugin.py:4334 plugin.py:4457 plugin.py:4582 plugin.py:4774 plugin.py:4893
+#: plugin.py:5035 plugin.py:5155 plugin.py:5275
+msgid "... please wait"
+msgstr "... Warten Sie mal"
+
+#: plugin.py:2730
+msgid "Please install ..."
+msgstr "Please install ..."
+
+#: plugin.py:2734
+msgid "Download"
+msgstr ""
+
+#: plugin.py:2770
+msgid "Installing "
+msgstr "Installieren "
+
+#: plugin.py:2787 plugin.py:2798 plugin.py:2809 plugin.py:2857 plugin.py:2865
+#, python-format
+msgid "Downloading-installing: %s"
+msgstr ""
+
+#: plugin.py:2791 plugin.py:2802 plugin.py:2916 plugin.py:2923 plugin.py:2980
+#: plugin.py:2994 plugin.py:3251
+msgid "Unknow Image!"
+msgstr "Unknow Image!"
+
+#: plugin.py:2792 plugin.py:2803
+msgid "Installation canceled!"
+msgstr "Installation abgebrochen!"
+
+#: plugin.py:2850 plugin.py:3046 plugin.py:3296
+#, python-format
+msgid "SETTING - install: %s"
+msgstr ""
+
+#: plugin.py:2860
+msgid "Downloading the selected file in /tmp"
+msgstr ""
+
+#: plugin.py:2867 plugin.py:3049
+msgid "Download file in /tmp successful!"
+msgstr "Download-Datei in /tmp erfolgreich!"
+
+#: plugin.py:2868 plugin.py:3050
+msgid "Download file in /tmp successful!!"
+msgstr "Download-Datei in /tmp erfolgreich!!"
+
+#: plugin.py:2870 plugin.py:2936
+msgid "Download failed!"
+msgstr "Download failed!"
+
+#: plugin.py:2870 plugin.py:2936
+msgid "... Not supported"
+msgstr "... Nicht unterstützt"
+
+#: plugin.py:2878
+msgid "Setting Installed!"
+msgstr "Einstellung Installiert!"
+
+#: plugin.py:2886
+msgid ""
+"Do you want to Download?\n"
+"It could take a few minutes, wait .."
+msgstr ""
+
+#: plugin.py:2917 plugin.py:2924
+msgid "Download canceled!"
+msgstr ""
+
+#: plugin.py:2940 plugin.py:4595
+msgid "Download..."
+msgstr ""
+
+#: plugin.py:2947
+msgid "File Downloaded ..."
+msgstr ""
+
+#: plugin.py:2956 plugin.py:4153 plugin.py:4368 plugin.py:4490 plugin.py:4612
+msgid "Download Error ..."
+msgstr ""
+
+#: plugin.py:2965 plugin.py:3227
+msgid "Do you really want to install the selected Addon?"
+msgstr "Wollen Sie wirklich die ausgewählte Addon zu installieren?"
+
+#: plugin.py:3004 plugin.py:3258
+#, python-format
+msgid "Installing: %s"
+msgstr ""
+
+#: plugin.py:3052 plugin.py:3298
+msgid "Unknow Error!"
+msgstr ""
+
+#: plugin.py:3055
+msgid "File: Installation failed!"
+msgstr ""
+
+#: plugin.py:3062 plugin.py:3317
+msgid "Restart Enigma to load the installed plugin?"
+msgstr "Neustart Enigma um das installierte Plugin zu laden?"
+
+#: plugin.py:3109
+msgid "Execution Progress:"
+msgstr "Execution Fortschritt:"
+
+#: plugin.py:3122
+msgid ""
+"\n"
+"\n"
+msgstr ""
+
+#: plugin.py:3124
+msgid "Execution finished!!\n"
+msgstr ""
+
+#: plugin.py:3151
+msgid "Additional packages must be installed. Do you want to continue?"
+msgstr ""
+
+#: plugin.py:3188
+msgid "Put .ipk .tar.gz .deb .zip and install (Set folder from config path) "
+msgstr "Setzen Sie .ipk .tar.gz .deb .zip und installieren Sie (Ordner aus Konfigurationspfad festlegen)"
+
+#: plugin.py:3191 plugin.py:3352 plugin.py:3479
+msgid "Restart"
+msgstr "Neustart"
+
+#: plugin.py:3192 plugin.py:3883
+msgid "Remove"
+msgstr "Entfernen"
+
+#: plugin.py:3301
+#, python-format
+msgid ""
+"File: %s\n"
+"Installation failed!"
+msgstr ""
+
+#: plugin.py:3311
+msgid "Do you really want to remove selected?"
+msgstr "Wollen Sie wirklich ausgewählt entfernen?"
+
+#: plugin.py:3351 plugin.py:3730
+msgid "Update"
+msgstr "Aktualisieren"
+
+#: plugin.py:3435
+msgid ""
+"Do you want update plugin ?\n"
+"Please Reboot GUI after install!"
+msgstr ""
+"Möchten Sie ein Update-Plugin?\n"
+"Bitte starten Sie die GUI nach der Installation neu!"
+
+#: plugin.py:3525 plugin.py:3527
+#, python-format
+msgid "Removing: %s"
+msgstr "Entfernen: %s"
+
+#: plugin.py:3535
+msgid "Do you want to remove?"
+msgstr "Wollen Sie entfernen ?"
+
+#: plugin.py:3590
+msgid "Question"
+msgstr "Question"
+
+#: plugin.py:3591
+msgid "Information"
+msgstr "Information"
+
+#: plugin.py:3592
+msgid "Warning"
+msgstr "Warning"
+
+#: plugin.py:3593
+msgid "Error"
+msgstr "Error"
+
+#: plugin.py:3593
+msgid "Message"
+msgstr "Message"
+
+#: plugin.py:3598 plugin.py:3600
+msgid "Yes"
+msgstr "Yes"
+
+#: plugin.py:3598 plugin.py:3600
+msgid "No"
+msgstr "No"
+
+#: plugin.py:3723
+msgid "Config"
+msgstr ""
+
+#: plugin.py:3729
+msgid "Config Panel Addon"
+msgstr "Konfiguration Platte Addon"
+
+#: plugin.py:3731
+msgid "Save"
+msgstr "Speichern"
+
+#: plugin.py:3756
+#, python-format
+msgid ""
+"Config Panel Addon\n"
+"Your current IP is %s"
+msgstr ""
+"Config Panel Addon\n"
+"Ihre aktuelle IP ist %s"
+
+#: plugin.py:3764
+msgid "Auto Update Plugin"
+msgstr "Auto Update Plugin"
+
+#: plugin.py:3764
+msgid "If Active: Automatic Update Plugin"
+msgstr "Wenn aktiv: Automatisches Update-Plugin"
+
+#: plugin.py:3765
+msgid "Set the path to the Picons folder"
+msgstr "Legen Sie den Pfad zu dem Picons-Ordner fest"
+
+#: plugin.py:3765
+msgid "Configure folder containing picons files"
+msgstr "Konfigurieren Sie einen Ordner mit Picons-Dateien"
+
+#: plugin.py:3766
+msgid "Path Manual IPK"
+msgstr "Pfad Handbuch IPK"
+
+#: plugin.py:3766
+msgid "Path to the addon installation folder"
+msgstr "Pfad zum Installationsordner des Addons"
+
+#: plugin.py:3767
+msgid "Link in Extensions Menu"
+msgstr "Link in Extensions Menu"
+
+#: plugin.py:3767
+msgid "Link in Extensions button"
+msgstr "Schaltfläche in Erweiterungen verknüpfen"
+
+#: plugin.py:3768
+msgid "Link in Main Menu"
+msgstr "Link im Hauptmenü"
+
+#: plugin.py:3798
+msgid "Device not detected!"
+msgstr "Gerät nicht erkannt!"
+
+#: plugin.py:3801
+msgid "Successfully saved configuration"
+msgstr "Erfolgreich gespeicherte Konfiguration"
+
+#: plugin.py:3820
+msgid "Choose Directory:"
+msgstr ""
+
+#: plugin.py:3821
+msgid "Choose directory"
+msgstr ""
+
+#: plugin.py:3859
+msgid "Really close without saving the settings?"
+msgstr "Wirklich schließen, ohne die Einstellungen zu speichern?"
+
+#: plugin.py:3877 plugin.py:3964 plugin.py:4053 plugin.py:4181 plugin.py:4268
+#: plugin.py:4391 plugin.py:4513
+msgid "Folder picons "
+msgstr "Ordner Picons "
+
+#: plugin.py:3933
+#, python-format
+msgid ""
+"Do you want to remove all picons in folder?\n"
+"%s\n"
+"It could take a few minutes, wait .."
+msgstr ""
+"Möchten Sie alle Picons im Ordner entfernen?\n"
+"%s\n"
+"Es könnte ein paar Minuten dauern, warte .."
+
+#: plugin.py:3937
+#, python-format
+msgid "Erase %s... please wait"
+msgstr ""
+
+#: plugin.py:3962 plugin.py:4051 plugin.py:4179 plugin.py:4266 plugin.py:4389
+#: plugin.py:4511 plugin.py:4708 plugin.py:4828 plugin.py:4947 plugin.py:5089
+#: plugin.py:5209
+msgid "Load selected filter list, please wait ..."
+msgstr "Ausgewählte Filterliste laden, bitte warten ..."
+
+#: plugin.py:4116 plugin.py:4331 plugin.py:4454 plugin.py:4579 plugin.py:4771
+#: plugin.py:4890 plugin.py:5032 plugin.py:5152 plugin.py:5272
+msgid ""
+"Do you want to install?\n"
+"It could take a few minutes, wait .."
+msgstr ""
+"Wollen Sie installieren?\n"
+"Es könnte ein paar Minuten dauern, warte .."
+
+#: plugin.py:4137 plugin.py:4352 plugin.py:4475
+msgid "Download ..."
+msgstr ""
+
+#: plugin.py:4143 plugin.py:4358 plugin.py:4481 plugin.py:4602
+msgid "Install ..."
+msgstr ""
+
+#: plugin.py:4620 plugin.py:4683
+msgid "KODILITE"
+msgstr "KODILITE"
+
+#: plugin.py:4621 plugin.py:4685
+msgid "VIDEO ADDONS"
+msgstr "VIDEO ADDONS"
+
+#: plugin.py:4622 plugin.py:4687
+msgid "ADULT ADDON"
+msgstr "ADULT ADDON"
+
+#: plugin.py:4623 plugin.py:4689
+msgid "SCRIPT"
+msgstr "SCRIPT"
+
+#: plugin.py:4624 plugin.py:4691
+msgid "REPOSITORY"
+msgstr "REPOSITORY"
+
+#: plugin.py:4642 plugin.py:4710 plugin.py:4830 plugin.py:4949 plugin.py:5091
+#: plugin.py:5211
+msgid "Support on"
+msgstr ""
+
+#: plugin.py:4644 plugin.py:4712 plugin.py:4832 plugin.py:4951 plugin.py:5093
+#: plugin.py:5213
+msgid "linuxsat-support.com "
+msgstr ""
+
+#: plugin.py:4762 plugin.py:4882 plugin.py:5001
+msgid "No File!!"
+msgstr ""
+
+#: plugin.py:4796 plugin.py:4915 plugin.py:5057 plugin.py:5177 plugin.py:5297
+msgid "Installation"
+msgstr ""
+
+#: plugin.py:5020
+msgid "Please enter the parental control pin code"
+msgstr ""
+
+#: plugin.py:5020
+msgid "Enter pin code"
+msgstr ""
+
+#: plugin.py:5028
+msgid "The pin code you entered is wrong."
+msgstr ""
+
+#: plugin.py:5326
+msgid "TiVuStream Addons"
+msgstr "TiVuStream Addons"
+
+#~ msgid "Reorder terrestrial channels with Lcn rules"
+#~ msgstr "Ordnen Sie terrestrische Kanäle mit Lcn-Regeln neu an"
+
+#~ msgid "Put addon .ipk .tar.gz .deb and install from config path"
+#~ msgstr "Fügen Sie Addon .ipk .tar.gz .deb und installieren Sie aus dem Konfigurationspfad"
