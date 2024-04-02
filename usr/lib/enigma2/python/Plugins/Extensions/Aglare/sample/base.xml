@@ -1,4 +1,4 @@
-﻿
+
     <screen name="SlimChannelSelection" position="0,0" size="1920,1080" title="Channel Selection" flags="wfNoBorder" backgroundColor="transparent">
         <panel name="button2temp"/>
         <panel name="infobartimedate"/>
@@ -606,28 +606,28 @@
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/skin.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="AdapterSetup" position="0,0" size="1920,1080" title="Network Setup" backgroundColor="transparent" flags="wfNoBorder">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <panel name="button1temp"/>
-        <panel name="pigscreen885"/>
-        <panel name="bLogo"/>
+        <panel name="titletemp" />
+        <panel name="menutemp" />
+        <panel name="button1temp" />
+        <panel name="pigscreen885" />
+        <panel name="bLogo" />
         <!-- <widget name="config" position="36,162" size="890,200" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8"/> -->
-        <widget name="config" position="36,162" size="890,442" itemHeight="50" valign="center" font="Regular; 30" itemCornerRadius="10" enableWrapAround="1" transparent="1" zPosition="9" scrollbarSliderForegroundColor="mcolor5" scrollbarMode="showOnDemand"/>
-        <widget source="Adapter" render="Label" position="36,98" size="890,50" font="Regular; 40" backgroundColor="background" transparent="1" foregroundColor="gold"/>
-        <widget source="introduction2" render="Label" position="997,607" size="985,180" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" zPosition="5" valign="center"/>
-        <widget source="introduction" render="Label" position="36,630" size="890,50" font="Regular; 40" backgroundColor="background" transparent="1" foregroundColor="gold"/>
-        <widget source="IPtext" render="Label" position="70,700" size="190,36" font="Regular; 26" halign="left" foregroundColor="grey" backgroundColor="background" transparent="1"/>
-        <widget source="Netmasktext" render="Label" position="70,745" size="190,36" font="Regular; 26" halign="left" foregroundColor="grey" backgroundColor="background" transparent="1"/>
-        <widget source="Gatewaytext" render="Label" position="70,795" size="190,36" font="Regular; 26" halign="left" foregroundColor="grey" backgroundColor="background" transparent="1"/>
-        <widget source="DNS1text" render="Label" position="70,846" size="190,36" font="Regular; 26" halign="left" foregroundColor="grey" backgroundColor="background" transparent="1"/>
-        <widget source="DNS2text" render="Label" position="70,900" size="190,36" font="Regular; 26" halign="left" foregroundColor="grey" backgroundColor="background" transparent="1"/>
-        <widget source="IP" render="Label" position="278,700" size="483,36" font="Regular; 26" halign="left" backgroundColor="background" transparent="1" foregroundColor="green"/>
-        <widget source="Mask" render="Label" position="280,745" size="385,36" font="Regular; 26" halign="left" backgroundColor="background" transparent="1" foregroundColor="green"/>
-        <widget source="Gateway" render="Label" position="280,795" size="385,36" font="Regular; 26" halign="left" backgroundColor="background" transparent="1" foregroundColor="green"/>
-        <widget source="DNS1" render="Label" position="280,850" size="385,36" font="Regular; 26" halign="left" backgroundColor="background" transparent="1" foregroundColor="green"/>
-        <widget source="DNS2" render="Label" position="280,900" size="385,36" font="Regular; 26" halign="left" backgroundColor="background" transparent="1" foregroundColor="green"/>
-        <widget name="HelpWindow" position="996,801" size="665,174" font="Regular; 26" halign="left" valign="top" foregroundColor="white" backgroundColor="background" transparent="1" zPosition="55"/>
-        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/net.png" transparent="1" alphatest="on"/>
+        <widget name="config" position="36,162" size="890,442" itemHeight="50" valign="center" font="Regular; 30" itemCornerRadius="10" enableWrapAround="1" transparent="1" zPosition="9" scrollbarSliderForegroundColor="mcolor5" scrollbarMode="showOnDemand" />
+        <widget source="Adapter" render="Label" position="36,98" size="890,50" font="Regular; 40" backgroundColor="background" transparent="1" foregroundColor="gold" />
+        <widget source="introduction2" render="Label" position="997,607" size="985,180" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" zPosition="5" valign="center" />
+        <widget source="introduction" render="Label" position="36,630" size="890,50" font="Regular; 40" backgroundColor="background" transparent="1" foregroundColor="gold" />
+        <widget source="IPtext" render="Label" position="70,700" size="190,36" font="Regular; 26" halign="left" foregroundColor="grey" backgroundColor="background" transparent="1" />
+        <widget source="Netmasktext" render="Label" position="70,745" size="190,36" font="Regular; 26" halign="left" foregroundColor="grey" backgroundColor="background" transparent="1" />
+        <widget source="Gatewaytext" render="Label" position="70,795" size="190,36" font="Regular; 26" halign="left" foregroundColor="grey" backgroundColor="background" transparent="1" />
+        <widget source="DNS1text" render="Label" position="70,846" size="190,36" font="Regular; 26" halign="left" foregroundColor="grey" backgroundColor="background" transparent="1" />
+        <widget source="DNS2text" render="Label" position="70,900" size="190,36" font="Regular; 26" halign="left" foregroundColor="grey" backgroundColor="background" transparent="1" />
+        <widget source="IP" render="Label" position="278,700" size="483,36" font="Regular; 26" halign="left" backgroundColor="background" transparent="1" foregroundColor="green" />
+        <widget source="Mask" render="Label" position="280,745" size="385,36" font="Regular; 26" halign="left" backgroundColor="background" transparent="1" foregroundColor="green" />
+        <widget source="Gateway" render="Label" position="280,795" size="385,36" font="Regular; 26" halign="left" backgroundColor="background" transparent="1" foregroundColor="green" />
+        <widget source="DNS1" render="Label" position="280,850" size="385,36" font="Regular; 26" halign="left" backgroundColor="background" transparent="1" foregroundColor="green" />
+        <widget source="DNS2" render="Label" position="280,900" size="385,36" font="Regular; 26" halign="left" backgroundColor="background" transparent="1" foregroundColor="green" />
+        <widget name="HelpWindow" position="996,801" size="665,174" font="Regular; 26" halign="left" valign="top" foregroundColor="white" backgroundColor="background" transparent="1" zPosition="55" />
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/net.png" transparent="1" alphatest="on" />
     </screen>
     <screen name="AdapterSetupConfiguration" position="0,0" size="1920,1080" title="Network Configuration" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="titletemp"/>

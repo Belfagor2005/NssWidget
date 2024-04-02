@@ -43,16 +43,16 @@ config.NcamInfo.intervall = ConfigInteger(default=10, limits=(1, 600))
 
 
 def check_NAMEBIN():
-    NAMEBIN = "Ncam"
-    # if fileExists("/tmp/.ncam/ncam.version"):
-        # NAMEBIN = "ncam"
+    NAMEBIN = "ncam"
+    if fileExists("/tmp/.ncam/ncam.version"):
+        NAMEBIN = "ncam"
     return NAMEBIN
 
 
 def check_NAMEBIN2():
     NAMEBIN2 = "Ncam"
-    # if fileExists("/tmp/.ncam/ncam.version"):
-        # NAMEBIN2 = "Ncam"
+    if fileExists("/tmp/.ncam/ncam.version"):
+        NAMEBIN2 = "Ncam"
     return NAMEBIN2
 
 
@@ -647,7 +647,7 @@ class oscECMInfo(Screen, NcamInfo):
 
     global HDSKIN, sizeH
     sizeLH = sizeH - 20
-    skin = """<screen position="center,center" size="%s, 390*f" title="oscECMInfo" >
+    skin = """<screen position="center,center" size="%s, 390*f" title="ECMInfo" >
             <widget source="output" render="Listbox" position="10,10" size="%s,390*f" scrollbarMode="showOnDemand" >
                 <convert type="TemplatedMultiContent">
                 {"templates":
@@ -913,7 +913,7 @@ class ncInfo(Screen, NcamInfo):
         else:
             data = self.readXML(typ=self.what)
         self.out = []
-        self.itemheight = 25
+        self.itemheight = 35
         # print("[NcamInfo][showData] data[0], data[1]", data[0], "   ", data[1])
         if data[0]:
             # print("[NcamInfo][showData] data[0], data[1] not isinstance(data[1], str)")
@@ -1292,11 +1292,14 @@ class NcamInfoConfigScreen(ConfigListScreen, Screen):
         self["status"] = StaticText(_("Error:\n%s") % msg if msg is not None else "")  # what is this?
         ConfigListScreen.__init__(self, [], session=session, on_change=self.changedEntry)
         # ConfigListScreen.__init__(self, [], session=session, on_change=self.changedEntry, fullUI=True)
-        self["actions"] = ActionMap(["SetupActions"],
-            {
-                "ok": self.savx,
-                "cancel": self.exit
-            }, -1)  # noqa: E123
+        self["actions"] = ActionMap(["SetupActions", "ColorActions"],
+        {
+            "red": self.cancel,
+            "green": self.save,
+            "save": self.save,
+            "cancel": self.cancel,
+            "ok": self.save,
+        }, -2)
         # self["key_red"] = StaticText(_("Close"))
         self.createSetup()
 

@@ -234,7 +234,7 @@ class Manager(Screen):
         self.currCam = self.readCurrent()
         self.readScripts()
         BlueAction = 'SOFTCAM'
-        self.setBlueKey()
+        # self.setBlueKey()
         self.timer = eTimer()
         try:
             self.timer_conn = self.timer.timeout.connect(self.cgdesc)
@@ -309,7 +309,9 @@ class Manager(Screen):
         pass
 
     def Blue(self):
-        print('Blue2=', BlueAction)                                   
+        # if self.readCurrent() ==
+
+        print('Blue2=', BlueAction)
         if BlueAction == 'SOFTCAM':
             self.messagekd()
 
@@ -328,8 +330,7 @@ class Manager(Screen):
                 from Plugins.Extensions.OscamStatus.plugin import OscamStatus
                 self.session.open(OscamStatus)
 
-        # if BlueAction == 'OSCAMINFO':
-        if BlueAction == 'OSCAMINFO':        
+        if BlueAction == 'OSCAMINFO':
             try:
                 from Screens.OScamInfo import OSCamInfo
                 self.session.open(OSCamInfo)
@@ -338,7 +339,7 @@ class Manager(Screen):
                 self.session.open(OscamInfoMenu)
                 pass
 
-        if BlueAction == 'NCAMINFO':        
+        if BlueAction == 'NCAMINFO':
             try:
                 from Screens.NcamInfo import NcamInfoMenu
                 self.session.open(NcamInfoMenu)
@@ -475,15 +476,11 @@ class Manager(Screen):
             if self.last is not None:
                 try:
                     foldcurr = '/usr/bin/' + str(curCam)
+                    foldscrpt = '/usr/camscript/' + str(curCam) + '.sh'
                     os.chmod(foldcurr, 0o755)
+                    os.chmod(foldscrpt, 0o755)
                 except OSError:
                     pass
-            # import glob
-            # for i in glob.glob(os.path.join('/usr/camscript', '*.sh')):
-                # try:
-                    # os.chmod(i, 0o755)
-                # except OSError:
-                    # pass
 
             if self.last is not None:  # or self.last >= 1:
                 if self.last == self.var:
@@ -1143,25 +1140,6 @@ def mainmenu(menuid):
                  None)]
 
 
-# class AutoStartTimertvman:
-
-    # def __init__(self, session):
-        # self.session = session
-        # global _firstStarttvsman
-        # print("*** running AutoStartTimertvman ***")
-        # if _firstStarttvsman:
-            # self.runUpdate()
-
-    # def runUpdate(self):
-        # print("*** running update ***")
-        # try:
-            # from . import Update
-            # Update.upd_done()
-            # _firstStarttvsman = False
-        # except Exception as e:
-            # print('error Softcam Manager', str(e))
-
-
 def autostart(reason, session=None, **kwargs):
     """called with reason=1 to during shutdown, with reason=0 at startup?"""
     print("[Softcam] Started")
@@ -1299,4 +1277,3 @@ def Plugins(**kwargs):
             # PluginDescriptor(name=_(name_plug), description=_(title_plug), where=[PluginDescriptor.WHERE_AUTOSTART, PluginDescriptor.WHERE_SESSIONSTART], fnc=autostart),
             PluginDescriptor(name=_(name_plug), description=_(title_plug), where=PluginDescriptor.WHERE_PLUGINMENU, icon=iconpic, fnc=main),
             PluginDescriptor(name=_(name_plug), description=_(title_plug), where=PluginDescriptor.WHERE_EXTENSIONSMENU, fnc=main)]
-

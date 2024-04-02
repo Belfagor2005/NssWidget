@@ -12,33 +12,52 @@
 		opens a setup with specified id
 	<code> .. code .. </code>
 		"exec"s code
--->
+    -->
     <!-- Menu /  by lululla-->
-    <menu weight="0" level="0" text="Menu NSS" entryID="NssMenu">
+    <menu weight="0" level="0" text="Menu NSS" entryID="MenuNss">
         <id val="NssMenu"/>
 		<!-- <screen module="MenuNss"/>						   -->
-        <item weight="0" level="0" text="NSS Addon Manager" entryID="NSSAddon">
+        <item weight="0" level="0" text="Addon Manager" entryID="NSSAddon">
             <code>
 from Plugins.Extensions.nssaddon.plugin import HomeNss
 self.session.open(HomeNss)
 </code>
         </item>
         <!--
- 			<item weight="5" level="0" text="Timers" entryID="timer_edit"><screen module="TimerEdit" screen="TimerEditList" /></item>
-			<item weight="8" level="0" text="CronTimers" entryID="crontimer_edit"><screen module="CronTimer" screen="CronTimers" /></item>
-            -->
-        <item weight="10" level="0" text="NSS Softcam Manager" entryID="NssCam">
+        <item weight="5" level="0" text="Timers" entryID="timer_edit"><screen module="TimerEdit" screen="TimerEditList" /></item>
+        <item weight="8" level="0" text="CronTimers" entryID="crontimer_edit"><screen module="CronTimer" screen="CronTimers" /></item>
+        -->
+        <item weight="10" level="0" text="Softcam Manager" entryID="NssCam">
             <code>
 from Plugins.Extensions.Manager.plugin import Manager
 self.session.open(Manager)  
-<!--
-from Plugins.Extensions.nssaddon.CamEx import *
-self.session.open(NSSCamsManager)
--->
+
 </code>
         </item>
-        
-        <item weight="15" level="0" text="NSS Skin Setup" entryID="AglareSetup">
+            
+<!--
+        <item weight="12" level="0" text="CCcamInfo" entryID="CCcamInfo">
+            <code>
+from Screens.CCcamInfo import CCcamInfo
+self.session.open(CCcamInfo)
+</code>
+        </item>
+
+<item weight="13" level="0" text="OScamInfo" entryID="OScamInfo">
+            <code>
+from Screens.OScamInfo import OScamInfo
+self.session.open(OScamInfo)
+</code>
+        </item>
+
+<item weight="14" level="0" text="NcamInfo" entryID="NcamInfo">
+            <code>
+from Screens.NcamInfo import NcamInfo
+self.session.open(NcamInfo)
+</code>
+        </item>
+ -->
+        <item weight="15" level="0" text="Skin Setup" entryID="AglareSetup">
             <code>
 from Plugins.Extensions.Aglare.plugin import AglareSetup
 self.session.open(AglareSetup)  
@@ -51,20 +70,24 @@ self.session.open(NSSCamsManager)
         
         
         
-        <!--         <item weight="14" level="0" text="NSS oZeta Skin Setup" entryID="NssZeta">
+        <!--
+        <item weight="14" level="0" text="NSS oZeta Skin Setup" entryID="NssZeta">
             <code>
 from Plugins.Extensions.oZetaNSS.plugin import *
 self.session.open(oZetaNSS)
 </code>
-        </item> -->
+        </item>
+        -->
         <!-- <id val="system"/> -->
-        <item weight="16" level="0" text="NSS Plugin Browser Style" entryID="BrowserStyle">
+        <item weight="16" level="0" text="Plugin Browser Style" entryID="BrowserStyle">
             <setup id="usage"/>
         </item>
-        <!--         <id val="information"/>
+        <!--
+        <id val="information"/>
         <item weight="20" level="0" text="About" entryID="about_screen">
             <screen module="About"/>
-        </item> -->
+        </item>
+        -->
     </menu>
     <!-- Menu /  by lululla-->
     <item level="0" text="Timer" entryID="timer_edit">
@@ -81,7 +104,9 @@ self.session.open(oZetaNSS)
         <item level="0" text="About" entryID="about_screen">
             <screen module="About"/>
         </item>
-        <!--<item level="2" text="Streaming clients info" entryID="streaming_clients_info_screen"><screen module="StreamingClientsInfo"/></item>-->
+        <!--
+        <item level="2" text="Streaming clients info" entryID="streaming_clients_info_screen"><screen module="StreamingClientsInfo"/></item>
+        -->
     </menu>
     <item level="0" text="Plugins" entryID="plugin_selection">
         <screen module="PluginBrowser" screen="PluginBrowser"/>

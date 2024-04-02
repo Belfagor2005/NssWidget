@@ -6,6 +6,8 @@
     <setup key="avsetup">
         <!-- this is just a placeholder, the Videomode plugin implements this submenu -->
     </setup>
+    
+   
     <setup key="usage" title="Customize">
         <item level="1" text="Sort order for menu entries" description="This option allows you to hide and sort menu entries. When selecting user you can change order and hide menu items via the blue button. With the user defined hidden the blue button is not shown in the menus">config.usage.menu_sort_mode</item>
         <item level="1" text="Sort order for setup entries" description="This option allows you to alphabetically sort setup menu entries.">config.usage.sort_settings</item>
@@ -113,6 +115,8 @@
         <item level="0" text="Password" description="Edit the password.">config.cccaminfo.password</item>
         <item level="0" text="Port" description="Edit the remote CCCam port.">config.cccaminfo.port</item>
     </setup>
+    
+    
     <setup key="Softcam" title="Softcam Settings" showOpenWebif="1">
         <item level="0" text="Select Softcam" description="Select a Softcam from the available list.">config.misc.softcams</item>
         <item level="2" text="Show OScam/CCcam in Extension Menu" description="Allows you to show/hide OScam/CCcam in the Extension Menu screen (BLUE button).">config.softcam.showInExtensions</item>
