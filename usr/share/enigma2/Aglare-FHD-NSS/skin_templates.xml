@@ -2,7 +2,7 @@
 <skin>
     <!-- Templates@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
     <screen name="pigscreen885" flags="wfNoBorder">
-        <widget source="session.VideoPicture" render="Pig" position="997,100" zPosition="20" size="880,499" backgroundColor="transparent" transparent="0" cornerRadius="14"/>
+        <widget source="session.VideoPicture" render="Pig" position="997,100" zPosition="19" size="880,499" backgroundColor="transparent" transparent="0" cornerRadius="14"/>
     </screen>
     <screen name="menutemp" flags="wfNoBorder">
         <!-- /* time -->
@@ -48,9 +48,9 @@
         </widget>
     </screen>
     <screen name="menusep" flags="wfNoBorder">
-        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="36,932" size="400,3" zPosition="99"/>
-        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="524,932" size="400,3" zPosition="99"/>
-        <eLabel name="" position="416,916" size="132,40" font="FA; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
+        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="36,932" size="400,3" zPosition="19"/>
+        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="524,932" size="400,3" zPosition="19"/>
+        <eLabel name="" position="416,916" size="132,40" font="FA; 36" text="" transparent="1" valign="center" halign="center" zPosition="19"/>
     </screen>
     <screen name="2menulist45" flags="wfNoBorder">
         <widget name="list" position="40,100" size="890,900" halign="left" valign="center" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
@@ -70,55 +70,61 @@
     <screen name="titletemp" flags="wfNoBorder">
         <widget source="Title" render="Label" position="106,38" size="890,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
         <widget source="ScreenPath" render="Label" position="36,10" size="1380,22" backgroundColor="background" transparent="1" zPosition="1" font="Regular; 19" valign="center" halign="left"/>
-        <ePixmap position="33,36" size="66,54" pixmap="image_logo/nss/tLogo.png" alphatest="blend" transparent="1" zPosition="20"/>
+        <ePixmap position="33,36" size="66,54" pixmap="image_logo/nss/tLogo.png" alphatest="blend" transparent="1" zPosition="19"/>
     </screen>
     <screen name="buttonicons" flags="wfNoBorder">
-        <eLabel backgroundColor="red" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
-        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
-        <eLabel backgroundColor="yellow" cornerRadius="3" position="652,1064" size="300,6" zPosition="-11"/>
-        <eLabel backgroundColor="blue" cornerRadius="3" position="962,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="#00ff0000" position="34,1064" size="300,6" zPosition="12"/>
+        <eLabel backgroundColor="#0000ff00" position="342,1064" size="300,6" zPosition="12"/>
+        <eLabel backgroundColor="#00ffff00" position="652,1064" size="300,6" zPosition="12"/>
+        <eLabel backgroundColor="#000000ff" position="962,1064" size="300,6" zPosition="12"/>
+        <!--
+        <eLabel backgroundColor="red" position="34,1064" size="300,6" zPosition="22"/>
+        <eLabel backgroundColor="green" position="342,1064" size="300,6" zPosition="22"/>
+        <eLabel backgroundColor="yellow" position="652,1064" size="300,6" zPosition="22"/>
+        <eLabel backgroundColor="blue" position="962,1064" size="300,6" zPosition="22"/>
+        -->
     </screen>
     <screen name="button1temp" flags="wfNoBorder">
+        <panel name="buttonicons"/>
         <widget source="key_red" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_green" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_yellow" render="Label" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_blue" render="Label" position="962,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <panel name="buttonicons"/>
     </screen>
     <screen name="button2temp" flags="wfNoBorder">
+        <panel name="buttonicons"/>
         <widget name="key_red" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget name="key_green" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget name="key_yellow" render="Label" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget name="key_blue" render="Label" position="962,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <panel name="buttonicons"/>
     </screen>
     <screen name="button3temp" flags="wfNoBorder">
+        <panel name="buttonicons"/>
         <widget name="red" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget name="green" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget name="yellow" render="Label" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget name="blue" render="Label" position="962,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <panel name="buttonicons"/>
     </screen>
     <screen name="button4temp" flags="wfNoBorder">
+        <panel name="buttonicons"/>
         <widget objectTypes="key_red,StaticText" source="key_red" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget objectTypes="key_green,StaticText" source="key_green" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget objectTypes="key_yellow,StaticText" source="key_yellow" render="Label" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget objectTypes="key_blue,StaticText" source="key_blue" render="Label" position="962,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <panel name="buttonicons"/>
     </screen>
     <screen name="button5temp" flags="wfNoBorder">
+        <panel name="buttonicons"/>
         <widget objectTypes="buttonred,Label,Button" name="buttonred" conditional="buttonred" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget objectTypes="buttongreen,Label,Button" name="buttongreen" conditional="buttongreen" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget objectTypes="buttonyellow,Label,Button" name="buttonyellow" conditional="buttonyellow" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget objectTypes="buttonblue,Label,Button" name="buttonblue" conditional="buttonblue" position="962,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <panel name="buttonicons"/>
     </screen>
     <screen name="button6temp" flags="wfNoBorder">
+        <panel name="buttonicons"/>
         <widget objectTypes="key_red,Label,Button" name="key_red" conditional="key_red" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget objectTypes="key_green,Label,Button" name="key_green" conditional="key_green" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget objectTypes="key_yellow,Label,Button" name="key_yellow" conditional="key_yellow" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget objectTypes="key_blue,Label,Button" name="key_blue" conditional="key_blue" position="962,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <panel name="buttonicons"/>
     </screen>
     <screen name="egamiboxinfo" flags="wfNoBorder">
         <ePixmap position="900,750" zPosition="2" size="50,50" pixmap="icons/Ram.png" alphatest="blend"/>
@@ -155,14 +161,14 @@
     <screen name="cancelscan" flags="wfNoBorder">
         <eLabel name="new eLabel" text="Cancel" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <eLabel name="new eLabel" text="Scan" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <eLabel backgroundColor="red" cornerRadius="3" position="32,1064" size="300,6" zPosition="20"/>
-        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="20"/>
+        <eLabel backgroundColor="red" position="32,1064" size="300,6" zPosition="19"/>
+        <eLabel backgroundColor="green" position="342,1064" size="300,6" zPosition="19"/>
     </screen>
     <screen name="cancelsave" flags="wfNoBorder">
         <eLabel name="new eLabel" text="Cancel" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <eLabel name="new eLabel" text="Save" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <eLabel backgroundColor="red" cornerRadius="3" position="32,1064" size="300,6" zPosition="20"/>
-        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="20"/>
+        <eLabel backgroundColor="red" position="32,1064" size="300,6" zPosition="19"/>
+        <eLabel backgroundColor="green" position="342,1064" size="300,6" zPosition="19"/>
     </screen>
     <screen name="timedate" flags="wfNoBorder">
         <!-- /* time -->
@@ -429,16 +435,16 @@
             <convert type="AglareVpn">vpn</convert>
             <convert type="ConditionalShowHide"/>
         </widget>
-        <widget source="session.CurrentService" render="Label" position="72,1019" size="60,50" font="Regular; 22" zPosition="99" backgroundColor="background" transparent="1" foregroundColor="white" text="88 C" noWrap="1" halign="left" valign="center">
+        <widget source="session.CurrentService" render="Label" position="72,1019" size="60,50" font="Regular; 22" zPosition="19" backgroundColor="background" transparent="1" foregroundColor="white" text="88 C" noWrap="1" halign="left" valign="center">
             <convert type="AglareTemp">Temperature</convert>
         </widget>
-        <widget backgroundColor="background" font="Regular; 22" foregroundColor="white" halign="left" position="200,1019" render="Label" size="63,50" source="session.CurrentService" transparent="1" zPosition="99" text="100%" valign="center">
+        <widget backgroundColor="background" font="Regular; 22" foregroundColor="white" halign="left" position="200,1019" render="Label" size="63,50" source="session.CurrentService" transparent="1" zPosition="19" text="100%" valign="center">
             <convert type="AglareCpuUsage">Total</convert>
         </widget>
         <widget source="session.CurrentService" render="Label" position="340,1019" size="120,50" font="Regular; 22" halign="left" backgroundColor="background" zPosition="2" transparent="1" text="25888" valign="center">
             <convert type="AglareBitrate">VideoBitrateUnits</convert>
         </widget>
-        <widget backgroundColor="background" font="Regular; 22" foregroundColor="white" halign="left" position="522,1019" render="Label" size="114,50" source="session.CurrentService" transparent="1" zPosition="99" text="88" valign="center">
+        <widget backgroundColor="background" font="Regular; 22" foregroundColor="white" halign="left" position="522,1019" render="Label" size="114,50" source="session.CurrentService" transparent="1" zPosition="19" text="88" valign="center">
             <convert type="AglareNetSpeedInfo">RC_MB</convert>
         </widget>
         <widget source="session.CurrentService" render="Label" position="1150,964" size="492,30" font="Regularn; 22" halign="center" zPosition="9" backgroundColor="background90" transparent="1" text="campli" valign="center" noWrap="1" foregroundColor="white">
@@ -470,7 +476,7 @@
             <convert type="EventTime">Duration</convert>
             <convert type="ClockToText">InMinutes</convert>
         </widget>
-        <widget source="session.CurrentService" render="Label" position="895,1019" size="158,50" font="Regular; 22" backgroundColor="background" transparent="1" halign="left" zPosition="99" valign="center" noWrap="1">
+        <widget source="session.CurrentService" render="Label" position="895,1019" size="158,50" font="Regular; 22" backgroundColor="background" transparent="1" halign="left" zPosition="19" valign="center" noWrap="1">
             <convert type="AglareAudioInfo">AudioCodec</convert>
         </widget>
     </screen>
@@ -621,18 +627,18 @@
     <screen name="epgtemp_pig" flags="wfNoBorder" position="0,0" backgroundColor="transparent">
         <ePixmap name="" position="0, 0" size="1920,1080" pixmap="main/widepanel.jpg" zPosition="-99"/>
         <widget source="Title" render="Label" position="34,22" size="1102,50" font="Regular; 36" backgroundColor="background" transparent="1" foregroundColor="mainskincolor" valign="center" zPosition="22" halign="left"/>
-        <ePixmap name="" position="34,1014" size="45,45" zPosition="99" pixmap="main/red.png" alphatest="on"/>
-        <ePixmap name="" position="351,1014" size="45,45" zPosition="99" pixmap="main/green.png" alphatest="on"/>
-        <ePixmap name="" position="666,1014" size="45,45" zPosition="99" pixmap="main/yellow.png" alphatest="on"/>
-        <ePixmap name="" position="981,1014" size="45,45" zPosition="99" pixmap="main/blue.png" alphatest="on"/>
+        <ePixmap name="" position="34,1014" size="45,45" zPosition="19" pixmap="main/red.png" alphatest="on"/>
+        <ePixmap name="" position="351,1014" size="45,45" zPosition="19" pixmap="main/green.png" alphatest="on"/>
+        <ePixmap name="" position="666,1014" size="45,45" zPosition="19" pixmap="main/yellow.png" alphatest="on"/>
+        <ePixmap name="" position="981,1014" size="45,45" zPosition="19" pixmap="main/blue.png" alphatest="on"/>
         <widget source="key_red" render="Label" position="79,1014" size="250,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_green" render="Label" position="396,1014" size="250,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_yellow" render="Label" position="711,1014" size="250,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_blue" render="Label" position="1026,1014" size="250,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <ePixmap name="" position="1460,1018" size="54,34" zPosition="99" pixmap="main/rtlt_button.png" alphatest="on"/>
-        <ePixmap name="" position="1520,1018" size="54,34" zPosition="99" pixmap="main/updown_button.png" alphatest="on"/>
-        <ePixmap name="" position="1620,1018" size="54,34" zPosition="99" pixmap="main/menu_button.png" alphatest="on"/>
-        <ePixmap name="" position="1680,1018" size="54,34" zPosition="99" pixmap="main/info_button.png" alphatest="on"/>
+        <ePixmap name="" position="1460,1018" size="54,34" zPosition="19" pixmap="main/rtlt_button.png" alphatest="on"/>
+        <ePixmap name="" position="1520,1018" size="54,34" zPosition="19" pixmap="main/updown_button.png" alphatest="on"/>
+        <ePixmap name="" position="1620,1018" size="54,34" zPosition="19" pixmap="main/menu_button.png" alphatest="on"/>
+        <ePixmap name="" position="1680,1018" size="54,34" zPosition="19" pixmap="main/info_button.png" alphatest="on"/>
         <!-- /* time -->
         <widget source="global.CurrentTime" render="Label" position="1714,10" size="160,32" font="Regular; 28" valign="top" halign="center" backgroundColor="background" transparent="1" foregroundColor="foreground2" zPosition="89">
             <convert type="ClockToText">Format:%H:%M:%S</convert>
@@ -643,24 +649,24 @@
         <widget source="session.CurrentService" render="Label" position="1386,90" size="500,32" font="Regular; 28" borderWidth="1" backgroundColor="background" transparent="1" halign="center" foregroundColor="white" zPosition="30" valign="center" noWrap="1">
             <convert type="ServiceName">Name</convert>
         </widget>
-        <widget source="session.VideoPicture" render="Pig" position="1386,120" zPosition="20" size="500,282" backgroundColor="transparent" transparent="0"/>
+        <widget source="session.VideoPicture" render="Pig" position="1386,120" zPosition="19" size="500,282" backgroundColor="transparent" transparent="0"/>
     </screen>
     <!-- ################### -->
     <screen name="epgtemp_nopig" flags="wfNoBorder" position="0,0" backgroundColor="transparent">
         <ePixmap name="" position="0, 0" size="1920,1080" pixmap="main/widepanel.jpg" zPosition="-99"/>
         <widget source="Title" render="Label" position="34,22" size="1102,50" font="Regular; 36" backgroundColor="background" transparent="1" foregroundColor="mainskincolor" valign="center" zPosition="22" halign="left"/>
-        <ePixmap name="" position="34,1014" size="45,45" zPosition="99" pixmap="main/red.png" alphatest="on"/>
-        <ePixmap name="" position="351,1014" size="45,45" zPosition="99" pixmap="main/green.png" alphatest="on"/>
-        <ePixmap name="" position="666,1014" size="45,45" zPosition="99" pixmap="main/yellow.png" alphatest="on"/>
-        <ePixmap name="" position="981,1014" size="45,45" zPosition="99" pixmap="main/blue.png" alphatest="on"/>
+        <ePixmap name="" position="34,1014" size="45,45" zPosition="19" pixmap="main/red.png" alphatest="on"/>
+        <ePixmap name="" position="351,1014" size="45,45" zPosition="19" pixmap="main/green.png" alphatest="on"/>
+        <ePixmap name="" position="666,1014" size="45,45" zPosition="19" pixmap="main/yellow.png" alphatest="on"/>
+        <ePixmap name="" position="981,1014" size="45,45" zPosition="19" pixmap="main/blue.png" alphatest="on"/>
         <widget source="key_red" render="Label" position="79,1014" size="250,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_green" render="Label" position="396,1014" size="250,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_yellow" render="Label" position="711,1014" size="250,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_blue" render="Label" position="1026,1014" size="250,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <ePixmap name="" position="1460,1018" size="54,34" zPosition="99" pixmap="main/rtlt_button.png" alphatest="on"/>
-        <ePixmap name="" position="1520,1018" size="54,34" zPosition="99" pixmap="main/updown_button.png" alphatest="on"/>
-        <ePixmap name="" position="1620,1018" size="54,34" zPosition="99" pixmap="main/menu_button.png" alphatest="on"/>
-        <ePixmap name="" position="1680,1018" size="54,34" zPosition="99" pixmap="main/info_button.png" alphatest="on"/>
+        <ePixmap name="" position="1460,1018" size="54,34" zPosition="19" pixmap="main/rtlt_button.png" alphatest="on"/>
+        <ePixmap name="" position="1520,1018" size="54,34" zPosition="19" pixmap="main/updown_button.png" alphatest="on"/>
+        <ePixmap name="" position="1620,1018" size="54,34" zPosition="19" pixmap="main/menu_button.png" alphatest="on"/>
+        <ePixmap name="" position="1680,1018" size="54,34" zPosition="19" pixmap="main/info_button.png" alphatest="on"/>
         <!-- /* time -->
         <widget source="global.CurrentTime" render="Label" position="1714,10" size="160,32" font="Regular; 28" valign="top" halign="center" backgroundColor="background" transparent="1" foregroundColor="foreground2" zPosition="89">
             <convert type="ClockToText">Format:%H:%M:%S</convert>
@@ -681,7 +687,7 @@
         <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
         <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
-        <widget name="quickselect" position="36,266" size="1860,700" backgroundColor="background" foregroundColor="foreground" font="Regular;150" halign="center" transparent="1" valign="center" zPosition="99"/>
+        <widget name="quickselect" position="36,266" size="1860,700" backgroundColor="background" foregroundColor="foreground" font="Regular;150" halign="center" transparent="1" valign="center" zPosition="19"/>
         <widget name="text" position="36,105" size="1862,45" font="Regular;33" backgroundColor="background" foregroundColor="white" transparent="1" zPosition="2"/>
         <widget name="targetfreespace" position="1626,210" size="260,45" font="Regular;30" halign="right" backgroundColor="background" foregroundColor="green" transparent="1"/>
         <widget name="target" position="36,210" size="900,45" font="Regular;30" backgroundColor="background" foregroundColor="foreground" transparent="1"/>

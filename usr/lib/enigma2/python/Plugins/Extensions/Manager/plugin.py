@@ -4,7 +4,7 @@
 # --------------------#
 #  coded by Lululla  #
 #     update to      #
-#     07/09/2023     #
+#     02/04/2024     #
 # --------------------#
 from __future__ import print_function
 from . import _, sl, isDreamOS
@@ -118,6 +118,7 @@ try:
 except ImportError:
     pass
 
+
 def checkdir():
     keys = '/usr/keys'
     camscript = '/usr/camscript'
@@ -125,8 +126,6 @@ def checkdir():
         mkdir('/usr/keys')
     if not os.path.exists(camscript):
         mkdir('/usr/camscript')
-
-
 checkdir()
 
 
@@ -145,6 +144,29 @@ if not os.path.exists('/etc/clist.list'):
     with open('/etc/clist.list', 'w'):
         print('/etc/clist.list as been create')
         os.system('chmod 755 /etc/clist.list &')
+
+
+def command(comandline, strip=1):
+    comandline = comandline + " >/tmp/command.txt"
+    os.system(comandline)
+    text = ""
+    if os.path.exists("/tmp/command.txt") is True:
+        file = open("/tmp/command.txt", "r")
+        if strip == 1:
+            for line in file:
+                text = text + line.strip() + '\n'
+        else:
+            for line in file:
+                text = text + line
+                if text[-1:] != '\n':
+                    text = text + "\n"
+        file.close()
+    # if one or last line then remove linefeed
+    if text[-1:] == '\n':
+        text = text[:-1]
+    comandline = text
+    os.system("rm /tmp/command.txt")
+    return comandline
 
 
 class m2list(MenuList):
@@ -254,11 +276,12 @@ class Manager(Screen):
     def setBlueKey(self):
         global BlueAction, runningcam
         self.currCam = self.readCurrent()
-        print('self.currCam= 77 ', self.currCam)
+        print('setBlueKey self.currCam=', self.currCam)
         self["key_blue"].setText("Softcam")
         if self.currCam and self.currCam is not None or self.currCam != '':
             nim = str(self.currCam)
             if 'ccam' in nim.lower():
+                runningcam = "cccam"
                 if os.path.exists(resolveFilename(SCOPE_PLUGINS, "Extensions/CCcamInfo")):
                     BlueAction = 'CCCAMINFO'
                     self["key_blue"].setText("CCCAMINFO")
@@ -303,50 +326,69 @@ class Manager(Screen):
             BlueAction = 'SOFTCAM'
             # runningcam = None
             self["key_blue"].setText("Softcam")
-        print('Blue2=', BlueAction)
+        print('setBlueKey Blue=', BlueAction)
 
     def ShowSoftcamCallback(self):
         pass
 
-    def Blue(self):
-        # if self.readCurrent() ==
+    # def isCamrunning(self, cam):
+        # p = command('pidof ' + cam + ' |wc -w')
+        # if not p.isdigit():
+            # p = 0
+        # if int(p) > 0:
+            # return True
+        # else:
+            # return False
 
-        print('Blue2=', BlueAction)
+    def Blue(self):
+        rCam = self.readCurrent()
+        # sCam = self.isCamrunning(rCam)
+        # if self.currCam = self.readCurrent() ==
+        # if sCam == rCam:
+        print('def Blue Blue=', BlueAction)
         if BlueAction == 'SOFTCAM':
             self.messagekd()
 
-        if BlueAction == 'CCCAMINFO':
-            if os.path.exists(resolveFilename(SCOPE_PLUGINS, "Extensions/CCcamInfo")):
-                from Plugins.Extensions.CCcamInfo.plugin import CCcamInfoMain
-                self.session.openWithCallback(self.ShowSoftcamCallback, CCcamInfoMain)
 
-        if BlueAction == 'CCCAMINFOMAIN':
-            from Screens.CCcamInfo import CCcamInfoMain
-            self.session.open(CCcamInfoMain)
+        cmd = 'ps -T'
+        res = os.popen(cmd).read()
+        print('res: ', res)
+        if str(rCam) in res.lower():
+            print('cam is: ', str(rCam))
+        if 'cccam' in str(rCam).lower():
+            if BlueAction == 'CCCAMINFO':
+                if os.path.exists(resolveFilename(SCOPE_PLUGINS, "Extensions/CCcamInfo")):
+                    from Plugins.Extensions.CCcamInfo.plugin import CCcamInfoMain
+                    self.session.openWithCallback(self.ShowSoftcamCallback, CCcamInfoMain)
 
-        if BlueAction == 'OSCAMSTATUS':
-        # if BlueAction == 'OSCAMSTATUS' or 'NCAMSTATUS':
-            if os.path.exists(resolveFilename(SCOPE_PLUGINS, "Extensions/OscamStatus")):
-                from Plugins.Extensions.OscamStatus.plugin import OscamStatus
-                self.session.open(OscamStatus)
+            if BlueAction == 'CCCAMINFOMAIN':
+                from Screens.CCcamInfo import CCcamInfoMain
+                self.session.open(CCcamInfoMain)
 
-        if BlueAction == 'OSCAMINFO':
-            try:
-                from Screens.OScamInfo import OSCamInfo
-                self.session.open(OSCamInfo)
-            except ImportError:
-                from Screens.OScamInfo import OscamInfoMenu
-                self.session.open(OscamInfoMenu)
-                pass
+        if 'oscam' in str(rCam).lower():
+            if BlueAction == 'OSCAMSTATUS':
+                if os.path.exists(resolveFilename(SCOPE_PLUGINS, "Extensions/OscamStatus")):
+                    from Plugins.Extensions.OscamStatus.plugin import OscamStatus
+                    self.session.open(OscamStatus)
 
-        if BlueAction == 'NCAMINFO':
-            try:
-                from Screens.NcamInfo import NcamInfoMenu
-                self.session.open(NcamInfoMenu)
-            except ImportError:
-                # from Screens.NcamInfo import OscamInfoMenu
-                # self.session.open(OscamInfoMenu)
-                pass
+            if BlueAction == 'OSCAMINFO':
+                try:
+                    from Screens.OScamInfo import OSCamInfo
+                    self.session.open(OSCamInfo)
+                except ImportError:
+                    from Screens.OScamInfo import OscamInfoMenu
+                    self.session.open(OscamInfoMenu)
+                    pass
+
+        if 'ncam' in str(rCam).lower():
+            if BlueAction == 'NCAMINFO':
+                try:
+                    from Screens.NcamInfo import NcamInfoMenu
+                    self.session.open(NcamInfoMenu)
+                except ImportError:
+                    # from Screens.NcamInfo import OscamInfoMenu
+                    # self.session.open(OscamInfoMenu)
+                    pass
         else:
             return
 

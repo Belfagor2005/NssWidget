@@ -4,6 +4,7 @@ from enigma import eEPGCache, eServiceReference
 from time import localtime, time, mktime, strftime
 from datetime import datetime
 
+
 class AglareEventName2(Converter, object):
     NAME = 0
     NAME_TWEAKED = 1
@@ -81,7 +82,7 @@ class AglareEventName2(Converter, object):
             return event.getShortDescription()
         elif self.type is self.EXTENDED_DESCRIPTION:
             text = event.getShortDescription()
-            if text and text[-1] is not '\n' and text[-1] is not ' ':
+            if text and text[-1] != '\n' and text[-1] != ' ':
                 text += ' '
             text = text + event.getExtendedDescription() or event.getEventName()
             if 'EPG-SAT.DE' in text:
