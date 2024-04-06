@@ -146,29 +146,6 @@ if not os.path.exists('/etc/clist.list'):
         os.system('chmod 755 /etc/clist.list &')
 
 
-def command(comandline, strip=1):
-    comandline = comandline + " >/tmp/command.txt"
-    os.system(comandline)
-    text = ""
-    if os.path.exists("/tmp/command.txt") is True:
-        file = open("/tmp/command.txt", "r")
-        if strip == 1:
-            for line in file:
-                text = text + line.strip() + '\n'
-        else:
-            for line in file:
-                text = text + line
-                if text[-1:] != '\n':
-                    text = text + "\n"
-        file.close()
-    # if one or last line then remove linefeed
-    if text[-1:] == '\n':
-        text = text[:-1]
-    comandline = text
-    os.system("rm /tmp/command.txt")
-    return comandline
-
-
 class m2list(MenuList):
     def __init__(self, list):
         MenuList.__init__(self, list, True, eListboxPythonMultiContent)
@@ -386,8 +363,6 @@ class Manager(Screen):
                     from Screens.NcamInfo import NcamInfoMenu
                     self.session.open(NcamInfoMenu)
                 except ImportError:
-                    # from Screens.NcamInfo import OscamInfoMenu
-                    # self.session.open(OscamInfoMenu)
                     pass
         else:
             return

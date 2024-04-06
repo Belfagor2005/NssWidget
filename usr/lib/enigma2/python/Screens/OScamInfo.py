@@ -473,6 +473,25 @@ class oscMenuList(MenuList):
 
 
 class OscamInfoMenu(Screen):
+
+    skin = '''
+        <screen name="OscamInfoMenu" position="fill" title="OscamInfoMenu" backgroundColor="#ff000000" flags="wfNoBorder">
+            <widget source="Title" render="Label" position="106,38" size="890,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
+            <widget source="ScreenPath" render="Label" position="36,10" size="1380,22" backgroundColor="#0528343b" transparent="1" zPosition="1" font="Regular; 19" valign="center" halign="left"/>
+            <eLabel backgroundColor="#002d3d5b" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
+            <eLabel backgroundColor="#001a2336" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
+            <eLabel name="" position="31,30" size="901,977" zPosition="-90" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c"/>
+            <eLabel backgroundColor="#002d3d5b" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
+            <widget font="Bold; 30" halign="right" position="1401,20" render="Label" size="500,40" source="global.CurrentTime" transparent="1">
+                <convert type="ClockToText">Format:%a %d.%m.  %H:%M</convert>
+            </widget>
+            <eLabel backgroundColor="#001a2336" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
+            <eLabel name="" position="31,30" size="901,977" zPosition="-90" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c"/>
+            <widget source="session.VideoPicture" render="Pig" position="997,100" zPosition="19" size="880,499" backgroundColor="#ff000000" transparent="0" cornerRadius="14"/>
+            <widget name="mainmenu" position="36,98" size="890,868" itemHeight="62" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center"/>
+            <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="res/pics/oscam-logo.png" transparent="1" alphatest="on"/>
+        </screen> '''
+
     def __init__(self, session):
         Screen.__init__(self, session)
         NAMEBIN2 = check_NAMEBIN2()
@@ -725,6 +744,30 @@ class oscECMInfo(Screen, OscamInfo):
 
 
 class oscInfo(Screen, OscamInfo):
+
+    skin ='''
+            <screen name="oscInfo" position="0,0" size="1920,1080" title="Nscam Info Log" backgroundColor="#0528343b" flags="wfNoBorder">
+                <widget font="Bold; 30" halign="right" position="1401,20" render="Label" size="500,40" source="global.CurrentTime" transparent="1">
+                    <convert type="ClockToText">Format:%a %d.%m.  %H:%M</convert>
+                </widget>
+                <widget name="output" position="35,95" size="1241,836" itemHeight="40" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/>
+                <eLabel name="" position="35,95" size="1242,836" zPosition="-90" cornerRadius="20" backgroundColor="#00171a1c" foregroundColor="#00171a1c"/>
+                <eLabel backgroundColor="#002d3d5b" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
+                <eLabel backgroundColor="#001a2336" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
+                <widget source="session.VideoPicture" render="Pig" position="1376,110" zPosition="1" size="494,272" backgroundColor="#ff000000" transparent="0" cornerRadius="14"/>
+                <widget source="Title" render="Label" position="36,20" size="1303,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
+                <widget source="Event" render="Progress" position="1376,444" size="494,10" backgroundColor="#005a5a5a" foregroundColor="yellow" cornerRadius="10" zPosition="33">
+                    <convert type="EventTime">Progress</convert>
+                </widget>
+                <widget source="session.CurrentService" render="Label" position="1376,394" size="494,30" font="Regular; 24" borderWidth="1" backgroundColor="#0528343b" transparent="1" halign="center" zPosition="5" valign="center" noWrap="1" foregroundColor="white">
+                    <convert type="ServiceName">Name</convert>
+                </widget>
+                <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="res/pics/oscam-logo.png" transparent="1" alphatest="on"/>
+                <eLabel backgroundColor="mcolor3" cornerRadius="3" position="35,931" size="850,3" zPosition="99"/>
+                <eLabel backgroundColor="mcolor3" cornerRadius="3" position="440,931" size="850,3" zPosition="99"/>
+                <eLabel name="" position="551,916" size="132,40" font="FA; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
+            </screen>'''
+
     def __init__(self, session, what):
         global HDSKIN, sizeH
         self.session = session
@@ -986,40 +1029,40 @@ class oscEntitlements(Screen, OscamInfo):
     global HDSKIN, sizeH
     sizeLH = sizeH - 20
     skin = """<screen position="center,center" size="%s, 390*f" title="Client Info" >
-            <widget source="output" render="Listbox" position="10,10" size="%s,390*f" scrollbarMode="showOnDemand" >
-                <convert type="TemplatedMultiContent">
-                {"templates":
-                    {"default": (55,[
-                            MultiContentEntryText(pos = (0, 1), size = (80, 24), font=0, flags = RT_HALIGN_LEFT, text = 0), # index 0 is caid
-                            MultiContentEntryText(pos = (90, 1), size = (150, 24), font=0, flags = RT_HALIGN_LEFT, text = 1), # index 1 is csystem
-                            MultiContentEntryText(pos = (250, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 2), # index 2 is hop 1
-                            MultiContentEntryText(pos = (290, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 3), # index 3 is hop 2
-                            MultiContentEntryText(pos = (330, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 4), # index 4 is hop 3
-                            MultiContentEntryText(pos = (370, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 5), # index 5 is hop 4
-                            MultiContentEntryText(pos = (410, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 6), # index 6 is hop 5
-                            MultiContentEntryText(pos = (480, 1), size = (70, 24), font=0, flags = RT_HALIGN_LEFT, text = 7), # index 7 is sum of cards for caid
-                            MultiContentEntryText(pos = (550, 1), size = (80, 24), font=0, flags = RT_HALIGN_LEFT, text = 8), # index 8 is reshare
-                            MultiContentEntryText(pos = (630, 25), size = (700, 24), font=1, flags = RT_HALIGN_LEFT, text = 9), # index 9 is providers
+                <widget source="output" render="Listbox" position="10,10" size="%s,390*f" scrollbarMode="showOnDemand" >
+                    <convert type="TemplatedMultiContent">
+                    {"templates":
+                        {"default": (55,[
+                                MultiContentEntryText(pos = (0, 1), size = (80, 24), font=0, flags = RT_HALIGN_LEFT, text = 0), # index 0 is caid
+                                MultiContentEntryText(pos = (90, 1), size = (150, 24), font=0, flags = RT_HALIGN_LEFT, text = 1), # index 1 is csystem
+                                MultiContentEntryText(pos = (250, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 2), # index 2 is hop 1
+                                MultiContentEntryText(pos = (290, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 3), # index 3 is hop 2
+                                MultiContentEntryText(pos = (330, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 4), # index 4 is hop 3
+                                MultiContentEntryText(pos = (370, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 5), # index 5 is hop 4
+                                MultiContentEntryText(pos = (410, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 6), # index 6 is hop 5
+                                MultiContentEntryText(pos = (480, 1), size = (70, 24), font=0, flags = RT_HALIGN_LEFT, text = 7), # index 7 is sum of cards for caid
+                                MultiContentEntryText(pos = (550, 1), size = (80, 24), font=0, flags = RT_HALIGN_LEFT, text = 8), # index 8 is reshare
+                                MultiContentEntryText(pos = (630, 25), size = (700, 24), font=1, flags = RT_HALIGN_LEFT, text = 9), # index 9 is providers
+                                                        ]),
+                        "HD": (55,[
+                                MultiContentEntryText(pos = (0, 1), size = (80*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 0), # index 0 is caid
+                                MultiContentEntryText(pos = (90*f, 1), size = (150*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 1), # index 1 is csystem
+                                MultiContentEntryText(pos = (250*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 2), # index 2 is hop 1
+                                MultiContentEntryText(pos = (290*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 3), # index 3 is hop 2
+                                MultiContentEntryText(pos = (330*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 4), # index 4 is hop 3
+                                MultiContentEntryText(pos = (370*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 5), # index 5 is hop 4
+                                MultiContentEntryText(pos = (410*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 6), # index 6 is hop 5
+                                MultiContentEntryText(pos = (480*f, 1), size = (70*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 7), # index 7 is sum of cards for caid
+                                MultiContentEntryText(pos = (550*f, 1), size = (80*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 8), # index 8 is reshare
+                                MultiContentEntryText(pos = (630*f, 1), size = (700*f, 30*f), font=1, flags = RT_HALIGN_LEFT, text = 9), # index 9 is providers
                                                     ]),
-                    "HD": (55,[
-                            MultiContentEntryText(pos = (0, 1), size = (80*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 0), # index 0 is caid
-                            MultiContentEntryText(pos = (90*f, 1), size = (150*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 1), # index 1 is csystem
-                            MultiContentEntryText(pos = (250*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 2), # index 2 is hop 1
-                            MultiContentEntryText(pos = (290*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 3), # index 3 is hop 2
-                            MultiContentEntryText(pos = (330*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 4), # index 4 is hop 3
-                            MultiContentEntryText(pos = (370*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 5), # index 5 is hop 4
-                            MultiContentEntryText(pos = (410*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 6), # index 6 is hop 5
-                            MultiContentEntryText(pos = (480*f, 1), size = (70*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 7), # index 7 is sum of cards for caid
-                            MultiContentEntryText(pos = (550*f, 1), size = (80*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 8), # index 8 is reshare
-                            MultiContentEntryText(pos = (630*f, 1), size = (700*f, 30*f), font=1, flags = RT_HALIGN_LEFT, text = 9), # index 9 is providers
-                                                ]),
-                    },
-                    "fonts": [gFont("Regular", 18*f),gFont("Regular", 12*f)],
-                    "itemHeight": 30*f
-                }
-                </convert>
-            </widget>
-        </screen>""" % (sizeH, sizeLH)
+                        },
+                        "fonts": [gFont("Regular", 18*f),gFont("Regular", 12*f)],
+                        "itemHeight": 30*f
+                    }
+                    </convert>
+                </widget>
+            </screen>""" % (sizeH, sizeLH)
 
     def __init__(self, session, reader):
         global HDSKIN, sizeH
@@ -1284,6 +1327,31 @@ class oscReaderStats(Screen, OscamInfo):
 
 
 class OscamInfoConfigScreen(ConfigListScreen, Screen):
+
+    skin ='''
+        <screen name="OscamInfoConfigScreen" position="fill" title="Oscam Info Setup" backgroundColor="#ff000000" flags="wfNoBorder">
+            <widget source="Title" render="Label" position="106,38" size="890,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
+            <widget source="ScreenPath" render="Label" position="36,10" size="1380,22" backgroundColor="#0528343b" transparent="1" zPosition="1" font="Regular; 19" valign="center" halign="left"/>
+            <widget font="Bold; 30" halign="right" position="1401,20" render="Label" size="500,40" source="global.CurrentTime" transparent="1">
+                <convert type="ClockToText">Format:%a %d.%m.  %H:%M</convert>
+            </widget>
+            <eLabel backgroundColor="#002d3d5b" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
+            <eLabel backgroundColor="#001a2336" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
+            <eLabel name="" position="31,30" size="901,977" zPosition="-90" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c"/>
+            <eLabel backgroundColor="#00ff0000" position="34,1064" size="300,6" zPosition="12"/>
+            <eLabel backgroundColor="#0000ff00" position="342,1064" size="300,6" zPosition="12"/>
+            <eLabel backgroundColor="#00ffff00" position="652,1064" size="300,6" zPosition="12"/>
+            <eLabel backgroundColor="#000000ff" position="962,1064" size="300,6" zPosition="12"/>
+            <widget source="key_red" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#0528343b" transparent="1" foregroundColor="white"/>
+            <widget source="key_green" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#0528343b" transparent="1" foregroundColor="white"/>
+            <widget source="key_yellow" render="Label" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#0528343b" transparent="1" foregroundColor="white"/>
+            <widget source="key_blue" render="Label" position="962,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#0528343b" transparent="1" foregroundColor="white"/>
+            <widget name="config" position="40,100" size="890,900" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center"/>
+            <widget source="session.VideoPicture" render="Pig" position="997,100" zPosition="19" size="880,499" backgroundColor="#ff000000" transparent="0" cornerRadius="14"/>
+            <widget name="status" render="Label" position="997,607" size="885,180" font="Regular; 24" halign="left" valign="top" backgroundColor="#0528343b" transparent="1" zPosition="55"/>
+            <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="res/pics/oscam-logo.png" transparent="1" alphatest="on"/>
+        </screen>'''
+
     def __init__(self, session, msg=None):
         Screen.__init__(self, session)
         self.setTitle(_("%s Info - Configuration") % check_NAMEBIN2())
