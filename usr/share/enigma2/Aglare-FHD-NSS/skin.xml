@@ -2455,14 +2455,16 @@
         <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
         <eLabel name="" position="31,30" size="1157,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
         <panel name="bLogo"/>
+<!--
         <widget name="arrowdown" position="-100,-100" size="56,105" pixmap="skin_default/arrowdown.png" zPosition="11" alphatest="blend"/>
         <widget name="arrowdown2" position="-100,-100" size="56,105" pixmap="skin_default/arrowdown.png" zPosition="11" alphatest="blend"/>
         <widget name="arrowup" position="-100,-100" size="56,105" pixmap="skin_default/arrowup.png" zPosition="11" alphatest="blend"/>
         <widget name="arrowup2" position="-100,-100" size="56,105" pixmap="skin_default/arrowup.png" zPosition="11" alphatest="blend"/>
+ -->
         <widget name="wizard" pixmap="skin_default/wizard.png" position="250,230" zPosition="10" size="240,240" alphatest="blend" transparent="1"/>
         <widget name="text" position="1218,640" size="651,305" font="Regular; 32" transparent="1" backgroundColor="background" valign="top" />
         <widget name="languagetext" position="32,1016" size="300,45" zPosition="11" font="Regular; 32" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
-        <widget source="languages" render="Listbox" position="36,552" size="1140,400" transparent="1" itemHeight="50">
+        <widget source="languages" render="Listbox" position="36,552" size="1140,400" transparent="1" itemHeight="100">
             <convert type="TemplatedMultiContent">
 				{"template": [
 				MultiContentEntryText(pos = (150, 0), size = (800, 90), font = 0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 1), # index 1 is the language name,
@@ -6101,6 +6103,11 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80" />
         <eLabel name="" position="31,30" size="1157,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2" />
         <panel name="bLogo" />
+        <widget name="arrowdown" pixmap="skin_default/arrowdown.png" position="-100,-100" zPosition="11" size="56,105" alphatest="on" />
+        <widget name="arrowdown2" pixmap="skin_default/arrowdown.png" position="-100,-100" zPosition="11" size="56,105" alphatest="on" />
+        <widget name="arrowup" pixmap="skin_default/arrowup.png" position="-100,-100" zPosition="11" size="56,105" alphatest="on" />
+        <widget name="arrowup2" pixmap="skin_default/arrowup.png" position="-100,-100" zPosition="11" size="56,105" alphatest="on" />
+
         <widget name="rc" pixmaps="skin_default/rc.png,skin_default/rcold.png" position="1497,114" zPosition="10" size="124,500" alphatest="on" transparent="1" font="Regular; 24" />
         <widget name="wizard" pixmap="skin_default/wizard.png" position="250,230" zPosition="10" size="240,240" alphatest="blend" transparent="1" />
         <widget name="languagetext" position="32,1016" size="300,45" zPosition="11" font="Regular; 32" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
