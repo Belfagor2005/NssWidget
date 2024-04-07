@@ -27,7 +27,8 @@ config.plugins.AglareNss.colorSelector = ConfigSelection(default='head', choices
  ('color3', _('Green')),
  ('color4', _('Magenta')),
  ('color5', _('Blue')),
- ('color6', _('Red'))])
+ ('color6', _('Red')),
+ ('color7', _('Purple'))])
 config.plugins.AglareNss.FontStyle = ConfigSelection(default='basic', choices=[
  ('basic', _('Default')),
  ('font1', _('HandelGotD')),
