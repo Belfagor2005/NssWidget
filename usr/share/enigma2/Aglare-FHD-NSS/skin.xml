@@ -2464,7 +2464,7 @@
         <widget name="wizard" pixmap="skin_default/wizard.png" position="250,230" zPosition="10" size="240,240" alphatest="blend" transparent="1"/>
         <widget name="text" position="1218,640" size="651,305" font="Regular; 32" transparent="1" backgroundColor="background" valign="top" />
         <widget name="languagetext" position="32,1016" size="300,45" zPosition="11" font="Regular; 32" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
-        <widget source="languages" render="Listbox" position="36,552" size="1140,400" transparent="1" itemHeight="100">
+        <widget source="languages" render="Listbox" position="36,552" size="1140,400" transparent="1" itemHeight="80">
             <convert type="TemplatedMultiContent">
 				{"template": [
 				MultiContentEntryText(pos = (150, 0), size = (800, 90), font = 0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 1), # index 1 is the language name,

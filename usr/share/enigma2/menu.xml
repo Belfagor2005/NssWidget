@@ -17,7 +17,7 @@
     <menu weight="0" level="0" text="Menu NSS" entryID="MenuNss">
         <id val="NssMenu"/>
         <!-- <screen module="MenuNss"/>						   -->
-        <item weight="0" level="0" text="Addon Manager" entryID="NSSAddon">
+        <item weight="0" level="0" text="NSS Addon Manager" entryID="NSSAddon">
             <code>
 from Plugins.Extensions.nssaddon.plugin import HomeNss
 self.session.open(HomeNss)
@@ -27,7 +27,7 @@ self.session.open(HomeNss)
         <item weight="5" level="0" text="Timers" entryID="timer_edit"><screen module="TimerEdit" screen="TimerEditList" /></item>
         <item weight="8" level="0" text="CronTimers" entryID="crontimer_edit"><screen module="CronTimer" screen="CronTimers" /></item>
         -->
-        <item weight="10" level="0" text="Softcam Manager" entryID="NssCam">
+        <item weight="10" level="0" text="NSS Softcam Manager" entryID="NssCam">
             <code>
 from Plugins.Extensions.Manager.plugin import Manager
 self.session.open(Manager)  
@@ -56,7 +56,7 @@ self.session.open(NcamInfo)
 </code>
         </item>
  -->
-        <item weight="15" level="0" text="Skin Setup" entryID="AglareSetup">
+        <item weight="15" level="0" text="NSS Skin Setup" entryID="AglareSetup">
             <code>
 from Plugins.Extensions.Aglare.plugin import AglareSetup
 self.session.open(AglareSetup)  
@@ -75,7 +75,7 @@ self.session.open(oZetaNSS)
         </item>
         -->
         <!-- <id val="system"/> -->
-        <item weight="16" level="0" text="Plugin Browser Style" entryID="BrowserStyle">
+        <item weight="16" level="0" text="NSS Plugin Browser Style" entryID="BrowserStyle">
             <setup id="usage"/>
         </item>
         <!--
@@ -89,9 +89,7 @@ self.session.open(oZetaNSS)
     <item level="0" text="Timer" entryID="timer_edit">
         <screen module="TimerEdit" screen="TimerEditList"/>
     </item>
-    <item level="1" text="VCR scart" entryID="scart_switch" configcondition="config.usage.show_vcr_scart" requires="ScartSwitch">
-        <code>self.session.scart.VCRSbChanged(3)</code>
-    </item>
+
     <menu level="0" text="Information" entryID="info_screen">
         <id val="information"/>
         <item level="1" text="Service" entryID="service_info_screen">
@@ -204,6 +202,11 @@ self.session.open(oZetaNSS)
             <item text="Fallback remote receiver setup" entryID="fallbacktuner_settings">
                 <screen module="SetupFallbacktuner"/>
             </item>
+
+            <item text="VCR scart" entryID="scart_switch" configcondition="config.usage.show_vcr_scart" requires="ScartSwitch">
+                <code>self.session.scart.VCRSbChanged(3)</code>
+            </item>
+
         </menu>
         <menu weight="10" text="Common Interface" entryID="cam_setup">
             <id val="cam"/>
@@ -222,32 +225,6 @@ def msgClosed(ret):
 		from os import system, _exit
 		system("rm -R /etc/enigma2")
 		_exit(0)
-                                                    
-              
-            
-                                                                  
-            
-                                             
-                   
-        
-                              
-                                    
-                 
-                                                    
-              
-            
-                                                                      
-            
-                                               
-                   
-        
-           
-                                      
-                                                         
-                                                 
-                              
-                                    
-                     
 self.session.openWithCallback(msgClosed, FactoryReset)
 </code>
         </item>
