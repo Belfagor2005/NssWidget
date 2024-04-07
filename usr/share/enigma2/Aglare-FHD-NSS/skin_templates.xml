@@ -16,7 +16,7 @@
         <panel name="timedate"/>
         <panel name="button1temp"/>
         <widget source="Title" render="Label" position="36,32" size="1340,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left" textOffset="44,0"/>
-        <eLabel backgroundColor="wplc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
+        <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
         <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
         <eLabel name="" position="20,110" size="1880,898" zPosition="-90" cornerRadius="30" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
@@ -25,7 +25,7 @@
     <screen name="menutemp3" flags="wfNoBorder">
         <panel name="timedate"/>
         <widget source="Title" render="Label" position="76,32" size="1340,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left" textOffset="44,0"/>
-        <eLabel backgroundColor="wplc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
+        <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
         <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
         <eLabel name="" position="20,96" size="1880,912" zPosition="-90" cornerRadius="30" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
@@ -78,11 +78,11 @@
         <eLabel backgroundColor="#00ffff00" position="652,1064" size="300,6" zPosition="12"/>
         <eLabel backgroundColor="#000000ff" position="962,1064" size="300,6" zPosition="12"/>
         <!--
-        <eLabel backgroundColor="red" position="34,1064" size="300,6" zPosition="22"/>
-        <eLabel backgroundColor="green" position="342,1064" size="300,6" zPosition="22"/>
-        <eLabel backgroundColor="yellow" position="652,1064" size="300,6" zPosition="22"/>
-        <eLabel backgroundColor="blue" position="962,1064" size="300,6" zPosition="22"/>
-        -->
+        <eLabel backgroundColor="red" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
+        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="yellow" cornerRadius="3" position="652,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="blue" cornerRadius="3" position="962,1064" size="300,6" zPosition="-11"/>
+         -->
     </screen>
     <screen name="button1temp" flags="wfNoBorder">
         <panel name="buttonicons"/>
@@ -680,7 +680,7 @@
         <panel name="button1temp"/>
         <panel name="timedate"/>
         <eLabel name="" position="1000,196" size="900,800" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
-        <eLabel backgroundColor="wplc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
+        <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
         <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
         <eLabel name="" position="36,196" size="900,800" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
         <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
@@ -699,6 +699,7 @@
     <screen name="LocationBoxOld" flags="wfNoBorder" position="0,0" backgroundColor="transparent">
         <panel name="titletemp"/>
         <panel name="button1temp"/>
+        <panel name="timedate"/>                                
         <widget name="quickselect" position="45,290" size="1830,700" backgroundColor="background" foregroundColor="yellow" font="Regular;150" halign="center" transparent="1" valign="center" zPosition="88"/>
         <widget name="text" position="52,210" size="876,45" font="Regular;33" backgroundColor="background" foregroundColor="foreground" transparent="1" zPosition="2"/>
         <widget name="targetfreespace" position="1633,210" size="260,45" font="Regular;30" halign="right" backgroundColor="background" foregroundColor="green" transparent="1"/>
@@ -706,7 +707,7 @@
         <widget name="filelist" position="50,355" size="876,630" itemHeight="45" font="Regular;30" enableWrapAround="1" transparent="1" selection="0" scrollbarMode="showOnDemand" scrollbarForegroundColor="mcolor5" scrollbarBorderColor="mcolor2" scrollbarWidth="10" scrollbarBorderWidth="1" scrollbarRadius="5" itemGradientSelected="igsd,igsl,igsd,vertical" itemCornerRadius="8" valign="center"/>
         <widget name="booklist" position="1010,355" size="876,630" font="Regular;32" transparent="1" selection="0" valign="center" itemHeight="45" scrollbarMode="showOnDemand" scrollbarForegroundColor="mcolor5" scrollbarBorderColor="mcolor2" scrollbarWidth="10" scrollbarBorderWidth="1" scrollbarRadius="5" itemGradientSelected="igsd,igsl,igsd,vertical" itemCornerRadius="8"/>
         <widget name="textbook" position="1010,250" size="876,80" font="Regular;33" foregroundColor="yellow" backgroundColor="background" transparent="1"/>
-        <eLabel backgroundColor="wplc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
+        <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
         <eLabel name="" position="36,196" size="900,800" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
         <eLabel name="" position="1000,196" size="900,800" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
         <widget name="text" position="36,105" size="1862,45" font="Regular;33" backgroundColor="background" foregroundColor="white" transparent="1" zPosition="2"/>

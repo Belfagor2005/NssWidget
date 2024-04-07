@@ -35,7 +35,6 @@
         <color name="#555556" value="#00555556"/>
         <color name="#606060" value="#00606060"/>
         <color name="#808080" value="#00808080"/>
-        <color name="#8293b3" value="#008293b3"/>
         <color name="#90000000" value="#90000000"/>
         <color name="#90ff00ff" value="#90ff00ff"/>
         <color name="#92f1fc" value="#0092f1fc"/>
@@ -60,7 +59,7 @@
         <color name="#fffff4" value="#00fffff4"/>
         <color name="#fffffe" value="#00fffffe"/>
         <color name="babyblue" value="#0089cff0"/>
-        <color name="background" value="#0528343b"/>
+        <color name="background" value="#050c101b"/>
         <color name="background2" value="#55000000"/>
         <color name="background3" value="#80000000"/>
         <color name="background4" value="#10000000"/>
@@ -7470,6 +7469,361 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <widget name="Preview" position="997,690" size="498, 280" zPosition="5"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/aglarelogo.png" transparent="1" alphatest="on"/>
     </screen>
-
-
+    <screen name="VIXMenu" position="fill" flags="wfNoBorder" backgroundColor="background">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button4temp"/>
+        <panel name="pigscreen885"/>
+        <widget source="menu" render="Listbox" position="36,100" size="890,900" zPosition="3" transparent="1" enableWrapAround="1" itemHeight="75" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10">
+            <convert type="TemplatedMultiContent">
+			{"template": [
+MultiContentEntryText(pos = (20,0),size = (800,75),flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER,text = 1),# index 0 is the MenuText,
+				],
+			"fonts": [gFont("Regular",36)],
+			"itemHeight": 75
+			}
+			</convert>
+        </widget>
+        <!-- This is the description of menu list item -->
+        <widget source="menu" render="Listbox" position="997,642" size="510,240" backgroundColor="background" zPosition="3" selectionDisabled="1" transparent="1" foregroundColor="white" scrollbarMode="showNever" itemHeight="240">
+            <convert type="TemplatedMultiContent">
+			{"template": [
+					MultiContentEntryText(pos = (0,0),size = (720,240),flags = RT_HALIGN_LEFT|RT_VALIGN_TOP|RT_WRAP,text = 2),# index 0 is the MenuText,
+				],
+			"fonts": [gFont("Regular",30)],
+			"itemHeight": 240
+			}
+			</convert>
+        </widget>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on"/>
+        
+    </screen>
+    <screen name="VIXBackupManager" position="fill" flags="wfNoBorder" backgroundColor="background">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button6temp"/>
+        <panel name="pigscreen885"/>
+        <widget name="backupstatus" position="36,914" size="890,80" font="Regular;33" zPosition="5" foregroundColor="yellow" transparent="1"/>
+        <widget name="lab1" position="36,100" halign="left" size="890,100" zPosition="1" font="Regular;33" valign="center" foregroundColor="yellow" transparent="1" backgroundColor="background"/>
+        <widget name="list" position="36,220" size="890,675" itemHeight="45" font="Regular;30" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" textOffset="15,4"/>
+        <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+        <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on"/>
+        
+    </screen>
+    <screen name="VIXSoftcamManager" position="fill" flags="wfNoBorder" backgroundColor="background">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button6temp"/>
+        <panel name="pigscreen885"/>
+        <widget name="list" position="60,388" size="850,585" font="Regular;34" valign="center" enableWrapAround="1" transparent="1" itemHeight="45" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
+        <widget name="lab2" position="40,140" size="255,45" font="Regular;34" halign="left" zPosition="2" valign="center" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <widget name="lab1" position="40,330" size="255,40" font="Regular;34" halign="left" zPosition="2" foregroundColor="yellow" backgroundColor="background" transparent="1"/>
+        <widget name="activecam" position="290,140" size="624,45" font="Regular;30" halign="left" zPosition="2" noWrap="1" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <applet type="onLayoutFinish">
+		self["list"].instance.setItemHeight(45)
+</applet>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/camd.png" transparent="1" alphatest="on"/>
+        
+        <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+        <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
+    </screen>
+    <screen name="VIXIPKInstaller" position="fill" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button6temp"/>
+        <panel name="pigscreen885"/>
+        <widget name="list" position="36,160" size="890,810" itemHeight="45" font="Regular;30" zPosition="3" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" textOffset="15,4"/>
+        <widget source="introduction" render="Label" position="36,100" size="890,50" backgroundColor="background" zPosition="1" transparent="1" font="Regular;33" halign="left"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/packet.png" transparent="1" alphatest="on"/>
+        
+    </screen>
+    <screen name="VIXDevicesPanel" position="fill" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button6temp"/>
+        <panel name="pigscreen885"/>
+        <widget source="list" render="Listbox" position="36,98" size="890,720" transparent="1" itemHeight="120" itemCornerRadius="14" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1">
+            <convert type="TemplatedMultiContent">
+				{"template": [
+MultiContentEntryText(pos = (100,7),size = (775,39),font=0,flags = RT_HALIGN_LEFT,text = 0),# index 0 is the name
+MultiContentEntryText(pos = (100,49),size = (775,57),font=1,flags = RT_HALIGN_LEFT,text = 1),# index 1 is the state
+MultiContentEntryPixmapAlphaTest(pos = (22,7),size = (72,72),png = 2),# index 2 is the status pixmap
+					],
+				"fonts": [gFont("Regular",33),gFont("Regular",25)],
+				"itemHeight": 120
+				}
+	</convert>
+        </widget>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <widget name="lab1" zPosition="2" position="36,911" size="890,90" font="Regular; 28" halign="left" transparent="1"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/hdd.png" transparent="1" alphatest="on"/>
+        
+    </screen>
+    <screen name="DeviceMountSetup" position="fill" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button6temp"/>
+        <panel name="pigscreen885"/>
+        <widget name="introduction" conditional="introduction" position="0,0" size="0,0"/>
+        <widget name="description" objectTypes="description,Button,Label" position="997,607" size="885,180" font="Regular; 24" halign="left" valign="top" backgroundColor="background" transparent="1" zPosition="55"/>
+        <widget source="description" render="Label" objectTypes="description,StaticText" position="997,607" size="885,180" font="Regular; 24" halign="left" valign="top" backgroundColor="background" transparent="1" zPosition="55"/>
+        <widget name="config" conditional="config" position="36,100" size="890,810" itemHeight="45" font="Regular;30" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
+        <widget name="list" conditional="list" position="36,100" size="890,810" itemHeight="45" font="Regular;30" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
+        <widget name="lab1" zPosition="2" position="36,911" size="890,90" font="Regular; 28" halign="left" transparent="1"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/hdd.png" transparent="1" alphatest="on"/>
+        
+    </screen>
+    <screen name="VIXSwap" position="fill" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button6temp"/>
+        <panel name="pigscreen885"/>
+        <widget name="autostart_off" position="92,126" zPosition="1" pixmap="icons/lock_off.png" size="48,48" alphatest="on"/>
+        <widget name="autostart_on" position="92,126" zPosition="2" pixmap="icons/lock_on.png" size="48,48" alphatest="on"/>
+        <widget name="lab1" position="195,126" size="700,50" font="Regular;30" valign="center"/>
+        <widget name="lab2" position="70,250" size="225,45" font="Regular;30" valign="center"/>
+        <widget name="labplace" position="300,250" size="330,45" font="Regular;30" valign="center"/>
+        <widget name="lab3" position="70,320" size="225,45" font="Regular;30" valign="center"/>
+        <widget name="labsize" position="300,320" size="330,45" font="Regular;30" valign="center"/>
+        <widget name="lab4" position="70,390" size="225,45" font="Regular;30" valign="center"/>
+        <widget name="inactive" position="300,390" size="150,45" font="Regular;30" valign="center" halign="center" backgroundColor="red"/>
+        <widget name="active" position="300,390" size="150,45" font="Regular;30" valign="center" zPosition="1" halign="center" backgroundColor="green"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/swapp.png" transparent="1" alphatest="on"/>
+        
+    </screen>
+    <screen name="VIXImageManager" position="fill" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button6temp"/>
+        <panel name="pigscreen885"/>
+        <widget name="list" position="36,100" size="890,810" itemHeight="45" font="Regular;30" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" textOffset="15,4"/>
+        <widget name="lab1" position="36,910" halign="left" size="890,80" zPosition="1" font="Regular;33" valign="bottom" foregroundColor="yellow" transparent="1"/>
+        <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/sort.png" transparent="1" alphatest="on"/>
+        
+    </screen>
+    <screen name="VIXScriptRunner" position="fill" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button4temp"/>
+        <panel name="pigscreen885"/>
+        <widget name="list" position="36,160" size="890,810" itemHeight="45" font="Regular;30" zPosition="3" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" textOffset="20,6"/>
+        <widget source="introduction" render="Label" position="36,100" size="890,50" backgroundColor="background" zPosition="1" transparent="1" font="Regular;33" halign="left"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/script.png" transparent="1" alphatest="on"/>
+        
+        <widget source="introduction" render="Label" position="997,948" size="550,50" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" zPosition="5" valign="center"/>
+    </screen>
+    <screen name="LogManagerViewLog" position="fill" flags="wfNoBorder">
+        <panel name="menutemp2"/>
+        <panel name="button6temp"/>
+        <widget name="list" position="36,122" size="1840,855" font="Regular;24" itemHeight="45" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
+    </screen>
+    <screen name="VIXSoftcamLog" position="fill" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button6temp"/>
+        <panel name="pigscreen885"/>
+        <widget name="list" position="36,100" size="890,900" itemHeight="45" font="Regular; 30" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" textOffset="15,4"/>
+    </screen>
+    <screen name="ImageManagerDownload" position="fill" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button6temp"/>
+        <panel name="pigscreen885"/>
+        <widget name="list" position="36,100" size="890,900" itemHeight="60" font="Regular; 30" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
+        <widget name="lab1" position="997,607" size="885,180" font="Regular; 24" halign="left" valign="top" backgroundColor="background" transparent="1" zPosition="55"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/download.png" transparent="1" alphatest="on"/>
+        
+    </screen>
+    <screen name="LogManager" position="fill" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button6temp"/>
+        <panel name="pigscreen885"/>
+        <widget name="list" position="36,100" size="890,810" itemHeight="45" enableWrapAround="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" textOffset="15,4"/>
+        <applet type="onLayoutFinish">
+			self["list"].instance.setItemHeight(45)
+</applet>
+        <widget name="LogsSize" position="36,926" size="890,75" font="Regular;33" halign="left" valign="bottom"/>
+    </screen>
+    <screen name="VIXBackupManagerLogView" position="fill" flags="wfNoBorder">
+        <panel name="menutemp2"/>
+        <widget name="list" position="36,122" size="1840,855" font="Regular;24" itemHeight="45" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
+    </screen>
+    <screen name="MultiQuickButton" position="0,0" size="1920,1080" title="MultiQuickButton Panel" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button2temp"/>
+        <panel name="pigscreen885"/>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <widget name="background" backgroundColor="mcolor2" zPosition="1" position="36,920" size="890,80" font="Regular; 30" halign="left" valign="center"/>
+        <widget name="list" position="36,100" size="890,800" font="Regular;44" itemHeight="45" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
+        <widget name="key_0" backgroundColor="background" zPosition="2" position="1060,650" size="250,52" font="Regular; 28" halign="left" valign="center" transparent="1"/>
+        <widget name="key_1" backgroundColor="background" position="1060,704" zPosition="2" size="250,52" font="Regular; 28" halign="left" valign="center" transparent="1"/>
+        <widget name="key_2" backgroundColor="background" position="1060,758" zPosition="2" size="250,52" font="Regular; 28" halign="left" valign="center" transparent="1"/>
+        <eLabel name="" position="997,650" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 30" zPosition="1" text="0"/>
+        <eLabel name="" position="997,704" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 30" zPosition="1" text="1"/>
+        <eLabel name="" position="997,758" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 30" zPosition="1" text="2"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/remotecontrol.png" transparent="1" alphatest="on"/>
+        
+    </screen>
+    <screen name="QuickButton" position="0,0" size="1920,1080" title="QuickButton" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button2temp"/>
+        <panel name="pigscreen885"/>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <widget name="list" position="36,100" size="890,800" font="Regular;44" itemHeight="45" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
+        <widget name="background" backgroundColor="mcolor2" zPosition="1" position="36,920" size="890,80" font="Regular; 30" halign="left" valign="center"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/remotecontrol.png" transparent="1" alphatest="on"/>
+        
+    </screen>
+    <screen name="BitrateViewerExtra" position="0,0" size="1920,1080" flags="wfNoBorder" backgroundColor="transparent">
+        <eLabel position="1547,130" size="80,38" text="Audio" font="Regular; 25" transparent="1" backgroundColor="white" halign="center" valign="center"/>
+        <eLabel position="1539,64" size="80,26" text="current" font="Regular; 23" transparent="0" foregroundColor="white" halign="center" valign="center"/>
+        <widget name="vcur" position="1539,95" size="80,25" font="Regular; 24" halign="center" valign="center" transparent="0"/>
+        <widget name="cancel" position="703,1125" size="140,40" valign="center" halign="center" zPosition="1" font="Regular;20" transparent="1" backgroundColor="red"/>
+        <eLabel name="" position="1535,24" size="365,38" zPosition="-10" backgroundColor="igsd" foregroundColor="igsd"/>
+        <eLabel name="" position="1535,130" size="365,38" zPosition="-10" backgroundColor="igsd" foregroundColor="igsd"/>
+        <eLabel name="" position="1535,62" size="365,65" zPosition="-10"/>
+        <eLabel name="" position="1535,168" size="365,65" zPosition="-10"/>
+        <eLabel position="1547,24" size="80,38" text="Video" font="Regular; 25" transparent="1" backgroundColor="white" halign="center" valign="center"/>
+        <eLabel position="1539,170" size="80,26" text="current" font="Regular; 23" transparent="0" foregroundColor="white" halign="center" valign="center"/>
+        <widget name="acur" position="1539,201" size="80,25" font="Regular; 24" halign="center" valign="center" transparent="0"/>
+    </screen>
+    <screen name="OpenBhImageManager" position="0,0" size="1920,1080" title="ImageManager" flags="wfNoBorder" backgroundColor="background">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button2temp"/>
+        <panel name="pigscreen885"/>
+        <widget name="list" position="36,100" size="890,675" font="Regular;30" itemHeight="45" enableWrapAround="1" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" textOffset="15,7"/>
+        <widget name="lab1" position="36,810" size="890,35" font="Regular;30" halign="left" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <widget name="backupstatus" position="36,858" size="890,35" font="Regular;30" halign="left" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <widget name="description" position="36,900" size="890,100" font="Regular;28" halign="left" foregroundColor="white" backgroundColor="background" transparent="1" valign="bottom"/>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on"/>
+        
+    </screen>
+    <screen name="OpenBhBackupManager" position="0,0" size="1920,1080" title="Backup Manager" flags="wfNoBorder" backgroundColor="background">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button2temp"/>
+        <panel name="pigscreen885"/>
+        <widget name="list" position="36,100" size="890,675" font="Regular;30" itemHeight="45" enableWrapAround="1" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" textOffset="15,7"/>
+        <widget name="lab1" position="36,810" size="890,35" font="Regular;30" halign="left" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <widget name="backupstatus" position="36,858" size="890,35" font="Regular;30" halign="left" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <widget name="description" position="36,900" size="890,100" font="Regular;28" halign="left" foregroundColor="white" backgroundColor="background" transparent="1" valign="bottom"/>
+        <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+        <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on"/>
+    </screen>
+    <screen name="OpenBhBackupManagerLogView" position="0,00" size="1920,1080" title="LogView" backgroundColor="background" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="pigscreen885"/>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <widget name="list" position="36,100" size="890,900" font="Regular;30" itemHeight="45" valign="center" enableWrapAround="1" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
+        <eLabel name="" position="1660,826" size="180,180" font="FA; 100" text="" halign="center" zPosition="99" transparent="1"/>
+    </screen>
+    <screen name="CrossEPG_Setup" position="0,0" size="1920,1080" title="CrossEPG Setup" backgroundColor="background" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button2temp"/>
+        <panel name="pigscreen885"/>
+        <widget name="information" position="997,607" size="885,180" font="Regular; 24" halign="left" valign="top" backgroundColor="background" transparent="1" zPosition="55"/>
+        <widget name="config" position="36,100" size="890,900" font="Regular;28" itemHeight="45" enableWrapAround="1" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
+        <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on"/>
+    </screen>
+    <screen name="CrossEPG_Menu" position="0,0" size="1920,1080" title="CrossEPG" backgroundColor="background" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="pigscreen885"/>
+        <widget source="list" render="Listbox" enableWrapAround="1" position="36,100" size="890,900" zPosition="1" transparent="1" itemHeight="50" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10">
+            <convert type="TemplatedMultiContent">
+{"template":
+[ MultiContentEntryPixmapAlphaTest(pos = (15, 7), size = (40, 40), png = 0),
+MultiContentEntryText(pos = (70,0), size = (810,50), flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 1),
+],
+"fonts": [gFont("Regular",30)],
+"itemHeight":50
+}
+</convert>
+        </widget>
+        <widget name="key_red" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
+        <widget name="key_green" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
+        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on"/>
+    </screen>
+    <screen name="CrossEPG_Providers" position="0,0" size="1920,1080" title="CrossEPG Providers" backgroundColor="background" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button2temp"/>
+        <panel name="pigscreen885"/>
+        <widget source="list" render="Listbox" position="36,100" size="890,900" zPosition="1" enableWrapAround="1" transparent="1" itemHeight="50" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10">
+            <convert type="TemplatedMultiContent">
+{"template": [ MultiContentEntryText(pos = (10, 0), size = (740, 50), font=0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 0),
+MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
+],
+"fonts": [gFont("Regular", 30)],
+"itemHeight": 50
+}
+</convert>
+        </widget>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on"/>
+    </screen>
+    <screen name="CrossEPG_Ordering" position="0,0" size="1920,1080" title="CrossEPG-Ordering" backgroundColor="background" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button2temp"/>
+        <panel name="pigscreen885"/>
+        <widget source="list" render="Listbox" position="36,100" size="890,900" zPosition="1" enableWrapAround="1" transparent="1" itemHeight="50" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10">
+            <convert type="TemplatedMultiContent">
+{"template": [ MultiContentEntryText(pos = (10, 0), size = (740, 50), font=0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 0),
+MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
+],
+"fonts": [gFont("Regular", 30)],
+"itemHeight": 50
+}
+</convert>
+        </widget>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on"/>
+    </screen>
+    <screen name="CrossEPG_Info" position="0,0" size="1920,1080" title="CrossEPG" backgroundColor="background" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button2temp"/>
+        <panel name="pigscreen885"/>
+        <widget name="version" position="36,230" size="890,35" font="Regular;28" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <widget name="create" position="36,270" size="890,35" font="Regular;28" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <widget name="last_update" position="36,310" size="890,35" font="Regular;28" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <widget name="headersdb_size" position="36,350" size="890,35" font="Regular;28" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <widget name="descriptorsdb_size" position="36,390" size="890,35" font="Regular;28" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <widget name="indexesdb_size" position="36,430" size="890,35" font="Regular;28" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <widget name="aliasesdb_size" position="36,470" size="890,35" font="Regular;28" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <widget name="total_size" position="36,510" size="890,35" font="Regular;28" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <widget name="channels_count" position="36,550" size="890,35" font="Regular;28" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <widget name="events_count" position="36,590" size="890,35" font="Regular;28" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <widget name="hashes_count" position="36,630" size="890,35" font="Regular;28" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <eLabel name="" position="1660,826" size="180,180" font="FA; 100" text="" halign="center" zPosition="99" transparent="1"/>
+        
+    </screen>
+    <screen name="CrossEPG_About" position="0,0" size="1920,1080" title="CrossEPG-About" backgroundColor="transparent" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button2temp"/>
+        <panel name="pigscreen885"/>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <widget name="about" position="36,100" size="890,900" font="Regular;28" transparent="1"/>
+        <widget name="rytec_pix" position="997,810" size="100,100" zPosition="2" alphatest="blend"/>
+        <widget name="krkadoni_pix" position="997,924" size="100,50" zPosition="2" alphatest="blend"/>
+        <eLabel name="" position="1660,826" size="180,180" font="FA; 100" text="" halign="center" zPosition="99" transparent="1"/>
+        
+    </screen>
 </skin>
