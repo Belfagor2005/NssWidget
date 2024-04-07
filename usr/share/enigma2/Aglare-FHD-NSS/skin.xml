@@ -2340,7 +2340,7 @@
             </convert>
         </widget>
         <widget name="config" position="36,552" size="1140,400" itemHeight="50" font="Regular;32" valign="center" zPosition="14" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="1" itemCornerRadius="8" textOffset="15,4" />
-        <widget name="languagetext" position="31,1016" size="300,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white" />
+        <widget name="languagetext" position="32,1016" size="300,45" zPosition="11" font="Regular; 32" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
         <widget name="wizard" pixmap="skin_default/wizard.png" position="250,230" zPosition="10" size="240,240" alphatest="blend" transparent="1" />
         <widget name="rc" pixmaps="skin_default/rc.png,skin_default/rcold.png" position="1497,114" zPosition="10" size="124,500" alphatest="on" transparent="1" font="Regular; 24" />
         <widget name="arrowdown" pixmap="skin_default/arrowdown.png" position="-100,-100" zPosition="11" size="56,105" alphatest="on" />
@@ -2434,7 +2434,7 @@
         <widget name="arrowup" position="-100,-100" size="56,105" pixmap="skin_default/arrowup.png" zPosition="11" alphatest="blend" />
         <widget name="arrowup2" position="-100,-100" size="56,105" pixmap="skin_default/arrowup.png" zPosition="11" alphatest="blend" />
         <widget name="wizard" pixmap="skin_default/wizard.png" position="250,230" zPosition="10" size="240,240" alphatest="blend" transparent="1" />
-        <widget name="languagetext" position="32,1016" size="300,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white" />
+        <widget name="languagetext" position="32,1016" size="300,45" zPosition="11" font="Regular; 32" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
         <widget name="text" position="1218,640" size="651,305" font="Regular; 32" transparent="1" backgroundColor="background" valign="top" />
         <widget source="list" render="Listbox" position="36,552" size="1140,400" transparent="1" itemHeight="50">
             <convert type="TemplatedMultiContent">
@@ -2462,7 +2462,8 @@
         <widget name="arrowup2" position="-100,-100" size="56,105" pixmap="skin_default/arrowup.png" zPosition="11" alphatest="blend"/>
         <widget name="wizard" pixmap="skin_default/wizard.png" position="250,230" zPosition="10" size="240,240" alphatest="blend" transparent="1"/>
         <widget name="text" position="1218,640" size="651,305" font="Regular; 32" transparent="1" backgroundColor="background" valign="top" />
-        <widget source="languages" render="Listbox" position="36,552" size="1140,400" zPosition="13" transparent="1" itemHeight="100">
+        <widget name="languagetext" position="32,1016" size="300,45" zPosition="11" font="Regular; 32" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+        <widget source="list" render="Listbox" position="36,552" size="1140,400" transparent="1" itemHeight="50">
             <convert type="TemplatedMultiContent">
 				{"template": [
 				MultiContentEntryText(pos = (150, 0), size = (800, 90), font = 0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 1), # index 1 is the language name,
@@ -2491,7 +2492,7 @@
         <widget name="arrowup" position="-100,-100" size="56,105" pixmap="skin_default/arrowup.png" zPosition="11" alphatest="blend" />
         <widget name="arrowup2" position="-100,-100" size="56,105" pixmap="skin_default/arrowup.png" zPosition="11" alphatest="blend" />
         <widget name="wizard" pixmap="skin_default/wizard.png" position="250,230" zPosition="10" size="240,240" alphatest="blend" transparent="1" />
-        <widget name="languagetext" position="33,1016" size="300,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white" />
+        <widget name="languagetext" position="32,1016" size="300,45" zPosition="11" font="Regular; 32" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
         <widget name="text" position="1218,640" size="651,305" font="Regular; 32" transparent="1" backgroundColor="background" valign="top" />
         <widget source="list" render="Listbox" position="36,552" size="1140,400" transparent="1" itemHeight="50">
             <convert type="TemplatedMultiContent">
@@ -5985,8 +5986,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         </widget>
         <widget name="config" position="36,552" size="1140,400" itemHeight="50" font="Regular;32" valign="center" zPosition="14" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="1" itemCornerRadius="8" textOffset="15,4" />
         <eLabel backgroundColor="#fe0000" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11" />
-        <widget name="languagetext" position="32,1016" size="300,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white" />
-        
+        <widget name="languagetext" position="32,1016" size="300,45" zPosition="11" font="Regular; 32" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
         <widget name="wizard" pixmap="skin_default/wizard.png" position="250,230" zPosition="10" size="240,240" alphatest="blend" transparent="1" />
         <eLabel name="" position="1758,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP" />
         <eLabel name="" position="1704,1018" size="52,52" backgroundGradient="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK" />
@@ -6104,7 +6104,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <panel name="bLogo" />
         <widget name="rc" pixmaps="skin_default/rc.png,skin_default/rcold.png" position="1497,114" zPosition="10" size="124,500" alphatest="on" transparent="1" font="Regular; 24" />
         <widget name="wizard" pixmap="skin_default/wizard.png" position="250,230" zPosition="10" size="240,240" alphatest="blend" transparent="1" />
-        <widget name="languagetext" position="32,1016" size="300,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white" />
+        <widget name="languagetext" position="32,1016" size="300,45" zPosition="11" font="Regular; 32" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
         <widget name="text" position="1218,640" size="651,305" font="Regular; 32" transparent="1" backgroundColor="background" valign="top" />
         <widget source="list" render="Listbox" position="36,552" size="1140,400" transparent="1" itemHeight="50" itemCornerRadius="8">
             <convert type="TemplatedMultiContent">
