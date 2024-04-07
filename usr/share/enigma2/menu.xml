@@ -16,7 +16,7 @@
     <!-- Menu /  by lululla-->
     <menu weight="0" level="0" text="Menu NSS" entryID="MenuNss">
         <id val="NssMenu"/>
-		<!-- <screen module="MenuNss"/>						   -->
+        <!-- <screen module="MenuNss"/>						   -->
         <item weight="0" level="0" text="Addon Manager" entryID="NSSAddon">
             <code>
 from Plugins.Extensions.nssaddon.plugin import HomeNss
@@ -34,8 +34,7 @@ self.session.open(Manager)
 
 </code>
         </item>
-            
-<!--
+        <!--
         <item weight="12" level="0" text="CCcamInfo" entryID="CCcamInfo">
             <code>
 from Screens.CCcamInfo import CCcamInfo
@@ -65,11 +64,8 @@ self.session.open(AglareSetup)
 from Plugins.Extensions.nssaddon.CamEx import *
 self.session.open(NSSCamsManager)
 -->
-</code>
-        </item>        
-        
-        
-        
+            </code>
+        </item>
         <!--
         <item weight="14" level="0" text="NSS oZeta Skin Setup" entryID="NssZeta">
             <code>
@@ -226,6 +222,32 @@ def msgClosed(ret):
 		from os import system, _exit
 		system("rm -R /etc/enigma2")
 		_exit(0)
+                                                    
+              
+            
+                                                                  
+            
+                                             
+                   
+        
+                              
+                                    
+                 
+                                                    
+              
+            
+                                                                      
+            
+                                               
+                   
+        
+           
+                                      
+                                                         
+                                                 
+                              
+                                    
+                     
 self.session.openWithCallback(msgClosed, FactoryReset)
 </code>
         </item>
