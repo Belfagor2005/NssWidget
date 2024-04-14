@@ -3549,6 +3549,24 @@ self.instance.move(ePoint(int(deskwidth - newwidth)//2,int(deskheight - newheigh
         <widget name="active" position="250,250" size="660,40" font="Regular; 30" valign="center" halign="center" backgroundColor="green"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/swapp.png" transparent="1" alphatest="on"/>
     </screen>
+    <screen name="Swap" position="fill" title="Swapp Manager" backgroundColor="transparent" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button1temp"/>
+        <panel name="pigscreen885"/>
+        <panel name="bLogo"/>
+        <widget name="autostart_off" pixmap="icons/lock_off.png" position="50,320" size="36,36" font="Regular;30" zPosition="20" alphatest="blend"/>
+        <widget name="autostart_on" pixmap="icons/lock_on.png" position="50,320" size="36,36" font="Regular;30" zPosition="20" alphatest="blend"/>
+        <widget name="lab1" position="112,320" size="800,40" font="Regular; 34" valign="top" backgroundColor="background" transparent="1"/>
+        <widget name="lab2" position="50,150" size="200,40" font="Regular;30" valign="center" backgroundColor="background" transparent="1"/>
+        <widget name="labplace" position="250,150" size="660,40" font="Regular;30" valign="center" backgroundColor="background" transparent="1"/>
+        <widget name="lab3" position="50,200" size="200,40" font="Regular;30" valign="center" backgroundColor="background" transparent="1"/>
+        <widget name="labsize" position="250,200" size="660,40" font="Regular;30" valign="center" backgroundColor="background" transparent="1"/>
+        <widget name="lab4" position="50,250" size="200,40" font="Regular;30" valign="center" backgroundColor="background" transparent="1"/>
+        <widget name="inactive" position="250,250" size="660,40" font="Regular; 30" valign="center" halign="center" backgroundColor="red"/>
+        <widget name="active" position="250,250" size="660,40" font="Regular; 30" valign="center" halign="center" backgroundColor="green"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/swapp.png" transparent="1" alphatest="on"/>
+    </screen>
     <screen name="KeyAdderUpdate" position="0, 0" flags="wfNoBorder" transparent="0" backgroundColor="transparent" size="1920, 1080" title="KeyAdderUpdate">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
