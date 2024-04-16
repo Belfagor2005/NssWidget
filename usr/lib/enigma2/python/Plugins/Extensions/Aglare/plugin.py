@@ -44,6 +44,7 @@ config.plugins.AglareNss.SecondInfobarStyle = ConfigSelection(default='secondinf
  ('secondinfobar_posters', _('SecondInfobar_Posters'))])
 config.plugins.AglareNss.ChannSelector = ConfigSelection(default='channellist_no_posters', choices=[
  ('channellist_no_posters', _('ChannelSelection_NO_Posters')),
+ ('channellist_np_full', _('ChannelSelection_NO_Posters_Full')),  
  ('channellist_1_poster', _('ChannelSelection_1_Poster')),
  ('channellist_4_posters', _('ChannelSelection_4_Posters')),
  ('channellist_big_mini_tv', _('ChannelSelection_big_mini_tv'))])
