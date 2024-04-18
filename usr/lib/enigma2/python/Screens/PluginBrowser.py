@@ -851,14 +851,14 @@ class PluginBrowserNew(Screen):
         self["list"] = PluginList(self.list)
         self["pages"] = Label()
         self["plugin_description"] = Label()
-        # self["key_red"] = self["red"] = Label(_("Remove plugins"))
-        # self["key_green"] = self["green"] = Label(_("Download plugins"))
+        self["key_red"] = self["red"] = Label(_("Remove plugins"))
+        self["key_green"] = self["green"] = Label(_("Download plugins"))
 
         self["PluginDownloadActions"] = ActionMap(["ColorActions", "SetupActions", "DirectionActions", "MenuActions"],
         {
             "red": self.delete,
-            # "green": self.download,
-            "yellow": self.download,
+            "green": self.download,
+            # "yellow": self.download,
             "cancel": self.exit,
             "right": self.keyRight,
             "left": self.keyLeft,
