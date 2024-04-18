@@ -209,6 +209,7 @@ class AglarePosterXDownloadThread(threading.Thread):
         try:
             year = None
             url_maze = ""
+            url_poster = None
             id = "-"
             chkType, fd = self.checkType(shortdesc, fulldesc)
             try:

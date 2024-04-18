@@ -323,13 +323,13 @@ class BackdropDB(AglareBackdropXDownloadThread):
                 dwn_backdrop = path_folder + '/' + self.pstcanal + ".jpg"
                 if os.path.exists(dwn_backdrop):
                     os.utime(dwn_backdrop, (time.time(), time.time()))
-                # if lng == "fr":
-                    # if not os.path.exists(dwn_backdrop):
-                        # val, log = self.search_molotov_google(dwn_backdrop, canal[5], canal[4], canal[3], canal[0])
-                        # self.logDB(log)
-                    # if not os.path.exists(dwn_backdrop):
-                        # val, log = self.search_programmetv_google(dwn_backdrop, canal[5], canal[4], canal[3], canal[0])
-                        # self.logDB(log)
+                if lng == "fr":
+                    if not os.path.exists(dwn_backdrop):
+                        val, log = self.search_molotov_google(dwn_backdrop, canal[5], canal[4], canal[3], canal[0])
+                        self.logDB(log)
+                    if not os.path.exists(dwn_backdrop):
+                        val, log = self.search_programmetv_google(dwn_backdrop, canal[5], canal[4], canal[3], canal[0])
+                        self.logDB(log)
                 if not os.path.exists(dwn_backdrop):
                     val, log = self.search_tmdb(dwn_backdrop, self.pstcanal, canal[4], canal[3])
                     self.logDB(log)
