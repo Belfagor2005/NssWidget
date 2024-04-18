@@ -5,6 +5,8 @@ NssWidget
 
 <img src="https://raw.githubusercontent.com/Belfagor2005/NssWidget/main/screen/prev.jpg">
 
+<img src="https://raw.githubusercontent.com/Belfagor2005/NssWidget/main/screen/infobar.jpg">
+
 <img src="https://raw.githubusercontent.com/Belfagor2005/NssWidget/main/screen/screenshot1.jpg">
 
 <img src="https://raw.githubusercontent.com/Belfagor2005/NssWidget/main/screen/screenshot2.jpg">
