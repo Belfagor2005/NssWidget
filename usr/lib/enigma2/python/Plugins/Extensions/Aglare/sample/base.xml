@@ -2628,11 +2628,11 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
         <panel name="bLogo"/>
     </screen>
     <screen name="QuitMainloopScreen" position="0,0" size="1920,1080" backgroundColor="background" flags="wfNoBorder">
-        <ePixmap pixmap="Aglare-FHD-NSS/image_logo/nss/bboot.jpg" position="0,0" size="1920,1080" scale="1" alphatest="blend"/>
-        <ePixmap pixmap="Aglare-FHD-NSS/image_logo/nss/bannerupload.png" position="627,956" size="765,125" scale="1" alphatest="blend" zPosition="3"/>
-        <widget name="text" position="78,12" size="1770,80" font="Regular; 60" halign="center" backgroundColor="transparent" foregroundColor="gold" zPosition="3"/>
-        <eLabel name="" position="1498,1000" size="400,80" backgroundColor="background" text="Designed by MNASR" transparent="1" halign="center" foregroundColor="yellow" font="Regular; 34"/>
-        <eLabel name="" position="24,1000" size="400,80" backgroundColor="background" text="Edit by LULULLA" transparent="1" halign="center" foregroundColor="yellow" font="Regular; 34"/>
+        <ePixmap pixmap="Aglare-FHD-NSS/image_logo/nss/bboot.jpg" position="0,0" size="1920,1080" scale="1" alphatest="blend" />
+        <!-- <ePixmap pixmap="Aglare-FHD-NSS/image_logo/nss/bannerupload.png" position="627,956" size="765,125" scale="1" alphatest="blend" zPosition="3"/> -->
+        <widget name="text" position="78,12" size="1770,80" font="Regular; 50" halign="center" backgroundColor="transparent" foregroundColor="gold" zPosition="3" />
+        <!-- <eLabel name="" position="1450,94" size="400,80" backgroundColor="background" text="Designed by MNASR" transparent="1" halign="center" foregroundColor="yellow" font="Regular; 34" /> -->
+        <eLabel name="" position="7,1028" size="400,50" backgroundColor="background" text="Edit by LULULLA" transparent="1" halign="center" foregroundColor="yellow" font="Regular; 34" />
     </screen>
     <screen name="Screensaver" title="ScreenSaver" position="fill" flags="wfNoBorder" backgroundColor="transparent">
         <eLabel position="0,0" backgroundColor="background" zPosition="0"/>
