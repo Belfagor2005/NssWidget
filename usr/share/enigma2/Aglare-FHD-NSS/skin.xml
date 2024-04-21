@@ -319,10 +319,10 @@
         <widget source="session.Event_Next" render="Label" position="180,436" size="750,40" font="Regular; 32" halign="left" valign="center" transparent="1" backgroundColor="background" noWrap="1" zPosition="2">
             <convert type="EventName">Name</convert>
         </widget>
-        <widget source="session.Event_Now" render="AglareRunningText" options="movetype=running,startpoint=0,direction=top,steptime=100,startdelay=4000,wrap,always=0" position="40,178" size="1837,224" halign="left" font="Regular; 30" transparent="1" backgroundColor="background" valign="top" zPosition="1" foregroundColor="white">
+        <widget source="session.Event_Now" render="AglareRunningText" options="movetype=running,startpoint=0,direction=top,steptime=100,startdelay=4000,wrap,always=0" position="40,178" size="1837,224" halign="left" font="Regular; 34" transparent="1" backgroundColor="background" valign="top" zPosition="1" foregroundColor="white">
             <convert type="EventName">ExtendedDescription</convert>
         </widget>
-        <widget source="session.Event_Next" render="AglareRunningText" options="movetype=running,startpoint=0,direction=top,steptime=100,startdelay=4000,wrap,always=0" position="40,494" size="1837,224" halign="left" font="Regular; 30" transparent="1" backgroundColor="background" valign="top" zPosition="1" foregroundColor="white">
+        <widget source="session.Event_Next" render="AglareRunningText" options="movetype=running,startpoint=0,direction=top,steptime=100,startdelay=4000,wrap,always=0" position="40,494" size="1837,224" halign="left" font="Regular; 34" transparent="1" backgroundColor="background" valign="top" zPosition="1" foregroundColor="white">
             <convert type="EventName">ExtendedDescription</convert>
         </widget>
         <widget source="session.Event_Now" render="Label" position="934,120" size="400,40" halign="center" font="Regular; 26" transparent="1" backgroundColor="background" valign="center" zPosition="1" noWrap="1">
