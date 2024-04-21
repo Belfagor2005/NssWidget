@@ -25,7 +25,7 @@
             <convert type="EventName">ExtendedDescription</convert>
         </widget>
         <!-- /* separate -->
-        <widget name="epg_description" position="350,90" size="920,450" zPosition="1" font="Regular; 30" backgroundColor="background" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" valign="top" halign="center"/>
+        <widget name="epg_description" position="350,90" size="920,450" render="AglareRunningText" options="movetype=running,startpoint=0,direction=top,steptime=100,startdelay=4000,wrap,always=0" zPosition="1" font="Regular; 30" backgroundColor="background" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" valign="top" halign="center"/>
         <widget source="session.Event_Next" render="Label" position="32,551" size="494,38" halign="left" font="Regular; 26" backgroundColor="background" transparent="1" valign="center" noWrap="1" foregroundColor="white2">
             <convert type="EventName">Name</convert>
         </widget>
