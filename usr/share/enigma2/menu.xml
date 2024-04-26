@@ -34,6 +34,17 @@ self.session.open(Manager)
 
 </code>
         </item>
+        
+        <item weight="10" level="0" text="NSS Vavoo Stream Live" entryID="vavoo">
+            <code>
+from Screens.vavoo import MainVavoo
+self.session.open(MainVavoo)  
+
+</code>
+        </item>        
+        
+        
+        
         <!--
         <item weight="12" level="0" text="CCcamInfo" entryID="CCcamInfo">
             <code>
