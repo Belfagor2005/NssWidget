@@ -17,7 +17,7 @@
     <menu weight="0" level="0" text="Menu NSS" entryID="MenuNss">
         <id val="NssMenu"/>
         <!-- <screen module="MenuNss"/>						   -->
-        <item weight="0" level="0" text="NSS Addon Manager" entryID="NSSAddon">
+        <item weight="0" level="0" text="NSS Addon Panel" entryID="NSSAddon">
             <code>
 from Plugins.Extensions.nssaddon.plugin import HomeNss
 self.session.open(HomeNss)

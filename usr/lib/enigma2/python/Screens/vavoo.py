@@ -18,31 +18,22 @@ from Components.MultiContent import MultiContentEntryPixmapAlphaTest
 from Components.MultiContent import MultiContentEntryText
 from Components.ServiceEventTracker import ServiceEventTracker, InfoBarBase
 from Components.config import config
-from Plugins.Plugin import PluginDescriptor
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
-from Screens.Standby import Standby
-from Screens.InfoBarGenerics import InfoBarShowHide, InfoBarSubtitleSupport, InfoBarSummarySupport, \
-    InfoBarNumberZap, InfoBarMenu, InfoBarEPG, InfoBarSeek, InfoBarMoviePlayerSummarySupport, \
-    InfoBarAudioSelection, InfoBarNotifications, InfoBarServiceNotifications
+from Screens.InfoBarGenerics import InfoBarSubtitleSupport, \
+    InfoBarMenu, InfoBarSeek, InfoBarAudioSelection, InfoBarNotifications
 from Tools.Directories import SCOPE_PLUGINS
 try:
     from Tools.Directories import SCOPE_GUISKIN as SCOPE_SKIN
 except ImportError:
     from Tools.Directories import SCOPE_SKIN
 from Tools.Directories import resolveFilename
-# from Tools.Downloader import downloadWithProgress
-# from Tools.LoadPixmap import LoadPixmap
-# from Tools.Notifications import AddPopup
 from enigma import RT_VALIGN_CENTER
 from enigma import RT_HALIGN_LEFT
-from enigma import eListboxPythonMultiContent, eConsoleAppContainer
-from enigma import eServiceCenter
-# from enigma import ePicLoad
+from enigma import eListboxPythonMultiContent
 from enigma import eServiceReference
 from enigma import eTimer
 from enigma import gFont
-# from enigma import getDesktop
 from enigma import iPlayableService
 from enigma import iServiceInformation
 from enigma import loadPNG
@@ -56,13 +47,9 @@ import ssl
 import sys
 from six import unichr, iteritems  # ensure_str
 from six.moves import html_entities
-# import functools
-# import itertools
-# import operator
 import types
 PY2 = sys.version_info[0] == 2
 PY3 = sys.version_info[0] == 3
-
 
 if PY3:
     bytes = bytes
@@ -105,7 +92,12 @@ else:
             MAXSIZE = int((1 << 63) - 1)
         del X
 
-
+currversion = '1.0'
+title_plug = 'Vavoo '
+desc_plugin = ('..:: Vavoo by Lululla %s ::.. ' % currversion)
+stripurl = 'aHR0cHM6Ly92YXZvby50by9jaGFubmVscw=='
+searchurl = 'aHR0cHM6Ly90aXZ1c3RyZWFtLndlYnNpdGUvcGhwX2ZpbHRlci9rb2RpMTkva29kaTE5LnBocD9tb2RlPW1vdmllJnF1ZXJ5PQ=='
+_session = None
 _UNICODE_MAP = {k: unichr(v) for k, v in iteritems(html_entities.name2codepoint)}
 _ESCAPE_RE = re.compile("[&<>\"']")
 _UNESCAPE_RE = re.compile(r"&\s*(#?)(\w+?)\s*;")  # Whitespace handling added due to "hand-assed" parsers of html pages
@@ -207,17 +199,6 @@ else:
             link = response.read()
             response.close()
         return link
-
-
-currversion = '1.0'
-title_plug = 'Vavoo '
-desc_plugin = ('..:: Vavoo by Lululla %s ::.. ' % currversion)
-# PLUGIN_PATH = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('vavoo'))
-stripurl = 'aHR0cHM6Ly92YXZvby50by9jaGFubmVscw=='
-searchurl = 'aHR0cHM6Ly90aXZ1c3RyZWFtLndlYnNpdGUvcGhwX2ZpbHRlci9rb2RpMTkva29kaTE5LnBocD9tb2RlPW1vdmllJnF1ZXJ5PQ=='
-_session = None
-
-# skin_path = os.path.join(PLUGIN_PATH, 'skin/skin_pli/defaultListScreen_new.xml')
 
 
 def b64decoder(s):
@@ -329,7 +310,6 @@ Panel_list = [
     ('Spain'),
     ('Turkey'),
     ('United Kingdom'),
-    # ('SEARCH'),
     ]
 
 
@@ -337,20 +317,18 @@ class MainVavoo(Screen):
     def __init__(self, session):
         self.session = session
         Screen.__init__(self, session)
-        # with open(skin_path, 'r') as f:
-            # self.skin = f.read()
         self.menulist = []
         self['menulist'] = m2list([])
         self['red'] = Label(_('Exit'))
         # self['green'] = Label(_('Export'))
-        self['title'] = Label(title_plug)
+        self['Title'] = Label(title_plug)
         self['name'] = Label('')
         self['text'] = Label('Vavoo Stream Live by Lululla')
-        # self['poster'] = Pixmap()
         self.currentList = 'menulist'
         self.loading_ok = False
         self.count = 0
         self.loading = 0
+        self.url = b64decoder(stripurl)
         self['actions'] = ActionMap(['OkCancelActions',
                                      'ColorActions',
                                      'DirectionActions',
@@ -362,35 +340,38 @@ class MainVavoo(Screen):
                                                                 'green': self.ok,
                                                                 'cancel': self.close,
                                                                 'red': self.close}, -1)
-        self.onLayoutFinish.append(self.updateMenuList)
+        # self.onLayoutFinish.append(self.updateMenuList)
+        self.timer = eTimer()
+        self.timer.callback.append(self.cat)
+        self.timer.start(500, True)
 
-    def updateMenuList(self):
-        self.menu_list = []
-        for x in self.menu_list:
-            del self.menu_list[0]
-        list = []
-        idx = 0
-        for x in Panel_list:
-            list.append(rvoneListEntry(x))
-            self.menu_list.append(x)
-            idx += 1
-        self['menulist'].setList(list)
-        auswahl = self['menulist'].getCurrent()[0]
-        self['name'].setText(str(auswahl))
+    # def updateMenuList(self):
+        # self.menu_list = []
+        # for x in self.menu_list:
+            # del self.menu_list[0]
+        # list = []
+        # idx = 0
+        # for x in Panel_list:
+            # list.append(rvoneListEntry(x))
+            # self.menu_list.append(x)
+            # idx += 1
+        # self['menulist'].setList(list)
+        # auswahl = self['menulist'].getCurrent()[0]
+        # self['name'].setText(str(auswahl))
 
-    def ok(self):
-        self.keyNumberGlobalCB(self['menulist'].getSelectedIndex())
+    # def ok(self):
+        # self.keyNumberGlobalCB(self['menulist'].getSelectedIndex())
 
-    def keyNumberGlobalCB(self, idx):
-        global namex
-        namex = ''
-        sel = self.menu_list[idx]
-        if sel:
-            namex = sel
-            lnk = b64decoder(stripurl)
-            self.session.open(vavoo, namex, lnk)
-        else:
-            return
+    # def keyNumberGlobalCB(self, idx):
+        # global namex
+        # namex = ''
+        # sel = self.menu_list[idx]
+        # if sel:
+            # namex = sel
+            # lnk = b64decoder(stripurl)
+            # self.session.open(vavoo, namex, lnk)
+        # else:
+            # return
 
     def up(self):
         self[self.currentList].up()
@@ -412,6 +393,71 @@ class MainVavoo(Screen):
         auswahl = self['menulist'].getCurrent()[0]
         self['name'].setText(str(auswahl))
 
+    def cat(self):
+        self.cat_list = []
+        items = []
+        self.items_tmp = []
+        name = ''
+        country = ''
+        try:
+            content = getUrl(self.url)
+            if six.PY3:
+                content = six.ensure_str(content)
+            # print('content: ', content)
+            # "country": "Balkans", "id": 1572002411, "name": "RTS 1 (7)", "p": 0
+            regexcat = '"country".*?"(.*?)".*?"id".*?"name".*?".*?"'
+            match = re.compile(regexcat, re.DOTALL).findall(content)
+            for country in match:
+                if country not in self.items_tmp:
+                    # print(country + ' I\n')
+                    self.items_tmp.append(country)
+                    item = country + "###" + self.url + '\n'
+                    items.append(item)
+            # print('self.items_tmp:', self.items_tmp)
+            items.sort()
+            for item in items:
+                name = item.split('###')[0]
+                url = item.split('###')[1]
+                if name not in self.cat_list:
+                    # print('country III =', name)
+                    self.cat_list.append(show_(name, url))
+            if len(self.cat_list) < 0:
+                return
+            else:
+                self['menulist'].l.setList(self.cat_list)
+                self['menulist'].moveToIndex(0)
+                auswahl = self['menulist'].getCurrent()[0][0]
+                self['name'].setText(str(auswahl))
+        except Exception as e:
+            print(e)
+
+    def ok(self):
+        name = self['menulist'].getCurrent()[0][0]
+        url = self['menulist'].getCurrent()[0][1]
+        try:
+            # self.play_that_shit(url, name)
+            self.session.open(vavoo, name, url)
+        except Exception as e:
+            print(e)
+
+    # def play_that_shit(self, url, name):
+        # self.session.open(Playstream2, name, url)
+
+
+    # def ok(self):
+        # self.keyNumberGlobalCB(self['menulist'].getSelectedIndex())
+
+    # def keyNumberGlobalCB(self, idx):
+        # global namex
+        # namex = ''
+        # sel = self.currentList[idx]
+        # if sel:
+            # namex = sel
+            # lnk = b64decoder(stripurl)
+            # self.session.open(vavoo, namex, lnk)
+        # else:
+            # return
+
     def exit(self):
         self.close()
 
@@ -420,13 +466,11 @@ class vavoo(Screen):
     def __init__(self, session, name, url):
         self.session = session
         Screen.__init__(self, session)
-        # with open(skin_path, 'r') as f:
-            # self.skin = f.read()
         self.menulist = []
         self['menulist'] = m2list([])
         self['red'] = Label(_('Back'))
         # self['green'] = Label(_('Export'))
-        self['title'] = Label(title_plug)
+        self['Title'] = Label(title_plug)
         self['name'] = Label('')
         # self['poster'] = Pixmap()
         self['text'] = Label('Vavoo Stream Live by Lululla')
@@ -478,16 +522,16 @@ class vavoo(Screen):
             content = getUrl(self.url)
             if six.PY3:
                 content = six.ensure_str(content)
-            print('content: ', content)
+            # print('content: ', content)
             # "country": "Balkans", "id": 1572002411, "name": "RTS 1 (7)", "p": 0
             names = self.name
-            print('country=', names)
+            # print('country=', names)
             regexcat = '"country".*?"(.*?)".*?"id"(.*?)"name".*?"(.*?)"'
             match = re.compile(regexcat, re.DOTALL).findall(content)
             for country, ids, name in match:
                 if country != names:
                     continue
-                print(country + '\n' + name + '\n' + str(ids))
+                # print(country + '\n' + name + '\n' + str(ids))
                 ids = ids.replace(':', '').replace(' ', '').replace(',', '')
                 url = 'http://vavoo.to/play/' + str(ids) + '/index.m3u8'
                 name = decodeHtml(name)
@@ -499,7 +543,7 @@ class vavoo(Screen):
                 url = item.split('###')[1]
 
                 self.cat_list.append(show_(name, url))
-            print('country=', self.name)
+            # print('country=', self.name)
             if len(self.cat_list) < 0:
                 return
             else:
@@ -1007,15 +1051,15 @@ def RequestAgent():
     return RandomAgent
 
 
-def main(session, **kwargs):
-    try:
-        session.open(MainVavoo)
-    except:
-        import traceback
-        traceback.print_exc()
+# def main(session, **kwargs):
+    # try:
+        # session.open(MainVavoo)
+    # except:
+        # import traceback
+        # traceback.print_exc()
 
 
-def Plugins(**kwargs):
-    icona = os_path.dirname(resolveFilename(SCOPE_SKIN, config.skin.primary_skin.value)) + "/mainmenu/ico_vavoo.png"
-    result = [PluginDescriptor(name=title_plug, description=_('Vavoo Stream Live'), where=PluginDescriptor.WHERE_PLUGINMENU, icon=icona, fnc=main)]
-    return result
+# def Plugins(**kwargs):
+    # icona = os_path.dirname(resolveFilename(SCOPE_SKIN, config.skin.primary_skin.value)) + "/mainmenu/ico_vavoo.png"
+    # result = [PluginDescriptor(name=title_plug, description=_('Vavoo Stream Live'), where=PluginDescriptor.WHERE_PLUGINMENU, icon=icona, fnc=main)]
+    # return result
