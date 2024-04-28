@@ -2,7 +2,6 @@ NssWidget
 
 ![](https://komarev.com/ghpvc/?username=Belfagor2005)
 
-
 <img src="https://raw.githubusercontent.com/Belfagor2005/NssWidget/main/screen/prev.jpg">
 
 <img src="https://raw.githubusercontent.com/Belfagor2005/NssWidget/main/screen/infobar.jpg">
