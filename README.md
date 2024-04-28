@@ -12,6 +12,12 @@ NssWidget
 
 <img src="https://raw.githubusercontent.com/Belfagor2005/NssWidget/main/screen/screenshot3.jpg">
 
+<img src="https://raw.githubusercontent.com/Belfagor2005/NssWidget/main/screen/screenshot10.jpg">
+
+<img src="https://raw.githubusercontent.com/Belfagor2005/NssWidget/main/screen/screenshot11.jpg">
+
+<img src="https://raw.githubusercontent.com/Belfagor2005/NssWidget/main/screen/screenshot12.jpg">
+
 <img src="https://raw.githubusercontent.com/Belfagor2005/NssWidget/main/screen/screenshot4.jpg">
 
 <img src="https://raw.githubusercontent.com/Belfagor2005/NssWidget/main/screen/screenshot5.jpg">
