@@ -267,7 +267,8 @@ class m2list(MenuList):
 
 def show_(name, link):
     res = [(name, link)]
-    pngx = os_path.dirname(resolveFilename(SCOPE_SKIN, config.skin.primary_skin.value)) + "/mainmenu/vavoo_ico.png"    
+    cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
+    pngx = os_path.dirname(resolveFilename(SCOPE_SKIN, str(cur_skin))) + "/mainmenu/vavoo_ico.png"
     res.append(MultiContentEntryPixmapAlphaTest(pos=(10, 10), size=(30, 30), png=loadPNG(pngx)))
     res.append(MultiContentEntryText(pos=(60, 0), size=(1200, 50), font=0, text=name, color=0xa6d1fe, flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER))
     return res

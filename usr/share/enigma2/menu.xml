@@ -77,6 +77,16 @@ self.session.open(NSSCamsManager)
 -->
             </code>
         </item>
+
+        <item weight="10" level="0" text="NSS CrashLog Viewer" entryID="CrashLog">
+            <code>
+from Screens.crashlog import CrashLogScreen
+self.session.open(CrashLogScreen)  
+
+</code>
+        </item>    
+
+
         <!--
         <item weight="14" level="0" text="NSS oZeta Skin Setup" entryID="NssZeta">
             <code>
