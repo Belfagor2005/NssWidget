@@ -98,6 +98,7 @@ desc_plugin = ('..:: Vavoo by Lululla %s ::.. ' % currversion)
 stripurl = 'aHR0cHM6Ly92YXZvby50by9jaGFubmVscw=='
 searchurl = 'aHR0cHM6Ly90aXZ1c3RyZWFtLndlYnNpdGUvcGhwX2ZpbHRlci9rb2RpMTkva29kaTE5LnBocD9tb2RlPW1vdmllJnF1ZXJ5PQ=='
 _session = None
+enigma_path = '/etc/enigma2/'
 _UNICODE_MAP = {k: unichr(v) for k, v in iteritems(html_entities.name2codepoint)}
 _ESCAPE_RE = re.compile("[&<>\"']")
 _UNESCAPE_RE = re.compile(r"&\s*(#?)(\w+?)\s*;")  # Whitespace handling added due to "hand-assed" parsers of html pages
@@ -260,38 +261,16 @@ class m2list(MenuList):
     def __init__(self, list):
         MenuList.__init__(self, list, False, eListboxPythonMultiContent)
         self.l.setItemHeight(50)
-        textfont = int(28)
+        textfont = int(34)
         self.l.setFont(0, gFont('Regular', textfont))
 
 
 def show_(name, link):
     res = [(name, link)]
-    res.append(MultiContentEntryText(pos=(0, 0), size=(1900, 50), font=0, text=name, flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER))
+    pngx = os_path.dirname(resolveFilename(SCOPE_SKIN, config.skin.primary_skin.value)) + "/mainmenu/vavoo_ico.png"    
+    res.append(MultiContentEntryPixmapAlphaTest(pos=(10, 10), size=(30, 30), png=loadPNG(pngx)))
+    res.append(MultiContentEntryText(pos=(60, 0), size=(1200, 50), font=0, text=name, color=0xa6d1fe, flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER))
     return res
-
-
-def cat_(letter, link):
-    res = [(letter, link)]
-    res.append(MultiContentEntryText(pos=(0, 0), size=(1900, 50), font=0, text=letter, flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER))
-    return res
-
-
-def rvoneListEntry(name):
-    res = [name]
-    pngx = os_path.dirname(resolveFilename(SCOPE_SKIN, config.skin.primary_skin.value)) + "/mainmenu/vavoo_ico.png"
-    res.append(MultiContentEntryPixmapAlphaTest(pos=(10, 12), size=(34, 25), png=loadPNG(pngx)))
-    res.append(MultiContentEntryText(pos=(60, 0), size=(1900, 50), font=0, text=name, color=0xa6d1fe, flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER))
-    return res
-
-
-def showlist(data, list):
-    icount = 0
-    plist = []
-    for line in data:
-        name = data[icount]
-        plist.append(rvoneListEntry(name))
-        icount += 1
-        list.setList(plist)
 
 
 Panel_list = [
@@ -316,11 +295,13 @@ Panel_list = [
 class MainVavoo(Screen):
     def __init__(self, session):
         self.session = session
+        global _session
+        _session = session
         Screen.__init__(self, session)
         self.menulist = []
         self['menulist'] = m2list([])
         self['red'] = Label(_('Exit'))
-        # self['green'] = Label(_('Export'))
+        self['green'] = Label(_('Remove'))
         self['Title'] = Label(title_plug)
         self['name'] = Label('')
         self['text'] = Label('Vavoo Stream Live by Lululla')
@@ -337,60 +318,35 @@ class MainVavoo(Screen):
                                                                 'left': self.left,
                                                                 'right': self.right,
                                                                 'ok': self.ok,
-                                                                'green': self.ok,
+                                                                'green': self.msgdeleteBouquets,
                                                                 'cancel': self.close,
                                                                 'red': self.close}, -1)
-        # self.onLayoutFinish.append(self.updateMenuList)
         self.timer = eTimer()
-        self.timer.callback.append(self.cat)
+        try:
+            self.timer_conn = self.timer.timeout.connect(self.cat)
+        except:
+            self.timer.callback.append(self.cat)
+        # self.timer.callback.append(self.cat)
         self.timer.start(500, True)
-
-    # def updateMenuList(self):
-        # self.menu_list = []
-        # for x in self.menu_list:
-            # del self.menu_list[0]
-        # list = []
-        # idx = 0
-        # for x in Panel_list:
-            # list.append(rvoneListEntry(x))
-            # self.menu_list.append(x)
-            # idx += 1
-        # self['menulist'].setList(list)
-        # auswahl = self['menulist'].getCurrent()[0]
-        # self['name'].setText(str(auswahl))
-
-    # def ok(self):
-        # self.keyNumberGlobalCB(self['menulist'].getSelectedIndex())
-
-    # def keyNumberGlobalCB(self, idx):
-        # global namex
-        # namex = ''
-        # sel = self.menu_list[idx]
-        # if sel:
-            # namex = sel
-            # lnk = b64decoder(stripurl)
-            # self.session.open(vavoo, namex, lnk)
-        # else:
-            # return
 
     def up(self):
         self[self.currentList].up()
-        auswahl = self['menulist'].getCurrent()[0]
+        auswahl = self['menulist'].getCurrent()[0][0]
         self['name'].setText(str(auswahl))
 
     def down(self):
         self[self.currentList].down()
-        auswahl = self['menulist'].getCurrent()[0]
+        auswahl = self['menulist'].getCurrent()[0][0]
         self['name'].setText(str(auswahl))
 
     def left(self):
         self[self.currentList].pageUp()
-        auswahl = self['menulist'].getCurrent()[0]
+        auswahl = self['menulist'].getCurrent()[0][0]
         self['name'].setText(str(auswahl))
 
     def right(self):
         self[self.currentList].pageDown()
-        auswahl = self['menulist'].getCurrent()[0]
+        auswahl = self['menulist'].getCurrent()[0][0]
         self['name'].setText(str(auswahl))
 
     def cat(self):
@@ -403,23 +359,18 @@ class MainVavoo(Screen):
             content = getUrl(self.url)
             if six.PY3:
                 content = six.ensure_str(content)
-            # print('content: ', content)
-            # "country": "Balkans", "id": 1572002411, "name": "RTS 1 (7)", "p": 0
             regexcat = '"country".*?"(.*?)".*?"id".*?"name".*?".*?"'
             match = re.compile(regexcat, re.DOTALL).findall(content)
             for country in match:
                 if country not in self.items_tmp:
-                    # print(country + ' I\n')
                     self.items_tmp.append(country)
                     item = country + "###" + self.url + '\n'
                     items.append(item)
-            # print('self.items_tmp:', self.items_tmp)
             items.sort()
             for item in items:
                 name = item.split('###')[0]
                 url = item.split('###')[1]
                 if name not in self.cat_list:
-                    # print('country III =', name)
                     self.cat_list.append(show_(name, url))
             if len(self.cat_list) < 0:
                 return
@@ -435,44 +386,51 @@ class MainVavoo(Screen):
         name = self['menulist'].getCurrent()[0][0]
         url = self['menulist'].getCurrent()[0][1]
         try:
-            # self.play_that_shit(url, name)
             self.session.open(vavoo, name, url)
         except Exception as e:
             print(e)
 
-    # def play_that_shit(self, url, name):
-        # self.session.open(Playstream2, name, url)
-
-
-    # def ok(self):
-        # self.keyNumberGlobalCB(self['menulist'].getSelectedIndex())
-
-    # def keyNumberGlobalCB(self, idx):
-        # global namex
-        # namex = ''
-        # sel = self.currentList[idx]
-        # if sel:
-            # namex = sel
-            # lnk = b64decoder(stripurl)
-            # self.session.open(vavoo, namex, lnk)
-        # else:
-            # return
-
     def exit(self):
         self.close()
+
+    def msgdeleteBouquets(self):
+        self.session.openWithCallback(self.deleteBouquets, MessageBox, _("Remove all Vavoo Favorite Bouquet?"), MessageBox.TYPE_YESNO, timeout=5, default=True)
+
+    def deleteBouquets(self, result):
+        if result:
+            try:
+                for fname in os.listdir(enigma_path):
+                    if 'userbouquet.vavoo_' in fname:
+                        purge(enigma_path, fname)
+                    elif 'bouquets.tv.bak' in fname:
+                        purge(enigma_path, fname)
+                os.rename(os.path.join(enigma_path, 'bouquets.tv'), os.path.join(enigma_path, 'bouquets.tv.bak'))
+                tvfile = open(os.path.join(enigma_path, 'bouquets.tv'), 'w+')
+                bakfile = open(os.path.join(enigma_path, 'bouquets.tv.bak'))
+                for line in bakfile:
+                    if '.vavoo_' not in line:
+                        tvfile.write(line)
+                bakfile.close()
+                tvfile.close()
+                self.session.open(MessageBox, _('Vavoo Favorites List have been removed'), MessageBox.TYPE_INFO, timeout=5)
+                ReloadBouquets()
+            except Exception as ex:
+                print(str(ex))
+                raise
 
 
 class vavoo(Screen):
     def __init__(self, session, name, url):
         self.session = session
+        global _session
+        _session = session
         Screen.__init__(self, session)
         self.menulist = []
         self['menulist'] = m2list([])
         self['red'] = Label(_('Back'))
-        # self['green'] = Label(_('Export'))
+        self['green'] = Label(_('Export'))
         self['Title'] = Label(title_plug)
         self['name'] = Label('')
-        # self['poster'] = Pixmap()
         self['text'] = Label('Vavoo Stream Live by Lululla')
         self.currentList = 'menulist'
         self.loading_ok = False
@@ -488,11 +446,15 @@ class vavoo(Screen):
                                                                 'left': self.left,
                                                                 'right': self.right,
                                                                 'ok': self.ok,
-                                                                # 'green': self.message2,
+                                                                'green': self.message2,
                                                                 'cancel': self.close,
                                                                 'red': self.close}, -1)
         self.timer = eTimer()
-        self.timer.callback.append(self.cat)
+        try:
+            self.timer_conn = self.timer.timeout.connect(self.cat)
+        except:
+            self.timer.callback.append(self.cat)
+        # self.timer.callback.append(self.cat)
         self.timer.start(500, True)
 
     def up(self):
@@ -518,39 +480,41 @@ class vavoo(Screen):
     def cat(self):
         self.cat_list = []
         items = []
+        xxxname = '/tmp/' + self.name + '.m3u'
         try:
-            content = getUrl(self.url)
-            if six.PY3:
-                content = six.ensure_str(content)
-            # print('content: ', content)
-            # "country": "Balkans", "id": 1572002411, "name": "RTS 1 (7)", "p": 0
-            names = self.name
-            # print('country=', names)
-            regexcat = '"country".*?"(.*?)".*?"id"(.*?)"name".*?"(.*?)"'
-            match = re.compile(regexcat, re.DOTALL).findall(content)
-            for country, ids, name in match:
-                if country != names:
-                    continue
-                # print(country + '\n' + name + '\n' + str(ids))
-                ids = ids.replace(':', '').replace(' ', '').replace(',', '')
-                url = 'http://vavoo.to/play/' + str(ids) + '/index.m3u8'
-                name = decodeHtml(name)
-                item = name + "###" + url + '\n'
-                items.append(item)
-            items.sort()
-            for item in items:
-                name = item.split('###')[0]
-                url = item.split('###')[1]
-
-                self.cat_list.append(show_(name, url))
-            # print('country=', self.name)
-            if len(self.cat_list) < 0:
-                return
-            else:
-                self['menulist'].l.setList(self.cat_list)
-                self['menulist'].moveToIndex(0)
-                auswahl = self['menulist'].getCurrent()[0][0]
-                self['name'].setText(str(auswahl))
+            with open(xxxname, 'w') as outfile:
+                outfile.write('#NAME %s\r\n' % self.name.capitalize())
+                content = getUrl(self.url)
+                if six.PY3:
+                    content = six.ensure_str(content)
+                names = self.name
+                regexcat = '"country".*?"(.*?)".*?"id"(.*?)"name".*?"(.*?)"'
+                match = re.compile(regexcat, re.DOTALL).findall(content)
+                for country, ids, name in match:
+                    if country != names:
+                        continue
+                    ids = ids.replace(':', '').replace(' ', '').replace(',', '')
+                    url = 'http://vavoo.to/play/' + str(ids) + '/index.m3u8'
+                    name = decodeHtml(name)
+                    item = name + "###" + url + '\n'
+                    items.append(item)
+                items.sort()
+                for item in items:
+                    name = item.split('###')[0]
+                    url = item.split('###')[1]
+                    self.cat_list.append(show_(name, url))
+                    # make m3u
+                    nname = '#EXTINF:-1,' + str(name) + '\n'
+                    outfile.write(nname)
+                    outfile.write(str(url))
+                outfile.close()
+                if len(self.cat_list) < 0:
+                    return
+                else:
+                    self['menulist'].l.setList(self.cat_list)
+                    self['menulist'].moveToIndex(0)
+                    auswahl = self['menulist'].getCurrent()[0][0]
+                    self['name'].setText(str(auswahl))
         except Exception as e:
             print(e)
 
@@ -564,6 +528,74 @@ class vavoo(Screen):
 
     def play_that_shit(self, url, name):
         self.session.open(Playstream2, name, url)
+
+    def message2(self, answer=None):
+        if answer is None:
+            self.session.openWithCallback(self.message2, MessageBox, _('Do you want to Convert to favorite .tv ?\n\nAttention!! It may take some time depending\non the number of streams contained !!!'))
+        elif answer:
+            print('url: ', self.url)
+            service = '4097'
+            ch = 0
+            ch = self.convert_bouquet(service)
+            if ch > 0:
+                _session.open(MessageBox, _('bouquets reloaded..\nWith %s channel' % str(ch)), MessageBox.TYPE_INFO, timeout=5)
+            else:
+                _session.open(MessageBox, _('Download Error'), MessageBox.TYPE_INFO, timeout=5)
+
+    def convert_bouquet(self, service):
+        from time import sleep
+        dir_enigma2 = '/etc/enigma2/'
+        files = '/tmp/' + self.name + '.m3u'
+        type = 'tv'
+        if "radio" in self.name.lower():
+            type = "radio"
+        name_file = self.name.replace('/', '_').replace(',', '')
+        cleanName = re.sub(r'[\<\>\:\"\/\\\|\?\*]', '_', str(name_file))
+        cleanName = re.sub(r' ', '_', cleanName)
+        cleanName = re.sub(r'\d+:\d+:[\d.]+', '_', cleanName)
+        name_file = re.sub(r'_+', '_', cleanName)
+        bouquetname = 'userbouquet.vavoo_%s.%s' % (name_file.lower(), type.lower())
+        if os.path.exists(str(files)):
+            sleep(5)
+            ch = 0
+            try:
+                if os.path.isfile(files) and os.stat(files).st_size > 0:
+                    print('ChannelList is_tmp exist in playlist')
+                    desk_tmp = ''
+                    in_bouquets = 0
+                    with open('%s%s' % (dir_enigma2, bouquetname), 'w') as outfile:
+                        outfile.write('#NAME %s\r\n' % name_file.capitalize())
+                        for line in open(files):
+                            if line.startswith('http://') or line.startswith('https'):
+                                outfile.write('#SERVICE %s:0:1:1:0:0:0:0:0:0:%s' % (service, line.replace(':', '%3a')))
+                                outfile.write('#DESCRIPTION %s' % desk_tmp)
+                            elif line.startswith('#EXTINF'):
+                                desk_tmp = '%s' % line.split(',')[-1]
+                            elif '<stream_url><![CDATA' in line:
+                                outfile.write('#SERVICE %s:0:1:1:0:0:0:0:0:0:%s\r\n' % (service, line.split('[')[-1].split(']')[0].replace(':', '%3a')))
+                                outfile.write('#DESCRIPTION %s\r\n' % desk_tmp)
+                            elif '<title>' in line:
+                                if '<![CDATA[' in line:
+                                    desk_tmp = '%s\r\n' % line.split('[')[-1].split(']')[0]
+                                else:
+                                    desk_tmp = '%s\r\n' % line.split('<')[1].split('>')[1]
+                            ch += 1
+                        outfile.close()
+                    if os.path.isfile('/etc/enigma2/bouquets.tv'):
+                        for line in open('/etc/enigma2/bouquets.tv'):
+                            if bouquetname in line:
+                                in_bouquets = 1
+                        if in_bouquets == 0:
+                            if os.path.isfile('%s%s' % (dir_enigma2, bouquetname)) and os.path.isfile('/etc/enigma2/bouquets.tv'):
+                                remove_line('/etc/enigma2/bouquets.tv', bouquetname)
+                                with open('/etc/enigma2/bouquets.tv', 'a+') as outfile:
+                                    outfile.write('#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "%s" ORDER BY bouquet\r\n' % bouquetname)
+                                    outfile.close()
+                                    in_bouquets = 1
+                        ReloadBouquets()
+                return ch
+            except Exception as e:
+                print('error convert iptv ', e)
 
 
 class TvInfoBarShowHide():
@@ -962,7 +994,6 @@ def decodeHtml(text):
     text = text.replace('\u00c1', 'Á')
     text = text.replace('\u00c6', 'Æ')
     text = text.replace('\u00e1', 'á')
-
     text = text.replace('&#xC4;', 'Ä')
     text = text.replace('&#xD6;', 'Ö')
     text = text.replace('&#xDC;', 'Ü')
@@ -978,11 +1009,9 @@ def decodeHtml(text):
     text = text.replace('&#xF8;', 'ø')
     text = text.replace('&#x21;', '!')
     text = text.replace('&#x3f;', '?')
-
     text = text.replace('&#8230;', '...')
     text = text.replace('\u2026', '...')
     text = text.replace('&hellip;', '...')
-
     text = text.replace('&#8234;', '')
     return text
 
@@ -1051,15 +1080,37 @@ def RequestAgent():
     return RandomAgent
 
 
-# def main(session, **kwargs):
-    # try:
-        # session.open(MainVavoo)
-    # except:
-        # import traceback
-        # traceback.print_exc()
+def remove_line(filename, what):
+    if os.path.isfile(filename):
+        file_read = open(filename).readlines()
+        file_write = open(filename, 'w')
+        for line in file_read:
+            if what not in line:
+                file_write.write(line)
+        file_write.close()
 
 
-# def Plugins(**kwargs):
-    # icona = os_path.dirname(resolveFilename(SCOPE_SKIN, config.skin.primary_skin.value)) + "/mainmenu/ico_vavoo.png"
-    # result = [PluginDescriptor(name=title_plug, description=_('Vavoo Stream Live'), where=PluginDescriptor.WHERE_PLUGINMENU, icon=icona, fnc=main)]
-    # return result
+def ReloadBouquets():
+    print('\n----Reloading bouquets----\n')
+    try:
+        from enigma import eDVBDB
+    except ImportError:
+        eDVBDB = None
+    if eDVBDB:
+        db = eDVBDB.getInstance()
+        if db:
+            db.reloadServicelist()
+            db.reloadBouquets()
+            print("eDVBDB: bouquets reloaded...")
+    else:
+        os.system("wget -qO - http://127.0.0.1/web/servicelistreload?mode=2 > /dev/null 2>&1 &")
+        os.system("wget -qO - http://127.0.0.1/web/servicelistreload?mode=4 > /dev/null 2>&1 &")
+        print("wGET: bouquets reloaded...")
+
+
+def purge(dir, pattern):
+    for f in os.listdir(dir):
+        file_path = os.path.join(dir, f)
+        if os.path.isfile(file_path):
+            if re.search(pattern, f):
+                os.remove(file_path)

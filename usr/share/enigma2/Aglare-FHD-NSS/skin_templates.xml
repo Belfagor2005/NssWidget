@@ -77,6 +77,11 @@
         <eLabel backgroundColor="#0000ff00" position="342,1064" size="300,6" zPosition="12"/>
         <eLabel backgroundColor="#00ffff00" position="652,1064" size="300,6" zPosition="12"/>
         <eLabel backgroundColor="#000000ff" position="962,1064" size="300,6" zPosition="12"/>
+        
+        <eLabel backgroundColor="red" position="34,1064" size="300,6" zPosition="10"/>
+        <eLabel backgroundColor="green" position="342,1064" size="300,6" zPosition="10"/>
+        <eLabel backgroundColor="yellow" position="652,1064" size="300,6" zPosition="10"/>
+        <eLabel backgroundColor="blue" position="962,1064" size="300,6" zPosition="10"/>
         <!--
         <eLabel backgroundColor="red" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
         <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
