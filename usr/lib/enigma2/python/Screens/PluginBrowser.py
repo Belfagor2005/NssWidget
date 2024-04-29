@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 # from Components import Opkg
+# from Components.ServiceList import refreshServiceList
+# from Components.SystemInfo import SystemInfo, hassoftcaminstalled
+# from time import time
+# import os
 from Components.ActionMap import ActionMap, NumberActionMap, HelpableActionMap
 from Components.ConfigList import ConfigListScreen
 from Components.Harddisk import harddiskmanager
@@ -11,9 +15,7 @@ from Components.Pixmap import Pixmap
 from Components.PluginComponent import plugins
 from Components.PluginList import PluginCategoryComponent, PluginDownloadComponent
 from Components.PluginList import PluginList, PluginEntryComponent
-# from Components.ServiceList import refreshServiceList
 from Components.Sources.StaticText import StaticText
-# from Components.SystemInfo import hassoftcaminstalled
 from Components.config import config, ConfigSubsection, ConfigSelection, ConfigYesNo, ConfigText, configfile
 from Plugins.Plugin import PluginDescriptor
 from Screens.ChoiceBox import ChoiceBox
@@ -28,9 +30,7 @@ from os import system, unlink
 from os.path import normpath
 from re import compile
 from skin import parseColor
-# from time import time
 import math
-# import os
 
 language.addCallback(plugins.reloadPlugins)
 config.misc.pluginbrowser = ConfigSubsection()
@@ -844,7 +844,6 @@ class PluginBrowserNew(Screen):
             self.primaryColorLabel = "#DCE1E3"
             self.secondaryColor = "#4e4e4e"
             self.secondaryColorLabel = "#00000000"
-        
         self.skin = self.buildSkin()
         self.firsttime = True
         self.list = []
@@ -858,7 +857,6 @@ class PluginBrowserNew(Screen):
         {
             "red": self.delete,
             "green": self.download,
-            # "yellow": self.download,
             "cancel": self.exit,
             "right": self.keyRight,
             "left": self.keyLeft,
@@ -1035,7 +1033,6 @@ class PluginBrowserNew(Screen):
         posy = posystart
         list_dummy = []
         skincontent = ""
-        
         skin = """
             <screen name="PluginBrowserNew" position="%d,%d" size="%d,%d" flags="wfNoBorder" backgroundColor="%s">
                 %s

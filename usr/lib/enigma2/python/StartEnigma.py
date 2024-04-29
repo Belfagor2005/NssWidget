@@ -227,7 +227,6 @@ class Session:
 
         retval = self.current_dialog.returnValue
 
-
         if self.current_dialog.isTmp:
             self.current_dialog.doClose()
 #           dump(self.current_dialog)
@@ -252,7 +251,6 @@ class Session:
         c.saveKeyboardMode()
         c.execBegin()
 
-
         # when execBegin opened a new dialog, don't bother showing the old one.
         if c == self.current_dialog and do_show:
             c.show()
@@ -272,11 +270,9 @@ class Session:
     def instantiateDialog(self, screen, *arguments, **kwargs):
         return self.doInstantiateDialog(screen, arguments, kwargs, self.desktop)
 
-
     def deleteDialog(self, screen):
         screen.hide()
         screen.doClose()
-
 
     def instantiateSummaryDialog(self, screen, **kwargs):
         if self.summary_desktop is not None:
