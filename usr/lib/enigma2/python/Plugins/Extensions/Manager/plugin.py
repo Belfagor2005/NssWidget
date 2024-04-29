@@ -70,7 +70,6 @@ data_path = os.path.join(plugin_path, "data")
 FILE_XML = os.path.join(plugin_path, 'Manager.xml')
 FTP_XML = ''
 FTP_CFG = 'http://nonsolosat.net/Manager/cfg.txt'
-# nonsolosat.net/Manager
 local = True
 ECM_INFO = '/tmp/ecm.info'
 EMPTY_ECM_INFO = ('', '0', '0', '0')
@@ -83,23 +82,10 @@ OSCAMINFO = 2
 global BlueAction
 AgentRequest = RequestAgent()
 runningcam = None
-try:
-    from Plugins.Extensions.CCcamInfo.plugin import CCcamInfoMain
-except ImportError:
-    pass
+
 
 try:
-    from Plugins.Extensions.OscamStatus.plugin import OscamStatus
-except ImportError:
-    pass
-
-try:
-    from Screens.OScamInfo import OSCamInfo
-except ImportError:
-    pass
-
-try:
-    from Screens.CCcamInfo import CCcamInfoMain
+    from Screens.NcamInfo import NcamInfoMenu
 except ImportError:
     pass
 
@@ -109,12 +95,7 @@ except ImportError:
     pass
 
 try:
-    from Screens.NcamInfo import NcamInfo
-except ImportError:
-    pass
-
-try:
-    from Screens.NcamInfo import NcamInfoMenu
+    from Screens.CCcamInfo import CCcamInfoMain
 except ImportError:
     pass
 
@@ -126,6 +107,8 @@ def checkdir():
         mkdir('/usr/keys')
     if not os.path.exists(camscript):
         mkdir('/usr/camscript')
+
+
 checkdir()
 
 
@@ -219,10 +202,10 @@ class Manager(Screen):
                                                       'red': self.stop}, -1)
         self.setTitle(_(title_plug))
         self['title'] = Label(_(title_plug))
-        self['key_green'] = Button(_('Start/Restart'))
+        self['key_green'] = Button(_('Start'))
         self['key_yellow'] = Button(_('Download'))
         self['key_red'] = Button(_('Stop'))
-        self['key_blue'] = Button(_('Softcam'))
+        self['key_blue'] = Label(_('Softcam'))
         # self['key_blue'].hide()
         self['description'] = Label()
         self['description'].setText(_('Scanning and retrieval list softcam ...'))
@@ -233,7 +216,7 @@ class Manager(Screen):
         self.currCam = self.readCurrent()
         self.readScripts()
         BlueAction = 'SOFTCAM'
-        # self.setBlueKey()
+        self.setBlueKey()
         self.timer = eTimer()
         try:
             self.timer_conn = self.timer.timeout.connect(self.cgdesc)
@@ -253,52 +236,43 @@ class Manager(Screen):
     def setBlueKey(self):
         global BlueAction, runningcam
         self.currCam = self.readCurrent()
+        dir_work = '/usr/lib/enigma2/python/Screens/'
         print('setBlueKey self.currCam=', self.currCam)
         self["key_blue"].setText("Softcam")
         if self.currCam and self.currCam is not None or self.currCam != '':
             nim = str(self.currCam)
             if 'ccam' in nim.lower():
                 runningcam = "cccam"
-                if os.path.exists(resolveFilename(SCOPE_PLUGINS, "Extensions/CCcamInfo")):
-                    BlueAction = 'CCCAMINFO'
-                    self["key_blue"].setText("CCCAMINFO")
-
-                elif os.path.exists('/usr/lib/enigma2/python/Screens/CCcamInfo.pyc'):
+                if os.path.exists(dir_work + 'CCcamInfo.pyc') or os.path.exists(dir_work + 'CCcamInfo.pyo'):
                     BlueAction = 'CCCAMINFOMAIN'
                     self["key_blue"].setText("CCCAMINFO")
-
-                elif os.path.exists('/usr/lib/enigma2/python/Screens/CCcamInfo.pyo'):
-                    BlueAction = 'CCCAMINFOMAIN'
-                    self["key_blue"].setText("CCCAMINFO")
-
+                # elif os.path.exists('/usr/lib/enigma2/python/Screens/CCcamInfo.pyo'):
+                    # BlueAction = 'CCCAMINFOMAIN'
+                    # self["key_blue"].setText("CCCAMINFO")
             elif 'oscam' in nim.lower():
                 runningcam = "oscam"
-                if os.path.exists(resolveFilename(SCOPE_PLUGINS, "Extensions/OscamStatus")):
-                    BlueAction = 'OSCAMSTATUS'
-                    self["key_blue"].setText("OSCAMSTATUS")
-
-                elif os.path.exists('/usr/lib/enigma2/python/Screens/OScamInfo.pyc'):
+                if os.path.exists(dir_work + 'OScamInfo.pyc') or os.path.exists(dir_work + 'OScamInfo.pyo'):
                     BlueAction = 'OSCAMINFO'
                     self["key_blue"].setText("OSCAMINFO")
-
-                elif os.path.exists('/usr/lib/enigma2/python/Screens/OScamInfo.pyo'):
-                    BlueAction = 'OSCAMINFO'
-                    self["key_blue"].setText("OSCAMINFO")
-
+                # elif os.path.exists('/usr/lib/enigma2/python/Screens/OScamInfo.pyo'):
+                    # BlueAction = 'OSCAMINFO'
+                    # self["key_blue"].setText("OSCAMINFO")
+            elif 'movicam' in nim.lower():
+                runningcam = "movicam"
+                if os.path.exists(dir_work + 'OScamInfo.pyc') or os.path.exists(dir_work + 'OScamInfo.pyo'):
+                    BlueAction = 'MOVICAMINFO'
+                    self["key_blue"].setText("MOVICAMINFO")
+                # elif os.path.exists(data_path + '/OScamInfo.pyc'):
+                    # BlueAction = 'MOVICAMINFO'
+                    # self["key_blue"].setText("MOVICAMINFO")
             elif 'ncam' in nim.lower():
                 runningcam = "ncam"
-                # if os.path.exists(resolveFilename(SCOPE_PLUGINS, "Extensions/OscamStatus")):
-                    # BlueAction = 'NCAMSTATUS'
-                    # self["key_blue"].setText("NCAMSTATUS")
-
-                if os.path.exists('/usr/lib/enigma2/python/Screens/NcamInfo.pyc'):
+                if os.path.exists(dir_work + 'NcamInfo.pyc') or os.path.exists(dir_work + 'NcamInfo.pyo'):
                     BlueAction = 'NCAMINFO'
                     self["key_blue"].setText("NCAMINFO")
-
-                elif os.path.exists('/usr/lib/enigma2/python/Screens/NcamInfo.pyo'):
-                    BlueAction = 'NCAMINFO'
-                    self["key_blue"].setText("NCAMINFO")
-
+                # elif os.path.exists('/usr/lib/enigma2/python/Screens/NcamInfo.pyo'):
+                    # BlueAction = 'NCAMINFO'
+                    # self["key_blue"].setText("NCAMINFO")
         else:
             BlueAction = 'SOFTCAM'
             # runningcam = None
@@ -308,62 +282,34 @@ class Manager(Screen):
     def ShowSoftcamCallback(self):
         pass
 
-    # def isCamrunning(self, cam):
-        # p = command('pidof ' + cam + ' |wc -w')
-        # if not p.isdigit():
-            # p = 0
-        # if int(p) > 0:
-            # return True
-        # else:
-            # return False
-
     def Blue(self):
-        rCam = self.readCurrent()
-        # sCam = self.isCamrunning(rCam)
-        # if self.currCam = self.readCurrent() ==
-        # if sCam == rCam:
         print('def Blue Blue=', BlueAction)
         if BlueAction == 'SOFTCAM':
             self.messagekd()
-
-
-        cmd = 'ps -T'
-        res = os.popen(cmd).read()
-        print('res: ', res)
-        if str(rCam) in res.lower():
-            print('cam is: ', str(rCam))
-        if 'cccam' in str(rCam).lower():
-            if BlueAction == 'CCCAMINFO':
-                if os.path.exists(resolveFilename(SCOPE_PLUGINS, "Extensions/CCcamInfo")):
-                    from Plugins.Extensions.CCcamInfo.plugin import CCcamInfoMain
-                    self.session.openWithCallback(self.ShowSoftcamCallback, CCcamInfoMain)
-
-            if BlueAction == 'CCCAMINFOMAIN':
-                from Screens.CCcamInfo import CCcamInfoMain
+        if BlueAction == 'CCCAMINFOMAIN':
+            try:
                 self.session.open(CCcamInfoMain)
+                # self.session.openWithCallback(self.ShowSoftcamCallback, CCcamInfoMain)
+            except ImportError:
+                pass
 
-        if 'oscam' in str(rCam).lower():
-            if BlueAction == 'OSCAMSTATUS':
-                if os.path.exists(resolveFilename(SCOPE_PLUGINS, "Extensions/OscamStatus")):
-                    from Plugins.Extensions.OscamStatus.plugin import OscamStatus
-                    self.session.open(OscamStatus)
+        if BlueAction == 'OSCAMINFO':
+            try:
+                self.session.open(OscamInfoMenu)
+            except ImportError:
+                pass
 
-            if BlueAction == 'OSCAMINFO':
-                try:
-                    from Screens.OScamInfo import OSCamInfo
-                    self.session.open(OSCamInfo)
-                except ImportError:
-                    from Screens.OScamInfo import OscamInfoMenu
-                    self.session.open(OscamInfoMenu)
-                    pass
+        if BlueAction == 'MOVICAMINFO':
+            try:
+                self.session.open(OscamInfoMenu)
+            except ImportError:
+                pass
 
-        if 'ncam' in str(rCam).lower():
-            if BlueAction == 'NCAMINFO':
-                try:
-                    from Screens.NcamInfo import NcamInfoMenu
-                    self.session.open(NcamInfoMenu)
-                except ImportError:
-                    pass
+        if BlueAction == 'NCAMINFO':
+            try:
+                self.session.open(NcamInfoMenu)
+            except ImportError:
+                pass
         else:
             return
 
@@ -574,7 +520,6 @@ class Manager(Screen):
                 except:
                     self.oldService = self.session.nav.getCurrentlyPlayingServiceOrGroup()
                 self.session.nav.stopService()
-
                 BlueAction = 'SOFTCAM'
                 self.readScripts()
 
