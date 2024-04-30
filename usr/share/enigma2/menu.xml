@@ -29,12 +29,21 @@ from Plugins.Extensions.Manager.plugin import Manager
 self.session.open(Manager)  
 </code>
         </item>
-        <item weight="10" level="0" text="NSS Vavoo Stream Live" entryID="vavoo">
+        <item weight="11" level="0" text="NSS Vavoo Stream Live" entryID="vavoo">
             <code>
 from Screens.vavoo import MainVavoo
 self.session.open(MainVavoo)  
 </code>
         </item>
+
+        <item weight="12" level="0" text="NSS Radio Stream Live" entryID="radiom">
+            <code>
+from Screens.radio import radiom1
+self.session.open(radiom1)  
+</code>
+        </item>
+
+
         <item weight="15" level="0" text="NSS Skin Setup" entryID="AglareSetup">
             <code>
 from Plugins.Extensions.Aglare.plugin import AglareSetup
@@ -45,7 +54,7 @@ self.session.open(NSSCamsManager)
 -->
             </code>
         </item>
-        <item weight="10" level="0" text="NSS CrashLog Viewer" entryID="CrashLog">
+        <item weight="16" level="0" text="NSS CrashLog Viewer" entryID="CrashLog">
             <code>
 from Screens.crashlog import CrashLogScreen
 self.session.open(CrashLogScreen)  
@@ -53,7 +62,7 @@ self.session.open(CrashLogScreen)
 </code>
         </item>
         <!-- <id val="system"/> -->
-        <item weight="16" level="0" text="NSS Plugin Browser Style" entryID="BrowserStyle">
+        <item weight="17" level="0" text="NSS Plugin Browser Style" entryID="BrowserStyle">
             <setup id="usage"/>
         </item>
     </menu>
