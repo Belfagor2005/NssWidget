@@ -54,7 +54,7 @@ self.session.open(NSSCamsManager)
 -->
             </code>
         </item>
-        <item weight="16" level="0" text="NSS CrashLog Viewer" entryID="CrashLog">
+        <item weight="22" level="0" text="NSS CrashLog Viewer" entryID="CrashLog">
             <code>
 from Screens.crashlog import CrashLogScreen
 self.session.open(CrashLogScreen)  
@@ -62,7 +62,7 @@ self.session.open(CrashLogScreen)
 </code>
         </item>
         <!-- <id val="system"/> -->
-        <item weight="17" level="0" text="NSS Plugin Browser Style" entryID="BrowserStyle">
+        <item weight="20" level="0" text="NSS Plugin Browser Style" entryID="BrowserStyle">
             <setup id="usage"/>
         </item>
     </menu>

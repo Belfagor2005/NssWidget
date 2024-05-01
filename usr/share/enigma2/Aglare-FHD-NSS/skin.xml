@@ -1731,7 +1731,7 @@
     </screen>
     <screen name="HelpMenu" position="0,0" size="1920,1080" title="Menu" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="menutemp3"/>
-        <widget name="rc" position="1494,198" size="124,500" zPosition="10" pixmaps="skin_default/rc.png,skin_default/rcold.png" alphatest="blend"/>
+        <widget name="rc" position="1494,198" size="124,500" zPosition="10" pixmaps="skin_default/rc.png,skin_default/rcold.png" scale="stretch" alphatest="blend"/>
         <widget name="long_key" position="1260,910" size="420,50" font="Regular; 30" halign="right" transparent="1" backgroundColor="background"/>
         <widget name="list" position="36,130" size="1000,600" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" valign="center" itemCornerRadius="8"/>
         <widget name="arrowdown" position="0,0" size="55,105" pixmap="skin_default/arrowdown.png" zPosition="11" alphatest="blend"/>
@@ -2356,7 +2356,7 @@
         <widget name="config" position="36,552" size="1140,400" itemHeight="50" font="Regular;32" valign="center" zPosition="14" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="1" itemCornerRadius="8" textOffset="15,4"/>
         <widget name="languagetext" position="32,1016" size="300,45" zPosition="11" font="Regular; 32" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget name="wizard" pixmap="skin_default/wizard.png" position="250,230" zPosition="10" size="240,240" alphatest="blend" transparent="1"/>
-        <widget name="rc" pixmaps="skin_default/rc.png,skin_default/rcold.png" position="1497,114" zPosition="10" size="124,500" alphatest="on" transparent="1" font="Regular; 24"/>
+        <widget name="rc" pixmaps="skin_default/rc.png,skin_default/rcold.png" position="1497,114" zPosition="10" size="124,500" scale="stretch" alphatest="on" transparent="1" font="Regular; 24"/>
         <widget name="arrowdown" pixmap="skin_default/arrowdown.png" position="-100,-100" zPosition="11" size="56,105" alphatest="on"/>
         <widget name="arrowdown2" pixmap="skin_default/arrowdown.png" position="-100,-100" zPosition="11" size="56,105" alphatest="on"/>
         <widget name="arrowup" pixmap="skin_default/arrowup.png" position="-100,-100" zPosition="11" size="56,105" alphatest="on"/>
@@ -2442,7 +2442,7 @@
         <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
         <eLabel name="" position="31,30" size="1157,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
         <panel name="bLogo"/>
-        <widget name="rc" pixmaps="skin_default/rc.png,skin_default/rcold.png" position="1497,114" zPosition="10" size="124,500" alphatest="on" transparent="1" font="Regular; 24"/>
+        <widget name="rc" pixmaps="skin_default/rc.png,skin_default/rcold.png" position="1497,114" zPosition="10" size="124,500" scale="stretch" alphatest="on" transparent="1" font="Regular; 24"/>
         <widget name="arrowdown" position="-100,-100" size="56,105" pixmap="skin_default/arrowdown.png" zPosition="11" alphatest="blend"/>
         <widget name="arrowdown2" position="-100,-100" size="56,105" pixmap="skin_default/arrowdown.png" zPosition="11" alphatest="blend"/>
         <widget name="arrowup" position="-100,-100" size="56,105" pixmap="skin_default/arrowup.png" zPosition="11" alphatest="blend"/>
@@ -2502,7 +2502,7 @@
         <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
         <eLabel name="" position="31,30" size="1157,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
         <panel name="bLogo"/>
-        <widget name="rc" pixmaps="skin_default/rc.png,skin_default/rcold.png" position="1497,114" zPosition="10" size="124,500" alphatest="on" transparent="1" font="Regular; 24"/>
+        <widget name="rc" pixmaps="skin_default/rc.png,skin_default/rcold.png" position="1497,114" zPosition="10" size="124,500" scale="stretch" alphatest="on" transparent="1" font="Regular; 24"/>
         <widget name="arrowdown" position="-100,-100" size="56,105" pixmap="skin_default/arrowdown.png" zPosition="11" alphatest="blend"/>
         <widget name="arrowdown2" position="-100,-100" size="56,105" pixmap="skin_default/arrowdown.png" zPosition="11" alphatest="blend"/>
         <widget name="arrowup" position="-100,-100" size="56,105" pixmap="skin_default/arrowup.png" zPosition="11" alphatest="blend"/>
@@ -2531,7 +2531,7 @@
         <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
         <eLabel name="" position="31,30" size="1157,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
         <panel name="bLogo"/>
-        <widget name="rc" pixmaps="skin_default/rc.png,skin_default/rcold.png" position="1497,114" zPosition="10" size="124,500" alphatest="on" transparent="1" font="Regular; 24"/>
+        <widget name="rc" pixmaps="skin_default/rc.png,skin_default/rcold.png" position="1497,114" zPosition="10" size="124,500" scale="stretch" alphatest="on" transparent="1" font="Regular; 24"/>
         <widget name="arrowdown" position="-100,-100" size="56,105" pixmap="skin_default/arrowdown.png" zPosition="11" alphatest="blend"/>
         <widget name="arrowdown2" position="-100,-100" size="56,105" pixmap="skin_default/arrowdown.png" zPosition="11" alphatest="blend"/>
         <widget name="arrowup" position="-100,-100" size="56,105" pixmap="skin_default/arrowup.png" zPosition="11" alphatest="blend"/>
@@ -6159,7 +6159,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <widget name="arrowdown2" pixmap="skin_default/arrowdown.png" position="-100,-100" zPosition="11" size="56,105" alphatest="on"/>
         <widget name="arrowup" pixmap="skin_default/arrowup.png" position="-100,-100" zPosition="11" size="56,105" alphatest="on"/>
         <widget name="arrowup2" pixmap="skin_default/arrowup.png" position="-100,-100" zPosition="11" size="56,105" alphatest="on"/>
-        <widget name="rc" pixmaps="skin_default/rc.png,skin_default/rcold.png" position="1497,114" zPosition="10" size="124,500" alphatest="on" transparent="1" font="Regular; 24"/>
+        <widget name="rc" pixmaps="skin_default/rc.png,skin_default/rcold.png" position="1497,114" zPosition="10" size="124,500" scale="stretch" alphatest="on" transparent="1" font="Regular; 24"/>
         <widget name="wizard" pixmap="skin_default/wizard.png" position="250,230" zPosition="10" size="240,240" alphatest="blend" transparent="1"/>
         <widget name="languagetext" position="32,1016" size="300,45" zPosition="11" font="Regular; 32" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget name="text" position="1218,640" size="651,305" font="Regular; 32" transparent="1" backgroundColor="background" valign="top"/>
