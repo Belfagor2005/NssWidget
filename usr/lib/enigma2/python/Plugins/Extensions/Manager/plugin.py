@@ -67,6 +67,7 @@ res_plugin_path = os.path.join(plugin_path, "res/")
 emu_plugin = os.path.join(plugin_path, "emu/")
 iconpic = os.path.join(plugin_path, 'logo.png')
 data_path = os.path.join(plugin_path, "data")
+dir_work = '/usr/lib/enigma2/python/Screens/'
 FILE_XML = os.path.join(plugin_path, 'Manager.xml')
 FTP_XML = ''
 FTP_CFG = 'http://nonsolosat.net/Manager/cfg.txt'
@@ -95,7 +96,7 @@ except ImportError:
     pass
 
 try:
-    from Screens.CCcamInfo import CCcamInfoMain
+    from Screens.CCcamInfo import CCCAMINFO
 except ImportError:
     pass
 
@@ -236,7 +237,6 @@ class Manager(Screen):
     def setBlueKey(self):
         global BlueAction, runningcam
         self.currCam = self.readCurrent()
-        dir_work = '/usr/lib/enigma2/python/Screens/'
         print('setBlueKey self.currCam=', self.currCam)
         self["key_blue"].setText("Softcam")
         if self.currCam and self.currCam is not None or self.currCam != '':
@@ -244,35 +244,23 @@ class Manager(Screen):
             if 'ccam' in nim.lower():
                 runningcam = "cccam"
                 if os.path.exists(dir_work + 'CCcamInfo.pyc') or os.path.exists(dir_work + 'CCcamInfo.pyo'):
-                    BlueAction = 'CCCAMINFOMAIN'
+                    BlueAction = 'CCCAMINFO'
                     self["key_blue"].setText("CCCAMINFO")
-                # elif os.path.exists('/usr/lib/enigma2/python/Screens/CCcamInfo.pyo'):
-                    # BlueAction = 'CCCAMINFOMAIN'
-                    # self["key_blue"].setText("CCCAMINFO")
             elif 'oscam' in nim.lower():
                 runningcam = "oscam"
                 if os.path.exists(dir_work + 'OScamInfo.pyc') or os.path.exists(dir_work + 'OScamInfo.pyo'):
                     BlueAction = 'OSCAMINFO'
                     self["key_blue"].setText("OSCAMINFO")
-                # elif os.path.exists('/usr/lib/enigma2/python/Screens/OScamInfo.pyo'):
-                    # BlueAction = 'OSCAMINFO'
-                    # self["key_blue"].setText("OSCAMINFO")
             elif 'movicam' in nim.lower():
                 runningcam = "movicam"
                 if os.path.exists(dir_work + 'OScamInfo.pyc') or os.path.exists(dir_work + 'OScamInfo.pyo'):
                     BlueAction = 'MOVICAMINFO'
                     self["key_blue"].setText("MOVICAMINFO")
-                # elif os.path.exists(data_path + '/OScamInfo.pyc'):
-                    # BlueAction = 'MOVICAMINFO'
-                    # self["key_blue"].setText("MOVICAMINFO")
             elif 'ncam' in nim.lower():
                 runningcam = "ncam"
                 if os.path.exists(dir_work + 'NcamInfo.pyc') or os.path.exists(dir_work + 'NcamInfo.pyo'):
                     BlueAction = 'NCAMINFO'
                     self["key_blue"].setText("NCAMINFO")
-                # elif os.path.exists('/usr/lib/enigma2/python/Screens/NcamInfo.pyo'):
-                    # BlueAction = 'NCAMINFO'
-                    # self["key_blue"].setText("NCAMINFO")
         else:
             BlueAction = 'SOFTCAM'
             # runningcam = None
@@ -286,10 +274,10 @@ class Manager(Screen):
         print('def Blue Blue=', BlueAction)
         if BlueAction == 'SOFTCAM':
             self.messagekd()
-        if BlueAction == 'CCCAMINFOMAIN':
+        if BlueAction == 'CCCAMINFO':
             try:
-                self.session.open(CCcamInfoMain)
-                # self.session.openWithCallback(self.ShowSoftcamCallback, CCcamInfoMain)
+                self.session.open(CCCAMINFO)
+                # self.session.openWithCallback(self.ShowSoftcamCallback, CCCAMINFO)
             except ImportError:
                 pass
 
