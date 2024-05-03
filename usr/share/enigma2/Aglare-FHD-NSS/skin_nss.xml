@@ -348,7 +348,7 @@
         <panel name="nssCategories"/>
     </screen>
     <!-- ************* Script ************* -->
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="ScriptExecuter" position="0,0" size="1920,1080" title="NSS Addon Manager">
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="NSS Addon Manager" position="0,0" size="1920,1080" title="NSS Addon Manager">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="button1temp"/>
@@ -362,7 +362,7 @@
     <!-- *************************************** -->
     <!--  NEW NSS MANAGER                         * -->
     <!-- *************************************** -->
-    <screen name="nssInfoCfg" position="0,0" size="1920,1080" title="Info Config" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="nssInfoCfg" position="0,0" size="1920,1080" title="NSS Softcam Manager" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="button1temp"/>
@@ -371,10 +371,10 @@
         <widget name="list" position="49,109" size="850,863" font="Regular;30" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" backgroundColor="#20000000"/>
         <widget name="description" position="998,620" size="875,266" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
     </screen>
-    <screen name="nssGetipk" position="0,0" size="1920,1080" title="Get Server" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="nssGetipk" position="0,0" size="1920,1080" title="NSS Softcam Manager" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="nssGetipklist"/>
     </screen>
-    <screen name="nssGetipklist" position="0,0" size="1920,1080" title="Get Server" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="nssGetipklist" position="0,0" size="1920,1080" title="NSS Softcam Manager" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="button1temp"/>
@@ -427,10 +427,10 @@
         <eLabel backgroundColor="#00ff0000" position="58,1069" size="210,6" zPosition="12" />
         <eLabel backgroundColor="#0000ff00" position="570,1069" size="210,6" zPosition="12" /> 
     </screen>
-    <screen name="radiom2" position="0,0" size="1920,1080" title="Get Server" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="radiom2" position="0,0" size="1920,1080" title="Radio Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="radiom1"/>
     </screen>
-    <screen name="radiom3" position="0,0" size="1920,1080" title="Get Server" backgroundColor="#ff000000" flags="wfNoBorder">
+    <screen name="radiom3" position="0,0" size="1920,1080" title="Radio Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="radiom1"/>
     </screen>
     <screen name="radiom80" position="0,0" size="1920,1080" title="Radio Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
