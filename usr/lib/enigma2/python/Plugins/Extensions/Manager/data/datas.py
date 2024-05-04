@@ -184,8 +184,8 @@ if screenwidth.width() == 1920:
     skin_path = res_plugin_path + 'skins/fhd/'
 if screenwidth.width() == 2560:
     skin_path = res_plugin_path + 'skins/uhd/'
-if os.path.exists('/var/lib/dpkg/info'):
-    skin_path = skin_path + 'dreamOs/'
+# if os.path.exists('/var/lib/dpkg/info'):
+    # skin_path = skin_path + 'dreamOs/'
 if os.path.exists(sl2):
     os.system('rm -rf ' + plugin_path + ' > /dev/null 2>&1')
 

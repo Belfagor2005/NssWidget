@@ -98,20 +98,20 @@ def DreamCCExtra(name, index, isActive=False):
 class NSSCamsManager(Screen):
     skin = '''
         <screen name="NSSCamsManager" position="320,180" size="1280,720" title="" flags="wfNoBorder" backgroundColor="#101010">
-            <widget name="list" position="40,155" size="675,370" scrollbarMode="showOnDemand" transparent="1" zPosition="2" />
-            <widget name="info" position="42,550" size="1210,68" font="Regular; 18" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="7" />
-            <widget name="ecm" position="740,155" size="507,370" font="Regular; 22" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5" />
-            <ePixmap name="red" position="45,670" zPosition="2" size="34,47" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/buttons/key_red.png" transparent="1" alphatest="on" />
-            <ePixmap name="green" position="260,670" zPosition="2" size="34,47" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/buttons/key_green.png" transparent="1" alphatest="on" />
-            <ePixmap name="blue" position="790,670" zPosition="2" size="34,47" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/buttons/key_blue.png" transparent="1" alphatest="on" />
-            <ePixmap name="yellow" position="531,670" zPosition="2" size="34,47" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/buttons/key_yellow.png" transparent="1" alphatest="on" />
-            <widget name="key_red" position="85,670" size="209,40" valign="center" halign="left" zPosition="4" foregroundColor="white" font="Regular;30" transparent="1" shadowColor="#25062748" shadowOffset="-2,-2" />
-            <widget name="key_green" position="300,670" size="209,40" valign="center" halign="left" zPosition="4" foregroundColor="white" font="Regular;30" transparent="1" shadowColor="#25062748" shadowOffset="-2,-2" />
-            <widget name="key_yellow" position="571,670" size="209,40" valign="center" halign="left" zPosition="4" foregroundColor="white" font="Regular;30" transparent="1" shadowColor="#25062748" shadowOffset="-2,-2" />
-            <widget name="key_blue" position="831,670" size="209,40" valign="center" halign="left" zPosition="4" foregroundColor="white" font="Regular;30" transparent="1" shadowColor="#25062748" shadowOffset="-2,-2" />
-            <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/icons/logo.png" position="303,54" size="711,76" alphatest="on" zPosition="5" />
-            <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/backg.png" scale="stretch" position="0,0" size="1280,720" alphatest="on" />
-            <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/logo.png" position="42,67" size="150,50" alphatest="on" zPosition="5" />
+        <widget name="list" position="40,155" size="675,370" scrollbarMode="showOnDemand" transparent="1" zPosition="2" />
+        <widget name="info" position="42,550" size="1210,68" font="Regular; 18" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="7" />
+        <widget name="ecm" position="740,155" size="507,370" font="Regular; 22" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5" />
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/logo_label.png" position="303,54" size="711,76" alphatest="on" zPosition="5" />
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/fulltophd.jpg" scale="stretch" position="0,0" size="1280,720" alphatest="on" />
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/logo.png" position="42,67" size="150,50" alphatest="on" zPosition="5" />
+        <eLabel backgroundColor="#00ff0000" position="16,661" size="300,6" zPosition="12" />
+        <eLabel backgroundColor="#0000ff00" position="331,664" size="300,6" zPosition="12" />
+        <eLabel backgroundColor="#00ffff00" position="649,661" size="300,6" zPosition="12" />
+        <eLabel backgroundColor="#000000ff" position="964,663" size="300,6" zPosition="12" />
+        <widget name="key_red" render="Label" position="15,672" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+        <widget name="key_green" render="Label" position="332,671" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+        <widget name="key_yellow" render="Label" position="647,670" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+        <widget name="key_blue" render="Label" position="965,670" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
         </screen>'''
 
     def __init__(self, session, args=0):
@@ -143,7 +143,7 @@ class NSSCamsManager(Screen):
         self['key_red'] = Button(_('Stop'))
         self['key_green'] = Button(_('Start/Restart'))
         self['key_yellow'] = Button(_('Download'))
-        self['key_blue'] = Button('Softcam')
+        self['key_blue'] = Label('Softcam')
         os.system('ln -sf /usr/keys /var/keys')
         self.lastCam = self.readCurrent()
         self['info'] = Label('')

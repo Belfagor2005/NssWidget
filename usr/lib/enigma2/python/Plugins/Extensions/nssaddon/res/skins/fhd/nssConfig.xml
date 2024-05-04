@@ -1,22 +1,28 @@
 <!-- Skin tvConfig 11/05/2021 -->
 <screen name="nssConfig" position="0,0" size="1920,1080" title="..::NSS Addon Manager::.." backgroundColor="#ff000000" flags="wfNoBorder">
-	<widget name="title" position="836,18" size="1045,50" font="Regular;30" halign="left" valign="center" foregroundColor="#002a79b8" backgroundColor="black" transparent="1" zPosition="5" />
-	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/fulltophd.png" position="0,0" size="1920,1080" zPosition="1" />
-	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/sep.png" position="836,70" size="1045,10" zPosition="5" />
-	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/sep.png" position="836,424" size="1045,10" zPosition="5" />
-	<widget name="info" position="836,439" size="1045,594" font="Regular; 24" halign="left" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
+	<widget name="title" position="431,24" size="1197,50" font="Regular; 36" halign="center" valign="center" foregroundColor="#fefe00" backgroundColor="black" transparent="1" zPosition="5" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/fulltophd.jpg" scale="stretch" position="0,0" size="1920,1080" zPosition="1" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/sep.png" position="836,685" size="1045,-15" zPosition="5" />
+	<widget name="info" position="479,955" size="1045,90" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
 	<!-- Menu List -->
-	<widget name="config" position="836,84" size="1045,275" scrollbarMode="showOnDemand" itemHeight="50" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/sliderb.png" />
+	<widget name="config" position="428,80" size="1200,600" scrollbarMode="showOnDemand" itemHeight="50" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/sliderb.png" />
 	<!-- Colors -->
-	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/key_red.png" position="31,888" size="30,30" alphatest="on" zPosition="5" />
-	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/key_green.png" position="29,935" size="30,30" alphatest="on" zPosition="5" />
-	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/key_yellow.png" position="723,883" size="30,30" alphatest="on" zPosition="5" />
-	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/key_blue.png" position="723,938" size="30,30" alphatest="on" zPosition="5" />
-	<widget name="key_red" position="71,881" size="300,40" font="Regular;30" halign="left" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
-	<widget name="key_green" position="70,932" size="300,40" font="Regular;30" halign="left" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
-	<widget name="key_yellow" position="407,883" size="300,40" font="Regular;30" halign="right" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
-	<widget name="key_blue" position="407,935" size="300,40" font="Regular;30" halign="right" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
-	<widget name="description" position="836,372" size="1045,50" font="Regular; 36" foregroundColor="#ffb75b" backgroundColor="#101010" halign="center" transparent="1" zPosition="2" />
-    <eLabel name="" position="16,876" size="759,100" zPosition="3" />
-    <eLabel name="" position="16,876" size="759,100" zPosition="3" />
+    <eLabel backgroundColor="#00ff0000" position="50,262" size="300,6" zPosition="12" />
+	<eLabel backgroundColor="#0000ff00" position="50,323" size="300,6" zPosition="12" />
+	<eLabel backgroundColor="#00ffff00" position="50,382" size="300,6" zPosition="12" />
+	<eLabel backgroundColor="#000000ff" position="50,441" size="300,6" zPosition="12" />
+	<eLabel name="" position="49,468" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="3" text="OK" />
+	<eLabel name="" position="108,468" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="3" text="MENU" />
+	<eLabel name="" position="167,468" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="3" text="INFO" />	
+	<widget name="key_red" position="50,224" size="300,40" font="Regular;30" halign="left" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
+	<widget name="key_green" position="50,280" size="300,40" font="Regular;30" halign="left" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
+	<widget name="key_yellow" position="50,342" size="300,40" font="Regular;30" halign="left" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
+	<widget name="key_blue" position="50,400" size="300,40" font="Regular;30" halign="left" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
+	<!--
+ 	<widget name="statusgreen" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/status-on.png" alphatest="blend" position="46,532" size="40,40" zPosition="5" />
+	<widget name="statusred" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/status-off.png" alphatest="blend" position="47,531" size="40,40" zPosition="5" />	
+	<widget name="status" position="37,583" size="329,50" font="Regular; 26" foregroundColor="#ffb75b" backgroundColor="#101010" halign="left" transparent="1" zPosition="4" />
+	-->
+    <eLabel name="" position="34,203" size="343,463" zPosition="3" />
+	<widget name="description" position="479,902" size="1045,50" font="Regular; 36" foregroundColor="#ffb75b" backgroundColor="#101010" halign="center" transparent="1" zPosition="2" />
 </screen>

@@ -275,8 +275,8 @@ elif screenwidth.width() == 1920:
     skin_path = plugin_path + '/res/skins/fhd/'
 else:
     skin_path = plugin_path + '/res/skins/hd/'
-if os.path.exists('/var/lib/dpkg/info'):
-    skin_path = skin_path + 'dreamOs/'
+# if os.path.exists('/var/lib/dpkg/info'):
+    # skin_path = skin_path + 'dreamOs/'
 
 os.system('rm -fr ' + plugin_path + '/temp/*')
 if mmkpicon.endswith('/'):

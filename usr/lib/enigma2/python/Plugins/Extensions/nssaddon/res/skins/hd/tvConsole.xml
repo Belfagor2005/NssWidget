@@ -1,6 +1,9 @@
-<!-- Skin tvIPK 11/5/2021 -->
-<screen name="tvConsole" position="center,center" size="1280,720" title="..::NSS Addon Manager::.." backgroundColor="#ff000000" flags="wfNoBorder">
-	<widget name="title" position="550,28" size="715,32" font="Console;20" backgroundColor="#000000" foregroundColor="#00a0a0a0" transparent="1" zPosition="4" />
-	<widget name="list" position="550,67" size="715,506" font="Console;16" backgroundColor="#000000" foregroundColor="#00a0a0a0" zPosition="5" transparent="1" />
-	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/fulltophd.png" scale="stretch" position="0,0" size="1280,720" zPosition="1" />
+<!-- Skin tvConsole 11/05/2021 -->
+<screen name="tvConsole" position="0,0" size="1280,720" title="..::NSS Addon Manager::.." backgroundColor="#ff000000" flags="wfNoBorder">
+	<widget name="title" position="287,16" size="798,33" font="Regular; 24" halign="center" valign="center" foregroundColor="#fefe00" backgroundColor="black" transparent="1" zPosition="5" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/fulltophd.jpg" scale="stretch" position="0,0" size="1280,720" zPosition="1" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/sep.png" position="557,456" size="696,-15" zPosition="5" />
+	<widget name="info" position="319,636" size="696,60" font="Regular;20" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
+	<!-- Menu List -->
+	<widget name="list" position="285,53" size="800,400" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/sliderb.png" />
 </screen>

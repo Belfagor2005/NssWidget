@@ -22,13 +22,13 @@
             }
         </convert>
     </widget>   
-	<!-- Colors -->
-	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/key_red.png" position="146,630" size="20,20" alphatest="blend" zPosition="5" />
-	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/key_green.png" position="146,670" size="20,20" alphatest="blend" zPosition="5" />
-	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/key_yellow.png" position="680,630" size="20,20" alphatest="blend" zPosition="5" />
-	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/key_blue.png" position="680,670" size="20,20" alphatest="blend" zPosition="5" />
-	<widget name="key_red" position="180,626" size="200,26" font="Regular;20" halign="left" valign="center" backgroundColor="black" transparent="1" zPosition="5" />
-	<widget name="key_green" position="180,666" size="200,26" font="Regular;20" halign="left" valign="center" backgroundColor="black" transparent="1" zPosition="5" />
-	<widget name="key_yellow" position="473,626" size="200,26" font="Regular;20" halign="right" valign="center" backgroundColor="black" zPosition="5" transparent="1" />
-	<widget name="key_blue" position="473,666" size="200,26" font="Regular;20" halign="right" valign="center" backgroundColor="black" zPosition="5" transparent="1" />
+	<!-- Colors 1220 -->
+	<eLabel backgroundColor="#00ff0000" position="147,631" size="200,6" zPosition="12" />
+	<eLabel backgroundColor="#0000ff00" position="147,675" size="200,6" zPosition="12" />
+	<eLabel backgroundColor="#00ffff00" position="502,631" size="200,6" zPosition="12" />
+	<eLabel backgroundColor="#000000ff" position="502,675" size="200,6" zPosition="12" />
+	<widget name="key_red" render="Label" position="147,635" size="200,40" zPosition="11" font="Regular; 20" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+	<widget name="key_green" render="Label" position="146,679" size="200,40" zPosition="11" font="Regular; 20" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+	<widget name="key_yellow" render="Label" position="501,636" size="200,40" zPosition="11" font="Regular; 20" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+	<widget name="key_blue" render="Label" position="501,682" size="200,40" zPosition="11" font="Regular; 20" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
 </screen>
