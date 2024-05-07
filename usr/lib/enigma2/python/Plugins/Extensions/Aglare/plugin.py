@@ -11,12 +11,26 @@ from Components.Sources.Progress import Progress
 from Tools.Downloader import downloadWithProgress
 from Components.Sources.StaticText import StaticText
 from Components.Label import Label
-from Components.Pixmap import Pixmap, MovingPixmap
+from Components.Pixmap import Pixmap
 from Components.AVSwitch import AVSwitch
-from twisted.web.client import getPage
+# from twisted.web.client import getPage
 from Tools.Directories import fileExists
 import os
+import sys
 from enigma import ePicLoad
+
+PY3 = sys.version_info.major >= 3
+if PY3:
+    bytes = bytes
+    unicode = str
+    from urllib.request import urlopen
+    from urllib.request import Request
+
+else:
+    from urllib2 import urlopen
+    from urllib2 import Request
+
+
 version = '1.0'
 
 config.plugins.AglareNss = ConfigSubsection()
@@ -52,7 +66,7 @@ config.plugins.AglareNss.EventView = ConfigSelection(default='eventview_no_poste
  ('eventview_no_posters', _('EventView_NO_Posters')),
  ('eventview_7_posters', _('EventView_7_Posters')),
  ('eventview_banner', _('EventView_Banner'))])
- 
+
 config.plugins.AglareNss.VolumeBar = ConfigSelection(default='volume1', choices=[
  ('volume1', _('Default')),
  ('volume2', _('volume2'))])
@@ -64,6 +78,16 @@ def Plugins(**kwargs):
 
 def main(session, **kwargs):
     session.open(AglareSetup)
+
+
+def str_encode(text, encoding="utf8"):
+    if not PY3:
+        if isinstance(text, unicode):
+            return text.encode(encoding)
+        else:
+            return text
+    else:
+        return text
 
 
 class AglareSetup(ConfigListScreen, Screen):
@@ -94,17 +118,17 @@ class AglareSetup(ConfigListScreen, Screen):
 
         ConfigListScreen.__init__(self, list)
         self['actions'] = ActionMap(['OkCancelActions',
-         'DirectionActions',
-         'InputActions',
-         'ColorActions'], {'left': self.keyLeft,
-         'down': self.keyDown,
-         'up': self.keyUp,
-         'right': self.keyRight,
-         'red': self.keyExit,
-         'green': self.keySave,
-         # 'yellow': self.checkforUpdate,
-         'blue': self.info,
-         'cancel': self.keyExit}, -1)
+                                     'DirectionActions',
+                                     'InputActions',
+                                     'ColorActions'], {'left': self.keyLeft,
+                                                       'down': self.keyDown,
+                                                       'up': self.keyUp,
+                                                       'right': self.keyRight,
+                                                       'red': self.keyExit,
+                                                       'green': self.keySave,
+                                                       'yellow': self.checkforUpdate,
+                                                       'blue': self.info,
+                                                       'cancel': self.keyExit}, -1)
         self.onLayoutFinish.append(self.UpdateComponents)
         self.PicLoad = ePicLoad()
         self.Scale = AVSwitch().getFramebufferScale()
@@ -139,7 +163,7 @@ class AglareSetup(ConfigListScreen, Screen):
                     self.PicLoad.PictureData.get().append(self.DecodePicture)
                 except:
                     self.PicLoad_conn = self.PicLoad.PictureData.connect(self.DecodePicture)
-            return                    
+            return
 
     def DecodePicture(self, PicInfo=None):
         ptr = self.PicLoad.getData()
@@ -267,14 +291,54 @@ class AglareSetup(ConfigListScreen, Screen):
 
     def checkforUpdate(self):
         try:
-            getPage('http://').addCallback(self.gotUpdateInfo).addErrback(self.gotError)
-        except Exception as error:
-            print(str(error))
+            fp = ''
+            destr = '/tmp/AglareUpdate.txt'
+            req = Request('http://nonsolosat.net/AglareImage/AglareUpdate.txt')
+            req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36')
+            fp = str_encode(urlopen(req))
+            fp = fp.read()
+            with open(destr, 'w') as f:
+                f.write(str(fp))  # .decode("utf-8"))
+                f.seek(0)
+                f.close()
+            if os.path.exists(destr):
+                with open(destr, 'r') as cc:
+                    s1 = cc.readline()  #.decode("utf-8")
+                    vers = s1.split('#')[0]
+                    url = s1.split('#')[1]
+                    # print('vers', vers)
+                    # print('url:', url)
+                    version_server = repr(vers)[2:-1]
+                    version_server = version_server.replace("'",'').strip()
+                    self.updateurl = url.strip()
+                    cc.close()
+                    # print('Version plugin=', version)
+                    # print('Version server=', version_server)
+                    # print('Updateurl server=', self.updateurl)
+                    if str(version_server) == str(version):
+                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
+                         version_server,
+                         _('Version installed:'),
+                         version,
+                         _('You have the current version Aglare!'))
+                        self.session.open(MessageBox, message, MessageBox.TYPE_INFO)
+                    elif version_server > version:
+                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
+                         version_server,
+                         _('Version installed:'),
+                         version,
+                         _('The update is available!\n\nDo you want to run the update now?'))
+                        self.session.openWithCallback(self.update, MessageBox, message, MessageBox.TYPE_YESNO)
+                    else:
+                        self.session.open(MessageBox, _('You have version %s!!!') % version, MessageBox.TYPE_ERROR)
+        except Exception as e:
+            print('error: ', str(e))
 
     def gotError(self, error=''):
         pass
 
     def gotUpdateInfo(self, html):
+        html = html.decode("utf-8")
         tmp_infolines = html.splitlines()
         version_server = tmp_infolines[0]
         self.updateurl = tmp_infolines[1]
@@ -306,7 +370,7 @@ class AglareSetup(ConfigListScreen, Screen):
             x[1].cancel()
         self.close()
 
-# not used
+
 class AglareUpdater(Screen):
 
     def __init__(self, session, updateurl):
