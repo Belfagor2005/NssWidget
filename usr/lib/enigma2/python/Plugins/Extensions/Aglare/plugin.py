@@ -58,7 +58,9 @@ config.plugins.AglareNss.SecondInfobarStyle = ConfigSelection(default='secondinf
  ('secondinfobar_posters', _('SecondInfobar_Posters'))])
 config.plugins.AglareNss.ChannSelector = ConfigSelection(default='channellist_no_posters', choices=[
  ('channellist_no_posters', _('ChannelSelection_NO_Posters')),
- ('channellist_np_full', _('ChannelSelection_NO_Posters_Full')),  
+ ('channellist_np_full', _('ChannelSelection_NO_Posters_Full')),
+ ('channellist_no_posters_no_picon', _('ChannelSelection_NO_Posters_NO_Picon')),
+ ('channellist_backdrop_v', _('ChannelSelection_BackDrop_V')),
  ('channellist_1_poster', _('ChannelSelection_1_Poster')),
  ('channellist_4_posters', _('ChannelSelection_4_Posters')),
  ('channellist_big_mini_tv', _('ChannelSelection_big_mini_tv'))])
@@ -290,6 +292,10 @@ class AglareSetup(ConfigListScreen, Screen):
             self.close()
 
     def checkforUpdate(self):
+        # try:
+            # getPage('http://').addCallback(self.gotUpdateInfo).addErrback(self.gotError)
+        # except Exception as error:
+            # print (str(error))
         try:
             fp = ''
             destr = '/tmp/AglareUpdate.txt'
@@ -312,9 +318,9 @@ class AglareSetup(ConfigListScreen, Screen):
                     version_server = version_server.replace("'",'').strip()
                     self.updateurl = url.strip()
                     cc.close()
-                    # print('Version plugin=', version)
-                    # print('Version server=', version_server)
-                    # print('Updateurl server=', self.updateurl)
+                    print('Version plugin=', version)
+                    print('Version server=', version_server)
+                    print('Updateurl server=', self.updateurl)
                     if str(version_server) == str(version):
                         message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
                          version_server,
@@ -334,30 +340,30 @@ class AglareSetup(ConfigListScreen, Screen):
         except Exception as e:
             print('error: ', str(e))
 
-    def gotError(self, error=''):
-        pass
+    # def gotError(self, error=''):
+        # pass
 
-    def gotUpdateInfo(self, html):
-        html = html.decode("utf-8")
-        tmp_infolines = html.splitlines()
-        version_server = tmp_infolines[0]
-        self.updateurl = tmp_infolines[1]
-        if version_server == version:
-            message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
-             version_server,
-             _('Version installed:'),
-             version,
-             _('You have the current version Aglare!'))
-            self.session.open(MessageBox, message, MessageBox.TYPE_INFO)
-        elif version_server > version:
-            message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
-             version_server,
-             _('Version installed:'),
-             version,
-             _('The update is available!\n\nDo you want to run the update now?'))
-            self.session.openWithCallback(self.update, MessageBox, message, MessageBox.TYPE_YESNO)
-        else:
-            self.session.open(MessageBox, _('You have an experimental beta version!!!'), MessageBox.TYPE_ERROR)
+    # def gotUpdateInfo(self, html):
+        # html = html.decode("utf-8")
+        # tmp_infolines = html.splitlines()
+        # version_server = tmp_infolines[0]
+        # self.updateurl = tmp_infolines[1]
+        # if version_server == version:
+            # message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
+             # version_server,
+             # _('Version installed:'),
+             # version,
+             # _('You have the current version Aglare!'))
+            # self.session.open(MessageBox, message, MessageBox.TYPE_INFO)
+        # elif version_server > version:
+            # message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
+             # version_server,
+             # _('Version installed:'),
+             # version,
+             # _('The update is available!\n\nDo you want to run the update now?'))
+            # self.session.openWithCallback(self.update, MessageBox, message, MessageBox.TYPE_YESNO)
+        # else:
+            # self.session.open(MessageBox, _('You have an experimental beta version!!!'), MessageBox.TYPE_ERROR)
 
     def update(self, answer):
         if answer is True:
@@ -375,25 +381,39 @@ class AglareUpdater(Screen):
 
     def __init__(self, session, updateurl):
         self.session = session
-        self.updateurl = updateurl
-        skin = '\n\t\t<screen name="AglareUpdater" position="center,center" size="840,360" flags="wfNoBorder" backgroundColor="background">\n\t\t\t<widget name="status" position="20,10" size="800,70" transparent="1" font="Regular;16" foregroundColor="foreground" backgroundColor="background" valign="center" halign="left" noWrap="1" />\n\t\t\t<widget source="progress" render="Progress" position="100,153" size="400,6" transparent="1" borderWidth="0" />\n\t\t\t<widget source="progresstext" render="Label" position="333,184" zPosition="2" font="Regular;18" halign="center" transparent="1" size="180,20" foregroundColor="foreground" backgroundColor="background" />\n\t\t</screen>'
+        # skin = '\n\t\t<screen name="AglareUpdater" position="center,center" size="840,360" flags="wfNoBorder" backgroundColor="background">\n\t\t\t<widget name="status" position="20,10" size="800,70" transparent="1" font="Regular;16" foregroundColor="foreground" backgroundColor="background" valign="center" halign="left" noWrap="1" />\n\t\t\t<widget source="progress" render="Progress" position="100,153" size="400,6" transparent="1" borderWidth="0" />\n\t\t\t<widget source="progresstext" render="Label" position="333,184" zPosition="2" font="Regular;18" halign="center" transparent="1" size="180,20" foregroundColor="foreground" backgroundColor="background" />\n\t\t</screen>'
+        skin = '''
+                <screen name="AglareUpdater" position="center,center" size="840,360" flags="wfNoBorder" backgroundColor="background">
+                    <widget name="status" position="20,10" size="800,70" transparent="1" font="Regular;16" foregroundColor="foreground" backgroundColor="background" valign="center" halign="left" noWrap="1" />
+                    <widget source="progress" render="Progress" position="100,153" size="400,6" transparent="1" borderWidth="0" />
+                    <widget source="progresstext" render="Label" position="333,184" zPosition="2" font="Regular;18" halign="center" transparent="1" size="180,20" foregroundColor="foreground" backgroundColor="background" />
+                </screen>
+                '''
         self.skin = skin
-        Screen.__init__(self, session, updateurl)
+        Screen.__init__(self, session)
+        self.updateurl = updateurl
         self['status'] = Label()
         self['progress'] = Progress()
         self['progresstext'] = StaticText()
+        self.icount = 0
+        self.downloading = False
+        self.last_recvbytes = 0
+        self.error_message = None
+        self.download = None
+        self.aborted = False
         self.startUpdate()
 
     def startUpdate(self):
         self['status'].setText(_('Downloading Aglare...'))
-        self.dlfile = '/tmp/xxx.tar.gz'
+        self.dlfile = '/tmp/xxx.tar'
+
         self.download = downloadWithProgress(self.updateurl, self.dlfile)
         self.download.addProgress(self.downloadProgress)
         self.download.start().addCallback(self.downloadFinished).addErrback(self.downloadFailed)
 
     def downloadFinished(self, string=''):
         self['status'].setText(_('Installing updates!'))
-        os.system('cd /tmp/; tar -xzvf xxx*.tar.gz -C /; sync')
+        os.system('cd /tmp/; tar -xzvf xxx.tar -C /; sync')
         os.system('rm /tmp/xxx*.*')
         os.system('sync')
         restartbox = self.session.openWithCallback(self.restartGUI, MessageBox, _('Aglare update was done!!!\nDo you want to restart the GUI now?'), MessageBox.TYPE_YESNO)
@@ -407,9 +427,17 @@ class AglareUpdater(Screen):
         self['status'].setText(text)
         return
 
+    # def downloadProgress(self, recvbytes, totalbytes):
+        # self['progress'].value = int(100 * recvbytes / float(totalbytes))
+        # self['progresstext'].text = '%d of %d kBytes (%.2f%%)' % (recvbytes / 1024, totalbytes / 1024, 100 * recvbytes / float(totalbytes))
+
     def downloadProgress(self, recvbytes, totalbytes):
-        self['progress'].value = int(100 * recvbytes / float(totalbytes))
-        self['progresstext'].text = '%d of %d kBytes (%.2f%%)' % (recvbytes / 1024, totalbytes / 1024, 100 * recvbytes / float(totalbytes))
+        self['status'].setText(_('Download in progress...'))
+        self["progress"].show()
+        self['progress'].value = int(100 * self.last_recvbytes / float(totalbytes))
+        self['progresstext'].text = '%d of %d kBytes (%.2f%%)' % (self.last_recvbytes / 1024, totalbytes / 1024, 100 * self.last_recvbytes / float(totalbytes))
+        self.last_recvbytes = recvbytes
+
 
     def restartGUI(self, answer):
         if answer is True:

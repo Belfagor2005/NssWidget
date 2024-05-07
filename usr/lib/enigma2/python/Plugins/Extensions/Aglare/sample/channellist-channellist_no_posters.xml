@@ -2,6 +2,7 @@
     <screen name="ChannelSelection" position="0,0" size="1920,1080" title="Channel Selection" backgroundColor="black" flags="wfNoBorder">
         <panel name="button2temp"/>
         <panel name="timedate"/>
+        <panel name="buttonicons"/>
         <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
         <widget source="ServiceEvent" render="Label" position="970,652" size="917,316" font="Regular; 28" backgroundColor="background" transparent="1" noWrap="1" zPosition="8" foregroundColor="white" valign="top">
             <convert type="AglareEventName2">NextEventList</convert>
