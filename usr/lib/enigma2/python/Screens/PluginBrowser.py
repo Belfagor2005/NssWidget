@@ -764,7 +764,7 @@ class PluginBrowserNew(Screen):
             # if isFullHD():
             self.backgroundPixmap = '<ePixmap position="0,0" size="1920,1080" pixmap="skin_default/style1.jpg" transparent="1" zPosition="-1" />'
             self.backgroundColor = "#44000000"
-            self.foregroundColor = "#000080ff"
+            self.foregroundColor = "#FFFFFF"
             self.primaryColor = "#000000"
             self.primaryColorLabel = "#00ffffff"
             self.secondaryColor = "#1b3c85"
@@ -772,27 +772,27 @@ class PluginBrowserNew(Screen):
         elif config.misc.pluginstyle.value == 2:
             self.backgroundPixmap = ""
             self.backgroundColor = "#44000000"
-            self.foregroundColor = "#000080ff"
-            self.primaryColor = "#282828"
-            self.primaryColorLabel = "#DCE1E3"
-            self.secondaryColor = "#4e4e4e"
-            self.secondaryColorLabel = "#00000000"
+            self.foregroundColor = "#FFFFFF"
+            self.primaryColor = "#000000"
+            self.primaryColorLabel = "#00ffffff"
+            self.secondaryColor = "#1b3c85"
+            self.secondaryColorLabel = "#00ffc000"
         elif config.misc.pluginstyle.value == 3:
             self.backgroundPixmap = ""
-            self.backgroundColor = "#21292A"
-            self.foregroundColor = "#000080ff"
-            self.primaryColor = "#191F22"
-            self.primaryColorLabel = "#DCE1E3"
-            self.secondaryColor = "#39474F"
-            self.secondaryColorLabel = "#00000000"
+            self.backgroundColor = "#44000000"
+            self.foregroundColor = "#FFFFFF"
+            self.primaryColor = "#000000"
+            self.primaryColorLabel = "#00ffffff"
+            self.secondaryColor = "#1b3c85"
+            self.secondaryColorLabel = "#00ffc000"
         elif config.misc.pluginstyle.value == 4:
             self.backgroundPixmap = '<ePixmap position="0,0" size="1920,1080" pixmap="skin_default/style4.jpg" transparent="1" zPosition="-1" />'
             self.backgroundColor = "#44000000"
-            self.foregroundColor = "#000080ff"
-            self.primaryColor = "#16000000"
+            self.foregroundColor = "#FFFFFF"
+            self.primaryColor = "#000000"
             self.primaryColorLabel = "#00ffffff"
             self.secondaryColor = "#1b3c85"
-            self.secondaryColorLabel = "#00000000"
+            self.secondaryColorLabel = "#00ffc000"
         elif config.misc.pluginstyle.value == 5:
             self.backgroundPixmap = '<ePixmap position="0,0" size="1920,1080" pixmap="skin_default/style5.jpg" transparent="1" zPosition="-1" />'
             self.backgroundColor = "#44000000"
@@ -831,57 +831,57 @@ class PluginBrowserNew(Screen):
 
         elif config.misc.pluginstyle.value == 9:
             self.backgroundPixmap = '<ePixmap position="0,0" size="1920,1080" pixmap="skin_default/style9.jpg" transparent="1" zPosition="-1" />'
-            self.backgroundColor = "#21292A"
+            self.backgroundColor = "#44000000"
             self.foregroundColor = "#000080ff"
-            self.primaryColor = "#191F22"
+            self.primaryColor = "#451b49"
             self.primaryColorLabel = "#DCE1E3"
-            self.secondaryColor = "#39474F"
-            self.secondaryColorLabel = "#00000000"
+            self.secondaryColor = "#1b3c85"
+            self.secondaryColorLabel = "#00ffc000"
 
         elif config.misc.pluginstyle.value == 10:
             self.backgroundPixmap = '<ePixmap position="0,0" size="1920,1080" pixmap="skin_default/style10.jpg" transparent="1" zPosition="-1" />'
-            self.backgroundColor = "#21292A"
+            self.backgroundColor = "#44000000"
             self.foregroundColor = "#000080ff"
-            self.primaryColor = "#191F22"
+            self.primaryColor = "#451b49"
             self.primaryColorLabel = "#DCE1E3"
-            self.secondaryColor = "#39474F"
-            self.secondaryColorLabel = "#00000000"
+            self.secondaryColor = "#1b3c85"
+            self.secondaryColorLabel = "#00ffc000"
 
         elif config.misc.pluginstyle.value == 11:
             self.backgroundPixmap = '<ePixmap position="0,0" size="1920,1080" pixmap="skin_default/style11.jpg" transparent="1" zPosition="-1" />'
-            self.backgroundColor = "#21292A"
+            self.backgroundColor = "#44000000"
             self.foregroundColor = "#000080ff"
-            self.primaryColor = "#191F22"
+            self.primaryColor = "#451b49"
             self.primaryColorLabel = "#DCE1E3"
-            self.secondaryColor = "#39474F"
-            self.secondaryColorLabel = "#00000000"
+            self.secondaryColor = "#1b3c85"
+            self.secondaryColorLabel = "#00ffc000"
 
         elif config.misc.pluginstyle.value == 12:
             self.backgroundPixmap = '<ePixmap position="0,0" size="1920,1080" pixmap="skin_default/style12.jpg" transparent="1" zPosition="-1" />'
-            self.backgroundColor = "#21292A"
+            self.backgroundColor = "#44000000"
             self.foregroundColor = "#000080ff"
-            self.primaryColor = "#191F22"
+            self.primaryColor = "#451b49"
             self.primaryColorLabel = "#DCE1E3"
-            self.secondaryColor = "#39474F"
-            self.secondaryColorLabel = "#00000000"
+            self.secondaryColor = "#1b3c85"
+            self.secondaryColorLabel = "#00ffc000"
 
         elif config.misc.pluginstyle.value == 13:
             self.backgroundPixmap = '<ePixmap position="0,0" size="1920,1080" pixmap="skin_default/style13.jpg" transparent="1" zPosition="-1" />'
-            self.backgroundColor = "#21292A"
+            self.backgroundColor = "#44000000"
             self.foregroundColor = "#000080ff"
-            self.primaryColor = "#191F22"
+            self.primaryColor = "#451b49"
             self.primaryColorLabel = "#DCE1E3"
-            self.secondaryColor = "#39474F"
-            self.secondaryColorLabel = "#00000000"
+            self.secondaryColor = "#1b3c85"
+            self.secondaryColorLabel = "#00ffc000"
 
         elif config.misc.pluginstyle.value == 14:
             self.backgroundPixmap = '<ePixmap position="0,0" size="1920,1080" pixmap="skin_default/style14.jpg" transparent="1" zPosition="-1" />'
-            self.backgroundColor = "#21292A"
+            self.backgroundColor = "#44000000"
             self.foregroundColor = "#000080ff"
-            self.primaryColor = "#191F22"
+            self.primaryColor = "#451b49"
             self.primaryColorLabel = "#DCE1E3"
-            self.secondaryColor = "#39474F"
-            self.secondaryColorLabel = "#00000000"
+            self.secondaryColor = "#1b3c85"
+            self.secondaryColorLabel = "#00ffc000"
 
         else:
             self.backgroundPixmap = ""
