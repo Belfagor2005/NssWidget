@@ -28,6 +28,8 @@ NssWidget
 
 <img src="https://raw.githubusercontent.com/Belfagor2005/NssWidget/main/screen/screenshot8.jpg">
 
+<img src="https://raw.githubusercontent.com/Belfagor2005/NssWidget/main/screen/screenshot13.jpg">
+
 <img src="https://raw.githubusercontent.com/Belfagor2005/NssWidget/main/screen/screenshot9.jpg">
 
 
