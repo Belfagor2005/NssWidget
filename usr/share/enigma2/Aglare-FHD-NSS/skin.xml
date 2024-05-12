@@ -3317,7 +3317,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
     <screen name="CacheFlushAutoScreen" position="35,77" size="420,40" title="CacheFlush Status" zPosition="10" flags="wfNoBorder">
         <widget name="message_label" position="1,0" size="418,39" font="Regular;28" valign="center" halign="center" backgroundColor="background" transparent="1"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="SoftcamSetup" position="0,0" size="1920,1080" title="">
+    <screen name="SoftcamSetup" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="button1temp"/>
