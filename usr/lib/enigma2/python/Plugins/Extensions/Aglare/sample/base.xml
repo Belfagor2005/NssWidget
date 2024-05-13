@@ -825,8 +825,8 @@
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/net.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="ScanIP" position="center,center" size="900,120" title="Scan IP">
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="0,40" size="300,6" zPosition="-11"/>
-        <eLabel backgroundColor="#fe00" cornerRadius="3" position="300,42" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="0,40" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="green" cornerRadius="3" position="300,42" size="300,6" zPosition="-11"/>
         <eLabel backgroundColor="progfg" cornerRadius="3" position="600,42" size="300,6" zPosition="-11"/>
         <widget source="key_red" render="Label" position="0,0" size="300,40" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_green" render="Label" position="300,0" size="300,40" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
@@ -2628,11 +2628,11 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
         <panel name="bLogo"/>
     </screen>
     <screen name="QuitMainloopScreen" position="0,0" size="1920,1080" backgroundColor="background" flags="wfNoBorder">
-        <ePixmap pixmap="Aglare-FHD-NSS/image_logo/nss/bboot.jpg" position="0,0" size="1920,1080" scale="1" alphatest="blend" />
+        <ePixmap pixmap="Aglare-FHD-NSS/image_logo/nss/bboot.jpg" position="0,0" size="1920,1080" scale="1" alphatest="blend"/>
         <!-- <ePixmap pixmap="Aglare-FHD-NSS/image_logo/nss/bannerupload.png" position="627,956" size="765,125" scale="1" alphatest="blend" zPosition="3"/> -->
-        <widget name="text" position="78,12" size="1770,60" font="Regular; 50" halign="center" valign="center" backgroundColor="#ffffffff" foregroundColor="gold" zPosition="3" />
+        <widget name="text" position="78,12" size="1770,60" font="Regular; 50" halign="center" valign="center" backgroundColor="#ffffffff" foregroundColor="gold" zPosition="3"/>
         <!-- <eLabel name="" position="1450,94" size="400,80" font="Regular;34" backgroundColor="background" text="Designed by MNASR" transparent="1" halign="center" foregroundColor="yellow" /> -->
-        <eLabel name="" position="7,1028" size="400,50" font="Regular; 34" backgroundColor="background" text="Edit by LULULLA" transparent="1" halign="center" foregroundColor="yellow" />
+        <eLabel name="" position="7,1028" size="400,50" font="Regular; 34" backgroundColor="background" text="Edit by LULULLA" transparent="1" halign="center" foregroundColor="yellow"/>
     </screen>
     <screen name="Screensaver" title="ScreenSaver" position="fill" flags="wfNoBorder" backgroundColor="transparent">
         <eLabel position="0,0" backgroundColor="background" zPosition="0"/>
@@ -2735,7 +2735,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
     <screen name="CacheFlushAutoScreen" position="35,77" size="420,40" title="CacheFlush Status" zPosition="10" flags="wfNoBorder">
         <widget name="message_label" position="1,0" size="418,39" font="Regular;28" valign="center" halign="center" backgroundColor="background" transparent="1"/>
     </screen>
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="SoftcamSetup" position="0,0" size="1920,1080" title="">
+    <screen name="SoftcamSetup" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="button1temp"/>
@@ -3359,7 +3359,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
         <eLabel text="MNASR" position="center,0" size="210,50" font="Regular; 42" halign="center" backgroundColor="background" foregroundColor="mainskincolor"/>
         <ePixmap position="center,50" size="210,120" pixmap="picon_default.png" alphatest="blend" zPosition="10"/>
     </screen>
-    <screen name="MessageBox" position="365,320" size="1190,310" zPosition="1" title="Message" backgroundColor="background" flags="wfBorder">
+    <screen name="MessageBox" position="365,320" size="1190,310" zPosition="1" title="Message" backgroundColor="background" flags="wfNoBorder">
         <!--openpli-->
         <widget name="ErrorPixmap" pixmap="icons/input_error.png" position="12,12" size="80,80" alphatest="blend"/>
         <widget name="QuestionPixmap" pixmap="icons/input_question.png" position="12,12" size="80,80" alphatest="blend"/>
@@ -4131,8 +4131,8 @@ self.instance.move(ePoint(int(deskwidth - newwidth)//2,int(deskheight - newheigh
         <widget name="list_head" position="36,98" size="890,50" foregroundColor="yellow" itemHeight="50" font="Regular; 30" valign="center" transparent="1"/>
         <widget name="checkList" position="36,166" valign="center" zPosition="2" size="890,806" itemHeight="62" itemCornerRadius="8" transparent="1"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/record_paths.png" transparent="1" alphatest="on"/>
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
-        <eLabel backgroundColor="#fe00" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
     </screen>
     <screen name="keyAdder_setup" position="0,0" size="1920,1080" title="keyAdder setup" backgroundColor="black" flags="wfNoBorder">
         <panel name="titletemp"/>
@@ -4141,8 +4141,8 @@ self.instance.move(ePoint(int(deskwidth - newwidth)//2,int(deskheight - newheigh
         <panel name="bLogo"/>
         <widget source="key_red" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_green" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
-        <eLabel backgroundColor="#fe00" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
         <widget name="config" font="Regular;30" itemHeight="50" position="36,98" size="890,900" transparent="1" itemCornerRadius="8" valign="center" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
         <widget source="help" render="Label" position="997,948" size="625,50" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" zPosition="5" valign="center"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/access.png" transparent="1" alphatest="on"/>
@@ -4208,7 +4208,7 @@ self.instance.move(ePoint(int(deskwidth - newwidth)//2,int(deskheight - newheigh
         <panel name="bLogo"/>
         <widget name="about" position="36,98" size="890,900" font="Regular;28" backgroundColor="background" transparent="1"/>
         <widget name="oealogo" position="1033,810" size="200,135" zPosition="4" transparent="1" alphatest="blend"/>
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
         <eLabel name="new eLabel" text="Cancel" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/info.png" transparent="1" alphatest="on"/>
     </screen>
@@ -4366,7 +4366,7 @@ self.instance.move(ePoint(int(deskwidth - newwidth)//2,int(deskheight - newheigh
 				}
 			</convert>
         </widget>
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
         <eLabel name="new eLabel" text="Close" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/swupdate.png" transparent="1" alphatest="on"/>
@@ -4505,7 +4505,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y()))
         <widget name="key_red" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <eLabel name="" position="1668,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/console.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="KeymapSelector" position="0,0" size="1920,1080" title="Keymap Manager" backgroundColor="transparent" flags="wfNoBorder">
@@ -4715,8 +4715,8 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y()))
         <eLabel name="new eLabel" text="Cancel" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <eLabel name="new eLabel" text="Change" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/tuner.png" transparent="1" alphatest="on"/>
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
-        <eLabel backgroundColor="#fe00" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
     </screen>
     <screen name="SatBlindscanState" position="0,0" size="1920,1080" title="Satellite Blindscan" flags="wfNoBorder" backgroundColor="transparent">
         <panel name="titletemp"/>
@@ -4737,8 +4737,8 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y()))
         <eLabel name="new eLabel" text="Cancel" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <eLabel name="new eLabel" text="Change" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/tuner.png" transparent="1" alphatest="on"/>
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
-        <eLabel backgroundColor="#fe00" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
     </screen>
     <screen name="SetupAutoCam" position="0,0" size="1920,1080" title="AutoCam Settings" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="titletemp"/>
@@ -5456,7 +5456,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
             </convert>
         </widget>
         <widget name="config" position="36,552" size="1140,400" itemHeight="50" font="Regular;32" valign="center" zPosition="14" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="1" itemCornerRadius="8" textOffset="15,4"/>
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
         <widget name="languagetext" position="32,1016" size="300,45" zPosition="11" font="Regular; 32" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget name="wizard" pixmap="skin_default/wizard.png" position="250,230" zPosition="10" size="240,240" alphatest="blend" transparent="1"/>
         <eLabel name="" position="1758,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
@@ -5677,6 +5677,8 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
             <convert type="FrontendInfo">LOCK</convert>
             <convert type="ConditionalShowHide">Invert</convert>
         </widget>
+        <widget name="config" position="80,430" size="900,536" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/tuner.png" transparent="1" alphatest="on"/>
         <eLabel name="agc" text="AGC:" position="60,326" size="200,80" font="Regular; 60" halign="right" backgroundColor="background" transparent="1" valign="center"/>
         <widget source="Frontend" render="Label" position="1665,328" size="200,80" font="Regular; 60" halign="left" foregroundColor="yellow" backgroundColor="#000000" transparent="1">
             <convert type="FrontendInfo">AGC</convert>
@@ -5684,8 +5686,6 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <widget source="Frontend" render="Progress" position="270,335" size="1380,60" zPosition="2" backgroundColor="progbg" foregroundGradient="red,red,red,horizontal" cornerRadius="30" transparent="1">
             <convert type="FrontendInfo">AGC</convert>
         </widget>
-        <widget name="config" position="80,430" size="900,536" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8"/>
-        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/tuner.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="PositionerSetup" position="0,0" size="1920,1080" title="Positioner setup..." backgroundColor="transparent" flags="wfNoBorder">
         <panel name="menutemp3"/>
@@ -6000,7 +6000,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <eLabel name="" position="416,916" size="132,40" font="FA; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
         <eLabel name="" position="996,631" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="FA; 26" text="" zPosition="1"/>
         <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,634" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
-            <convert type="AglareReceiverInfo">MemFree</convert>
+            <convert type="AglareReceiverInfo">FlashInfo</convert>
         </widget>
         <widget source="session.Event_Now" render="Progress" position="1058,662" size="400,10" backgroundColor="progbg" foregroundColor="yellow" cornerRadius="10" zPosition="88">
             <convert type="AglareReceiverInfo">MemFree</convert>
@@ -6018,7 +6018,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
         <eLabel name="" position="996,631" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="FA; 26" text="" zPosition="1"/>
         <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,634" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
-            <convert type="AglareReceiverInfo">MemFree</convert>
+            <convert type="AglareReceiverInfo">FlashInfo</convert>
         </widget>
         <widget source="session.Event_Now" render="Progress" position="1058,662" size="400,10" backgroundColor="progbg" foregroundColor="yellow" cornerRadius="10" zPosition="88">
             <convert type="AglareReceiverInfo">MemFree</convert>
@@ -6369,9 +6369,9 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <widget name="HelpWindow" position="310,900" zPosition="1" size="1,1" transparent="1" alphatest="blend"/>
         <ePixmap pixmap="MX_Slim-Line_NP/positioner.png" position="0,0" size="1920,1080" alphatest="blend" zPosition="-99"/>
         <eLabel name="" position="316,202" size="1286,318" zPosition="4" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="330,888" size="300,6" zPosition="4"/>
-        <eLabel backgroundColor="#fe00" cornerRadius="3" position="650,888" size="300,6" zPosition="4"/>
-        <eLabel backgroundColor="#fefe00" cornerRadius="3" position="970,888" size="300,6" zPosition="4"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="330,888" size="300,6" zPosition="4"/>
+        <eLabel backgroundColor="green" cornerRadius="3" position="650,888" size="300,6" zPosition="4"/>
+        <eLabel backgroundColor="progfg" cornerRadius="3" position="970,888" size="300,6" zPosition="4"/>
         <widget source="key_red" render="Label" position="330,840" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_green" render="Label" position="650,840" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_yellow" render="Label" position="970,840" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
@@ -6406,8 +6406,8 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
             </convert>
         </widget>
         <widget name="lab1" zPosition="2" position="36,911" size="890,90" font="Regular; 28" halign="left" transparent="1"/>
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
-        <eLabel backgroundColor="#fe00" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
+        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
         <widget name="key_red" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget name="key_green" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/hdd.png" transparent="1" alphatest="on"/>
@@ -6430,8 +6430,8 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <widget source="list" render="Listbox" position="36,184" size="890,800" font="Regular;30" itemHeight="50" enableWrapAround="1" transparent="1" itemCornerRadius="8">
             <convert type="StringList"/>
         </widget>
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
-        <eLabel backgroundColor="#fe00" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
+        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
         <widget name="key_red" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget name="key_green" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/camd.png" transparent="1" alphatest="on"/>
@@ -6442,7 +6442,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
         <widget name="config" position="36,98" size="890,900" font="Regular;30" itemHeight="50" enableWrapAround="1" transparent="1" itemCornerRadius="8" valign="center"/>
-        <eLabel backgroundColor="#fe00" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
         <widget name="key_green" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/camd.png" transparent="1" alphatest="on"/>
     </screen>
@@ -6466,7 +6466,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <widget source="IF" render="Label" position="160,120" size="307,40" zPosition="10" font="Regular; 28" halign="left" backgroundColor="background" transparent="1"/>
         <widget source="Statustext" render="Label" position="550,120" size="195,40" zPosition="10" font="Regular; 28" halign="right" backgroundColor="background" transparent="1"/>
         <widget name="statuspic" pixmaps="main/greenon.png,main/greenoff.png" position="750,120" zPosition="10" size="40,40" transparent="1" alphatest="blend"/>
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
         <widget source="key_red" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <eLabel name="" position="1660,790" size="180,180" font="FA; 100" text="" halign="center" zPosition="99" transparent="1"/>
     </screen>
@@ -6476,7 +6476,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
         <widget name="AboutScrollLabel" position="36,98" size="890,900" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30"/>
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
         <widget source="key_red" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <eLabel name="" position="1660,790" size="180,180" font="FA; 100" text="" halign="center" zPosition="99" transparent="1"/>
     </screen>
@@ -6485,7 +6485,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <panel name="menutemp"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
         <widget source="key_red" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="TunerHeader" render="Label" position="36,120" size="890,40" font="Regular; 34" halign="left" transparent="1" backgroundColor="background" foregroundColor="yellow"/>
         <widget source="nims" render="Label" position="36,164" size="890,240" font="Regular; 28" halign="left" transparent="1" backgroundColor="background"/>
@@ -6502,8 +6502,8 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <panel name="bLogo"/>
         <widget name="config" position="36,200" size="890,800" zPosition="2" font="Regular; 30" itemHeight="50" enableWrapAround="1" transparent="1" itemCornerRadius="8" valign="center"/>
         <widget name="lab1" position="36,98" zPosition="1" size="890,100" font="Regular; 30" halign="left" foregroundColor="yellow" backgroundColor="background" transparent="1"/>
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
-        <eLabel backgroundColor="#fe00" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
+        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
         <widget name="key_red" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget name="key_green" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on"/>
@@ -6516,8 +6516,8 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <widget source="list" render="Listbox" position="36,98" size="890,900" font="Regular;30" itemHeight="50" enableWrapAround="1" transparent="1" itemCornerRadius="8" valign="center">
             <convert type="StringList"/>
         </widget>
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
-        <eLabel backgroundColor="#fe00" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
+        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
         <widget name="key_red" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget name="key_green" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/net.png" transparent="1" alphatest="on"/>
@@ -6941,17 +6941,17 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <widget name="myMenu" position="36,100" size="890,900" scrollbarMode="showOnDemand" halign="left" valign="center" itemHeight="50" font="Regular;30" itemCornerRadius="8"/>
     </screen>
     <screen name="AglareSetup" position="0,0" size="1920,1080" title="Aglare-FHD Skin Controler" flags="wfNoBorder">
-        <panel name="titletemp" />
-        <panel name="menutemp" />
-        <panel name="configlist45" />
-        <panel name="pigscreen885" />
-        <panel name="buttonicons" />
-        <eLabel text="Cancel" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" foregroundColor="white" backgroundColor="background" transparent="1" />
-        <eLabel text="Save" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
-        <eLabel text="Info" position="962,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
-        <eLabel text="Update" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
-        <widget name="Preview" position="997,690" size="498, 280" zPosition="5" />
-        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/aglarelogo.png" transparent="1" alphatest="on" />
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="configlist45"/>
+        <panel name="pigscreen885"/>
+        <panel name="buttonicons"/>
+        <eLabel text="Cancel" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" foregroundColor="white" backgroundColor="background" transparent="1"/>
+        <eLabel text="Save" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
+        <eLabel text="Info" position="962,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
+        <eLabel text="Update" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
+        <widget name="Preview" position="997,690" size="498, 280" zPosition="5"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/aglarelogo.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="VIXMenu" position="fill" flags="wfNoBorder" backgroundColor="background">
         <panel name="titletemp"/>
