@@ -5131,7 +5131,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y()))
         <panel name="menutemp"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
-        <widget name="ecmInfo" font="Regular; 28" backgroundColor="OE_Background" position="36,545" size="890,45" transparent="1"/>
+        <widget name="ecmInfo" font="Regular; 28" backgroundColor="background" position="36,545" size="890,45" transparent="1"/>
         <widget name="irdeto" text="I" font="Regular; 32" backgroundColor="background" foregroundColor="white" position="240,490" size="45,45" valign="center" halign="center" zPosition="3" transparent="1"/>
         <widget name="seca" text="S" font="Regular; 32" backgroundColor="background" foregroundColor="white" position="295,490" size="45,45" valign="center" halign="center" zPosition="3" transparent="1"/>
         <widget name="nagra" text="N" font="Regular; 32" backgroundColor="background" foregroundColor="white" position="350,490" size="45,45" valign="center" halign="center" zPosition="3" transparent="1"/>

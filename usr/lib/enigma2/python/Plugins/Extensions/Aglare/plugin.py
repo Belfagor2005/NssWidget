@@ -178,7 +178,7 @@ class AglareSetup(ConfigListScreen, Screen):
         self.UpdatePicture()
 
     def info(self):
-        aboutbox = self.session.open(MessageBox, _('Setup Aglare for Aglare-FHD-NSS'), MessageBox.TYPE_INFO)
+        aboutbox = self.session.open(MessageBox, _('Setup Plugin for Aglare-FHD-NSS v.%s\n mod by Lululla') % version, MessageBox.TYPE_INFO)
         aboutbox.setTitle(_('Info...'))
 
     def keyLeft(self):

@@ -17,7 +17,7 @@ from Components.Button import Button
 from Components.ConfigList import ConfigListScreen
 from Components.config import config, getConfigListEntry
 from Components.config import ConfigYesNo, ConfigSubsection
-from Components.config import ConfigDirectory
+from Components.config import ConfigDirectory, ConfigSelection
 from Components.Label import Label
 from Components.MenuList import MenuList
 from Components.MultiContent import MultiContentEntryText
@@ -2517,8 +2517,6 @@ class nssConfig(Screen, ConfigListScreen):
         self.setup_title = _("NSS Addon Config")
         self.onChangedEntry = []
         self.session = session
-        self.list = []
-        ConfigListScreen.__init__(self, self.list, session=self.session, on_change=self.changedEntry)
         self.setTitle(self.setup_title)
         self['description'] = Label('')
         self['info'] = Label(_('Config Panel Addon'))
@@ -2543,6 +2541,8 @@ class nssConfig(Screen, ConfigListScreen):
                                                                  "showVirtualKeyboard": self.KeyText,
                                                                  'ok': self.Ok_edit,
                                                                  'green': self.msgok}, -1)
+        self.list = []
+        ConfigListScreen.__init__(self, self.list, session=self.session, on_change=self.changedEntry)
         self.createSetup()
         self.onLayoutFinish.append(self.layoutFinished)
         if self.setInfo not in self['config'].onSelectionChanged:
@@ -2631,6 +2631,7 @@ class nssConfig(Screen, ConfigListScreen):
             self.close(True)
 
     def Ok_edit(self):
+        ConfigListScreen.keyOK(self)
         sel = self['config'].getCurrent()[1]
         if sel == config.plugins.nssaddon.mmkpicon:
             self.setting = 'mmkpicon'
