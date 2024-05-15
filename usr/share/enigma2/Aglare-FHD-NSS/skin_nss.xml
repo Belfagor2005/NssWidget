@@ -201,8 +201,8 @@
         <panel name="button1temp" />
         <panel name="pigscreen885" />
         <panel name="bLogo" />
-        <widget name="config" position="43,161" size="869,360" font="Regular;30" itemHeight="40" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1" />
-        <widget name="info" position="36,531" size="884,471" font="Regular; 28" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
+        <widget name="config" position="43,161" size="869,156" font="Regular;30" itemHeight="40" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1" />
+        <widget name="info" position="36,328" size="884,674" font="Regular; 26" halign="left" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
         <widget name="description" position="41,95" size="882,59" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
     </screen>
     <!-- ************* cccConfig************* -->

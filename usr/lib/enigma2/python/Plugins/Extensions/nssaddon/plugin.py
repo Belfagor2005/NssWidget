@@ -58,10 +58,7 @@ import subprocess
 
 
 global skin_path, sets, category
-
 # mmkpicon = config.usage.picon_dir.value()
-
-
 PY3 = sys.version_info.major >= 3
 if PY3:
     from urllib.error import URLError
@@ -219,12 +216,10 @@ AgentRequest = RequestAgent()
 global sets
 config.plugins.nssaddon = ConfigSubsection()
 config.plugins.nssaddon.strtext = ConfigYesNo(default=True)
-# config.plugins.nssaddon.mmkpicon = ConfigDirectory(default='/picon/')
 config.plugins.nssaddon.strtmain = ConfigYesNo(default=False)
+# config.plugins.nssaddon.mmkpicon = ConfigDirectory(default='/picon/')
 # config.plugins.nssaddon.ipkpth = ConfigSelection(default="/tmp", choices=mountipkpth())
-
 mmkpicon = config.usage.picon_dir.value.strip()
-   
 currversion = '1.0.0'
 title_plug = 'NSS Addon V. %s' % currversion
 name_plug = 'NSS Addon'
@@ -2047,11 +2042,6 @@ class NssInstall(Screen):
         self['progresstext'].text = '%d of %d kBytes (%.2f%%)' % (self.last_recvbytes / 1024, totalbytes / 1024, 100 * self.last_recvbytes / float(totalbytes))
         self.last_recvbytes = recvbytes
 
-    def showError(self):
-        print("download error ")
-        self.downloading = False
-        self.close()
-
     def download_failed(self, failure_instance=None, error_message=""):
         self.error_message = error_message
         if error_message == "" and failure_instance is not None:
@@ -2915,6 +2905,7 @@ class MMarkPiconsf(Screen):
         self.name = name
         self.error_message = ""
         self.last_recvbytes = 0
+        self.progclear = 0
         self.error_message = None
         self.download = None
         self.aborted = False
@@ -2934,6 +2925,11 @@ class MMarkPiconsf(Screen):
 
     def getfreespace(self):
         try:
+            # self.downloading = False
+            # self['progresstext'].text = ''
+            # self['progress'].setValue(self.progclear)
+            # self["progress"].hide()
+            # self['info'].setText(_('Please select ...'))
             fspace = Utils.freespace()
             self['pform'].setText(str(fspace))
         except Exception as e:
@@ -3019,11 +3015,8 @@ class MMarkPiconsf(Screen):
         self['progress'].value = int(100 * self.last_recvbytes / float(totalbytes))
         self['progresstext'].text = '%d of %d kBytes (%.2f%%)' % (self.last_recvbytes / 1024, totalbytes / 1024, 100 * self.last_recvbytes / float(totalbytes))
         self.last_recvbytes = recvbytes
-
-    def showError(self):
-        print("download error ")
-        self.downloading = False
-        self.close()
+        if self.last_recvbytes == recvbytes:
+            self.getfreespace()
 
     def download_failed(self, failure_instance=None, error_message=""):
         self.error_message = error_message
@@ -3038,30 +3031,27 @@ class MMarkPiconsf(Screen):
         print("aborting", self.url)
         if self.download:
             self.download.stop()
-        self.downloading = False
-        self.aborted = True
+            self.getfreespace()
 
     def download_finished(self, string=""):
         if self.aborted:
             self.finish(aborted=True)
+        self['info'].setText(_('Picons installed...'))
+        self.getfreespace()
 
     def install(self, string=''):
         if self.aborted:
             self.finish(aborted=True)
         else:
-            self.progclear = 0
             self['info'].setText(_('File Downloaded ...'))
             if os.path.exists('/tmp/download.zip'):
                 self['info'].setText(_('Install ...'))
-                self.downloading = False
-                self['progresstext'].text = ''
-                self['progress'].setValue(self.progclear)
-                self["progress"].hide()
                 self['info'].setText(_('Please select ...'))
                 myCmd = "unzip -o -q '/tmp/download.zip' -d %s/" % str(mmkpicon)
                 subprocess.Popen(myCmd, shell=True, executable='/bin/bash')
                 info = 'Successfully Picons Installed'
                 self.session.open(MessageBox, _(info), MessageBox.TYPE_INFO, timeout=5)
+        self.close()
 
 
 class OpenPicons(Screen):
@@ -3095,6 +3085,7 @@ class OpenPicons(Screen):
         self.name = name
         self.error_message = ""
         self.last_recvbytes = 0
+        self.progclear = 0
         self.error_message = None
         self.download = None
         self.aborted = False
@@ -3114,9 +3105,11 @@ class OpenPicons(Screen):
 
     def getfreespace(self):
         try:
-            # from Components.PluginComponent import plugins
-            # plugins.clearPluginList()
-            # plugins.readPluginList(resolveFilename(SCOPE_PLUGINS))
+            self.downloading = False
+            self['progresstext'].text = ''
+            self['progress'].setValue(self.progclear)
+            self["progress"].hide()
+            self['info'].setText(_('Please select ...'))
             fspace = Utils.freespace()
             self['pform'].setText(str(fspace))
         except Exception as e:
@@ -3189,11 +3182,6 @@ class OpenPicons(Screen):
         self['progresstext'].text = '%d of %d kBytes (%.2f%%)' % (self.last_recvbytes / 1024, totalbytes / 1024, 100 * self.last_recvbytes / float(totalbytes))
         self.last_recvbytes = recvbytes
 
-    def showError(self):
-        print("download error ")
-        self.downloading = False
-        self.close()
-
     def download_failed(self, failure_instance=None, error_message=""):
         self.error_message = error_message
         if error_message == "" and failure_instance is not None:
@@ -3213,21 +3201,16 @@ class OpenPicons(Screen):
     def download_finished(self, string=""):
         if self.aborted:
             self.finish(aborted=True)
+            self.getfreespace()
 
     def install(self, string=''):
         if self.aborted:
             self.finish(aborted=True)
         else:
-            self.progclear = 0
             self['info'].setText(_('File Downloaded ...'))
             if os.path.exists(self.dest):
                 self.namel = ''
                 self['info'].setText(_('Install ...'))
-                self.downloading = False
-                self['progresstext'].text = ''
-                self['progress'].setValue(self.progclear)
-                self["progress"].hide()
-                self['info'].setText(_('Please select ...'))
                 if os.path.exists("/tmp/unzipped"):
                     os.system('rm -rf /tmp/unzipped')
                 os.makedirs('/tmp/unzipped')
@@ -3246,6 +3229,7 @@ class OpenPicons(Screen):
                         os.system(Cmd)
                 info = 'Successfully Picons Installed'
                 self.session.open(MessageBox, _(info), MessageBox.TYPE_INFO, timeout=5)
+        self.getfreespace()
 
 
 def autostartsoftcam(reason, session=None, **kwargs):
