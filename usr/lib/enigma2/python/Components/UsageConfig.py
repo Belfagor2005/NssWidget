@@ -1,20 +1,105 @@
-from Components.Harddisk import harddiskmanager
-from Components.Console import Console
-from Components.config import ConfigSubsection, ConfigYesNo, config, ConfigSelection, ConfigText, ConfigNumber
-from Components.config import ConfigIP, ConfigSet, ConfigLocations, ConfigSelectionNumber, ConfigClock, ConfigSlider, ConfigEnableDisable, ConfigSubDict, ConfigDictionarySet, ConfigInteger, ConfigPassword
-from Tools.Directories import defaultRecordingLocation
-from enigma import setTunerTypePriorityOrder, setPreferredTuner, setSpinnerOnOff, setEnableTtCachingOnOff, eEnv, eDVBDB, Misc_Options, eBackgroundFileEraser, eServiceEvent, eDVBLocalTimeHandler, eEPGCache
+# -*- coding: utf-8 -*-
+
 from Components.About import GetIPsFromNetworkInterfaces
+from Components.Console import Console
+from Components.Harddisk import harddiskmanager
 from Components.NimManager import nimmanager
 from Components.Renderer.FrontpanelLed import ledPatterns, PATTERN_ON, PATTERN_OFF, PATTERN_BLINK
 from Components.ServiceList import refreshServiceList
 from Components.SystemInfo import SystemInfo
+from Components.config import ConfigIP, ConfigSet, ConfigLocations
+from Components.config import ConfigSelection, ConfigText, ConfigNumber
+from Components.config import ConfigSelectionNumber, ConfigClock, ConfigPassword
+from Components.config import ConfigSlider, ConfigEnableDisable, ConfigInteger
+from Components.config import ConfigSubDict, ConfigDictionarySet
+from Components.config import ConfigSubsection, ConfigYesNo, config
+from Tools.Directories import defaultRecordingLocation, fileExists
+from enigma import setTunerTypePriorityOrder, setPreferredTuner, setSpinnerOnOff
+from enigma import setEnableTtCachingOnOff, eEnv, eDVBDB, Misc_Options
+from enigma import eBackgroundFileEraser, eServiceEvent, eDVBLocalTimeHandler, eEPGCache
 import os
 import time
 
 
 originalAudioTracks = "orj dos ory org esl qaa qaf und mis mul ORY ORJ Audio_ORJ oth"
 visuallyImpairedCommentary = "NAR qad"
+
+
+def mountipkpth():
+    myusb = myusb1 = myhdd = myhdd2 = mysdcard = mysd = myuniverse = myba = mydata = ''
+    mdevices = []
+    myusb = None
+    myusb1 = None
+    myhdd = None
+    myhdd2 = None
+    mysdcard = None
+    mysd = None
+    myuniverse = None
+    myba = None
+    mydata = None
+    if fileExists('/proc/mounts'):
+        f = open('/proc/mounts', 'r')
+        for line in f.readlines():
+            if line.find('/media/usb') != -1:
+                myusb = '/media/usb/picon'
+                if not os.path.exists('/media/usb/picon'):
+                    os.system('mkdir -p /media/usb/picon')
+            elif line.find('/media/usb1') != -1:
+                myusb1 = '/media/usb1/picon'
+                if not os.path.exists('/media/usb1/picon'):
+                    os.system('mkdir -p /media/usb1/picon')
+            elif line.find('/media/hdd') != -1:
+                myhdd = '/media/hdd/picon'
+                if not os.path.exists('/media/hdd/picon'):
+                    os.system('mkdir -p /media/hdd/picon')
+            elif line.find('/media/hdd2') != -1:
+                myhdd2 = '/media/hdd2/picon'
+                if not os.path.exists('/media/hdd2/picon'):
+                    os.system('mkdir -p /media/hdd2/picon')
+            elif line.find('/media/sdcard') != -1:
+                mysdcard = '/media/sdcard/picon'
+                if not os.path.exists('/media/sdcard/picon'):
+                    os.system('mkdir -p /media/sdcard/picon')
+            elif line.find('/media/sd') != -1:
+                mysd = '/media/sd/picon'
+                if not os.path.exists('/media/sd/picon'):
+                    os.system('mkdir -p /media/sd/picon')
+            elif line.find('/universe') != -1:
+                myuniverse = '/universe/picon'
+                if not os.path.exists('/universe/picon'):
+                    os.system('mkdir -p /universe/picon')
+            elif line.find('/media/ba') != -1:
+                myba = '/media/ba/picon'
+                if not os.path.exists('/media/ba/picon'):
+                    os.system('mkdir -p /media/ba/picon')
+            elif line.find('/data') != -1:
+                mydata = '/data/picon'
+                if not os.path.exists('/data/picon'):
+                    os.system('mkdir -p /data/picon')
+        f.close()
+    if myusb:
+        mdevices.append(myusb)
+    if myusb1:
+        mdevices.append(myusb1)
+    if myhdd:
+        mdevices.append(myhdd)
+    if myhdd2:
+        mdevices.append(myhdd2)
+    if mysdcard:
+        mdevices.append(mysdcard)
+    if mysd:
+        mdevices.append(mysd)
+    if myuniverse:
+        mdevices.append(myuniverse)
+    if myba:
+        mdevices.append(myba)
+    if mydata:
+        mdevices.append(mydata)
+    mdevices.append('/picon')
+    mdevices.append('/usr/share/enigma2/picon')
+    return mdevices
+piconpathss = mountipkpth()
+print('MDEVICES AS:\n', piconpathss)
 
 
 def InitUsageConfig():
@@ -63,9 +148,13 @@ def InitUsageConfig():
         choicelist.append((str(i), ngettext("%d pixel wide", "%d pixels wide", i) % i))
     config.usage.servicelist_column = ConfigSelection(default="-1", choices=choicelist)
     config.usage.servicelist_column.addNotifier(refreshServiceList)
-
     config.usage.service_icon_enable = ConfigYesNo(default=False)
     config.usage.service_icon_enable.addNotifier(refreshServiceList)
+
+    # lulu
+    config.usage.picon_dir = ConfigSelection(default="/usr/share/enigma2/picon", choices=piconpathss)
+    # lulu
+
     config.usage.servicelist_cursor_behavior = ConfigSelection(default="keep", choices=[
         ("standard", _("Standard")),
         ("keep", _("Keep service")),
@@ -185,7 +274,6 @@ def InitUsageConfig():
     for i in range(7):
         config.usage.poweroff_day[i] = ConfigEnableDisable(default=False)
         config.usage.poweroff_time[i] = ConfigClock(default=((1 * 60 + 0) * 60))
-
     choicelist = [("0", _("Do nothing"))]
     for i in range(3600, 21601, 3600):
         h = abs(i / 3600)

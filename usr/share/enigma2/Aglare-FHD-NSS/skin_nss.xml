@@ -196,6 +196,18 @@
     </screen>
     <!-- ************* nssConfig************* -->
     <screen backgroundColor="transparent" flags="wfNoBorder" name="nssConfig" position="0,0" size="1920,1080" title="NSS Addon Manager">
+        <panel name="titletemp" />
+        <panel name="menutemp" />
+        <panel name="button1temp" />
+        <panel name="pigscreen885" />
+        <panel name="bLogo" />
+        <widget name="config" position="43,161" size="869,360" font="Regular;30" itemHeight="40" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1" />
+        <widget name="info" position="36,531" size="884,471" font="Regular; 28" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
+        <widget name="description" position="41,95" size="882,59" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
+    </screen>
+    <!-- ************* cccConfig************* -->
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="cccConfig" position="0,0" size="1920,1080" title="NSS Addon Manager">
+        <!-- <panel name="nssConfig"/> -->
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="button1temp"/>
@@ -204,10 +216,6 @@
         <widget name="config" position="43,161" size="869,575" font="Regular;30" itemHeight="40" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/>
         <widget name="info" position="999,606" size="884,397" font="Regular; 28" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
         <widget name="description" position="41,95" size="882,59" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
-    </screen>
-    <!-- ************* cccConfig************* -->
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="cccConfig" position="0,0" size="1920,1080" title="NSS Addon Manager">
-        <panel name="nssConfig"/>
     </screen>
     <!-- ************* nssCategories************* -->
     <screen backgroundColor="transparent" flags="wfNoBorder" name="nssCategories" position="0,0" size="1920,1080" title="NSS Addon Manager">
@@ -448,5 +456,22 @@
         <eLabel backgroundColor="#00ff0000" position="400,1055" size="210,6" zPosition="12"/>
         <eLabel backgroundColor="#0000ff00" position="615,1055" size="210,6" zPosition="12"/>
         <eLabel backgroundColor="#000000ff" position="835,1055" size="210,6" zPosition="12"/>
+    </screen>
+    <!-- *************************************** -->
+    <!--  SetPiconPath Folder                              * -->
+    <!-- *************************************** -->
+    <screen name="SetPiconPath" position="0,0" size="1920,1080" title="Select path for Picons" backgroundColor="transparent" flags="wfNoBorder">
+      <widget name="target" position="997,607" size="885,180" font="Regular; 28" halign="left" valign="top" backgroundColor="background" transparent="1" zPosition="55" />
+      <panel name="pigscreen885" />
+      <panel name="titletemp" />
+      <panel name="menutemp" />
+      <panel name="button1temp" />
+      <widget name="filelist" position="40,100" size="890,900" itemHeight="50" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center" sscrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" />
+      <panel name="bLogo" />
+      <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on" />
+    </screen>
+
+    <screen name="piconPath" position="0,0" size="1920,1080" title="Select path for Picons" backgroundColor="transparent" flags="wfNoBorder">
+        <panel name="SetPiconPath"/>
     </screen>
 </skin>

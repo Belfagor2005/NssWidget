@@ -57,7 +57,9 @@ import six
 import subprocess
 
 
-global skin_path, mmkpicon, set, category
+global skin_path, sets, category
+
+# mmkpicon = config.usage.picon_dir.value()
 
 
 PY3 = sys.version_info.major >= 3
@@ -197,9 +199,9 @@ def check_gzip(url):
 def ReloadBouquets():
     from enigma import eDVBDB
     print("\n----Reloading bouquets----")
-    global set
-    if set == 1:
-        set = 0
+    global sets
+    if sets == 1:
+        sets = 0
         print("\n----Reloading Terrestrial----")
         terrestrial_rest()
     if eDVBDB:
@@ -214,19 +216,21 @@ def ReloadBouquets():
 
 AgentRequest = RequestAgent()
 # ================config
-global set
+global sets
 config.plugins.nssaddon = ConfigSubsection()
 config.plugins.nssaddon.strtext = ConfigYesNo(default=True)
-config.plugins.nssaddon.mmkpicon = ConfigDirectory(default='/picon/')
+# config.plugins.nssaddon.mmkpicon = ConfigDirectory(default='/picon/')
 config.plugins.nssaddon.strtmain = ConfigYesNo(default=False)
 # config.plugins.nssaddon.ipkpth = ConfigSelection(default="/tmp", choices=mountipkpth())
-mmkpicon = config.plugins.nssaddon.mmkpicon.value.strip()
+
+mmkpicon = config.usage.picon_dir.value.strip()
+   
 currversion = '1.0.0'
 title_plug = 'NSS Addon V. %s' % currversion
 name_plug = 'NSS Addon'
 name_cam = 'NSS Cam Manager'
 category = 'lululla.xml'
-set = 0
+sets = 0
 pblk = 'aHR0cHM6Ly93d3cubWVkaWFmaXJlLmNvbS9hcGkvMS41L2ZvbGRlci9nZXRfY29udGVudC5waHA/Zm9sZGVyX2tleT1vdnowNG1ycHpvOXB3JmNvbnRlbnRfdHlwZT1mb2xkZXJzJmNodW5rX3NpemU9MTAwMCZyZXNwb25zZV9mb3JtYXQ9anNvbg== '
 ptrs = 'aHR0cHM6Ly93d3cubWVkaWFmaXJlLmNvbS9hcGkvMS41L2ZvbGRlci9nZXRfY29udGVudC5waHA/Zm9sZGVyX2tleT10dmJkczU5eTlocjE5JmNvbnRlbnRfdHlwZT1mb2xkZXJzJmNodW5rX3NpemU9MTAwMCZyZXNwb25zZV9mb3JtYXQ9anNvbg== '
 ptmov = 'aHR0cHM6Ly93d3cubWVkaWFmaXJlLmNvbS9hcGkvMS41L2ZvbGRlci9nZXRfY29udGVudC5waHA/Zm9sZGVyX2tleT1uazh0NTIyYnY0OTA5JmNvbnRlbnRfdHlwZT1maWxlcyZjaHVua19zaXplPTEwMDAmcmVzcG9uc2VfZm9ybWF0PWpzb24= '
@@ -867,8 +871,8 @@ class SettingVhan(Screen):
 
     def okRun1(self, answer):
         if answer:
-            global set
-            set = 0
+            global sets
+            sets = 0
             if self.downloading is True:
                 idx = self["list"].getSelectionIndex()
                 self.name = self.names[idx]
@@ -880,7 +884,7 @@ class SettingVhan(Screen):
                 with open(dest, 'wb') as f:
                     f.write(r.content)
                 if 'dtt' not in self.name.lower():
-                    set = 1
+                    sets = 1
                     terrestrial()
                 if os.path.exists(dest):
                     fdest1 = "/tmp/unzipped"
@@ -980,8 +984,8 @@ class SettingVhan2(Screen):
 
     def okRun1(self, answer):
         if answer:
-            global set
-            set = 0
+            global sets
+            sets = 0
             if self.downloading is True:
                 try:
                     idx = self["list"].getSelectionIndex()
@@ -990,7 +994,7 @@ class SettingVhan2(Screen):
                     dest = "/tmp/settings.zip"
 
                     if 'dtt' not in url.lower():
-                        set = 1
+                        sets = 1
                         terrestrial()
 
                     # if PY3:
@@ -1117,14 +1121,14 @@ class Milenka61(Screen):
 
     def okRun1(self, answer):
         if answer:
-            global set
-            set = 0
+            global sets
+            sets = 0
             if self.downloading is True:
                 idx = self["list"].getSelectionIndex()
                 url = self.urls[idx]
                 dest = "/tmp/settings.tar.gz"
                 if 'dtt' not in url.lower():
-                    set = 1
+                    sets = 1
                     terrestrial()
                 import requests
                 r = requests.get(url)
@@ -1213,15 +1217,15 @@ class SettingManutek(Screen):
 
     def okRun1(self, answer):
         if answer:
-            global set
-            set = 0
+            global sets
+            sets = 0
             if self.downloading is True:
                 idx = self["list"].getSelectionIndex()
                 url = self.urls[idx]
                 dest = "/tmp/settings.zip"
                 self.namel = ''
                 if 'dtt' not in url.lower():
-                    set = 1
+                    sets = 1
                     terrestrial()
                 import requests
                 r = requests.get(url)
@@ -1324,15 +1328,15 @@ class SettingMorpheus(Screen):
 
     def okRun1(self, answer):
         if answer:
-            global set
-            set = 0
+            global sets
+            sets = 0
             if self.downloading is True:
                 idx = self["list"].getSelectionIndex()
                 url = self.urls[idx]
                 dest = "/tmp/settings.zip"
                 self.namel = ''
                 if 'dtt' not in url.lower():
-                    set = 1
+                    sets = 1
                     terrestrial()
                 import requests
                 r = requests.get(url)
@@ -1436,15 +1440,15 @@ class SettingCiefp(Screen):
 
     def okRun1(self, answer):
         if answer:
-            global set
-            set = 0
+            global sets
+            sets = 0
             if self.downloading is True:
                 idx = self["list"].getSelectionIndex()
                 url = self.urls[idx]
                 dest = "/tmp/settings.zip"
                 self.namel = ''
                 if 'dtt' not in url.lower():
-                    set = 1
+                    sets = 1
                     terrestrial()
                 import requests
                 r = requests.get(url)
@@ -1546,14 +1550,14 @@ class SettingBi58(Screen):
 
     def okRun1(self, answer):
         if answer:
-            global set
-            set = 0
+            global sets
+            sets = 0
             if self.downloading is True:
                 idx = self["list"].getSelectionIndex()
                 url = self.urls[idx]
                 dest = "/tmp/settings.tar.gz"
                 if 'dtt' not in url.lower():
-                    set = 1
+                    sets = 1
                     terrestrial()
                 import requests
                 r = requests.get(url)
@@ -1645,14 +1649,14 @@ class SettingPredrag(Screen):
 
     def okRun1(self, answer):
         if answer:
-            global set
-            set = 0
+            global sets
+            sets = 0
             if self.downloading is True:
                 idx = self["list"].getSelectionIndex()
                 url = self.urls[idx]
                 dest = "/tmp/settings.tar.gz"
                 if 'dtt' not in url.lower():
-                    set = 1
+                    sets = 1
                     terrestrial()
                 import requests
                 r = requests.get(url)
@@ -1748,15 +1752,15 @@ class SettingCyrus(Screen):
 
     def okRun1(self, answer):
         if answer:
-            global set
-            set = 0
+            global sets
+            sets = 0
             if self.downloading is True:
                 idx = self["list"].getSelectionIndex()
                 url = self.urls[idx]
                 dest = "/tmp/settings.zip"
                 self.namel = ''
                 if 'dtt' not in url.lower():
-                    set = 1
+                    sets = 1
                     terrestrial()
                 import requests
                 r = requests.get(url)
@@ -1861,7 +1865,7 @@ class NssInstall(Screen):
 
     def prombt(self, com, dom):
         self.timer = eTimer()
-        global set
+        global sets
         self.com = com
         self.dom = dom
         self.downplug = self.com.split("/")[-1]
@@ -1915,7 +1919,7 @@ class NssInstall(Screen):
             elif self.com.endswith('.zip'):
                 if 'setting' in self.dom.lower():
                     if not os.path.exists('/var/lib/dpkg/status'):
-                        set = 1
+                        sets = 1
                         terrestrial()
                     if os.path.exists("/tmp/unzipped"):
                         os.system('rm -rf /tmp/unzipped')
@@ -2227,8 +2231,8 @@ class NssIPK(Screen):
                             self.session.open(tvConsole, _('Installing: %s') % self.dest, cmdlist=[cmd], closeOnSuccess=False)
                         elif 'setting' in self.sel.lower():
                             if not os.path.exists('/var/lib/dpkg/status'):
-                                global set
-                                set = 1
+                                global sets
+                                sets = 1
                                 terrestrial()
                             if os.path.exists("/tmp/unzipped"):
                                 os.system('rm -rf /tmp/unzipped')
@@ -2539,7 +2543,7 @@ class nssConfig(Screen, ConfigListScreen):
                                                                  'right': self.keyRight,
                                                                  # 'yellow': self.tvUpdate,
                                                                  "showVirtualKeyboard": self.KeyText,
-                                                                 'ok': self.Ok_edit,
+                                                                 # 'ok': self.Ok_edit,
                                                                  'green': self.msgok}, -1)
         self.list = []
         ConfigListScreen.__init__(self, self.list, session=self.session, on_change=self.changedEntry)
@@ -2579,7 +2583,9 @@ class nssConfig(Screen, ConfigListScreen):
         self.editListEntry = None
         self.list = []
 
-        self.list.append(getConfigListEntry(_("Set the path to the Picons folder"), config.plugins.nssaddon.mmkpicon, _("Configure folder containing picons files")))
+        # self.list.append(getConfigListEntry(_("Set the path to the Picons folder"), mmkpicon, _("Configure folder containing picons files")))
+        # self.list.append(getConfigListEntry(_("Path for Picons folder"), mmkpicon, _("Folder containing picons files")))
+        # self.list.append(getConfigListEntry(_("Set the path to the Picons folder"), config.usage.picon_dir, _("Configure folder containing picons files")))
         # self.list.append(getConfigListEntry(_('Addon Installation Path'), config.plugins.nssaddon.ipkpth, _("Path to the addon installation folder")))
         self.list.append(getConfigListEntry(_('Link in Extensions Menu'), config.plugins.nssaddon.strtext, _("Link in Extensions button")))
         self.list.append(getConfigListEntry(_('Link in Main Menu'), config.plugins.nssaddon.strtmain, _("Link in Main Menu")))
@@ -2630,50 +2636,50 @@ class nssConfig(Screen, ConfigListScreen):
         else:
             self.close(True)
 
-    def Ok_edit(self):
-        ConfigListScreen.keyOK(self)
-        sel = self['config'].getCurrent()[1]
-        if sel == config.plugins.nssaddon.mmkpicon:
-            self.setting = 'mmkpicon'
-            mmkpth = config.plugins.nssaddon.mmkpicon.value
-            self.openDirectoryBrowser(mmkpth)
-        else:
-            pass
+    # def Ok_edit(self):
+        # ConfigListScreen.keyOK(self)
+        # sel = self['config'].getCurrent()[1]
+        # if sel == config.plugins.nssaddon.mmkpicon:
+            # self.setting = 'mmkpicon'
+            # mmkpth = config.plugins.nssaddon.mmkpicon.value
+            # self.openDirectoryBrowser(mmkpth)
+        # else:
+            # pass
 
-    def openDirectoryBrowser(self, path):
-        try:
-            self.session.openWithCallback(
-                self.openDirectoryBrowserCB,
-                LocationBox,
-                windowTitle=_("Choose Directory:"),
-                text=_("Choose directory"),
-                currDir=str(path),
-                bookmarks=config.movielist.videodirs,
-                autoAdd=False,
-                editDir=True,
-                inhibitDirs=["/bin", "/boot", "/dev", "/home", "/lib", "/proc", "/run", "/sbin", "/sys", "/var"],
-                minFree=15)
-        except Exception as e:
-            print('error: ', str(e))
+    # def openDirectoryBrowser(self, path):
+        # try:
+            # self.session.openWithCallback(
+                # self.openDirectoryBrowserCB,
+                # LocationBox,
+                # windowTitle=_("Choose Directory:"),
+                # text=_("Choose directory"),
+                # currDir=str(path),
+                # bookmarks=config.movielist.videodirs,
+                # autoAdd=False,
+                # editDir=True,
+                # inhibitDirs=["/bin", "/boot", "/dev", "/home", "/lib", "/proc", "/run", "/sbin", "/sys", "/var"],
+                # minFree=15)
+        # except Exception as e:
+            # print('error: ', str(e))
 
-    def openDirectoryBrowserCB(self, path):
-        if path is not None:
-            if self.setting == 'mmkpicon':
-                config.plugins.nssaddon.mmkpicon.setValue(path)
-            # if self.setting == 'ipkpth':
-                # config.plugins.nssaddon.ipkpth.setValue(path)
-        return
+    # def openDirectoryBrowserCB(self, path):
+        # if path is not None:
+            # if self.setting == 'mmkpicon':
+                # config.plugins.nssaddon.mmkpicon.setValue(path)
+            # # if self.setting == 'ipkpth':
+                # # config.plugins.nssaddon.ipkpth.setValue(path)
+        # return
 
-    def KeyText(self):
-        sel = self['config'].getCurrent()
-        if sel:
-            self.session.openWithCallback(self.VirtualKeyBoardCallback, VirtualKeyBoard, title=self['config'].getCurrent()[0], text=self['config'].getCurrent()[1].value)
+    # def KeyText(self):
+        # sel = self['config'].getCurrent()
+        # if sel:
+            # self.session.openWithCallback(self.VirtualKeyBoardCallback, VirtualKeyBoard, title=self['config'].getCurrent()[0], text=self['config'].getCurrent()[1].value)
 
-    def VirtualKeyBoardCallback(self, callback=None):
-        if callback is not None and len(callback):
-            self['config'].getCurrent()[1].value = callback
-            self['config'].invalidate(self['config'].getCurrent())
-        return
+    # def VirtualKeyBoardCallback(self, callback=None):
+        # if callback is not None and len(callback):
+            # self['config'].getCurrent()[1].value = callback
+            # self['config'].invalidate(self['config'].getCurrent())
+        # return
 
     def cancelConfirm(self, result):
         if not result:

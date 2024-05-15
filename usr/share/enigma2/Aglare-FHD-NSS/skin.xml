@@ -3693,7 +3693,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
         <panel name="mediaplayertemp"/>
         <panel name="infobartimedate"/>
     </screen>
-    <screen name="HistoryZapDefaultSkinFullHD" position="340,100" size="1240,800" title="History zap..." flags="wfBorder">
+    <screen name="HistoryZapDefaultSkinFullHD" position="340,100" size="1240,800" title="History zap..." flags="wfNoBorder">
         <widget source="menu" render="Listbox" position="0,0" size="1240,800" scrollbarMode="showNever">
             <convert type="TemplatedMultiContent">
             {"template": [
@@ -3707,7 +3707,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
             </convert>
         </widget>
     </screen>
-    <screen name="HistoryZapEventDurationPiconSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfBorder">
+    <screen name="HistoryZapEventDurationPiconSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfNoBorder">
         <widget source="menu" render="Listbox" position="0,0" size="1200,900">
             <convert type="TemplatedMultiContent">
             {"template": [
@@ -3724,7 +3724,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
             </convert>
         </widget>
     </screen>
-    <screen name="HistoryZapEventDurationPiconBarSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfBorder">
+    <screen name="HistoryZapEventDurationPiconBarSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfNoBorder">
         <widget source="menu" render="Listbox" position="0,0" size="1200,900">
             <convert type="TemplatedMultiContent">
             {"template": [
@@ -3742,7 +3742,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
             </convert>
         </widget>
     </screen>
-    <screen name="HistoryZapDescriptionSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfBorder">
+    <screen name="HistoryZapDescriptionSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfNoBorder">
         <widget source="menu" render="Listbox" position="0,0" size="1200,900">
             <convert type="TemplatedMultiContent">
             {"template": [
@@ -3758,7 +3758,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
             </convert>
         </widget>
     </screen>
-    <screen name="HistoryZapDescriptionDurationSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfBorder">
+    <screen name="HistoryZapDescriptionDurationSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfNoBorder">
         <widget source="menu" render="Listbox" position="0,0" size="1200,900">
             <convert type="TemplatedMultiContent">
             {"template": [
@@ -3775,7 +3775,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
             </convert>
         </widget>
     </screen>
-    <screen name="HistoryZapDescriptionDurationBarSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfBorder">
+    <screen name="HistoryZapDescriptionDurationBarSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfNoBorder">
         <widget source="menu" render="Listbox" position="0,0" size="1200,900">
             <convert type="TemplatedMultiContent">
             {"template": [
@@ -3793,7 +3793,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
             </convert>
         </widget>
     </screen>
-    <screen name="HistoryZapDescriptionPiconSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfBorder">
+    <screen name="HistoryZapDescriptionPiconSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfNoBorder">
         <widget source="menu" render="Listbox" position="0,0" size="1200,900">
             <convert type="TemplatedMultiContent">
             {"template": [
@@ -3810,7 +3810,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
             </convert>
         </widget>
     </screen>
-    <screen name="HistoryZapDescriptionDurationPiconSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfBorder">
+    <screen name="HistoryZapDescriptionDurationPiconSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfNoBorder">
         <widget source="menu" render="Listbox" position="0,0" size="1200,900">
             <convert type="TemplatedMultiContent">
             {"template": [
@@ -3828,7 +3828,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
             </convert>
         </widget>
     </screen>
-    <screen name="HistoryZapDescriptionDurationBarPiconSkinFullHD" position="120,100" size="1200,890" title="History zap..." flags="wfBorder">
+    <screen name="HistoryZapDescriptionDurationBarPiconSkinFullHD" position="120,100" size="1200,890" title="History zap..." flags="wfNoBorder">
         <widget source="menu" render="Listbox" position="0,5" size="1200,880" itemHeight="88">
             <convert type="TemplatedMultiContent">
             {"template": [
@@ -3861,7 +3861,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
         <widget name="clear" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on"/>
     </screen>
-    <screen name="HistoryZapEventSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfBorder">
+    <screen name="HistoryZapEventSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfNoBorder">
         <widget source="menu" render="Listbox" position="0,0" size="1200,900">
             <convert type="TemplatedMultiContent">
             {"template": [
@@ -3876,7 +3876,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
             </convert>
         </widget>
     </screen>
-    <screen name="HistoryZapEventPiconSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfBorder">
+    <screen name="HistoryZapEventPiconSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfNoBorder">
         <widget source="menu" render="Listbox" position="0,0" size="1200,900">
             <convert type="TemplatedMultiContent">
             {"template": [
@@ -3892,7 +3892,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
             </convert>
         </widget>
     </screen>
-    <screen name="HistoryZapEventDurationSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfBorder">
+    <screen name="HistoryZapEventDurationSkinFullHD" position="120,100" size="1200,900" title="History zap..." flags="wfNoBorder">
         <widget source="menu" render="Listbox" position="0,0" size="1200,900">
             <convert type="TemplatedMultiContent">
             {"template": [
@@ -5990,7 +5990,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <widget name="lab1" position="997,948" size="510,50" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" zPosition="5" valign="center"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/hdd.png" transparent="1" alphatest="on"/>
     </screen>
-    <screen name="HistoryZapSelector" position="100,160" size="825,758" flags="wfBorder" backgroundColor="black">
+    <screen name="HistoryZapSelector" position="100,160" size="825,758" flags="wfNoBorder" backgroundColor="black">
         <widget source="menu" render="Listbox" position="10,10" size="805,735" scrollbarMode="showNever" foregroundColor="white" transparent="1" itemHeight="105" itemCornerRadius="12">
             <convert type="TemplatedMultiContent">
             {"template": [
@@ -6222,7 +6222,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         </widget>
         <widget name="servicename" position="600,0" size="1260,135" halign="center" valign="center" font="Regular;90" backgroundColor="igsl" foregroundColor="white"/>
     </screen>
-    <screen name="NumberZap" position="center,200" size="500,200" title="QuickZap" flags="wfBorder" backgroundColor="background4">
+    <screen name="NumberZap" position="center,200" size="500,200" title="QuickZap" flags="wfNoBorder" backgroundColor="background4">
         <widget name="number" position="0,0" size="500,100" halign="center" font="Regular; 60" backgroundColor="background" transparent="0"/>
         <widget name="servicename" position="0,100" size="500,100" backgroundColor="background" transparent="0" font="Regular; 36" valign="center" halign="center"/>
     </screen>
@@ -6621,7 +6621,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on"/>
     </screen>
-    <screen name="Mac" position="center,center" size="700,300" title="MAC CHANGER BY ZIKO" backgroundColor="#31000000" flags="wfBorder">
+    <screen name="Mac" position="center,center" size="700,300" title="MAC CHANGER BY ZIKO" backgroundColor="#31000000" flags="wfNoBorder">
         <widget name="config" position="0,0" size="700,300" zPosition="1" transparent="0" scrollbarMode="showOnDemand" itemHeight="100" valign="center" itemCornerRadius="10" font="Regular; 36"/>
     </screen>
     <screen name="CCcamInfoMain" title="CCcamInfoMain" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" transparent="0">
