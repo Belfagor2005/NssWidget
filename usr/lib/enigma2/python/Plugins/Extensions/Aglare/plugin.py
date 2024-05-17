@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
+from . import _
 from Plugins.Plugin import PluginDescriptor
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Screens.Standby import TryQuitMainloop
 from Components.ActionMap import ActionMap
-from Components.config import config, ConfigSubsection, getConfigListEntry, ConfigSelection
+from Components.config import ConfigSubsection, getConfigListEntry, ConfigSelection
+from Components.config import config, NoSave, ConfigNothing
 from Components.ConfigList import ConfigListScreen
 from Components.Sources.Progress import Progress
 from Tools.Downloader import downloadWithProgress
@@ -197,11 +199,11 @@ class AglareSetup(ConfigListScreen, Screen):
         self['config'].instance.moveSelection(self['config'].instance.moveUp)
         self.ShowPicture()
 
-    def restartGUI(self, answer):
-        if answer is True:
-            self.session.open(TryQuitMainloop, 3)
-        else:
-            self.close()
+    # def restartGUI(self, answer):
+        # if answer is True:
+            # self.session.open(TryQuitMainloop, 3)
+        # else:
+            # self.close()
 
     def keySave(self):
         if not fileExists(self.skinFile + self.version):
@@ -296,7 +298,7 @@ class AglareSetup(ConfigListScreen, Screen):
             fp = ''
             destr = '/tmp/AglareUpdate.txt'
             req = Request('http://nonsolosat.net/AglareImage/AglareUpdate.txt')
-            req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36')
+            req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36')
             fp = urlopen(req)
             fp = fp.read().decode('utf-8')
             print('fp read:', fp)
@@ -306,7 +308,7 @@ class AglareSetup(ConfigListScreen, Screen):
                 f.close()
             if os.path.exists(destr):
                 with open(destr, 'r') as cc:
-                    s1 = cc.readline()  #.decode("utf-8")
+                    s1 = cc.readline()  # .decode("utf-8")
                     vers = s1.split('#')[0]
                     url = s1.split('#')[1]
                     # print('vers', vers)

@@ -96,7 +96,13 @@ except ImportError:
     pass
 
 try:
-    from Screens.CCcamInfo import CCCAMINFO
+    from Screens.CCcamInfo import CCcamInfoMain
+except ImportError:
+    pass
+
+try:
+    if os.path.isfile(resolveFilename(SCOPE_PLUGINS, 'Extensions/CCcamInfo/plugin.pyc')):
+        from Plugins.Extensions.CCcamInfo.plugin import CCcamInfoMain
 except ImportError:
     pass
 
@@ -246,7 +252,13 @@ class Manager(Screen):
                 if os.path.exists(dir_work + 'CCcamInfo.pyc') or os.path.exists(dir_work + 'CCcamInfo.pyo'):
                     BlueAction = 'CCCAMINFO'
                     self["key_blue"].setText("CCCAMINFO")
-            elif 'oscam' in nim.lower():
+                elif os.path.isfile(resolveFilename(SCOPE_PLUGINS, 'Extensions/CCcamInfo/plugin.pyc')):
+                    # from Plugins.Extensions.CCcamInfo.plugin import CCcamInfoMain
+                    # self.session.open(CCcamInfoMain)
+                    BlueAction = 'CCCAMINFO'
+                    self["key_blue"].setText("CCCAMINFO")
+
+            if 'oscam' in nim.lower():
                 runningcam = "oscam"
                 if os.path.exists(dir_work + 'OScamInfo.pyc') or os.path.exists(dir_work + 'OScamInfo.pyo'):
                     BlueAction = 'OSCAMINFO'
@@ -276,7 +288,9 @@ class Manager(Screen):
             self.messagekd()
         if BlueAction == 'CCCAMINFO':
             try:
-                self.session.open(CCCAMINFO)
+                # from Plugins.Extensions.CCcamInfo.plugin import CCcamInfoMain
+                self.session.open(CCcamInfoMain)
+                # self.session.open(CCCAMINFO)
                 # self.session.openWithCallback(self.ShowSoftcamCallback, CCCAMINFO)
             except ImportError:
                 pass
