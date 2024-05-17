@@ -18,7 +18,7 @@
         <item level="1" text="Show screen path" description="This option allows you to show the full screen path leading to the current screen.">config.usage.showScreenPath</item>
         <!-- add @lululla -->
         <item level="0" text="Plugin Browser Style (Need Restart GUI)" description="This option allows you to select the plugin browser style (Need Restart GUI).">config.misc.pluginstyle</item>
-        <item level="0" text="Choice picons folder" description="Configure picons will be shown in the channel selection list.">config.usage.picon_dir</item>        
+        <item level="0" text="Choice picons folder" description="This option allows you to configure the path of the picons that will be displayed in the channel selection list. But also where they will be downloaded from the download.">config.usage.picon_dir</item>        
         <!-- add end @lululla -->        <!-- add end @lululla -->
         <item level="0" text="Show menu or plugin numbers" description="This option allows you to show menu and/or plugin number quick links.">config.usage.menu_show_numbers</item>
         <item level="2" text="Show softcam setup in extensions menu" description="This option allows you to add the softcam setup in the extensions menu." requires="HasSoftcamInstalled">config.misc.softcam_setup.extension_menu</item>
@@ -59,7 +59,7 @@
     <setup key="userinterface" title="User interface">
         <item level="2" text="Show picons in display" description="Configure if service picons will be shown in display (when supported by the skin)." requires="HasFrontDisplayPicon">config.usage.show_picon_in_display</item>
         <!-- add @lululla -->
-        <item level="2" text="Choice picons folder" description="Configure picons will be shown in the channel selection list.">config.usage.picon_dir</item>        
+        <item level="0" text="Choice picons folder" description="This option allows you to configure the path of the picons that will be displayed in the channel selection list. But also where they will be downloaded from the download.">config.usage.picon_dir</item>        
         <!-- add end @lululla -->
         <item level="1" text="Show animation while busy" description="Show busy indicator when the system is busy.">config.usage.show_spinner</item>
         <item level="1" text="Show positioner movement" requires="isRotorTuner" description="Configure whether or not an icon should be shown when your motorized dish is moving.">config.usage.showdish</item>
