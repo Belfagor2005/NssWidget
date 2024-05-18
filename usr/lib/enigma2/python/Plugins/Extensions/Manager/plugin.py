@@ -360,8 +360,8 @@ class Manager(Screen):
         self.session.open(nssInfoCfg)
 
     def configtv(self):
-        from Plugins.Extensions.Manager.data.datas import nssConfig
-        self.session.open(nssConfig)
+        from Plugins.Extensions.Manager.data.datas import nssCamConfig
+        self.session.open(nssCamConfig)
 
     def cgdesc(self):
         if len(self.namelist) >= 1:
