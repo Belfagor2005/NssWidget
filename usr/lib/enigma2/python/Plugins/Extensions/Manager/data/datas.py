@@ -289,7 +289,7 @@ def putlblcfg():
 putlblcfg()
 
 
-class nssConfig(Screen, ConfigListScreen):
+class nssCamConfig(Screen, ConfigListScreen):
     def __init__(self, session):
         Screen.__init__(self, session)
         self.session = session

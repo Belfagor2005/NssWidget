@@ -205,6 +205,17 @@
         <widget name="info" position="36,287" size="884,715" font="Regular; 26" halign="left" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
         <widget name="description" position="41,95" size="882,59" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
     </screen>
+    <!-- ************* nssCamConfig************* -->
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="nssCamConfig" position="0,0" size="1920,1080" title="NSS Addon Manager">
+        <panel name="titletemp" />
+        <panel name="menutemp" />
+        <panel name="button1temp" />
+        <panel name="pigscreen885" />
+        <panel name="bLogo" />
+        <widget name="config" position="43,161" size="869,678" font="Regular;30" itemHeight="40" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1" />
+        <widget name="info" position="997,608" size="884,81" font="Regular; 32" halign="left" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
+        <widget name="description" position="41,95" size="882,59" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
+    </screen>
     <!-- ************* cccConfig************* -->
     <screen backgroundColor="transparent" flags="wfNoBorder" name="cccConfig" position="0,0" size="1920,1080" title="NSS Addon Manager">
         <!-- <panel name="nssConfig"/> -->
