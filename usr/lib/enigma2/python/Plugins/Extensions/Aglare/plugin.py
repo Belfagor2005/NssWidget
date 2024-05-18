@@ -386,7 +386,7 @@ class AglareUpdater(Screen):
 
     def downloadFinished(self, string=''):
         self['status'].setText(_('Installing updates!'))
-        os.system('cd /tmp/; tar -xzvf xxx.tar -C /; sync')
+        os.system('cd /tmp/; tar -xvf xxx.tar -C /; sync')
         os.system('rm /tmp/xxx*.*')
         os.system('sync')
         restartbox = self.session.openWithCallback(self.restartGUI, MessageBox, _('Aglare update was done!!!\nDo you want to restart the GUI now?'), MessageBox.TYPE_YESNO)
