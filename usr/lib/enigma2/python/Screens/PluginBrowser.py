@@ -5,6 +5,7 @@
 # from Components.SystemInfo import SystemInfo, hassoftcaminstalled
 # from time import time
 # import os
+# mod by @Lululla
 from Components.ActionMap import ActionMap, NumberActionMap, HelpableActionMap
 from Components.ConfigList import ConfigListScreen
 from Components.Harddisk import harddiskmanager

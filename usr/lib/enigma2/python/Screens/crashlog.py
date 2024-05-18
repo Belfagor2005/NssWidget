@@ -1,24 +1,26 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-# updated Lululla 05/06/2023
-# updated Lululla 30/04/2024
+'''
+****************************************
+*        modded by Lululla             *
+*             26/04/2024               *
+****************************************
+# --------------------#
+# Info Linuxsat-support.com  corvoboys.org
+'''
 # by 2boom 4bob@ua.fm
 from Components.ActionMap import ActionMap
-# from Components.Language import language
 from Components.ScrollLabel import ScrollLabel
 from Components.Sources.List import List
 from Components.Sources.StaticText import StaticText
 from Components.config import config
-# from Plugins.Plugin import PluginDescriptor
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
-from Tools.Directories import resolveFilename
 from Tools.Directories import SCOPE_SKIN
+from Tools.Directories import resolveFilename
 from Tools.LoadPixmap import LoadPixmap
 from enigma import getDesktop
-# from os import environ
-# import gettext
 import os
 global Crashfile, path_folder_log
 

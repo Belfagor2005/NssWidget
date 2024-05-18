@@ -1,33 +1,42 @@
-from os import path as ospath
-import time
-from operator import itemgetter
-from xml.etree import ElementTree
-from enigma import eTimer, RT_HALIGN_LEFT, eListboxPythonMultiContent
-from enigma import gFont, getDesktop
-# from Components.About import about
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+
+'''
+****************************************
+*        modded by Lululla             *
+*             26/04/2024               *
+****************************************
+# --------------------#
+# Info Linuxsat-support.com  corvoboys.org
+'''
 from Components.ActionMap import ActionMap, NumberActionMap
-from Components.config import config, getConfigListEntry, ConfigPassword
-from Components.config import ConfigYesNo, ConfigSubsection, ConfigIP
-from Components.config import ConfigDirectory, ConfigText, ConfigInteger
 from Components.ConfigList import ConfigListScreen
 from Components.MenuList import MenuList
 from Components.Sources.List import List
 from Components.Sources.StaticText import StaticText
+from Components.config import ConfigDirectory, ConfigText, ConfigInteger
+from Components.config import ConfigYesNo, ConfigSubsection, ConfigIP
+from Components.config import config, getConfigListEntry, ConfigPassword
 from Screens.ChoiceBox import ChoiceBox
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
-import skin
-from Tools.LoadPixmap import LoadPixmap
 from Tools.Directories import SCOPE_CURRENT_SKIN, resolveFilename, fileExists
-import socket
-# required methods: Request, urlopen, URLError, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
-from urllib.request import urlopen, Request, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
+from Tools.LoadPixmap import LoadPixmap
+from enigma import eTimer, RT_HALIGN_LEFT, eListboxPythonMultiContent
+from enigma import gFont, getDesktop
+from operator import itemgetter
+from os import path as ospath
 from urllib.error import URLError
-import urllib.parse
-import six
-import fcntl
-import struct
+from urllib.request import urlopen, Request, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
+from xml.etree import ElementTree
 global NAMEBIN
+import fcntl
+import six
+import skin
+import socket
+import struct
+import time
+import urllib.parse
 
 config.oscaminfo = ConfigSubsection()
 config.oscaminfo.userdatafromconf = ConfigYesNo(default = True)
