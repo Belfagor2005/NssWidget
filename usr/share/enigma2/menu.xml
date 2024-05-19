@@ -31,8 +31,8 @@ self.session.open(Manager)
         </item>
         <item weight="11" level="0" text="NSS Vavoo Stream Live" entryID="vavoo">
             <code>
-from Screens.vavoo import MainVavoo
-self.session.open(MainVavoo)  
+from Screens.vavoo import MainVavoox
+self.session.open(MainVavoox)  
 </code>
         </item>
 

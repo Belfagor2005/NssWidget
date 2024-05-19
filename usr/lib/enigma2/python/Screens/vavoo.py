@@ -65,11 +65,8 @@ if PY3:
     MAXSIZE = sys.maxsize
 else:
     str = str
-    range = xrange
     from urllib2 import urlopen
     from urllib2 import Request
-    string_types = basestring,
-    integer_types = (int, long)
     class_types = (type, types.ClassType)
     text_type = unicode
     binary_type = str
@@ -102,13 +99,7 @@ enigma_path = '/etc/enigma2/'
 _UNICODE_MAP = {k: unichr(v) for k, v in iteritems(html_entities.name2codepoint)}
 _ESCAPE_RE = re.compile("[&<>\"']")
 _UNESCAPE_RE = re.compile(r"&\s*(#?)(\w+?)\s*;")  # Whitespace handling added due to "hand-assed" parsers of html pages
-_ESCAPE_DICT = {
-                "&": "&amp;",
-                "<": "&lt;",
-                ">": "&gt;",
-                '"': "&quot;",
-                "'": "&apos;",
-                }
+_ESCAPE_DICT = {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&apos;"}
 
 
 def ensure_str(s, encoding='utf-8', errors='strict'):
@@ -265,35 +256,44 @@ class m2list(MenuList):
         self.l.setFont(0, gFont('Regular', textfont))
 
 
+Panel_list = ("Albania", "Arabia", "Balkans", "Bulgaria",
+              "France", "Germany", "Italy", "Netherlands",
+              "Poland", "Portugal", "Romania", "Russia",
+              "Spain", "Turkey", "United Kingdom")
+
+
 def show_(name, link):
     res = [(name, link)]
     cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
     pngx = os_path.dirname(resolveFilename(SCOPE_SKIN, str(cur_skin))) + "/mainmenu/vavoo_ico.png"
-    res.append(MultiContentEntryPixmapAlphaTest(pos=(10, 10), size=(30, 30), png=loadPNG(pngx)))
-    res.append(MultiContentEntryText(pos=(60, 0), size=(1200, 50), font=0, text=name, color=0xa6d1fe, flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER))
+    if any(s in name for s in Panel_list):
+        pngx = os_path.dirname(resolveFilename(SCOPE_SKIN, str(cur_skin))) + '/vavoo/%s.png' % str(name)
+    if os.path.isfile(pngx):
+        print('pngx =:', pngx)
+    res.append(MultiContentEntryPixmapAlphaTest(pos=(10, 5), size=(60, 40), png=loadPNG(pngx)))
+    res.append(MultiContentEntryText(pos=(85, 0), size=(600, 50), font=0, text=name, flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER))
     return res
 
 
-Panel_list = [
-    ('Albania'),
-    ('Arabia'),
-    ('Balkans'),
-    ('Bulgaria'),
-    ('France'),
-    ('Germany'),
-    ('Italy'),
-    ('Netherlands'),
-    ('Poland'),
-    ('Portugal'),
-    ('Romania'),
-    ('Russia'),
-    ('Spain'),
-    ('Turkey'),
-    ('United Kingdom'),
-    ]
+# Panel_list = [
+    # ('Albania'),
+    # ('Arabia'),
+    # ('Balkans'),
+    # ('Bulgaria'),
+    # ('France'),
+    # ('Germany'),
+    # ('Italy'),
+    # ('Netherlands'),
+    # ('Poland'),
+    # ('Portugal'),
+    # ('Romania'),
+    # ('Russia'),
+    # ('Spain'),
+    # ('Turkey'),
+    # ('United Kingdom')]
 
 
-class MainVavoo(Screen):
+class MainVavoox(Screen):
     def __init__(self, session):
         self.session = session
         global _session
@@ -313,6 +313,7 @@ class MainVavoo(Screen):
         self.url = b64decoder(stripurl)
         self['actions'] = ActionMap(['OkCancelActions',
                                      'ColorActions',
+                                     'EPGSelectActions',
                                      'DirectionActions',
                                      'MovieSelectionActions'], {'up': self.up,
                                                                 'down': self.down,
@@ -321,6 +322,7 @@ class MainVavoo(Screen):
                                                                 'ok': self.ok,
                                                                 'green': self.msgdeleteBouquets,
                                                                 'cancel': self.close,
+                                                                'info': self.info,
                                                                 'red': self.close}, -1)
         self.timer = eTimer()
         try:
@@ -329,6 +331,10 @@ class MainVavoo(Screen):
             self.timer.callback.append(self.cat)
         # self.timer.callback.append(self.cat)
         self.timer.start(500, True)
+
+    def info(self):
+        aboutbox = self.session.open(MessageBox, _('Vavoo Plugin v.%s\nby Lululla\nThanks:\n@KiddaC #oktus and staff Linuxsat-support.com') % currversion, MessageBox.TYPE_INFO)
+        aboutbox.setTitle(_('Info Vavoo'))
 
     def up(self):
         self[self.currentList].up()
@@ -449,6 +455,7 @@ class vavoo(Screen):
                                                                 'ok': self.ok,
                                                                 'green': self.message2,
                                                                 'cancel': self.close,
+                                                                'info': self.info,
                                                                 'red': self.close}, -1)
         self.timer = eTimer()
         try:
@@ -457,6 +464,10 @@ class vavoo(Screen):
             self.timer.callback.append(self.cat)
         # self.timer.callback.append(self.cat)
         self.timer.start(500, True)
+
+    def info(self):
+        aboutbox = self.session.open(MessageBox, _('Vavoo Plugin v.%s\nby Lululla\nThanks:\n@KiddaC #oktus and staff Linuxsat-support.com') % currversion, MessageBox.TYPE_INFO)
+        aboutbox.setTitle(_('Info Vavoo'))
 
     def up(self):
         self[self.currentList].up()
