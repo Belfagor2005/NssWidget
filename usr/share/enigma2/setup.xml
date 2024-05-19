@@ -61,6 +61,7 @@
         <item level="2" text="Show picons in display" description="Configure if service picons will be shown in display (when supported by the skin)." requires="HasFrontDisplayPicon">config.usage.show_picon_in_display</item>
         <!-- add @lululla -->
         <item level="0" text="Choice picons folder" description="This option allows you to configure the path of the picons that will be displayed in the channel selection list. But also where they will be downloaded from the download.">config.usage.picon_dir</item>        
+        <item level="0" text="Choice CrashLog folder" description="This option allows you to configure the path of the log crash debug.">config.usage.debug_path</item>        
         <!-- add end @lululla -->
         <item level="1" text="Show animation while busy" description="Show busy indicator when the system is busy.">config.usage.show_spinner</item>
         <item level="1" text="Show positioner movement" requires="isRotorTuner" description="Configure whether or not an icon should be shown when your motorized dish is moving.">config.usage.showdish</item>

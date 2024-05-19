@@ -48,7 +48,7 @@ def isMountReadonly(mnt):
 def crashlogPath():
     crashlogPath_found = False
     try:
-        path_folder_log = config.crash.debug_path.value
+        path_folder_log = config.usage.debug_path.value
     except KeyError:
         path_folder_log = None
     if path_folder_log is None:
