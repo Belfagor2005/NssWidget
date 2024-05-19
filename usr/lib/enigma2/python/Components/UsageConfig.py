@@ -26,6 +26,7 @@ visuallyImpairedCommentary = "NAR qad"
 
 
 def mountipkpth():
+    from Tools.Directories import fileExists
     myusb = myusb1 = myhdd = myhdd2 = mysdcard = mysd = myuniverse = myba = mydata = ''
     mdevices = []
     myusb = None
@@ -152,6 +153,12 @@ def InitUsageConfig():
     config.usage.service_icon_enable.addNotifier(refreshServiceList)
 
     # lulu
+    logpathss = [item.replace('picon', '') for item in piconpathss]
+    if '/usr/share/enigma2/' in logpathss:
+        logpathss.remove('/usr/share/enigma2/')
+        logpathss.append('/home/root/logs/')
+        logpathss.append('/tmp/')
+    config.usage.debug_path = ConfigSelection(default='/home/root/logs/', choices=logpathss)
     config.usage.picon_dir = ConfigSelection(default="/usr/share/enigma2/picon", choices=piconpathss)
     # lulu
 
