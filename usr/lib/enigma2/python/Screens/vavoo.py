@@ -275,24 +275,6 @@ def show_(name, link):
     return res
 
 
-# Panel_list = [
-    # ('Albania'),
-    # ('Arabia'),
-    # ('Balkans'),
-    # ('Bulgaria'),
-    # ('France'),
-    # ('Germany'),
-    # ('Italy'),
-    # ('Netherlands'),
-    # ('Poland'),
-    # ('Portugal'),
-    # ('Romania'),
-    # ('Russia'),
-    # ('Spain'),
-    # ('Turkey'),
-    # ('United Kingdom')]
-
-
 class MainVavoox(Screen):
     def __init__(self, session):
         self.session = session
