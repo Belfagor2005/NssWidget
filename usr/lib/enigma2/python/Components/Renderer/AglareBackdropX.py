@@ -158,8 +158,8 @@ else:
 
 try:
     folder_size = sum([sum(map(lambda fname: os.path.getsize(os.path.join(path_folder, fname)), files)) for folder_p, folders, files in os.walk(path_folder)])
-    ozposter = "%0.f" % (folder_size / (1024 * 1024.0))
-    if ozposter >= "5":
+    agposter = "%0.f" % (folder_size / (1024 * 1024.0))
+    if agposter >= "5":
         shutil.rmtree(path_folder)
 except:
     pass
@@ -438,7 +438,7 @@ class BackdropAutoDB(AglareBackdropXDownloadThread):
                 if diff_tm > 120 and os.path.getsize(path_folder + '/' + f) == 0:  # Detect empty files > 2 minutes
                     os.remove(path_folder + '/' + f)
                     emptyfd += 1
-                if diff_tm > 432000:  # Detect old files > 5 days old
+                if diff_tm > 31536000:  # Detect old files > 365 days old
                     os.remove(path_folder + '/' + f)
                     oldfd = oldfd + 1
             self.logAutoDB("[AutoDB] {} old file(s) removed".format(oldfd))

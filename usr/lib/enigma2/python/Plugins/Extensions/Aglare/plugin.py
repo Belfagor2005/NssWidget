@@ -311,14 +311,9 @@ class AglareSetup(ConfigListScreen, Screen):
                     s1 = cc.readline()  # .decode("utf-8")
                     vers = s1.split('#')[0]
                     url = s1.split('#')[1]
-                    # print('vers', vers)
-                    # print('url:', url)
                     version_server = vers.strip()
                     self.updateurl = url.strip()
                     cc.close()
-                    # print('Version plugin=', version)
-                    # print('Version server=', version_server)
-                    # print('Updateurl server=', self.updateurl)
                     if str(version_server) == str(version):
                         message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
                          version_server,

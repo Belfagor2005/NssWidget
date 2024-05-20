@@ -80,6 +80,8 @@
         <color name="background3" value="#80000000"/>
         <color name="background4" value="#10000000"/>
         <color name="background90" value="#20000000"/>
+        <color name="backgroundtrans1" value="#95000000"/>
+        <color name="backgroundtrans2" value="#95161414"/>
         <color name="black" value="#00000000"/>
         <color name="blue" value="#000000ff"/>
         <color name="bpSide" value="#00ff6600"/>
@@ -113,7 +115,7 @@
         <color name="greyc4" value="#00c4c4c4"/>
         <color name="hellgreen" value="#0056c856"/>
         <color name="igsd" value="#001d283c"/>
-        <color name="igsdt" value="#441d283c"/>
+        <color name="igsdt" value="#121d283c"/>
         <color name="igsl" value="#00293754"/>
         <color name="lime" value="#0000ff00"/>
         <color name="linebg" value="#00999999"/>
@@ -567,6 +569,10 @@
             <convert type="ServiceInfo">SubtitlesAvailable</convert>
             <convert type="ConditionalShowHide"/>
         </widget>
+        <widget source="session.CurrentService" render="FixedLabel" position="1554,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 32" text="" zPosition="4">
+            <convert type="AglareServiceInfoEX">IsCrypted</convert>
+            <convert type="ConditionalShowHide"/>
+        </widget>
         <eLabel name="" position="1646,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
         <eLabel name="" position="1732,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
         <eLabel name="" position="1816,534" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
@@ -615,8 +621,8 @@
         <!--<ePixmap name="" position="0,0" size="200, 120" pixmap="volume/mute.png" alphatest="blend" transparent="1" />-->
         <eLabel name="" position="0,0" size="100, 100" font="FA; 60" text="" transparent="0" valign="center" halign="center" backgroundColor="background"/>
     </screen>
-    <screen name="UnhandledKey" position="50,50" size="80,80" title="UnhandledKey" zPosition="100" backgroundColor="background" flags="wfNoBorder">
-        <widget alphatest="blend" name="UnhandledKeyPixmap" pixmap="main/error.png" position="0,0" size="80,80" zPosition="101"/>
+    <screen name="UnhandledKey" position="50,50" size="80,80" title="UnhandledKey" zPosition="100" backgroundColor="transparent" flags="wfNoBorder">
+        <eLabel name="" position="0,0" size="80,80" font="Regular; 80" text="X" transparent="0" valign="center" halign="center" backgroundColor="transparent" foregroundColor="red"/>
     </screen>
     <screen name="TimeshiftState" position="610,10" size="700,90" flags="wfNoBorder" transparent="0" backgroundColor="transparent">
         <widget name="state" position="159,15" size="42,28" font="Regular; 26" backgroundColor="background" transparent="1" halign="center" foregroundColor="gold" zPosition="55"/>
@@ -1551,15 +1557,22 @@
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
     </screen>
     <screen name="CIconfigMenu" position="0,0" size="1920,1080" title="CI Assignment" backgroundColor="transparent" flags="wfNoBorder">
-        <panel name="menutemp2"/>
         <panel name="button1temp"/>
         <panel name="bLogo"/>
-        <widget source="CAidList_desc" render="Label" position="63,139" size="850,50" font="Regular; 30" backgroundColor="background" transparent="1" foregroundColor="yellow"/>
-        <widget source="CAidList" render="Label" position="63,194" size="850,770" font="Regular; 28" backgroundColor="background" transparent="1"/>
-        <widget source="ServiceList_desc" render="Label" position="971,140" size="850,50" font="Regular; 30" backgroundColor="background" transparent="1" foregroundColor="yellow"/>
-        <widget name="ServiceList" position="969,198" size="850,750" zPosition="1" itemHeight="50" transparent="1" font="Regular; 30" scrollbarMode="showOnDemand"/>
-        <widget source="ServiceList_info" render="Label" position="969,196" size="850,750" backgroundColor="background" zPosition="2" transparent="1" font="Regular;30"/>
+        <eLabel name="" position="36,54" size="40,40" font="icomoon; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
+        <widget source="Title" render="Label" position="78,48" size="1360,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
+        <widget source="ScreenPath" render="Label" position="40,14" size="1380,24" backgroundColor="background" transparent="1" zPosition="1" font="Regular; 19" valign="center" halign="left"/>
+        <panel name="timedate"/>
+        <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
+        <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
+        <eLabel name="" position="20,110" size="1880,898" zPosition="-90" cornerRadius="30" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
+        <widget source="CAidList_desc" render="Label" position="40,120" size="900,50" font="Regular; 30" backgroundColor="background" transparent="1" foregroundColor="yellow"/>
+        <widget source="CAidList" render="Label" position="40,184" size="900,810" font="Regular; 28" backgroundColor="background" transparent="1"/>
+        <widget source="ServiceList_desc" render="Label" position="980,120" size="900,50" font="Regular; 30" backgroundColor="background" transparent="1" foregroundColor="yellow"/>
+        <widget name="ServiceList" position="980,184" size="900,810" zPosition="1" itemHeight="45" transparent="1" font="Regular; 30" scrollbarMode="showOnDemand"/>
+        <widget source="ServiceList_info" render="Label" position="980,184" size="900,810" backgroundColor="background" zPosition="2" transparent="1" font="Regular;30"/>
         <eLabel backgroundColor="wpmc" cornerRadius="6" position="957,120" size="6,870" zPosition="88"/>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
     </screen>
     <screen name="Dish" position="30,110" size="240,360" zPosition="-1" backgroundColor="transparent" flags="wfNoBorder">
         <widget name="Dishpixmap" position="66,7" size="110,110" zPosition="-1" pixmap="main/dish.png" transparent="1" alphatest="on"/>
@@ -2205,17 +2218,18 @@
         <eLabel name="" position="1660,788" size="180,180" font="FA; 100" text="" halign="center" zPosition="99" transparent="1"/>
     </screen>
     <screen name="VirtualKeyBoard" position="center,center" size="1200,800" zPosition="99" title="Virtual KeyBoard" flags="wfBorder" backgroundColor="background">
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="2,790" size="296,6" zPosition="-11"/>
-        <eLabel backgroundColor="#fe00" cornerRadius="3" position="302,790" size="300,6" zPosition="-11"/>
-        <eLabel backgroundColor="progfg" cornerRadius="3" position="602,790" size="300,6" zPosition="-11"/>
-        <eLabel backgroundColor="#fe" cornerRadius="3" position="902,790" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="2,790" size="296,6" zPosition="-11"/>
+        <eLabel backgroundColor="green" cornerRadius="3" position="302,790" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="yellow" cornerRadius="3" position="602,790" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="blue" cornerRadius="3" position="902,790" size="300,6" zPosition="-11"/>
         <widget source="key_red" render="Label" position="0,744" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_green" render="Label" position="300,744" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_yellow" render="Label" position="600,744" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_blue" render="Label" position="900,744" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget font="Bold; 30" halign="right" position="688,18" render="Label" size="500,40" source="global.CurrentTime" transparent="1">
-            <convert type="ClockToText">Format:%a %d.%m.  %H:%M</convert>
+            <convert type="ClockToText">Format:%a %d.%m. | %H:%M</convert>
         </widget>
+        <ePixmap pixmap="buttons/vkey_text.png" position="15,669" size="960,76" alphatest="blend" zPosition="-4"/>
         <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1200,800" zPosition="-99"/>
         <eLabel backgroundColor="buttonsc" cornerRadius="30" position="-352,952" size="1280,60" zPosition="-80"/>
         <widget name="header" conditional="header" position="25,63" size="1050,98" font="Regular; 36" backgroundColor="background" foregroundColor="white" halign="left" transparent="1" noWrap="1" valign="top"/>
@@ -2224,7 +2238,7 @@
         <widget name="list" position="25,290" size="960,400" selectionDisabled="1" transparent="1"/>
         <widget name="mode" conditional="mode" position="30,230" size="300,50" font="Regular; 30" backgroundColor="background" foregroundColor="white" halign="left" transparent="1" noWrap="1"/>
         <widget name="language" conditional="language" position="0,0" size="0,0" font="Regular;30" backgroundColor="background" foregroundColor="foreground" transparent="1" noWrap="1"/>
-        <widget name="locale" conditional="locale" position="341,231" size="839,50" font="Regular; 30" foregroundColor="white" halign="right" backgroundColor="background" valign="center" transparent="1"/>
+        <widget name="locale" position="23,705" size="800,34" font="Regular; 28" transparent="1"/>
         <eLabel name="" position="1070,400" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="TXT"/>
         <eLabel name="" position="1070,340" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
         <eLabel name="" position="1070,460" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
@@ -3632,10 +3646,28 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
         <panel name="button1temp"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
+        <widget name="int_statu" position="1297,1030" size="60,50" font="Regular; 30" foregroundColor="green" backgroundColor="background" zPosition="2" transparent="1"/>
+        <eLabel name="int_statu_off" position="1297,1030" size="60,50" font="Regular; 30" foregroundColor="grey" backgroundColor="background" zPosition="1" transparent="1"/>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
         <widget name="progress" position="36,98" size="890,20" backgroundColor="progbg" foregroundColor="yellow" cornerRadius="10"/>
         <widget name="status" position="36,140" size="890,44" transparent="1" font="Regular;33" backgroundColor="background"/>
         <widget name="info" position="36,220" size="890,44" transparent="1" font="Regular;33" backgroundColor="background"/>
         <widget name="info2" position="36,310" size="890,680" transparent="1" font="Regular; 32" backgroundColor="background"/>
+        <widget name="Picture" position="1309,689" size="596,278" zPosition="2" transparent="1"/>
+        <widget name="Picture2" position="1471,711" size="320,232" zPosition="1" transparent="1" alphatest="blend"/>
+        <widget source="key_1" render="Label" font="Regular;35" foregroundColor="white" backgroundColor="background" position="962,825" size="375,50" halign="left" transparent="1" zPosition="1"/>
+        <widget source="key_2" render="Label" font="Regular;35" foregroundColor="white" backgroundColor="background" position="962,870" size="375,50" halign="left" transparent="1" zPosition="1"/>
+        <widget source="key_3" render="Label" font="Regular;35" foregroundColor="white" backgroundColor="background" position="962,915" size="375,50" halign="left" transparent="1" zPosition="1"/>
+        <widget source="key_4" render="Label" font="Regular;35" foregroundColor="white" backgroundColor="background" position="962,960" size="375,50" halign="left" transparent="1" zPosition="1"/>
+        <eLabel name="" position="966,608" size="250,50" text="Anzahl" font="Regular; 35" halign="left" backgroundColor="wpmc" foregroundColor="green"/>
+        <eLabel name="" position="963,651" size="250,50" text="Poster :     " font="Regular; 35" halign="left" backgroundColor="wpmc" foregroundColor="green"/>
+        <widget name="infoposter" position="1100,653" size="277,50" transparent="1" font="Regular;35" backgroundColor="background" valign="top" zPosition="1"/>
+        <eLabel name="" position="962,692" size="250,50" text="Backdrop :     " font="Regular; 35" halign="left" backgroundColor="wpmc" foregroundColor="green"/>
+        <widget name="infobackdrop" position="1146,696" size="218,50" transparent="1" font="Regular;35" foregroundColor="white" backgroundColor="background" valign="top" zPosition="1"/>
+        <eLabel name="" position="963,732" size="250,50" text="Banner :     " font="Regular; 35" halign="left" backgroundColor="wpmc" foregroundColor="green"/>
+        <widget name="infobanner" position="1112,733" size="218,50" transparent="1" font="Regular;35" foregroundColor="white" backgroundColor="background" valign="top" zPosition="1"/>
+        <eLabel name="" position="963,772" size="250,50" text="Infos :     " font="Regular; 35" halign="left" backgroundColor="wpmc" foregroundColor="green"/>
+        <widget name="infoinfos" position="1081,775" size="236,50" transparent="1" font="Regular;35" foregroundColor="white" backgroundColor="background" valign="top" zPosition="1"/>
     </screen>
     <screen name="manuelSearch" position="0,0" size="1920,1080" title="Manuel Search..." backgroundColor="transparent" flags="wfNoBorder">
         <panel name="titletemp"/>

@@ -12,18 +12,18 @@
 # by beber...03.2022,
 # 03.2022 several enhancements : several renders with one queue thread, google search (incl. molotov for france) + autosearch & autoclean thread ...
 # for infobar,
-# <widget source="session.Event_Now" render="ZPoster" position="100,100" size="185,278" />
-# <widget source="session.Event_Next" render="ZPoster" position="100,100" size="100,150" />
-# <widget source="session.Event_Now" render="ZPoster" position="100,100" size="185,278" nexts="2" />
-# <widget source="session.CurrentService" render="ZPoster" position="100,100" size="185,278" nexts="3" />
+# <widget source="session.Event_Now" render="AglarePosterX" position="100,100" size="185,278" />
+# <widget source="session.Event_Next" render="AglarePosterX" position="100,100" size="100,150" />
+# <widget source="session.Event_Now" render="AglarePosterX" position="100,100" size="185,278" nexts="2" />
+# <widget source="session.CurrentService" render="AglarePosterX" position="100,100" size="185,278" nexts="3" />
 
 # for ch,
-# <widget source="ServiceEvent" render="ZPoster" position="100,100" size="185,278" />
-# <widget source="ServiceEvent" render="ZPoster" position="100,100" size="185,278" nexts="2" />
+# <widget source="ServiceEvent" render="AglarePosterX" position="100,100" size="185,278" />
+# <widget source="ServiceEvent" render="AglarePosterX" position="100,100" size="185,278" nexts="2" />
 
 # for epg, event
-# <widget source="Event" render="ZPoster" position="100,100" size="185,278" />
-# <widget source="Event" render="ZPoster" position="100,100" size="185,278" nexts="2" />
+# <widget source="Event" render="AglarePosterX" position="100,100" size="185,278" />
+# <widget source="Event" render="AglarePosterX" position="100,100" size="185,278" nexts="2" />
 # or put tag -->  path="/media/hdd/poster"
 from __future__ import print_function
 from Components.Renderer.Renderer import Renderer
@@ -163,8 +163,8 @@ else:
 
 try:
     folder_size = sum([sum(map(lambda fname: os.path.getsize(os.path.join(path_folder, fname)), files)) for folder_p, folders, files in os.walk(path_folder)])
-    ozposter = "%0.f" % (folder_size / (1024 * 1024.0))
-    if ozposter >= "5":
+    oAglarePosterX = "%0.f" % (folder_size / (1024 * 1024.0))
+    if oAglarePosterX >= "5":
         shutil.rmtree(path_folder)
 except:
     pass
@@ -443,7 +443,7 @@ class PosterAutoDB(AglarePosterXDownloadThread):
                 if diff_tm > 120 and os.path.getsize(path_folder + '/' + f) == 0:  # Detect empty files > 2 minutes
                     os.remove(path_folder + '/' + f)
                     emptyfd += 1
-                if diff_tm > 432000:  # Detect old files > 5 days old
+                if diff_tm > 31536000:  # Detect old files > 365 days old
                     os.remove(path_folder + '/' + f)
                     oldfd = oldfd + 1
             self.logAutoDB("[AutoDB] {} old file(s) removed".format(oldfd))
@@ -480,7 +480,6 @@ class AglarePosterX(Renderer):
         except:
             self.timer.callback.append(self.showPoster)
         self.timer.start(10, True)
-        # ~ self.timer.callback.append(self.showPoster)
 
     def applySkin(self, desktop, parent):
         attribs = []
