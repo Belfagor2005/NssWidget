@@ -116,6 +116,7 @@ except:
 # IF NOT SET OR WRONG FILE THE AUTOMATIC BACKDROP GENERATION WILL WORK FOR
 # THE CHANNELS THAT YOU ARE VIEWING IN THE ENIGMA SESSION
 
+
 def SearchBouquetTerrestrial():
     import glob
     import codecs

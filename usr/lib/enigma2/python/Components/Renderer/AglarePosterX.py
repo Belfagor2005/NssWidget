@@ -492,7 +492,7 @@ class AglarePosterX(Renderer):
         self.canal = [None, None, None, None, None, None]
         self.oldCanal = None
         self.logdbg = None
-        self.pstcanal = ''                          
+        self.pstcanal = ''
         self.timer = eTimer()
         try:
             self.timer_conn = self.timer.timeout.connect(self.showPoster)

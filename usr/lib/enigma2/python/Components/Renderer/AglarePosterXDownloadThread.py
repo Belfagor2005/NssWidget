@@ -69,6 +69,7 @@ try:
         if os.path.exists(thetvdb_skin):
             with open(thetvdb_skin, "r") as f:
                 thetvdbkey = f.read()
+        my_cur_skin = True 
 except:
     my_cur_skin = False
 
