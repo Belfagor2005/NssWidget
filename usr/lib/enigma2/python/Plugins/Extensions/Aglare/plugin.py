@@ -33,12 +33,10 @@ else:
     from urllib2 import Request
 
 
-version = '1.01'
+version = '1.00'
 
 config.plugins.AglareNss = ConfigSubsection()
-cfg = config.plugins.AglareNss
-cfg.separator = NoSave(ConfigNothing())
-cfg.colorSelector = ConfigSelection(default='head', choices=[
+config.plugins.AglareNss.colorSelector = ConfigSelection(default='head', choices=[
  ('head', _('Default')),
  ('color1', _('Black')),
  ('color2', _('Brown')),
@@ -47,21 +45,21 @@ cfg.colorSelector = ConfigSelection(default='head', choices=[
  ('color5', _('Blue')),
  ('color6', _('Red')),
  ('color7', _('Purple'))])
-cfg.FontStyle = ConfigSelection(default='basic', choices=[
+config.plugins.AglareNss.FontStyle = ConfigSelection(default='basic', choices=[
  ('basic', _('Default')),
  ('font1', _('HandelGotD')),
  ('font2', _('KhalidArtboldRegular')),
  ('font3', _('BebasNeue'))])
-cfg.skinSelector = ConfigSelection(default='base', choices=[
+config.plugins.AglareNss.skinSelector = ConfigSelection(default='base', choices=[
  ('base', _('Default'))])
 config.plugins.AglareNss.InfobarStyle = ConfigSelection(default='infobar_no_posters', choices=[
  ('infobar_no_posters', _('Infobar_NO_Posters')),
  ('infobar_posters_meteo', _('Infobar_Posters_Meteo')),
  ('infobar_posters', _('Infobar_Posters'))])
-cfg.SecondInfobarStyle = ConfigSelection(default='secondinfobar_no_posters', choices=[
+config.plugins.AglareNss.SecondInfobarStyle = ConfigSelection(default='secondinfobar_no_posters', choices=[
  ('secondinfobar_no_posters', _('SecondInfobar_NO_Posters')),
  ('secondinfobar_posters', _('SecondInfobar_Posters'))])
-cfg.ChannSelector = ConfigSelection(default='channellist_no_posters', choices=[
+config.plugins.AglareNss.ChannSelector = ConfigSelection(default='channellist_no_posters', choices=[
  ('channellist_no_posters', _('ChannelSelection_NO_Posters')),
  ('channellist_np_full', _('ChannelSelection_NO_Posters_Full')),
  ('channellist_no_posters_no_picon', _('ChannelSelection_NO_Posters_NO_Picon')),
@@ -69,12 +67,12 @@ cfg.ChannSelector = ConfigSelection(default='channellist_no_posters', choices=[
  ('channellist_3_posters_v', _('ChannelSelection_3_Posters_V')),
  ('channellist_4_posters', _('ChannelSelection_4_Posters')),
  ('channellist_big_mini_tv', _('ChannelSelection_big_mini_tv'))])
-cfg.EventView = ConfigSelection(default='eventview_no_posters', choices=[
+config.plugins.AglareNss.EventView = ConfigSelection(default='eventview_no_posters', choices=[
  ('eventview_no_posters', _('EventView_NO_Posters')),
  ('eventview_7_posters', _('EventView_7_Posters')),
  ('eventview_banner', _('EventView_Banner'))])
 
-cfg.VolumeBar = ConfigSelection(default='volume1', choices=[
+config.plugins.AglareNss.VolumeBar = ConfigSelection(default='volume1', choices=[
  ('volume1', _('Default')),
  ('volume2', _('volume2'))])
 
@@ -114,16 +112,14 @@ class AglareSetup(ConfigListScreen, Screen):
         self.previewFiles = '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/sample/'
         self['Preview'] = Pixmap()
         list = []
-        list.append(getConfigListEntry(_('Skin Style:'), cfg.skinSelector))
-        list.append(getConfigListEntry(" ", cfg.separator))
-        list.append(getConfigListEntry(_('Color Style:'), cfg.colorSelector))
-        list.append(getConfigListEntry(_('Select Your Font:'), cfg.FontStyle))
-        list.append(getConfigListEntry(" ", cfg.separator))
-        list.append(getConfigListEntry(_('InfoBar Style:'), cfg.InfobarStyle))
-        list.append(getConfigListEntry(_('SecondInfobar Style:'), cfg.SecondInfobarStyle))
-        list.append(getConfigListEntry(_('ChannelSelection Style:'), cfg.ChannSelector))
-        list.append(getConfigListEntry(_('EventView Style:'), cfg.EventView))
-        list.append(getConfigListEntry(_('VolumeBar Style:'), cfg.VolumeBar))
+        list.append(getConfigListEntry(_('Color Style:'), config.plugins.AglareNss.colorSelector))
+        list.append(getConfigListEntry(_('Select Your Font:'), config.plugins.AglareNss.FontStyle))
+        list.append(getConfigListEntry(_('Skin Style:'), config.plugins.AglareNss.skinSelector))
+        list.append(getConfigListEntry(_('InfoBar Style:'), config.plugins.AglareNss.InfobarStyle))
+        list.append(getConfigListEntry(_('SecondInfobar Style:'), config.plugins.AglareNss.SecondInfobarStyle))
+        list.append(getConfigListEntry(_('ChannelSelection Style:'), config.plugins.AglareNss.ChannSelector))
+        list.append(getConfigListEntry(_('EventView Style:'), config.plugins.AglareNss.EventView))
+        list.append(getConfigListEntry(_('VolumeBar Style:'), config.plugins.AglareNss.VolumeBar))
 
         ConfigListScreen.__init__(self, list)
         self['actions'] = ActionMap(['OkCancelActions',
@@ -222,49 +218,49 @@ class AglareSetup(ConfigListScreen, Screen):
 
         try:
             skin_lines = []
-            head_file = self.previewFiles + 'head-' + cfg.colorSelector.value + '.xml'
+            head_file = self.previewFiles + 'head-' + config.plugins.AglareNss.colorSelector.value + '.xml'
             skFile = open(head_file, 'r')
             head_lines = skFile.readlines()
             skFile.close()
             for x in head_lines:
                 skin_lines.append(x)
 
-            font_file = self.previewFiles + 'font-' + cfg.FontStyle.value + '.xml'
+            font_file = self.previewFiles + 'font-' + config.plugins.AglareNss.FontStyle.value + '.xml'
             skFile = open(font_file, 'r')
             font_lines = skFile.readlines()
             skFile.close()
             for x in font_lines:
                 skin_lines.append(x)
 
-            skn_file = self.previewFiles + 'infobar-' + cfg.InfobarStyle.value + '.xml'
+            skn_file = self.previewFiles + 'infobar-' + config.plugins.AglareNss.InfobarStyle.value + '.xml'
             skFile = open(skn_file, 'r')
             file_lines = skFile.readlines()
             skFile.close()
             for x in file_lines:
                 skin_lines.append(x)
 
-            skn_file = self.previewFiles + 'secondinfobar-' + cfg.SecondInfobarStyle.value + '.xml'
+            skn_file = self.previewFiles + 'secondinfobar-' + config.plugins.AglareNss.SecondInfobarStyle.value + '.xml'
             skFile = open(skn_file, 'r')
             file_lines = skFile.readlines()
             skFile.close()
             for x in file_lines:
                 skin_lines.append(x)
 
-            skn_file = self.previewFiles + 'channellist-' + cfg.ChannSelector.value + '.xml'
+            skn_file = self.previewFiles + 'channellist-' + config.plugins.AglareNss.ChannSelector.value + '.xml'
             skFile = open(skn_file, 'r')
             file_lines = skFile.readlines()
             skFile.close()
             for x in file_lines:
                 skin_lines.append(x)
 
-            skn_file = self.previewFiles + 'eventview-' + cfg.EventView.value + '.xml'
+            skn_file = self.previewFiles + 'eventview-' + config.plugins.AglareNss.EventView.value + '.xml'
             skFile = open(skn_file, 'r')
             file_lines = skFile.readlines()
             skFile.close()
             for x in file_lines:
                 skin_lines.append(x)
 
-            skn_file = self.previewFiles + 'vol-' + cfg.VolumeBar.value + '.xml'
+            skn_file = self.previewFiles + 'vol-' + config.plugins.AglareNss.VolumeBar.value + '.xml'
             skFile = open(skn_file, 'r')
             file_lines = skFile.readlines()
             skFile.close()
@@ -272,9 +268,9 @@ class AglareSetup(ConfigListScreen, Screen):
                 skin_lines.append(x)
 
             base_file = self.previewFiles + 'base.xml'
-            if cfg.skinSelector.value == 'base1':
+            if config.plugins.AglareNss.skinSelector.value == 'base1':
                 base_file = self.previewFiles + 'base1.xml'
-            if cfg.skinSelector.value == 'base':
+            if config.plugins.AglareNss.skinSelector.value == 'base':
                 base_file = self.previewFiles + 'base.xml'
             skFile = open(base_file, 'r')
             file_lines = skFile.readlines()
@@ -316,27 +312,22 @@ class AglareSetup(ConfigListScreen, Screen):
                     s1 = cc.readline()  # .decode("utf-8")
                     vers = s1.split('#')[0]
                     url = s1.split('#')[1]
-                    # print('vers', vers)
-                    # print('url:', url)
                     version_server = vers.strip()
                     self.updateurl = url.strip()
                     cc.close()
-                    # print('Version plugin=', version)
-                    # print('Version server=', version_server)
-                    # print('Updateurl server=', self.updateurl)
                     if str(version_server) == str(version):
                         message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
-                                                          version_server,
-                                                          _('Version installed:'),
-                                                          version,
-                                                          _('You have the current version Aglare!'))
+                         version_server,
+                         _('Version installed:'),
+                         version,
+                         _('You have the current version Aglare!'))
                         self.session.open(MessageBox, message, MessageBox.TYPE_INFO)
                     elif version_server > version:
                         message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
-                                                          version_server,
-                                                          _('Version installed:'),
-                                                          version,
-                                                          _('The update is available!\n\nDo you want to run the update now?'))
+                         version_server,
+                         _('Version installed:'),
+                         version,
+                         _('The update is available!\n\nDo you want to run the update now?'))
                         self.session.openWithCallback(self.update, MessageBox, message, MessageBox.TYPE_YESNO)
                     else:
                         self.session.open(MessageBox, _('You have version %s!!!') % version, MessageBox.TYPE_ERROR)

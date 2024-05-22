@@ -3349,15 +3349,15 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/camd.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="MultiBootSelector" position="0,0" size="1920,1080" title="Multiboot Image Selector" flags="wfNoBorder" backgroundColor="transparent">
-        <panel name="menutemp"/>
-        <panel name="button1temp"/>
-        <panel name="titletemp"/>
-        <panel name="description"/>
-        <panel name="pigscreen885"/>
-        <panel name="bLogo"/>
-        <widget source="options" render="Label" position="997,948" size="510,50" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" zPosition="5" valign="center"/>
-        <widget name="config" position="36,98" size="890,868" itemHeight="62" enableWrapAround="1" transparent="1" font="Regular; 40" valign="center" itemCornerRadius="8"/>
-        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on"/>
+        <panel name="menutemp" />
+        <panel name="button1temp" />
+        <panel name="titletemp" />
+        <panel name="description" />
+        <panel name="pigscreen885" />
+        <panel name="bLogo" />
+        <widget source="options" render="Label" position="999,796" size="510,50" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" zPosition="5" valign="center" />
+        <widget name="config" position="36,98" size="890,845" itemHeight="65" font="Regular; 30" enableWrapAround="1" itemCornerRadius="8" transparent="1" halign="left" valign="center" />
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on" />
     </screen>
     <screen name="SelectDirectoryWindow" position="0, 0" flags="wfNoBorders" transparent="0" backgroundColor="transparent" size="1920, 1080">
         <panel name="titletemp"/>
@@ -4252,7 +4252,7 @@ self.instance.move(ePoint(int(deskwidth - newwidth)//2,int(deskheight - newheigh
         <panel name="bLogo"/>
         <panel name="pigscreen885"/>
         <widget name="description" position="997,607" size="885,180" font="Regular; 24" halign="left" valign="top" backgroundColor="background" transparent="1" zPosition="55"/>
-        <widget name="slotlist" position="36,98" size="890,845" itemHeight="65" font="Regular; 28" enableWrapAround="1" itemCornerRadius="8" transparent="1" halign="left" valign="center"/>
+        <widget name="slotlist" position="36,98" size="890,845" itemHeight="65" font="Regular; 30" enableWrapAround="1" itemCornerRadius="8" transparent="1" halign="left" valign="center"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
         <eLabel name="" position="1660,790" size="180,180" font="FA; 100" text="" halign="center" zPosition="99" transparent="1"/>
     </screen>
