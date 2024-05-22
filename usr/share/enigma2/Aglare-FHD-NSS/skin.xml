@@ -7909,38 +7909,35 @@ MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
         <eLabel name="" position="1660,826" size="180,180" font="FA; 100" text="" halign="center" zPosition="99" transparent="1"/>
     </screen>
     <screen name="RSSFeedScreenList" position="0,0" size="1920,1080" title="RSS Reader Panel" flags="wfNoBorder">
-        <widget source="Title" render="Label" position="106,38" size="890,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
-        <widget source="ScreenPath" render="Label" position="36,10" size="1380,22" backgroundColor="background" transparent="1" zPosition="1" font="Regular; 19" valign="center" halign="left"/>
-        <ePixmap position="33,36" size="66,54" pixmap="image_logo/nss/tLogo.png" alphatest="blend" transparent="1" zPosition="19"/>
-        <panel name="button2temp"/>
-        <panel name="pigscreen885"/>
-        <panel name="timedate"/>
-        <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
-        <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
-        <eLabel name="" position="31,30" size="947,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
-        <widget name="info" position="995,627" zPosition="4" size="884,373" font="Regular;35" foregroundColor="#ffc000" valign="center"/>\
-        <widget name="mylist" itemHeight="57" position="39,106" size="924,847" scrollbarMode="showOnDemand" zPosition="2"/>\
+        <widget source="Title" render="Label" position="106,38" size="890,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left" />
+        <widget source="ScreenPath" render="Label" position="36,10" size="1380,22" backgroundColor="background" transparent="1" zPosition="1" font="Regular; 19" valign="center" halign="left" />
+        <ePixmap position="33,36" size="66,54" pixmap="image_logo/nss/tLogo.png" alphatest="blend" transparent="1" zPosition="19" />
+        <panel name="button2temp" />
+        <panel name="timedate" />
+        <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99" />
+        <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80" />
+        <widget name="info" position="1313,412" zPosition="4" size="565,373" font="Regular;35" foregroundColor="#ffc000" valign="center" />
+        <widget name="mylist" position="41,95" size="1241,800" itemHeight="57" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="black" transparent="1" />
+        <eLabel name="" position="35,95" size="1242,800" zPosition="-90" cornerRadius="20" backgroundColor="mcolor2" foregroundColor="mcolor2" />
+        <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99" />
+        <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80" />
+        <widget source="session.VideoPicture" render="Pig" position="1376,110" zPosition="1" size="494,272" backgroundColor="transparent" transparent="0" cornerRadius="14" />
+        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="35,951" size="850,3" zPosition="99" />
+        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="440,951" size="850,3" zPosition="99" />
+        <eLabel name="" position="551,936" size="132,40" font="FA; 36" text="" transparent="1" valign="center" halign="center" zPosition="99" />
     </screen>
+
     <screen name="RSSFeedScreenContent" position="0,0" size="1920,1080" title="RSS Reader Panel" flags="wfNoBorder">
-        <widget source="Title" render="Label" position="106,38" size="890,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
-        <widget source="ScreenPath" render="Label" position="36,10" size="1380,22" backgroundColor="background" transparent="1" zPosition="1" font="Regular; 19" valign="center" halign="left"/>
-        <ePixmap position="33,36" size="66,54" pixmap="image_logo/nss/tLogo.png" alphatest="blend" transparent="1" zPosition="19"/>
-        <panel name="button2temp"/>
-        <panel name="pigscreen885"/>
-        <panel name="timedate"/>
-        <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
-        <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
-        <eLabel name="" position="31,30" size="947,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
-        <widget name="info" position="995,627" zPosition="4" size="884,373" font="Regular;35" foregroundColor="#ffc000" valign="center"/>\
-        <widget name="mylist" itemHeight="57" position="39,106" size="924,847" scrollbarMode="showOnDemand" zPosition="2"/>\
+        <panel name="RSSFeedScreenList"/>
     </screen>
+
     <screen name="RSSFeedScreenItemviewer" position="center,68" size="1380,930" title="RSSFeedScreenItemviewer" flags="wfNoBorder">
-        <widget name="titel" position="30,24" size="1215,126" font="Regular; 34" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
-        <widget name="leagueNumberWidget" position="1244,67" size="135,53" halign="left" font="Regular;30" foregroundColor="#ffc000"/>
-        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="32,820" size="1320,3" zPosition="99"/>
-        <widget name="text" position="30,180" size="1320,627" halign="block" font="Regular;34"/>
-        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="32,157" size="1320,3" zPosition="99"/>
-        <widget name="feedtitel" position="23,848" zPosition="1" size="1335,45" halign="center" font="Regular;34" foregroundColor="#ffc000"/>
-        <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1380,930" zPosition="-99"/>
+        <widget name="titel" position="30,19" size="1321,126" font="Regular; 34" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left" />
+        <widget name="leagueNumberWidget" position="1027,806" size="323,40" halign="left" font="Regular; 28" foregroundColor="#ffc000" />
+        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="32,850" size="1320,3" zPosition="99" />
+        <widget name="text" position="30,174" size="1320,628" halign="block" font="Regular;34" />
+        <eLabel backgroundColor="mcolor3" cornerRadius="3" position="32,157" size="1320,3" zPosition="99" />
+        <widget name="feedtitel" position="23,868" zPosition="1" size="1335,45" halign="center" font="Regular;34" foregroundColor="#ffc000" />
+        <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1380,930" zPosition="-99" />
     </screen>
 </skin>
