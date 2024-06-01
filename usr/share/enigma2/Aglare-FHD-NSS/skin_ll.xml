@@ -289,7 +289,7 @@
         <widget name="statusred" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/tvaddon/res/pics/status-off.png" alphatest="blend" position="1300,1020" size="40,40" zPosition="5"/>
         <widget name="status" position="1313,1103" size="420,40" font="Regular; 40" foregroundColor="#ffb75b" backgroundColor="#101010" halign="left" transparent="1" zPosition="4"/>
         <widget name="list" position="43,146" size="869,838" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/>
-        <ePixmap position="1376,965" size="500,90" pixmap="oZetaNSS-FHD/menu/bLogo.png" alphatest="blend" zPosition="1"/>
+        <!-- <ePixmap position="1376,965" size="500,90" pixmap="oZetaNSS-FHD/menu/bLogo.png" alphatest="blend" zPosition="1"/> -->
         <eLabel name="" position="997,630" size="50,50" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="FA; 26" text="" zPosition="1"/>
         <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,634" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
             <convert type="AglareReceiverInfo">MemTotal</convert>
@@ -343,7 +343,7 @@
         <widget source="progresstext" render="Label" font="Regular;20" position="1577,910" size="300,50" backgroundColor="#202020" transparent="1" halign="center" zPosition="6"/>
         <widget name="pth" position="995,646" size="877,90" font="Regular; 32" halign="right" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
         <widget name="pform" position="995,593" size="882,50" font="Regular;30" halign="right" valign="center" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
-        <ePixmap position="1376,965" size="500,90" pixmap="oZetaNSS-FHD/menu/bLogo.png" alphatest="blend" zPosition="1"/>
+        <!-- <ePixmap position="1376,965" size="500,90" pixmap="oZetaNSS-FHD/menu/bLogo.png" alphatest="blend" zPosition="1"/> -->
         <eLabel name="" position="997,630" size="50,50" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="FA; 26" text="" zPosition="1"/>
         <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,634" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
             <convert type="AglareReceiverInfo">MemTotal</convert>
@@ -517,30 +517,31 @@
         <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/tvaddon/Skin/PayPal.png" scale="strech" position="1310,896" size="156,75" zPosition="5" alphatest="on"/>
         <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/tvaddon/Skin/qr-code.png" scale="strech" position="1502,668" size="318,318" zPosition="2" alphatest="on"/>
     </screen>
-
     <!-- *************************************** -->
     <!--  VAVOO                         * -->
     <!-- *************************************** -->
-    <screen name="MainVavoo" position="0,0" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
-        <!-- <widget name="Title" position="143,892" size="400,58" noWrap="1" zPosition="1" transparent="1" font="Regular; 34" valign="center" halign="center" backgroundColor="#30000000" foregroundColor="#00ffffff" /> -->
-        <panel name="titletemp"/>
-        <panel name="timedate"/>
-        <panel name="pigscreen885"/>
-        <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
-        <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
-        <eLabel name="" position="31,30" size="901,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
-        <widget name="name" position="962,908" size="926,60" noWrap="1" zPosition="1" transparent="1" font="Regular;38" valign="center" halign="center" backgroundColor="#30000000" foregroundColor="#00ffffff"/>
-        <widget name="menulist" position="58,189" size="849,776" backgroundColor="#30000000" zPosition="1" scrollbarMode="showOnDemand" transparent="1" foregroundColor="#00ffffff"/>
-        <widget name="text" position="53,105" size="867,76" zPosition="1" backgroundColor="#30000000" transparent="1" font="Regular; 38" halign="center" foregroundColor="#f4b700"/>
-        <widget name="red" font="Regular;30" halign="center" valign="center" position="37,1006" size="297,59" backgroundColor="#30000000" foregroundColor="#00ffffff" transparent="1" zPosition="1"/>
-        <widget name="green" font="Regular;30" halign="center" valign="center" position="342,1006" size="297,59" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1" />
-        <eLabel backgroundColor="#00ff0000" position="34,1064" size="300,6" zPosition="12"/>
-        <eLabel backgroundColor="#0000ff00" position="342,1064" size="300,6" zPosition="12" />  
-        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/vavoo/skin/images/logo_vavoo.png" position="1602,617" size="256,256" alphatest="blend" zPosition="3"/>
+    <screen name="MainVavoox" position="0,0" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="timedate" />
+        <ePixmap position="0,0" size="1920,1080" pixmap="vavoo/main.png" alphatest="blend" zPosition="-1" />
+        <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80" />
+        <eLabel backgroundColor="#00ff0000" position="108,1018" size="300,6" zPosition="12" />
+        <eLabel backgroundColor="#0000ff00" position="407,1020" size="300,6" zPosition="12" /> 
+        <eLabel backgroundColor="#00ffff00" position="707,1019" size="300,6" zPosition="12" />
+        <eLabel backgroundColor="#000000ff" position="1007,1019" size="300,6" zPosition="12" />
+        <eLabel name="" position="31,30" size="900,980" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2" />
+        <widget name="name" position="107,879" size="714,82" noWrap="1" zPosition="1" transparent="1" font="Regular;38" valign="center" halign="center" backgroundColor="#30000000" foregroundColor="#00ffffff" />
+        <widget name="menulist" position="135,182" size="659,650" zPosition="1" scrollbarMode="showNever" transparent="1" backgroundColor="#ffffff" foregroundColor="#ffccff" backgroundColorSelected="#914167" foregroundColorSelected="#ffffcc" />
+        <widget name="red" font="Regular;30" halign="center" valign="center" position="107,961" size="300,58" backgroundColor="#30000000" foregroundColor="#00ffffff" transparent="1" zPosition="1" />
+        <widget name="green" font="Regular;30" halign="center" valign="center" position="406,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1" />
+        <widget name="yellow" font="Regular;30" halign="center" valign="center" position="706,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1" />
+        <widget name="blue" font="Regular;30" halign="center" valign="center" position="1006,961" size="300,58" backgroundColor="#0000ff00" foregroundColor="#00ffffff" transparent="1" zPosition="1" />
+        <widget name="version" position="1811,973" size="100,35" noWrap="1" zPosition="1" transparent="1" font="Regular;24" valign="center" halign="center" backgroundColor="#30000000" foregroundColor="#00ffffff" />
+        <eLabel name="" position="1834,1018" size="75,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="cvfont; 24" zPosition="3" text="INFO" />
+        <eLabel name="" position="1770,1018" size="64,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="cvfont; 24" zPosition="3" text="CH+" />
+        <eLabel name="" position="1706,1018" size="64,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="cvfont; 24" zPosition="3" text="CH-" />
     </screen>
-
-    <screen name="vavoo" position="0,0" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="MainVavoo"/>
+    <screen name="vavoox" position="0,0" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="MainVavoox"/>
     </screen>
     <!-- *************************************** -->
     <!--  RADIO M                              * -->
@@ -587,6 +588,4 @@
         <eLabel backgroundColor="#0000ff00" position="615,1055" size="210,6" zPosition="12" /> 
         <eLabel backgroundColor="#000000ff" position="835,1055" size="210,6" zPosition="12" />
     </screen>
-
-
 </skin>

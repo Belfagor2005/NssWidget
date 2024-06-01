@@ -129,7 +129,7 @@
         <item level="0" text="Select Softcam" description="Select a Softcam from the available list.">config.misc.softcams</item>
         <item level="2" text="Show OScam/CCcam in Extension Menu" description="Allows you to show/hide OScam/CCcam in the Extension Menu screen (BLUE button).">config.softcam.showInExtensions</item>
     </setup>
-    <setup key="SoftwareManager" title="Software Manager Settings" showOpenWebif="1">
+<!--     <setup key="SoftwareManager" title="Software Manager Settings" showOpenWebif="1">
         <if conditional="BoxInfo.getItem('model').startswith('et')">
             <item level="2" text="Select Software Update" description="Select how your box will upgrade.">config.plugins.softwaremanager.updatetype</item>
         </if>
@@ -141,7 +141,7 @@
         <item level="2" text="Overwrite Bootlogo Files ?" description="Overwrite bootlogo files during software upgrade?">config.plugins.softwaremanager.overwriteBootlogoFiles</item>
         <item level="2" text="Overwrite Spinner Files ?" description="Overwrite spinner files during software upgrade?">config.plugins.softwaremanager.overwriteSpinnerFiles</item>
         <item level="2" text="Mode for autorestore" description="Turbo: One reboot after flash\nFast: One reboot after flash, one reboot after restore\nSlow: One reboot after flash, one reboot after restore in GUI">config.plugins.softwaremanager.restoremode</item>
-    </setup>
+    </setup> -->
     <setup key="OSCamInfoSetup" title="OSCam Information Settings">
         <item level="0" text="Read Userdata from oscam.conf" description="Read Userdata from oscam.conf">config.oscaminfo.userDataFromConf</item>
         <if conditional="not config.oscaminfo.userDataFromConf.value">

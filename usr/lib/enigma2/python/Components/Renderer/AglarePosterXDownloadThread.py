@@ -69,7 +69,7 @@ try:
         if os.path.exists(thetvdb_skin):
             with open(thetvdb_skin, "r") as f:
                 thetvdbkey = f.read()
-        my_cur_skin = True 
+        my_cur_skin = True
 except:
     my_cur_skin = False
 
@@ -498,7 +498,7 @@ class AglarePosterXDownloadThread(threading.Thread):
             else:
                 imsg = "Not found '{}' [{}%-{}%-{}]".format(pltc, molotov_table[0], molotov_table[1], len_plst)
             if poster:
-                url_poster = re.sub('/\d+x\d+/', "/" + re.sub(', ', 'x', isz) + "/", poster)
+                url_poster = re.sub('/\d+x\d+/', "/" + re.sub(',', 'x', isz) + "/", poster)
                 self.savePoster(dwn_poster, url_poster)
                 if self.verifyPoster(dwn_poster):
                     self.resizePoster(dwn_poster)
@@ -531,7 +531,6 @@ class AglarePosterXDownloadThread(threading.Thread):
                 srch = chkType[6:]
             elif chkType.startswith("tv"):
                 srch = chkType[3:]
-            url_google = ''
             # url_google = '"'+quote(title)+'"'
             # if channel and title.find(channel) != None or < 0:
                 # url_google += "+{}".format(quote(channel))
@@ -560,7 +559,7 @@ class AglarePosterXDownloadThread(threading.Thread):
 
             for pl in posterlst:
                 url_poster = "https://{}".format(pl)
-                url_poster = re.sub(r"\\u003d", " = ", url_poster)
+                url_poster = re.sub(r"\\u003d", "=", url_poster)
                 self.savePoster(dwn_poster, url_poster)
                 if self.verifyPoster(dwn_poster):
                     self.resizePoster(dwn_poster)

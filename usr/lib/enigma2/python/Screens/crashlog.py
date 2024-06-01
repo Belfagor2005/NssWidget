@@ -178,13 +178,6 @@ class CrashLogScreen(Screen):
         self.list = []
         if crashlogPath:
             crashfiles = os.popen("ls -lh %s*crash*.log %slogs/*crash*.log /home/root/*crash*.log /home/root/logs/*crash*.log %stwisted.log /media/usb/logs/*crash*.log /media/usb/*crash*.log" % (path_folder_log, path_folder_log, path_folder_log))
-            sz_w = getDesktop(0).size().width()
-            # if sz_w == 2560:
-                # minipng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, "Extensions/CrashlogViewer/images/crashminiwq.png"))
-            # elif sz_w == 1920:
-                # minipng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, "Extensions/CrashlogViewer/images/crashmini.png"))
-            # else:
-                # minipng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, "Extensions/CrashlogViewer/images/crashmini1.png"))
             cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
             minipng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_SKIN, str(cur_skin) + "/mainmenu/crashlog.png"))
             for line in crashfiles:
@@ -275,7 +268,7 @@ class LogScreen(Screen):
     else:
         skin = """
         <screen name="crashlogview" position="center,center" size="1253,653" title="View Crashlog file">
-    <widget source="Redkey" render="Label" position="19,609" size="172,33" zPosition="11" font="Regular; 22" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
+        <widget source="Redkey" render="Label" position="19,609" size="172,33" zPosition="11" font="Regular; 22" valign="center" halign="center" backgroundColor="#050c101b" transparent="1" foregroundColor="white" />
         <eLabel backgroundColor="#00ff0000" position="20,643" size="172,6" zPosition="12" />
         <widget name="text" position="6,6" size="1240,463" font="Console; 16" text="text" />
         <widget name="text2" position="6,480" size="1240,126" font="Console; 17" text="text2" foregroundColor="#ff0000" />
@@ -288,11 +281,17 @@ class LogScreen(Screen):
         Screen.__init__(self, session)
         global Crashfile
         self.setTitle('View Crashlog file:  ' + str(Crashfile))
-        self["shortcuts"] = ActionMap(["ShortcutActions", "WizardActions"],
+        self["shortcuts"] = ActionMap(["ShortcutActions",
+                                       "WizardActions",
+                                       "DirectionActions"],
                                       {
                                       "cancel": self.exit,
                                       "back": self.exit,
                                       "red": self.exit,
+                                      "left": self.pageUp,
+                                      "right": self.pageDown,
+                                      "pageUp": self.pageUp,
+                                      "pageDown": self.pageDown,
                                       })
         self["Redkey"] = StaticText(_("Close"))
         self["Greenkey"] = StaticText(_("Restart GUI"))
@@ -304,6 +303,12 @@ class LogScreen(Screen):
 
     def exit(self):
         self.close()
+
+    def pageUp(self):
+        self['text'].pageUp()
+
+    def pageDown(self):
+        self['text'].pageDown()
 
     def listcrah(self):
         global Crashfile
@@ -328,17 +333,3 @@ class LogScreen(Screen):
         except Exception as e:
             print('error to open crashfile: ', e)
         self["text2"].setText(list2)
-        self["actions"] = ActionMap(["OkCancelActions", "DirectionActions"], {"cancel": self.close, "up": self["text"].pageUp, "left": self["text"].pageUp, "down": self["text"].pageDown, "right": self["text"].pageDown}, -1)
-
-
-# def main(session, **kwargs):
-    # session.open(CrashLogScreen)
-
-
-# def Plugins(**kwargs):
-    # return PluginDescriptor(
-        # name=(_("Crashlog  Viewer") + " ver. " + version),
-        # description=_("View and remove crashlog files"),
-        # where=[PluginDescriptor.WHERE_PLUGINMENU, PluginDescriptor.WHERE_EXTENSIONSMENU],
-        # icon="crash.png",
-        # fnc=main)
