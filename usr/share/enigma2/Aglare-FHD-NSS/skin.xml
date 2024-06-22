@@ -67,6 +67,8 @@
         <color name="#ecbb41" value="#00ecbb41"/>
         <color name="#f3fc92" value="#00f3fc92"/>
         <color name="#f4b700" value="#00f4b700"/>
+        <color name="#fe00" value="#0000fe00"/>
+        <color name="#fe0000" value="#00fe0000"/>
         <color name="#fe" value="#000000fe"/>
         <color name="green" value="#0000fe00"/>
         <color name="red" value="#00fe0000"/>
@@ -185,7 +187,7 @@
         <parameter name="AboutHddSplit" value="1"/>
         <parameter name="CCcamMenuListName" value="0,4,790,62"/>
         <parameter name="ChoicelistButtonIcon" value="15,14,54,34"/>
-        <parameter name="ChoicelistDash" value="8,3,790,62"/>
+        <parameter name="ChoicelistDash" value="0,3,790,62"/>
         <parameter name="ChoicelistIcon" value="8,14,54,62"/>
         <parameter name="ChoicelistName" value="80,14,790,62"/>
         <parameter name="ChoicelistButtonIcon" value="15,14,54,34"/>
@@ -202,14 +204,14 @@
         <parameter name="ExpandableListIcon" value="5,2,55,38"/>
         <parameter name="FallbackReceiverListIP" value="300,2,225,38"/>
         <parameter name="FallbackReceiverListName" value="8,2,225,38"/>
-        <parameter name="FcFileListIcon" value="10,0,30,30"/>
+        <parameter name="FcFileListIcon" value="10,2,30,30"/>
         <parameter name="FcFileListMultiIcon" value="45,0,30,30"/>
         <parameter name="FcFileListMultiLock" value="2,0,30,30"/>
-        <parameter name="FcFileListMultiName" value="90,0,1000,32"/>
-        <parameter name="FcFileListName" value="68,0,1000,34"/>
+        <parameter name="FcFileListMultiName" value="90,2,1000,32"/>
+        <parameter name="FcFileListName" value="68,2,1000,34"/>
         <parameter name="FileListIcon" value="14,8,50,50"/>
         <parameter name="FileListMultiIcon" value="45, 4, 30, 30"/>
-        <parameter name="FileListMultiLock" value="5,0,36,36"/>
+        <parameter name="FileListMultiLock" value="2,0,36,36"/>
         <parameter name="FileListMultiName" value="90,0,1000,36"/>
         <parameter name="FileListName" value="66,0,1000,50"/>
         <parameter name="GMultiEPGTimelineItemHeight" value="60"/>
@@ -226,8 +228,8 @@
         <parameter name="PluginBrowserDescr" value="170,40,40"/>
         <parameter name="PluginBrowserDownloadDescColor" value="1017253"/>
         <parameter name="PluginBrowserDownloadDescr" value="120,40,40"/>
-        <parameter name="PluginBrowserDownloadIcon" value="20,10,60,60"/>
-        <parameter name="PluginBrowserDownloadName" value="120,4,60"/>
+        <parameter name="PluginBrowserDownloadIcon" value="20,10,100,60"/>
+        <parameter name="PluginBrowserDownloadName" value="120,10,60"/>
         <parameter name="PluginBrowserIcon" value="20,0,120,70"/>
         <parameter name="PluginBrowserName" value="160,4,40"/>
         <parameter name="SelectionListDescr" value="50,2,900,40"/>
@@ -447,7 +449,7 @@
         <widget source="session.CurrentService" render="Label" position="1386,90" size="500,32" font="Regular; 27" borderWidth="1" backgroundColor="background" transparent="1" halign="center" foregroundColor="white" zPosition="30" valign="center" noWrap="1">
             <convert type="ServiceName">Name</convert>
         </widget>
-        <widget source="ServiceEvent" render="Progress" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" position="1386,410" size="500,10" zPosition="8">
+        <widget source="ServiceEvent" render="Progress" pixmap="main/progfg50010.png" cornerRadius="10" position="1386,410" size="500,10" zPosition="8">
             <convert type="EventTime">Progress</convert>
         </widget>
         <widget source="ServiceEvent" render="Label" position="970,420" size="780,50" font="Bold; 27" transparent="1" zPosition="8" valign="center" halign="left" noWrap="1">
@@ -471,10 +473,10 @@
         <widget source="session.FrontendStatus" render="Label" position="1280,332" size="64,28" font="Regular; 22" backgroundColor="background" transparent="1" zPosition="23" valign="center" halign="left">
             <convert type="FrontendInfo">AGC</convert>
         </widget>
-        <widget render="Progress" size="230,8" source="session.FrontendStatus" backgroundColor="progbg" foregroundColor="yellow" cornerRadius="6" position="1044,340" zPosition="7">
+        <widget render="Progress" size="230,8" source="session.FrontendStatus" pixmap="main/progfg2308.png" cornerRadius="8" position="1044,300" zPosition="7">
             <convert type="FrontendInfo">AGC</convert>
         </widget>
-        <widget render="Progress" size="230,8" source="session.FrontendStatus" backgroundColor="progbg" foregroundColor="yellow" cornerRadius="6" position="1044,304" zPosition="7">
+        <widget render="Progress" size="230,8" source="session.FrontendStatus" pixmap="main/progfg2308.png" cornerRadius="8" position="1044,264" zPosition="7">
             <convert type="FrontendInfo">SNR</convert>
         </widget>
         <eLabel name="" position="31,30" size="901,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
@@ -514,7 +516,7 @@
             <convert type="EventTime">Remaining</convert>
             <convert type="RemainingToText">InMinutes</convert>
         </widget>
-        <widget source="Event" render="Progress" position="1376,444" size="494,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="33">
+        <widget source="Event" render="Progress" position="1376,444" size="500,10" pixmap="main/progfg2308.png" cornerRadius="10" zPosition="33">
             <convert type="EventTime">Progress</convert>
         </widget>
         <widget source="session.Event_Next" render="AglareRunningText" options="movetype=running,startpoint=0,direction=top,steptime=100,startdelay=4000,wrap,always=0" position="32,794" zPosition="2" size="1251,211" font="Regular; 24" halign="left" backgroundColor="background" transparent="1" valign="top">
@@ -6258,45 +6260,66 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <widget name="number" position="0,0" size="500,100" halign="center" font="Regular; 60" backgroundColor="background" transparent="0"/>
         <widget name="servicename" position="0,100" size="500,100" backgroundColor="background" transparent="0" font="Regular; 36" valign="center" halign="center"/>
     </screen>
-    <screen name="Satfinder" position="0,0" size="1920,1080" title="Satfinder" backgroundColor="background" flags="wfNoBorder">
-        <panel name="menutemp3"/>
-        <eLabel name="" position="36,36" size="40,40" font="FA; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
-        <panel name="cancelscan"/>
-        <widget name="introduction" position="997,948" size="510,50" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" zPosition="5" valign="center"/>
-        <widget source="Frontend" render="Label" position="1565,432" size="120,38" zPosition="2" font="Regular; 30" backgroundColor="background" halign="center" transparent="1">
+<screen name="Satfinder" position="0,0" size="1920,1080" title="Satfinder" backgroundColor="background" flags="wfNoBorder">
+        <panel name="menutemp3" />
+        <eLabel name="" position="36,36" size="40,40" font="icomoon; 36" text="" transparent="1" valign="center" halign="center" zPosition="99" />
+        <panel name="cancelscan" />
+        <widget name="introduction" position="997,948" size="510,50" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" zPosition="5" valign="center" />
+        <widget source="Frontend" render="Label" position="1565,372" size="120,38" zPosition="2" font="Regular; 30" backgroundColor="background" halign="center" transparent="1">
             <convert type="AglareFrontendInfo">SNRdB</convert>
         </widget>
-        <eLabel text="SNRdB:" position="1428,432" size="133,38" font="Regular; 30" backgroundColor="background" transparent="1" zPosition="44" foregroundColor="yellow" halign="right"/>
-        <eLabel name="snr" text="SNR:" position="60,144" size="200,80" font="Regular; 60" halign="right" backgroundColor="background" transparent="1" valign="center"/>
-        <widget source="Frontend" render="Progress" position="270,158" size="1380,60" zPosition="2" backgroundColor="progbg" foregroundColor="yellow" cornerRadius="30" transparent="1">
-            <convert type="FrontendInfo">SNR</convert>
-        </widget>
-        <widget source="Frontend" render="Label" position="1664,146" size="200,80" font="Regular; 60" backgroundColor="background" transparent="1" halign="left" foregroundColor="green" valign="center">
-            <convert type="FrontendInfo">SNR</convert>
-        </widget>
-        <eLabel name="ber" text="BER:" position="60,236" size="200,80" font="Regular; 60" halign="right" backgroundColor="background" transparent="1" valign="center"/>
-        <widget source="Frontend" render="Progress" position="270,250" size="1380,60" zPosition="2" backgroundColor="progbg" foregroundGradient="red,red,red,horizontal" cornerRadius="30" transparent="1">
+        <eLabel text="SNRdB:" position="1428,372" size="133,38" font="Regular; 30" backgroundColor="background" transparent="1" zPosition="44" foregroundColor="yellow" halign="right" />
+        <eLabel name="agc" text="AGC:" position="60,180" size="200,60" font="Regular; 54" halign="right" backgroundColor="background" transparent="1" valign="center" />
+        <eLabel name="ber" text="BER:" position="60,250" size="200,60" font="Regular; 54" halign="right" backgroundColor="background" transparent="1" valign="center" />
+        <widget source="Frontend" render="Progress" position="270,260" size="1380,40" zPosition="2" backgroundColor="progbg" foregroundColor="red" cornerRadius="20" transparent="1">
             <convert type="FrontendInfo">BER</convert>
         </widget>
-        <widget source="Frontend" render="Label" position="1665,236" size="200,80" font="Regular; 60" backgroundColor="background" transparent="1" halign="left" foregroundColor="red" valign="center">
+        <widget source="Frontend" render="Label" position="1664,250" size="236,60" font="Regular; 54" backgroundColor="background" transparent="1" halign="left" foregroundColor="red" valign="center">
             <convert type="FrontendInfo">BER</convert>
         </widget>
-        <eLabel name="lock" text="Lock:" position="1110,437" size="120,36" font="Regular; 30" halign="right" backgroundColor="background" transparent="1"/>
-        <widget source="Frontend" render="Pixmap" position="1236,437" size="38,36" zPosition="1" pixmap="skin_default/icons/lock_on.png" alphatest="blend">
+        <eLabel name="lock" text="Lock:" position="1110,372" size="120,36" font="Regular; 30" halign="right" backgroundColor="background" transparent="1" />
+        <widget source="Frontend" render="Pixmap" position="1236,372" size="38,36" zPosition="1" pixmap="skin_default/icons/lock_on.png" alphatest="blend">
             <convert type="FrontendInfo">LOCK</convert>
-            <convert type="ConditionalShowHide"/>
+            <convert type="ConditionalShowHide" />
         </widget>
-        <widget source="Frontend" render="Pixmap" position="1236,437" size="38,36" zPosition="1" pixmap="skin_default/icons/lock_off.png" alphatest="blend">
+        <widget source="Frontend" render="Pixmap" position="1236,372" size="38,36" zPosition="1" pixmap="skin_default/icons/lock_off.png" alphatest="blend">
             <convert type="FrontendInfo">LOCK</convert>
             <convert type="ConditionalShowHide">Invert</convert>
         </widget>
-        <widget name="config" position="80,430" size="900,536" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8"/>
-        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/tuner.png" transparent="1" alphatest="on"/>
-        <eLabel name="agc" text="AGC:" position="60,326" size="200,80" font="Regular; 60" halign="right" backgroundColor="background" transparent="1" valign="center"/>
-        <widget source="Frontend" render="Label" position="1665,328" size="200,80" font="Regular; 60" halign="left" foregroundColor="yellow" backgroundColor="#000000" transparent="1">
+        <widget name="config" position="80,336" size="900,650" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" />
+        <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1" />
+        <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180" />
+        <eLabel name="snr" text="SNR:" position="60,110" size="200,60" font="Regular; 54" halign="right" backgroundColor="background" transparent="1" valign="center" />
+        <widget source="Frontend" render="Label" position="1664,110" size="200,60" font="Regular; 54" backgroundColor="background" transparent="1" halign="left" foregroundColor="green" valign="center">
+            <convert type="FrontendInfo">SNR</convert>
+        </widget>
+        <widget source="Frontend" render="Progress" pixmap="main/progfg138040.png" position="270,120" size="1380,40" zPosition="2" backgroundColor="progbg" cornerRadius="20" transparent="1">
+            <convert type="FrontendInfo">SNR</convert>
+        </widget>
+        <!-- ORB TSID ONID -->
+        <!--This will need ABM to read the values until E2 is adapted to read values from stream -->
+        <widget source="pos" render="FixedLabel" text="Orb Pos:" position="1100,500" size="180,45" font="Regular;40" halign="right" transparent="1">
+            <convert type="ConditionalShowHide" />
+        </widget>
+        <widget source="pos" render="Label" position="1288,500" size="150,45" backgroundColor="background" font="Regular;40" foregroundColor="white" halign="center" transparent="1">
+            <convert type="ConditionalShowHide" />
+        </widget>
+        <widget source="onid" render="FixedLabel" text="ONID:" position="1100,550" size="180,45" font="Regular;40" halign="right" transparent="1">
+            <convert type="ConditionalShowHide" />
+        </widget>
+        <widget source="onid" render="Label" position="1288,550" size="150,45" backgroundColor="background" font="Regular;40" foregroundColor="white" halign="center" transparent="1">
+            <convert type="ConditionalShowHide" />
+        </widget>
+        <widget source="tsid" render="FixedLabel" text="TSID:" position="1100,600" size="180,45" font="Regular;40" halign="right" transparent="1">
+            <convert type="ConditionalShowHide" />
+        </widget>
+        <widget source="tsid" render="Label" position="1288,600" size="150,45" backgroundColor="background" font="Regular;40" foregroundColor="white" halign="center" transparent="1">
+            <convert type="ConditionalShowHide" />
+        </widget>
+        <widget source="Frontend" render="Progress" pixmap="main/progfg138040.png" position="270,190" size="1380,40" zPosition="2" cornerRadius="20" backgroundColor="progbg" transparent="1">
             <convert type="FrontendInfo">AGC</convert>
         </widget>
-        <widget source="Frontend" render="Progress" position="270,335" size="1380,60" zPosition="2" backgroundColor="progbg" foregroundGradient="red,red,red,horizontal" cornerRadius="30" transparent="1">
+        <widget source="Frontend" render="Label" position="1664,180" size="200,60" font="Regular; 54" backgroundColor="background" transparent="1" halign="left" foregroundColor="green" valign="center">
             <convert type="FrontendInfo">AGC</convert>
         </widget>
     </screen>
@@ -6315,7 +6338,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <eLabel text="Lock:" position="1444,422" size="120,38" font="Regular;29" backgroundColor="background" foregroundColor="white" transparent="1"/>
         <widget name="AGC" position="1172,894" size="1,1" font="Regular; 28" transparent="1" backgroundColor="background" valign="center" foregroundColor="foreground2"/>
         <widget name="BER" position="1165,914" size="1,1" font="Regular; 28" transparent="1" backgroundColor="background" valign="center" foregroundColor="foreground2"/>
-        <widget name="ber_bar" position="270,250" size="1380,60" zPosition="2" backgroundColor="progbg" foregroundGradient="red,red,red,horizontal" cornerRadius="30" transparent="1"/>
+        <widget name="ber_bar" position="270,260" size="1380,40" zPosition="2" pixmap="main/progfg138040.png" cornerRadius="20" transparent="1" render="Progress"/>
         <widget name="ber_value" position="1664,236" size="200,80" font="Regular; 60" backgroundColor="background" transparent="1" halign="left" foregroundColor="red" valign="center"/>
         <widget name="lock_state" position="1565,422" size="214,38" zPosition="2" font="Regular; 30" backgroundColor="background" halign="left" transparent="1"/>
         <widget name="frequency_value" position="280,370" size="225,32" font="Regular; 28" transparent="1" backgroundColor="background"/>
@@ -7939,5 +7962,16 @@ MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
         <eLabel backgroundColor="mcolor3" cornerRadius="3" position="32,157" size="1320,3" zPosition="99" />
         <widget name="feedtitel" position="23,868" zPosition="1" size="1335,45" halign="center" font="Regular;34" foregroundColor="#ffc000" />
         <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1380,930" zPosition="-99" />
+    </screen>
+    <screen name="TunerServer" position="fill" title="Tuner Server" backgroundColor="transparent" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="button2temp"/>
+        <panel name="pigscreen885"/>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <widget name="lab1" position="36,120" size="890,640" font="Regular;28" halign="center" transparent="1"/>
+        <widget name="lab2" position="94,855" size="300,40" font="Regular;30" valign="center" halign="right" transparent="1"/>
+        <widget name="labstop" position="400,855" size="350,40" font="Regular;30" valign="center" halign="center" backgroundColor="red" cornerRadius="10"/>
+        <widget name="labrun" position="400,855" size="350,40" font="Regular;30" valign="center" halign="center" backgroundColor="green" zPosition="1" cornerRadius="10"/>
     </screen>
 </skin>
