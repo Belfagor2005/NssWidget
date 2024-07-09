@@ -7,7 +7,8 @@
 # --------------------#
 # imported from tvAddon Panel
 from __future__ import print_function
-from . import _
+from . import _, wgetsts
+from .Console import Console as tvConsole
 from .lib import Utils
 from .lib.Utils import RequestAgent
 from .lib.Lcn import LCN
@@ -15,9 +16,9 @@ from .lib.Downloader import downloadWithProgress
 from Components.ActionMap import ActionMap
 from Components.Button import Button
 from Components.ConfigList import ConfigListScreen
-from Components.config import config, getConfigListEntry
-from Components.config import ConfigYesNo, ConfigSubsection
-from Components.config import ConfigDirectory, ConfigSelection
+from Components.config import (config, getConfigListEntry)
+from Components.config import (ConfigYesNo, ConfigSubsection)
+from Components.config import ConfigSelection
 from Components.Label import Label
 from Components.MenuList import MenuList
 from Components.MultiContent import MultiContentEntryText
@@ -29,23 +30,23 @@ from Components.Sources.Progress import Progress
 from Components.Sources.List import List
 from Components.Sources.StaticText import StaticText
 from Plugins.Plugin import PluginDescriptor
-from Screens.Console import Console as tvConsole
+# from Screens.Console import Console as tvConsole
 from Screens.LocationBox import LocationBox
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from Screens.Standby import TryQuitMainloop
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Tools.Directories import SCOPE_PLUGINS
-from Tools.Directories import fileExists, resolveFilename
+from Tools.Directories import (fileExists, resolveFilename)
 # from Tools.Downloader import downloadWithProgress
-from enigma import RT_HALIGN_LEFT, RT_VALIGN_CENTER
-from enigma import loadPNG, gFont
+from enigma import (RT_HALIGN_LEFT, RT_VALIGN_CENTER)
+from enigma import (loadPNG, gFont)
 from enigma import eTimer
 from enigma import getDesktop
-from enigma import eListboxPythonMultiContent, eConsoleAppContainer
+from enigma import (eListboxPythonMultiContent, eConsoleAppContainer)
 from os import chmod
-from os import listdir, mkdir
-from twisted.web.client import downloadPage, getPage
+from os import (listdir, mkdir)
+from twisted.web.client import (downloadPage, getPage)
 import codecs
 import os
 import re
@@ -55,6 +56,8 @@ import ssl
 import glob
 import six
 import subprocess
+import json
+from datetime import datetime
 
 
 global skin_path, sets, category
@@ -62,14 +65,14 @@ global skin_path, sets, category
 PY3 = sys.version_info.major >= 3
 if PY3:
     from urllib.error import URLError
-    from urllib.request import urlopen, Request
+    from urllib.request import (urlopen, Request)
     from urllib.parse import urlparse
     unicode = str
     unichr = chr
     long = int
     PY3 = True
 else:
-    from urllib2 import urlopen, Request, URLError
+    from urllib2 import (urlopen, Request, URLError)
     from urlparse import urlparse
 Host = 'https://www.nonsolosat.net'
 
@@ -78,6 +81,12 @@ if sys.version_info >= (2, 7, 9):
         sslContext = ssl._create_unverified_context()
     except:
         sslContext = None
+
+
+try:
+    wgetsts()
+except:
+    pass
 
 
 def ssl_urlopen(url):
@@ -156,7 +165,7 @@ def make_req(url):
         import requests
         response = requests.get(url, verify=False, timeout=5)
         if response.status_code == 200:
-            link = requests.get(url, headers={'User-Agent': RequestAgent()}, timeout=15, verify=False, stream=True).text
+            link = requests.get(url, headers={'User-Agent': RequestAgent()}, timeout=10, verify=False, stream=True).text
         return link
     except ImportError:
         req = Request(url)
@@ -175,7 +184,7 @@ def check_gzip(url):
     response = None
     request = Request(url, headers=hdr)
     try:
-        response = urlopen(request, timeout=15)
+        response = urlopen(request, timeout=10)
         if response.info().get('Content-Encoding') == 'gzip':
             buffer = StringIO(response.read())
             deflatedContent = gzip.GzipFile(fileobj=buffer)
@@ -568,8 +577,8 @@ class nssCategories(Screen):
         self['list'] = nssList([])
         self.category = category
         self['info'] = Label(_('Loading data... Please wait'))
-        self['pth'] = Label('')
-        self['pform'] = Label('')
+        self['pth'] = Label()
+        self['pform'] = Label()
         self['progress'] = ProgressBar()
         self["progress"].hide()
         self['progresstext'] = StaticText()
@@ -660,8 +669,8 @@ class NssDailySetting(Screen):
         self['progress'] = ProgressBar()
         self["progress"].hide()
         self['progresstext'] = StaticText()
-        self['pth'] = Label('')
-        self['pform'] = Label('')
+        self['pth'] = Label()
+        self['pform'] = Label()
         self['info'] = Label(_('Loading data... Please wait'))
         self['key_green'] = Button(_('Select'))
         self['key_red'] = Button(_('Back'))
@@ -813,7 +822,7 @@ class SettingVhan(Screen):
         self.list = []
         self['list'] = nssList([])
         self['info'] = Label(_('Loading data... Please wait'))
-        self['pth'] = Label('')
+        self['pth'] = Label()
         self['pform'] = Label('PLEASE VISIT VHANNIBAL.NET SITE')
         self['progress'] = ProgressBar()
         self["progress"].hide()
@@ -922,7 +931,7 @@ class SettingVhan2(Screen):
         self.list = []
         self['list'] = nssList([])
         self['info'] = Label(_('Loading data... Please wait'))
-        self['pth'] = Label('')
+        self['pth'] = Label()
         self['pform'] = Label('PLEASE VISIT VHANNIBAL.NET SITE')
         self['progress'] = ProgressBar()
         self["progress"].hide()
@@ -1057,7 +1066,7 @@ class Milenka61(Screen):
         self.list = []
         self['list'] = nssList([])
         self['info'] = Label(_('Loading data... Please wait'))
-        self['pth'] = Label('')
+        self['pth'] = Label()
         self['pform'] = Label('PLEASE VISIT LINUXSAT-SUPPORT SITE')
         self['progress'] = ProgressBar()
         self["progress"].hide()
@@ -1156,7 +1165,7 @@ class SettingManutek(Screen):
         self.list = []
         self['list'] = nssList([])
         self['info'] = Label(_('Loading data... Please wait'))
-        self['pth'] = Label('')
+        self['pth'] = Label()
         self['pform'] = Label('PLEASE VISIT SAT.TECHNOLOGY SITE')
         self['progress'] = ProgressBar()
         self["progress"].hide()
@@ -1265,7 +1274,7 @@ class SettingMorpheus(Screen):
         self.list = []
         self['list'] = nssList([])
         self['info'] = Label(_('Loading data... Please wait'))
-        self['pth'] = Label('')
+        self['pth'] = Label()
         self['pform'] = Label('PLEASE VISIT MORPHEUS883.ALTERVISTA.ORG SITE')
         self['progress'] = ProgressBar()
         self["progress"].hide()
@@ -1376,7 +1385,7 @@ class SettingCiefp(Screen):
         self.list = []
         self['list'] = nssList([])
         self['info'] = Label(_('Loading data... Please wait'))
-        self['pth'] = Label('')
+        self['pth'] = Label()
         self['pform'] = Label('PLEASE VISIT GITHUB.COM/CIEFP SITE')
         self['progress'] = ProgressBar()
         self["progress"].hide()
@@ -1486,7 +1495,7 @@ class SettingBi58(Screen):
         self.list = []
         self['list'] = nssList([])
         self['info'] = Label(_('Loading data... Please wait'))
-        self['pth'] = Label('')
+        self['pth'] = Label()
         self['pform'] = Label('PLEASE VISIT LINUXSAT-SUPPORT SITE')
         self['progress'] = ProgressBar()
         self["progress"].hide()
@@ -1585,7 +1594,7 @@ class SettingPredrag(Screen):
         self.list = []
         self['list'] = nssList([])
         self['info'] = Label(_('Loading data... Please wait'))
-        self['pth'] = Label('')
+        self['pth'] = Label()
         self['pform'] = Label('PLEASE VISIT LINUXSAT-SUPPORT SITE')
         self['progress'] = ProgressBar()
         self["progress"].hide()
@@ -1684,7 +1693,7 @@ class SettingCyrus(Screen):
         self.list = []
         self['list'] = nssList([])
         self['info'] = Label(_('Loading data... Please wait'))
-        self['pth'] = Label('')
+        self['pth'] = Label()
         self['pform'] = Label('PLEASE VISIT CYRUSSETTINGS.COM SITE')
         self['progress'] = ProgressBar()
         self["progress"].hide()
@@ -1796,9 +1805,9 @@ class NssInstall(Screen):
         Screen.__init__(self, session)
         self.setTitle(self.setup_title)
         self.selection = selection
-        self['info'] = Label('')
-        self['pth'] = Label('')
-        self['pform'] = Label('')
+        self['info'] = Label()
+        self['pth'] = Label()
+        self['pform'] = Label()
 
         self['progress'] = ProgressBar()
         self["progress"].hide()
@@ -1838,19 +1847,25 @@ class NssInstall(Screen):
         self['actions'] = ActionMap(['OkCancelActions',
                                      'ColorActions'], {'ok': self.message,
                                                        'green': self.message,
-                                                       'red': self.close,
+                                                       'red': self.exitY,
                                                        'yellow': self.okDown,
-                                                       'cancel': self.close}, -2)
+                                                       'cancel': self.exitY}, -2)
         self.onLayoutFinish.append(self.start)
+
+    def exitY(self):
+        self.addondel()
+        self.close()
 
     def start(self):
         showlistNss(self.names, self['list'])
         self['key_green'].show()
 
-    def message(self, answer=None):
-        if answer is None:
-            self.session.openWithCallback(self.message, MessageBox, _("Do you want to install?"), MessageBox.TYPE_YESNO)
-        elif answer:
+    def message(self):
+                          
+        self.session.openWithCallback(self.message1, MessageBox, _("Do you want to install?"), MessageBox.TYPE_YESNO)
+
+    def message1(self, answer=False):
+        if answer:
             idx = self["list"].getSelectionIndex()
             dom = self.names[idx]
             com = self.urls[idx]
@@ -1886,7 +1901,7 @@ class NssInstall(Screen):
                 self['info'].setText(_('Installation done !!!'))
 
             elif extension == "deb":
-                if not os.path.exists('/var/lib/dpkg/status'):
+                if not os.path.exists('/var/lib/dpkg/info'):
                     self.session.open(MessageBox, _('Unknow Image!'), MessageBox.TYPE_INFO, timeout=5)
                     self['info'].setText(_('Installation canceled!'))
                 else:
@@ -1913,7 +1928,7 @@ class NssInstall(Screen):
                     self['info'].setText(_('Installation done !!!'))
             elif self.com.endswith('.zip'):
                 if 'setting' in self.dom.lower():
-                    if not os.path.exists('/var/lib/dpkg/status'):
+                    if not os.path.exists('/var/lib/dpkg/info'):
                         sets = 1
                         terrestrial()
                     if os.path.exists("/tmp/unzipped"):
@@ -1962,7 +1977,7 @@ class NssInstall(Screen):
             else:
                 self['info'].setText(_('Download Failed!!!') + self.dom + _('... Not supported'))
             self.timer.start(3000, 1)
-            self.addondel()
+            # self.addondel()
 
     def dowfil(self):
         self.dest = '/tmp/' + self.downplug
@@ -1980,7 +1995,7 @@ class NssInstall(Screen):
         urllib2.install_opener(opener)
         try:
             req = Request(self.com, data=None, headers=headers)
-            handler = urlopen(req, timeout=15)
+            handler = urlopen(req, timeout=10)
             data = handler.read()
             with open(self.dest, 'wb') as f:
                 f.write(data)
@@ -2021,7 +2036,7 @@ class NssInstall(Screen):
                     self.session.open(tvConsole, _('Downloading-installing: %s') % self.dom, [cmd], closeOnSuccess=False)
                     self['info'].setText(_('Installation done !!!'))
                     return
-                if extension == "deb" and not os.path.exists('/var/lib/dpkg/status'):
+                if extension == "deb" and not os.path.exists('/var/lib/dpkg/info'):
                     self.session.open(MessageBox, _('Unknow Image!'), MessageBox.TYPE_INFO, timeout=5)
                     self['info'].setText(_('Download canceled!'))
                     return
@@ -2047,7 +2062,7 @@ class NssInstall(Screen):
         if error_message == "" and failure_instance is not None:
             self.error_message = failure_instance.getErrorMessage()
         self.downloading = False
-        info = 'Download Failed!!! ' + self.error_message
+        info = 'Download Failed!!!' + str(self.error_message)
         self['info'].setText(info)
         self.session.open(MessageBox, _(info), MessageBox.TYPE_INFO, timeout=5)
         return
@@ -2083,7 +2098,7 @@ class NssInstall(Screen):
         if self.aborted:
             self.finish(aborted=True)
 
-    def NssIPK(self):
+    def NssIPK(self, string=''):
         self.session.openWithCallback(self.close, NssIPK)
 
     def install(self, string=''):
@@ -2142,10 +2157,12 @@ class NssIPK(Screen):
     def refreshlist(self):
         self.list = []
         self.names = []
-        del self.names[:]
-        del self.list[:]
         for x in self.list:
             del self.list[0]
+        for x in self.names:
+            del self.names[0]
+        del self.names[:]
+        del self.list[:]
         path = self.ipkpth
         for root, dirs, files in os.walk(path):
             if files is not None:
@@ -2220,7 +2237,7 @@ class NssIPK(Screen):
                             cmd = ['unzip -o -q %s -d %s' % (self.dest, str(mmkpicon))]
                             self.session.open(tvConsole, _('Installing: %s') % self.dest, cmdlist=[cmd], closeOnSuccess=False)
                         elif 'setting' in self.sel.lower():
-                            if not os.path.exists('/var/lib/dpkg/status'):
+                            if not os.path.exists('/var/lib/dpkg/info'):
                                 global sets
                                 sets = 1
                                 terrestrial()
@@ -2265,8 +2282,8 @@ class NssIPK(Screen):
                     self['info1'].text = _('File: %s\nInstallation failed!') % self.dest
 
     def delFile(self, dest):
-        if fileExists(self.dest):
-            os.system('rm -rf ' + self.dest)
+        if fileExists(dest):
+            os.system('rm -rf ' + dest)
         self.refreshlist()
 
     def finished(self, result):
@@ -2305,7 +2322,7 @@ class NssRemove(Screen):
         self['key_blue'].hide()
         self['key_green'].hide()
         self['title'] = Label(self.setup_title)
-        self['pform'] = Label('')
+        self['pform'] = Label()
         self['info'] = Label('Select')
         self['pth'] = Label('Remove not necessary addon')
         self['progress'] = ProgressBar()
@@ -2512,9 +2529,9 @@ class nssConfig(Screen, ConfigListScreen):
         self.onChangedEntry = []
         self.session = session
         self.setTitle(self.setup_title)
-        self['description'] = Label('')
-        self['info'] = Label(_('Config Panel Addon'))
-        # self['info'] = ScrollLabel('')
+        self['description'] = Label()
+        self['info'] = Label(_('SELECT YOUR CHOICE'))
+        # self['info'] = ScrollLabel()
         self['key_yellow'] = Button(_('Update'))
         self['key_green'] = Button(_('Save'))
         self['key_red'] = Button(_('Back'))
@@ -2529,8 +2546,8 @@ class nssConfig(Screen, ConfigListScreen):
                                           'ActiveCodeActions'], {'cancel': self.extnok,
                                                                  'red': self.extnok,
                                                                  'back': self.close,
-                                                                 'left': self.keyLeft,
-                                                                 'right': self.keyRight,
+                                                                 # 'left': self.keyLeft,
+                                                                 # 'right': self.keyRight,
                                                                  # 'yellow': self.tvUpdate,
                                                                  "showVirtualKeyboard": self.KeyText,
                                                                  # 'ok': self.Ok_edit,
@@ -2608,15 +2625,15 @@ class nssConfig(Screen, ConfigListScreen):
         from Screens.Setup import SetupSummary
         return SetupSummary
 
-    def keyLeft(self):
-        ConfigListScreen.keyLeft(self)
-        print("current selection:", self["config"].l.getCurrentSelection())
-        self.createSetup()
+    # def keyLeft(self):
+        # ConfigListScreen.keyLeft(self)
+        # print("current selection:", self["config"].l.getCurrentSelection())
+        # self.createSetup()
 
-    def keyRight(self):
-        ConfigListScreen.keyRight(self)
-        print("current selection:", self["config"].l.getCurrentSelection())
-        self.createSetup()
+    # def keyRight(self):
+        # ConfigListScreen.keyRight(self)
+        # print("current selection:", self["config"].l.getCurrentSelection())
+        # self.createSetup()
 
     def msgok(self):
         if self['config'].isChanged():
@@ -2695,10 +2712,10 @@ class SelectPiconz(Screen):
         Screen.__init__(self, session)
         self.setTitle(self.setup_title)
         self['list'] = nssList([])
-        self['pth'] = Label('')
+        self['pth'] = Label()
         self['pth'].setText(_('Folder picons ') + str(mmkpicon))
-        self['pform'] = Label('')
-        self['info'] = Label('')
+        self['pform'] = Label()
+        self['info'] = Label()
         self['info'].setText(_('Loading data... Please wait'))
         self['key_green'] = Button(_('Select'))
         self['key_red'] = Button(_('Back'))
@@ -2789,9 +2806,9 @@ class MMarkFolderz(Screen):
         self.list = []
         self['list'] = nssList([])
         self['info'] = Label(_('Loading data... Please wait'))
-        self['pth'] = Label('')
+        self['pth'] = Label()
         self['pth'].setText(_('Folder picons ') + str(mmkpicon))
-        self['pform'] = Label('')
+        self['pform'] = Label()
         self['progress'] = ProgressBar()
         self["progress"].hide()
         self['progresstext'] = StaticText()
@@ -2885,9 +2902,9 @@ class MMarkPiconsf(Screen):
         self.list = []
         self['list'] = nssList([])
         self['info'] = Label(_('Loading data... Please wait'))
-        self['pth'] = Label('')
+        self['pth'] = Label()
         self['pth'].setText(_('Folder picons ') + str(mmkpicon))
-        self['pform'] = Label('')
+        self['pform'] = Label()
         self['progress'] = ProgressBar()
         self["progress"].hide()
         self['progresstext'] = StaticText()
@@ -3023,7 +3040,7 @@ class MMarkPiconsf(Screen):
         if error_message == "" and failure_instance is not None:
             self.error_message = failure_instance.getErrorMessage()
         self.downloading = False
-        info = 'Download Failed!!! ' + self.error_message
+        info = 'Download Failed!!! ' + str(self.error_message)
         self['info'].setText(info)
         self.session.open(MessageBox, _(info), MessageBox.TYPE_INFO, timeout=5)
 
@@ -3066,9 +3083,9 @@ class OpenPicons(Screen):
         self.list = []
         self['list'] = nssList([])
         self['info'] = Label(_('Loading data... Please wait'))
-        self['pth'] = Label('')
+        self['pth'] = Label()
         self['pth'].setText(_('Folder picons ') + str(mmkpicon))
-        self['pform'] = Label('')
+        self['pform'] = Label()
         self['progress'] = ProgressBar()
         self["progress"].hide()
         self['progresstext'] = StaticText()
@@ -3187,7 +3204,7 @@ class OpenPicons(Screen):
         if error_message == "" and failure_instance is not None:
             self.error_message = failure_instance.getErrorMessage()
         self.downloading = False
-        info = 'Download Failed!!! ' + self.error_message
+        info = 'Download Failed!!! ' + str(self.error_message)
         self['info'].setText(info)
         self.session.open(MessageBox, _(info), MessageBox.TYPE_INFO, timeout=5)
 

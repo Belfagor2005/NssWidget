@@ -14,6 +14,22 @@ if os.path.exists("/var/lib/dpkg/status"):
     isDreamOS = True
 
 
+def wgetsts():
+    wgetsts = False
+    cmd22 = 'find /usr/bin -name "wget"'
+    res = os.popen(cmd22).read()
+    if 'wget' not in res.lower():
+        if os.path.exists("/var/lib/dpkg/status"):
+            cmd23 = 'apt-get update && apt-get install wget'
+            os.popen(cmd23)
+            wgetsts = True
+        else:
+            cmd23 = 'opkg update && opkg install wget'
+            os.popen(cmd23)
+            wgetsts = True
+        return wgetsts
+
+
 def localeInit():
     if isDreamOS:  # check if opendreambox image
         lang = language.getLanguage()[:2]  # getLanguage returns e.g. "fi_FI" for "language_country"
