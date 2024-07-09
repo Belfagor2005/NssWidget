@@ -15,7 +15,7 @@ from Components.ConfigList import ConfigListScreen
 from Components.MenuList import MenuList
 from Components.Sources.List import List
 from Components.Sources.StaticText import StaticText
-from Components.config import ConfigSubsection, ConfigDirectory, ConfigText
+from Components.config import ConfigSubsection, ConfigText
 from Components.config import ConfigYesNo, ConfigPassword
 from Components.config import config, getConfigListEntry, ConfigInteger, ConfigIP
 from Screens.ChoiceBox import ChoiceBox
@@ -30,7 +30,6 @@ from os import path as ospath
 from urllib.error import URLError
 from urllib.request import urlopen, Request, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
 from xml.etree import ElementTree
-global NAMEBIN
 import fcntl
 import six
 import skin
@@ -39,6 +38,7 @@ import struct
 import time
 import urllib.parse
 
+global NAMEBIN
 config.NcamInfo = ConfigSubsection()
 config.NcamInfo.showInExtensions = ConfigYesNo(default=False)
 config.NcamInfo.userdatafromconf = ConfigYesNo(default=True)
@@ -138,8 +138,8 @@ class NcamInfo:
     ECMTIME = 5
     IP_PORT = 6
     HEAD = {NAME: _("Reader/User"), PROT: _("Protocol"),
-        CAID_SRVID: _("Caid:Srvid"), SRVNAME: _("Channel Name"),
-        ECMTIME: _("Ecm Time"), IP_PORT: _("IP Address")}
+            CAID_SRVID: _("Caid:Srvid"), SRVNAME: _("Channel Name"),
+            ECMTIME: _("Ecm Time"), IP_PORT: _("IP Address")}
     version = ""
 
     def confPath(self):
@@ -503,7 +503,6 @@ class NcamInfoMenu(Screen):
             <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="res/pics/ncam-logo.png" transparent="1" alphatest="on"/>
         </screen> '''
 
-
     def __init__(self, session):
         Screen.__init__(self, session)
         NAMEBIN2 = check_NAMEBIN2()
@@ -757,7 +756,7 @@ class oscECMInfo(Screen, NcamInfo):
 
 class ncInfo(Screen, NcamInfo):
 
-    skin ='''
+    skin = '''
         <screen name="ncInfo" position="0,0" size="1920,1080" title="Ncam Info Log" backgroundColor="#0528343b" flags="wfNoBorder">
             <widget font="Bold; 30" halign="right" position="1401,20" render="Label" size="500,40" source="global.CurrentTime" transparent="1">
                 <convert type="ClockToText">Format:%a %d.%m.  %H:%M</convert>
@@ -972,7 +971,7 @@ class ncInfo(Screen, NcamInfo):
             # print("[NcamInfo][showData] data[0], data[1] not isinstance(data[1], str)")
             if self.what != "l":
                 heading = (self.HEAD[self.NAME], self.HEAD[self.PROT], self.HEAD[self.CAID_SRVID],
-                        self.HEAD[self.SRVNAME], self.HEAD[self.ECMTIME], self.HEAD[self.IP_PORT], "")
+                           self.HEAD[self.SRVNAME], self.HEAD[self.ECMTIME], self.HEAD[self.IP_PORT], "")
                 self.out = [self.buildListEntry(heading, heading=True)]
                 for i in data[1]:
                     self.out.append(self.buildListEntry(i))
@@ -1371,13 +1370,13 @@ class NcamInfoConfigScreen(ConfigListScreen, Screen):
         ConfigListScreen.__init__(self, [], session=session, on_change=self.changedEntry)
         # ConfigListScreen.__init__(self, [], session=session, on_change=self.changedEntry, fullUI=True)
         self["actions"] = ActionMap(["SetupActions", "ColorActions"],
-        {
-            "red": self.cancel,
-            "green": self.save,
-            "save": self.save,
-            "cancel": self.cancel,
-            "ok": self.save,
-        }, -2)
+                                    {
+                                    "red": self.cancel,
+                                    "green": self.save,
+                                    "save": self.save,
+                                    "cancel": self.cancel,
+                                    "ok": self.save,
+                                    }, -2)
         # self["key_red"] = StaticText(_("Close"))
         self.createSetup()
 

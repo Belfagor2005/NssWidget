@@ -57,7 +57,7 @@ config.misc.pluginstyle = ConfigSelection(default=1, choices=[
     (12, _("Style 12")),
     (13, _("Style 13")),
     (14, _("Style 14"))
-    ])
+])
 config.pluginfilter.kernel = ConfigYesNo(default=False)
 config.pluginfilter.drivers = ConfigYesNo(default=True)
 config.pluginfilter.extensions = ConfigYesNo(default=True)
@@ -118,9 +118,7 @@ class PluginBrowser(Screen, ProtectedScreen):
         Screen.__init__(self, session)
         self.setTitle(_("Plugin browser"))
         ProtectedScreen.__init__(self)
-
         self.firsttime = True
-
         self["key_red"] = self["red"] = Label(_("Remove plugins"))
         self["key_green"] = self["green"] = Label(_("Download plugins"))
         self["key_menu"] = StaticText(_("MENU"))
@@ -157,9 +155,7 @@ class PluginBrowser(Screen, ProtectedScreen):
             "0": self.keyNumberGlobal
         })
         self["HelpActions"] = ActionMap(["HelpActions"],
-        {
-            "displayHelp": self.showHelp,
-        })
+                                        {"displayHelp": self.showHelp})
         self.help = False
 
         self.number = 0
@@ -810,7 +806,7 @@ class PluginBrowserNew(Screen):
             self.primaryColor = "#451b49"
             self.primaryColorLabel = "#DCE1E3"
             self.secondaryColor = "#725083"
-            self.secondaryColorLabel = "#00ffc000"            
+            self.secondaryColorLabel = "#00ffc000"
         elif config.misc.pluginstyle.value == 7:
             # if isFullHD():
             self.backgroundPixmap = '<ePixmap position="0,0" size="1920,1080" pixmap="skin_default/style7.jpg" transparent="1" zPosition="-1" />'
@@ -900,19 +896,17 @@ class PluginBrowserNew(Screen):
         self["plugin_description"] = Label()
         self["key_red"] = self["red"] = Label(_("Remove plugins"))
         self["key_green"] = self["green"] = Label(_("Download plugins"))
-
         self["PluginDownloadActions"] = ActionMap(["ColorActions", "SetupActions", "DirectionActions", "MenuActions"],
-        {
-            "red": self.delete,
-            "green": self.download,
-            "cancel": self.exit,
-            "right": self.keyRight,
-            "left": self.keyLeft,
-            "up": self.keyUp,
-            "down": self.keyDown,
-            "ok": self.ok,
-            "menu": self.menu,
-        }, -1)
+                                                  {
+                                                  "red": self.delete,
+                                                  "green": self.download,
+                                                  "cancel": self.exit,
+                                                  "right": self.keyRight,
+                                                  "left": self.keyLeft,
+                                                  "up": self.keyUp,
+                                                  "down": self.keyDown,
+                                                  "ok": self.ok,
+                                                  "menu": self.menu}, -1)
         self.onFirstExecBegin.append(self.checkWarnings)
         self.onLayoutFinish.append(self.setIcons)
         self.onLayoutFinish.append(self.activeBox)
@@ -1303,13 +1297,12 @@ class PluginFilter(ConfigListScreen, Screen):
         self.createSetup()
 
         self["actions"] = ActionMap(["SetupActions", 'ColorActions'],
-        {
-            "ok": self.keySave,
-            "cancel": self.keyCancel,
-            "red": self.keyCancel,
-            "green": self.keySave,
-            "menu": self.keyCancel,
-        }, -2)
+                                    {
+                                    "ok": self.keySave,
+                                    "cancel": self.keyCancel,
+                                    "red": self.keyCancel,
+                                    "green": self.keySave,
+                                    "menu": self.keyCancel}, -2)
 
         self["key_red"] = StaticText(_("Cancel"))
         self["key_green"] = StaticText(_("OK"))

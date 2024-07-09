@@ -14,7 +14,7 @@ from Components.ConfigList import ConfigListScreen
 from Components.MenuList import MenuList
 from Components.Sources.List import List
 from Components.Sources.StaticText import StaticText
-from Components.config import ConfigDirectory, ConfigText, ConfigInteger
+from Components.config import ConfigText, ConfigInteger
 from Components.config import ConfigYesNo, ConfigSubsection, ConfigIP
 from Components.config import config, getConfigListEntry, ConfigPassword
 from Screens.ChoiceBox import ChoiceBox
@@ -29,7 +29,6 @@ from os import path as ospath
 from urllib.error import URLError
 from urllib.request import urlopen, Request, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
 from xml.etree import ElementTree
-global NAMEBIN
 import fcntl
 import six
 import skin
@@ -38,16 +37,18 @@ import struct
 import time
 import urllib.parse
 
+global NAMEBIN
 config.oscaminfo = ConfigSubsection()
-config.oscaminfo.userdatafromconf = ConfigYesNo(default = True)
-#config.oscaminfo.usehostname = ConfigYesNo(default = False)
-config.oscaminfo.autoupdate = ConfigYesNo(default = False)
-config.oscaminfo.username = ConfigText(default = "username", fixed_size = False, visible_width=12)
-config.oscaminfo.password = ConfigPassword(default = "password", fixed_size = False)
-config.oscaminfo.ip = ConfigIP( default = [ 127,0,0,1 ], auto_jump=True)
-config.oscaminfo.hostname = ConfigText(default = "", fixed_size = False)
-config.oscaminfo.port = ConfigInteger(default = 8181, limits=(0,65536) )
-config.oscaminfo.intervall = ConfigInteger(default = 10, limits=(1,600) )
+config.oscaminfo.userdatafromconf = ConfigYesNo(default=True)
+# config.oscaminfo.usehostname = ConfigYesNo(default=False)
+config.oscaminfo.autoupdate = ConfigYesNo(default=False)
+config.oscaminfo.username = ConfigText(default="username", fixed_size=False, visible_width=12)
+config.oscaminfo.password = ConfigPassword(default="password", fixed_size=False)
+config.oscaminfo.ip = ConfigIP(default=[127, 0, 0, 1], auto_jump=True)
+config.oscaminfo.hostname = ConfigText(default="", fixed_size=False)
+config.oscaminfo.port = ConfigInteger(default=8181, limits=(0, 65536))
+config.oscaminfo.intervall = ConfigInteger(default=10, limits=(1, 600))
+
 
 def check_NAMEBIN():
     NAMEBIN = "oscam"
@@ -135,8 +136,8 @@ class OscamInfo:
     ECMTIME = 5
     IP_PORT = 6
     HEAD = {NAME: _("Reader/User"), PROT: _("Protocol"),
-        CAID_SRVID: _("Caid:Srvid"), SRVNAME: _("Channel Name"),
-        ECMTIME: _("Ecm Time"), IP_PORT: _("IP Address")}
+            CAID_SRVID: _("Caid:Srvid"), SRVNAME: _("Channel Name"),
+            ECMTIME: _("Ecm Time"), IP_PORT: _("IP Address")}
     version = ""
 
     def confPath(self):
@@ -754,7 +755,7 @@ class oscECMInfo(Screen, OscamInfo):
 
 class oscInfo(Screen, OscamInfo):
 
-    skin ='''
+    skin = '''
             <screen name="oscInfo" position="0,0" size="1920,1080" title="Nscam Info Log" backgroundColor="#0528343b" flags="wfNoBorder">
                 <widget font="Bold; 30" halign="right" position="1401,20" render="Label" size="500,40" source="global.CurrentTime" transparent="1">
                     <convert type="ClockToText">Format:%a %d.%m.  %H:%M</convert>
@@ -969,7 +970,7 @@ class oscInfo(Screen, OscamInfo):
             # print("[OscamInfo][showData] data[0], data[1] not isinstance(data[1], str)")
             if self.what != "l":
                 heading = (self.HEAD[self.NAME], self.HEAD[self.PROT], self.HEAD[self.CAID_SRVID],
-                        self.HEAD[self.SRVNAME], self.HEAD[self.ECMTIME], self.HEAD[self.IP_PORT], "")
+                           self.HEAD[self.SRVNAME], self.HEAD[self.ECMTIME], self.HEAD[self.IP_PORT], "")
                 self.out = [self.buildListEntry(heading, heading=True)]
                 for i in data[1]:
                     self.out.append(self.buildListEntry(i))
@@ -1337,7 +1338,7 @@ class oscReaderStats(Screen, OscamInfo):
 
 class OscamInfoConfigScreen(ConfigListScreen, Screen):
 
-    skin ='''
+    skin = '''
         <screen name="OscamInfoConfigScreen" position="fill" title="Oscam Info Setup" backgroundColor="#ff000000" flags="wfNoBorder">
             <widget source="Title" render="Label" position="106,38" size="890,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
             <widget source="ScreenPath" render="Label" position="36,10" size="1380,22" backgroundColor="#0528343b" transparent="1" zPosition="1" font="Regular; 19" valign="center" halign="left"/>

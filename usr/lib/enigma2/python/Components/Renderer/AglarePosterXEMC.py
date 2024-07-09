@@ -135,9 +135,14 @@ class AglarePosterXEMC(Renderer):
         if not adsl:
             return
         Renderer.__init__(self)
-        self.canal = [None,None,None,None,None,None]
+        self.canal = [None, None, None, None, None, None]
         self.timer = eTimer()
-        self.timer.callback.append(self.showPoster)
+        try:
+            self.timer_conn = self.timer.timeout.connect(self.showPoster)
+        except:
+            self.timer.callback.append(self.showPoster)
+        self.timer.start(10, True)
+        # self.timer.callback.append(self.showPoster)
         self.logdbg = None
 
     def applySkin(self, desktop, parent):
@@ -156,7 +161,7 @@ class AglarePosterXEMC(Renderer):
                 self.instance.hide()
         if what[0] != self.CHANGED_CLEAR:
             try:
-                if isinstance(self.source, ServiceEvent): # source="Service"
+                if isinstance(self.source, ServiceEvent):  # source="Service"
                     self.canal[0] = None
                     self.canal[1] = self.source.event.getBeginTime()
                     self.canal[2] = self.source.event.getEventName()

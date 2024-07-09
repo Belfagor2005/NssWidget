@@ -73,20 +73,22 @@
         <ePixmap position="33,36" size="66,54" pixmap="image_logo/nss/tLogo.png" alphatest="blend" transparent="1" zPosition="19"/>
     </screen>
     <screen name="buttonicons" flags="wfNoBorder">
+        <!--
         <eLabel backgroundColor="#00ff0000" position="34,1064" size="300,6" zPosition="12"/>
         <eLabel backgroundColor="#0000ff00" position="342,1064" size="300,6" zPosition="12"/>
         <eLabel backgroundColor="#00ffff00" position="652,1064" size="300,6" zPosition="12"/>
         <eLabel backgroundColor="#000000ff" position="962,1064" size="300,6" zPosition="12"/>
+        -->
+        <!--
         <eLabel backgroundColor="red" position="34,1064" size="300,6" zPosition="10"/>
         <eLabel backgroundColor="green" position="342,1064" size="300,6" zPosition="10"/>
         <eLabel backgroundColor="yellow" position="652,1064" size="300,6" zPosition="10"/>
         <eLabel backgroundColor="blue" position="962,1064" size="300,6" zPosition="10"/>
-        <!--
-        <eLabel backgroundColor="red" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
-        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
-        <eLabel backgroundColor="yellow" cornerRadius="3" position="652,1064" size="300,6" zPosition="-11"/>
-        <eLabel backgroundColor="blue" cornerRadius="3" position="962,1064" size="300,6" zPosition="-11"/>
-         -->
+        -->
+        <eLabel backgroundColor="red" cornerRadius="3" position="34,1064" size="296,6" zPosition="10"/>
+        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="10"/>
+        <eLabel backgroundColor="yellow" cornerRadius="3" position="652,1064" size="300,6" zPosition="10"/>
+        <eLabel backgroundColor="blue" cornerRadius="3" position="962,1064" size="300,6" zPosition="10"/>
     </screen>
     <screen name="button1temp" flags="wfNoBorder">
         <panel name="buttonicons"/>
@@ -172,14 +174,14 @@
     <screen name="cancelscan" flags="wfNoBorder">
         <eLabel name="new eLabel" text="Cancel" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <eLabel name="new eLabel" text="Scan" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <eLabel backgroundColor="red" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
-        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="32,1064" size="300,6" zPosition="10"/>
+        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="10"/>
     </screen>
     <screen name="cancelsave" flags="wfNoBorder">
         <eLabel name="new eLabel" text="Cancel" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <eLabel name="new eLabel" text="Save" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <eLabel backgroundColor="red" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
-        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="-11"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="32,1064" size="300,6" zPosition="10"/>
+        <eLabel backgroundColor="green" cornerRadius="3" position="342,1064" size="300,6" zPosition="10"/>
     </screen>
     <screen name="timedate" flags="wfNoBorder">
         <!-- /* time -->
@@ -418,19 +420,19 @@
             <convert type="AglareBase">HasSPARK</convert>
             <convert type="ConditionalShowHide"/>
         </widget>
-        <eLabel name="" position="1686,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
-        <eLabel name="" position="1308,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
-        <eLabel name="" position="1254,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
-        <eLabel name="" position="1200,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
-        <eLabel name="" position="1362,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
-        <eLabel name="" position="1416,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
-        <eLabel name="" position="1470,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
-        <eLabel name="" position="1524,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
-        <eLabel name="" position="1578,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
-        <eLabel name="" position="1632,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
-        <eLabel name="" position="1740,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
-        <eLabel name="" position="1794,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
-        <eLabel name="" position="1848,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="0" text=" "/>
+        <eLabel name="" position="1686,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" zPosition="0"/>
+        <eLabel name="" position="1308,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" zPosition="0"/>
+        <eLabel name="" position="1254,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" zPosition="0"/>
+        <eLabel name="" position="1200,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" zPosition="0"/>
+        <eLabel name="" position="1362,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" zPosition="0"/>
+        <eLabel name="" position="1416,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" zPosition="0"/>
+        <eLabel name="" position="1470,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" zPosition="0"/>
+        <eLabel name="" position="1524,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" zPosition="0"/>
+        <eLabel name="" position="1578,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" zPosition="0"/>
+        <eLabel name="" position="1632,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" zPosition="0"/>
+        <eLabel name="" position="1740,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" zPosition="0"/>
+        <eLabel name="" position="1794,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" zPosition="0"/>
+        <eLabel name="" position="1848,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" zPosition="0"/>
         <eLabel name="" position="20,1019" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="FA; 26" text="" zPosition="1"/>
         <eLabel name="" position="150,1019" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="FA; 26" text="" zPosition="1"/>
         <eLabel name="" position="290,1019" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 20" zPosition="1" text="BR"/>
@@ -462,10 +464,10 @@
             <convert type="AglareAccess">CamName</convert>
         </widget>
         <widget source="session.FrontendStatus" render="Label" position="1442,830" size="80,30" halign="center" valign="center" font="Regular; 24" transparent="1" zPosition="9" backgroundColor="background">
-            <convert type="AglareFrontendInfo">SNR</convert>
+            <convert type="FrontendInfo">SNR</convert>
         </widget>
         <widget source="session.FrontendStatus" render="Label" position="1766,830" size="80,30" halign="center" valign="center" font="Regular; 24" transparent="1" zPosition="9" backgroundColor="background">
-            <convert type="AglareFrontendInfo">AGC</convert>
+            <convert type="FrontendInfo">AGC</convert>
         </widget>
         <widget source="session.CurrentService" render="FixedLabel" position="1686,902" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="4" text="HLG">
             <convert type="AglareBase">IsHLG</convert>
@@ -490,6 +492,26 @@
         <widget source="session.CurrentService" render="Label" position="895,1019" size="158,50" font="Regular; 22" backgroundColor="background" transparent="1" halign="left" zPosition="19" valign="center" noWrap="1">
             <convert type="AglareAudioInfo">AudioCodec</convert>
         </widget>
+        <widget source="session.FrontendInfo" render="FixedLabel" text="E" position="1848,819" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 28" zPosition="2">
+            <convert type="FrontendInfo">NUMBER</convert>
+            <convert type="ValueRange">4,4</convert>
+            <convert type="ConditionalShowHide"/>
+        </widget>
+        <widget source="session.FrontendInfo" render="FixedLabel" text="F" position="1848,819" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 28" zPosition="2">
+            <convert type="FrontendInfo">NUMBER</convert>
+            <convert type="ValueRange">5,5</convert>
+            <convert type="ConditionalShowHide"/>
+        </widget>
+        <widget source="session.FrontendInfo" render="FixedLabel" text="G" position="1848,819" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 28" zPosition="2">
+            <convert type="FrontendInfo">NUMBER</convert>
+            <convert type="ValueRange">6,6</convert>
+            <convert type="ConditionalShowHide"/>
+        </widget>
+        <widget source="session.FrontendInfo" render="FixedLabel" text="H" position="1848,819" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 28" zPosition="2">
+            <convert type="FrontendInfo">NUMBER</convert>
+            <convert type="ValueRange">7,7</convert>
+            <convert type="ConditionalShowHide"/>
+        </widget>                                                    
     </screen>
     <screen name="infobartimedate" flags="wfNoBorder" position="0,0" backgroundColor="transparent">
         <widget font="Bold; 30" halign="right" position="1632,85" render="Label" size="278,40" source="global.CurrentTime" transparent="1" zPosition="1">

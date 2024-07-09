@@ -50,14 +50,20 @@ if sys.version_info[0] >= 3:
     unichr = chr
     long = int
     import queue
+    import html
+    html_parser = html
     from _thread import start_new_thread
     from urllib.error import HTTPError, URLError
     from urllib.request import urlopen
+    from urllib.parse import quote_plus
 else:
     import Queue
     from thread import start_new_thread
     from urllib2 import HTTPError, URLError
     from urllib2 import urlopen
+    from urllib import quote_plus
+    from HTMLParser import HTMLParser
+    html_parser = HTMLParser()
 
 
 def isMountReadonly(mnt):
@@ -225,6 +231,44 @@ def remove_accents(string):
     return string
 
 
+def get_safe_filename(filename, fallback=''):
+    '''Convert filename to safe filename'''
+    import unicodedata
+    import six
+    name = filename  # .replace(' ', '_').replace('/', '_')
+    if isinstance(name, six.text_type):
+        name = name.encode('utf-8')
+    name = unicodedata.normalize('NFKD', six.text_type(name, 'utf_8', errors='ignore')).encode('ASCII', 'ignore')
+    name = re.sub(b'[^a-z0-9-_]', b' ', name.lower())
+    if not name:
+        name = fallback
+    return six.ensure_str(name)
+
+
+def UNAC(string):
+    if not PY3:
+        if type(string) is not unicode:
+            string = unicode(string, encoding='utf-8')
+    string = re.sub(u"u0026", "&", string)
+    string = re.sub(u"u003d", "=", string)
+    string = html_parser.unescape(string)
+    string = re.sub(r"[,!?\.\"]", ' ', string)
+    string = re.sub(r"[-/:']", '', string)
+    string = re.sub(u"[ÀÁÂÃÄàáâãäåª]", 'a', string)
+    string = re.sub(u"[ÈÉÊËèéêë]", 'e', string)
+    string = re.sub(u"[ÍÌÎÏìíîï]", 'i', string)
+    string = re.sub(u"[ÒÓÔÕÖòóôõöº]", 'o', string)
+    string = re.sub(u"[ÙÚÛÜùúûü]", 'u', string)
+    string = re.sub(u"[Ññ]", 'n', string)
+    string = re.sub(u"[Çç]", 'c', string)
+    string = re.sub(u"[Ÿýÿ]", 'y', string)
+    string = re.sub(r"[^a-zA-Z0-9 ]", "", string)
+    string = string.lower()
+    string = re.sub(r'\s{1,}', ' ', string)
+    string = string.strip()
+    return string
+
+
 def unicodify(s, encoding='utf-8', norm=None):
     if not isinstance(s, unicode):
         s = unicode(s, encoding)
@@ -238,10 +282,10 @@ def str_encode(text, encoding="utf8"):
     if not PY3:
         if isinstance(text, unicode):
             return text.encode(encoding)
-        else:
-            return text
-    else:
-        return text
+        # else:
+            # return text
+    # else:
+    return text
 
 
 def cutName(eventName=""):
@@ -255,23 +299,45 @@ def cutName(eventName=""):
 
 
 def getCleanTitle(eventitle=""):
-    save_name = re.sub('\ \(\d+\)$', '', eventitle)
-    save_name = re.sub('\ \(\d+\/\d+\)$', '', save_name)  # remove episode-number " (xx/xx)" at the end
-    # save_name = re.sub('\ |\?|\.|\,|\!|\/|\;|\:|\@|\&|\'|\-|\"|\%|\(|\)|\[|\]\#|\+', '', save_name)
-    save_name = save_name.replace(' ^`^s', '').replace(' ^`^y', '')
+    # save_name = re.sub('\\(\d+\)$', '', eventitle)
+    # save_name = re.sub('\\(\d+\/\d+\)$', '', save_name)  # remove episode-number " (xx/xx)" at the end
+    # # save_name = re.sub('\ |\?|\.|\,|\!|\/|\;|\:|\@|\&|\'|\-|\"|\%|\(|\)|\[|\]\#|\+', '', save_name)
+    save_name = eventitle.replace(' ^`^s', '').replace(' ^`^y', '')
     return save_name
+
+
+def quoteEventName(eventName):
+    try:
+        text = eventName.decode('utf8').replace(u'\x86', u'').replace(u'\x87', u'').encode('utf8')
+    except:
+        text = eventName
+    return quote_plus(text, safe="+")
+
+
+def dataenc(data):
+    if PY3:
+        data = page.decode("utf-8")
+    else:
+        data = page.encode("utf-8")
+    return data
 
 
 def convtext(text=''):
     try:
         if text != '' or text is not None or text != 'None':
             print('original text: ', text)
+            text = remove_accents(text)
+            print('remove_accents text: ', text)
+            text = UNAC(text)
             text = cutName(text)
             text = getCleanTitle(text)
+            text = get_safe_filename(text)
+
             # text = text.replace("\xe2\x80\x93", "").replace('\xc2\x86', '').replace('\xc2\x87', '')  # replace special
             text = text.lower()
             text = text.replace('1^ visione rai', '').replace('1^ visione', '').replace('primatv', '').replace('1^tv', '')
             text = text.replace('prima visione', '').replace('1^ tv', '').replace('((', '(').replace('))', ')')
+            text = text.replace('live:', '')
             if 'studio aperto' in text:
                 text = 'studio aperto'
             if 'josephine ange gardien' in text:
@@ -290,6 +356,16 @@ def convtext(text=''):
                 text = 'hudson e rex'
             if 'ben-hur' in text:
                 text = 'ben-hur'
+            if 'la7' in text:
+                text = 'la7'
+            if 'skytg24' in text:
+                text = 'skytg24'
+            # for oden2014
+            if ' - ح - ' in text:
+                print('1 text episode:', text)
+                text = text.partition(' - ح - ')[0] 
+                print('2 text episode:', text)
+
             if text.endswith("the"):
                 text.rsplit(" ", 1)[0]
                 text = text.rsplit(" ", 1)[0]
@@ -310,10 +386,10 @@ def convtext(text=''):
             text = re.sub('FIN', '', text)
             text = re.sub(r'^\|[\w\-\|]*\|', '', text)
             text = re.sub(r"[-,?!/\.\":]", '', text)  # replace (- or , or ! or / or . or " or :) by space
-            text = remove_accents(text)
+
             text = text.strip()
             text = text.capitalize()
-            print('Final text: ', text)
+            # print('Final text: ', text)
         else:
             text = text
         return text
@@ -517,6 +593,7 @@ class AglareBackdropX(Renderer):
         if what[0] == self.CHANGED_CLEAR:
             if self.instance:
                 self.instance.hide()
+            return
         if what[0] != self.CHANGED_CLEAR:
             servicetype = None
             try:

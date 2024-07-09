@@ -425,21 +425,21 @@ def CCcamShareListEntry(hostname, type, caid, system, uphops, maxdown):
     screenwidth = getDesktop(0).size().width()
     if screenwidth and screenwidth == 1920:
         res = [(hostname, type, caid, system, uphops, maxdown),
-                MultiContentEntryText(pos=(10, 0), size=(550, 35), font=1, text=hostname),
-                MultiContentEntryText(pos=(650, 0), size=(500, 35), font=1, text=_("Type: ") + type, flags=RT_HALIGN_RIGHT),
-                MultiContentEntryText(pos=(10, 40), size=(250, 35), font=1, text=_("CaID: ") + caid),
-                MultiContentEntryText(pos=(230, 40), size=(250, 35), font=1, text=_("System: ") + system, flags=RT_HALIGN_RIGHT),
-                MultiContentEntryText(pos=(520, 40), size=(250, 35), font=1, text=_("Uphops: ") + uphops, flags=RT_HALIGN_RIGHT),
-                MultiContentEntryText(pos=(900, 40), size=(250, 35), font=1, text=_("Maxdown: ") + maxdown, flags=RT_HALIGN_RIGHT)]
+               MultiContentEntryText(pos=(10, 0), size=(550, 35), font=1, text=hostname),
+               MultiContentEntryText(pos=(650, 0), size=(500, 35), font=1, text=_("Type: ") + type, flags=RT_HALIGN_RIGHT),
+               MultiContentEntryText(pos=(10, 40), size=(250, 35), font=1, text=_("CaID: ") + caid),
+               MultiContentEntryText(pos=(230, 40), size=(250, 35), font=1, text=_("System: ") + system, flags=RT_HALIGN_RIGHT),
+               MultiContentEntryText(pos=(520, 40), size=(250, 35), font=1, text=_("Uphops: ") + uphops, flags=RT_HALIGN_RIGHT),
+               MultiContentEntryText(pos=(900, 40), size=(250, 35), font=1, text=_("Maxdown: ") + maxdown, flags=RT_HALIGN_RIGHT)]
         return res
     else:
         res = [(hostname, type, caid, system, uphops, maxdown),
-                MultiContentEntryText(pos=(0, 0), size=(250, 20), font=0, text=hostname),
-                MultiContentEntryText(pos=(250, 0), size=(250, 20), font=0, text=_("Type: ") + type, flags=RT_HALIGN_RIGHT),
-                MultiContentEntryText(pos=(0, 20), size=(250, 20), font=0, text=_("CaID: ") + caid),
-                MultiContentEntryText(pos=(250, 20), size=(250, 20), font=0, text=_("System: ") + system, flags=RT_HALIGN_RIGHT),
-                MultiContentEntryText(pos=(0, 40), size=(250, 20), font=0, text=_("Uphops: ") + uphops),
-                MultiContentEntryText(pos=(250, 40), size=(250, 20), font=0, text=_("Maxdown: ") + maxdown, flags=RT_HALIGN_RIGHT)]
+               MultiContentEntryText(pos=(0, 0), size=(250, 20), font=0, text=hostname),
+               MultiContentEntryText(pos=(250, 0), size=(250, 20), font=0, text=_("Type: ") + type, flags=RT_HALIGN_RIGHT),
+               MultiContentEntryText(pos=(0, 20), size=(250, 20), font=0, text=_("CaID: ") + caid),
+               MultiContentEntryText(pos=(250, 20), size=(250, 20), font=0, text=_("System: ") + system, flags=RT_HALIGN_RIGHT),
+               MultiContentEntryText(pos=(0, 40), size=(250, 20), font=0, text=_("Uphops: ") + uphops),
+               MultiContentEntryText(pos=(250, 40), size=(250, 20), font=0, text=_("Maxdown: ") + maxdown, flags=RT_HALIGN_RIGHT)]
         return res
 
 
@@ -447,15 +447,15 @@ def CCcamShareViewListEntry(caidprovider, providername, numberofcards, numberofr
     screenwidth = getDesktop(0).size().width()
     if screenwidth and screenwidth == 1920:
         res = [(caidprovider, providername, numberofcards),
-                MultiContentEntryText(pos=(10, 5), size=(800, 35), font=1, text=providername),
-                MultiContentEntryText(pos=(1050, 5), size=(50, 35), font=1, text=numberofcards, flags=RT_HALIGN_RIGHT),
-                MultiContentEntryText(pos=(1100, 5), size=(50, 35), font=1, text=numberofreshare, flags=RT_HALIGN_RIGHT)]
+               MultiContentEntryText(pos=(10, 5), size=(800, 35), font=1, text=providername),
+               MultiContentEntryText(pos=(1050, 5), size=(50, 35), font=1, text=numberofcards, flags=RT_HALIGN_RIGHT),
+               MultiContentEntryText(pos=(1100, 5), size=(50, 35), font=1, text=numberofreshare, flags=RT_HALIGN_RIGHT)]
         return res
     else:
         res = [(caidprovider, providername, numberofcards),
-                MultiContentEntryText(pos=(0, 0), size=(430, 20), font=0, text=providername),
-                MultiContentEntryText(pos=(430, 0), size=(50, 20), font=0, text=numberofcards, flags=RT_HALIGN_RIGHT),
-                MultiContentEntryText(pos=(480, 0), size=(50, 20), font=0, text=numberofreshare, flags=RT_HALIGN_RIGHT)]
+               MultiContentEntryText(pos=(0, 0), size=(430, 20), font=0, text=providername),
+               MultiContentEntryText(pos=(430, 0), size=(50, 20), font=0, text=numberofcards, flags=RT_HALIGN_RIGHT),
+               MultiContentEntryText(pos=(480, 0), size=(50, 20), font=0, text=numberofreshare, flags=RT_HALIGN_RIGHT)]
         return res
 
 

@@ -21,11 +21,11 @@ if sys.version_info[0] >= 3:
     unicode = str
     unichr = chr
     long = int
-    from urllib.parse import quote
+    # from urllib.parse import quote
     import html
     html_parser = html
 else:
-    from urllib2 import quote
+    # from urllib2 import quote
     from HTMLParser import HTMLParser
     html_parser = HTMLParser()
 
@@ -33,9 +33,11 @@ else:
 try:
     from urllib.error import URLError, HTTPError
     from urllib.request import urlopen
+    from urllib.parse import quote_plus
 except:
     from urllib2 import URLError, HTTPError
     from urllib2 import urlopen
+    from urllib import quote_plus
 
 
 try:
@@ -63,13 +65,15 @@ try:
         if os.path.exists(myz_skin):
             with open(myz_skin, "r") as f:
                 tmdb_api = f.read()
+            my_cur_skin = True
         if os.path.exists(omdb_skin):
             with open(omdb_skin, "r") as f:
                 omdb_api = f.read()
+            my_cur_skin = True
         if os.path.exists(thetvdb_skin):
             with open(thetvdb_skin, "r") as f:
                 thetvdbkey = f.read()
-        my_cur_skin = True
+            my_cur_skin = True
 except:
     my_cur_skin = False
 
@@ -89,6 +93,22 @@ def intCheck():
         return False
     else:
         return True
+
+
+def quoteEventName(eventName):
+    try:
+        text = eventName.decode('utf8').replace(u'\x86', u'').replace(u'\x87', u'').encode('utf8')
+    except:
+        text = eventName
+    return quote_plus(text, safe="+")
+
+
+def dataenc(data):
+    if PY3:
+        data = page.decode("utf-8")
+    else:
+        data = page.encode("utf-8")
+    return data
 
 
 class AglarePosterXDownloadThread(threading.Thread):
@@ -122,9 +142,8 @@ class AglarePosterXDownloadThread(threading.Thread):
             year = None
             url_tmdb = ""
             poster = None
-
             chkType, fd = self.checkType(shortdesc, fulldesc)
-
+            title = self.UNAC(title)  # add lululla
             try:
                 if re.findall('19\d{2}|20\d{2}', title):
                     year = re.findall('19\d{2}|20\d{2}', fd)[1]
@@ -139,7 +158,7 @@ class AglarePosterXDownloadThread(threading.Thread):
                 url_tmdb += "&primary_release_year={}".format(year)
             if lng:
                 url_tmdb += "&language={}".format(lng)
-            url_tmdb += "&query={}".format(quote(title))
+            url_tmdb += "&query={}".format(quoteEventName(title))
             print('url_tmdb= ', url_tmdb)
             poster = requests.get(url_tmdb).json()
             if poster and poster['results'] and poster['results'][0] and poster['results'][0]['poster_path']:
@@ -166,7 +185,7 @@ class AglarePosterXDownloadThread(threading.Thread):
                 year = year[0]
             else:
                 year = ''
-            url_tvdbg = "https://thetvdb.com/api/GetSeries.php?seriesname={}".format(quote(title))
+            url_tvdbg = "https://thetvdb.com/api/GetSeries.php?seriesname={}".format(quoteEventName(title))
             url_read = requests.get(url_tvdbg).text
             series_id = re.findall('<seriesid>(.*?)</seriesid>', url_read)
             series_name = re.findall('<SeriesName>(.*?)</SeriesName>', url_read)
@@ -227,7 +246,7 @@ class AglarePosterXDownloadThread(threading.Thread):
                 pass
 
             try:
-                url_maze = "http://api.tvmaze.com/singlesearch/shows?q={}".format(quote(title))
+                url_maze = "http://api.tvmaze.com/singlesearch/shows?q={}".format(quoteEventName(title))
                 mj = requests.get(url_maze).json()
                 id = (mj['externals']['thetvdb'])
             except Exception as err:
@@ -285,15 +304,15 @@ class AglarePosterXDownloadThread(threading.Thread):
             url_imdb = ''
 
             if aka and aka != title:
-                url_mimdb = "https://m.imdb.com/find?q={}%20({})".format(quote(title), quote(aka))
+                url_mimdb = "https://m.imdb.com/find?q={}%20({})".format(quoteEventName(title), quoteEventName(aka))
             else:
-                url_mimdb = "https://m.imdb.com/find?q={}".format(quote(title))
+                url_mimdb = "https://m.imdb.com/find?q={}".format(quoteEventName(title))
             url_read = requests.get(url_mimdb).text
             rc = re.compile('<img src="(.*?)".*?<span class="h3">\n(.*?)\n</span>.*?\((\d+)\)(\s\(.*?\))?(.*?)</a>', re.DOTALL)
             url_imdb = rc.findall(url_read)
 
             if len(url_imdb) == 0 and aka:
-                url_mimdb = "https://m.imdb.com/find?q={}".format(quote(title))
+                url_mimdb = "https://m.imdb.com/find?q={}".format(quoteEventName(title))
                 url_read = requests.get(url_mimdb).text
                 rc = re.compile('<img src="(.*?)".*?<span class="h3">\n(.*?)\n</span>.*?\((\d+)\)(\s\(.*?\))?(.*?)</a>', re.DOTALL)
                 url_imdb = rc.findall(url_read)
@@ -355,9 +374,9 @@ class AglarePosterXDownloadThread(threading.Thread):
                 return False, "[SKIP : programmetv-google] {} [{}] => Skip movie title".format(title, chkType)
             ptitle = self.UNAC(title)
             ptitle = ptitle.replace(' ', '')
-            url_ptv = "site:programme-tv.net+" + quote(title)
+            url_ptv = "site:programme-tv.net+" + quoteEventName(title)
             if channel and title.find(channel.split()[0]) < 0:
-                url_ptv += "+" + quote(channel)
+                url_ptv += "+" + quoteEventName(channel)
             url_ptv = "https://www.google.com/search?q={}&tbm=isch&tbs=ift:jpg%2Cisz:m".format(url_ptv)
             ff = requests.get(url_ptv, stream=True, headers=headers, cookies={'CONSENT': 'YES+'}).text
             if not PY3:
@@ -409,9 +428,9 @@ class AglarePosterXDownloadThread(threading.Thread):
             poster = None
             pltc = None
             imsg = ''
-            url_mgoo = "site:molotov.tv+" + quote(title)
+            url_mgoo = "site:molotov.tv+" + quoteEventName(title)
             if channel and title.find(channel.split()[0]) < 0:
-                url_mgoo += "+" + quote(channel)
+                url_mgoo += "+" + quoteEventName(channel)
             url_mgoo = "https://www.google.com/search?q={}&tbm=isch".format(url_mgoo)
             ff = requests.get(url_mgoo, stream=True, headers=headers, cookies={'CONSENT': 'YES+'}).text
             if not PY3:
@@ -498,7 +517,7 @@ class AglarePosterXDownloadThread(threading.Thread):
             else:
                 imsg = "Not found '{}' [{}%-{}%-{}]".format(pltc, molotov_table[0], molotov_table[1], len_plst)
             if poster:
-                url_poster = re.sub('/\d+x\d+/', "/" + re.sub(',', 'x', isz) + "/", poster)
+                url_poster = re.sub('/\d+x\d+/', "/" + re.sub(', ', 'x', isz) + "/", poster)
                 self.savePoster(dwn_poster, url_poster)
                 if self.verifyPoster(dwn_poster):
                     self.resizePoster(dwn_poster)
@@ -531,9 +550,10 @@ class AglarePosterXDownloadThread(threading.Thread):
                 srch = chkType[6:]
             elif chkType.startswith("tv"):
                 srch = chkType[3:]
-            # url_google = '"'+quote(title)+'"'
+            url_google = ''
+            # url_google = '"'+quoteEventName(title)+'"'
             # if channel and title.find(channel) != None or < 0:
-                # url_google += "+{}".format(quote(channel))
+                # url_google += "+{}".format(quoteEventName(channel))
             if srch:
                 url_google += "+{}".format(srch)
             if year:
@@ -542,9 +562,9 @@ class AglarePosterXDownloadThread(threading.Thread):
             # # url_google = "https://www.google.com/search?q={}&tbm=isch&tbs=ift:jpg%2Cisz:m".format(url_google)
             # url_google = "https://www.google.com/search?q={}&tbm=isch".format(url_google)
 
-            url_name = '"' + quote(title) + '"'
+            url_name = '"' + quoteEventName(title) + '"'
             if title.find(channel) is not None or channel < 0:
-                url_name += "+{}".format(quote(channel))
+                url_name += "+{}".format(quoteEventName(channel))
 
             url_google = "https://www.google.com/search?q={}&tbm=isch&tbs=sbd:0".format(url_name)
             url_google += "+{}".format(poster)
@@ -552,21 +572,21 @@ class AglarePosterXDownloadThread(threading.Thread):
 
             posterlst = re.findall('\],\["https://(.*?)",\d+,\d+]', ff)
             if len(posterlst) == 0:
-                url_google = quote(title)
+                url_google = quoteEventName(title)
                 url_google = "https://www.google.com/search?q={}&tbm=isch&tbs=ift:jpg%2Cisz:m".format(url_google)
                 ff = requests.get(url_google, stream=True, headers=headers).text
                 posterlst = re.findall('\],\["https://(.*?)",\d+,\d+]', ff)
 
             for pl in posterlst:
                 url_poster = "https://{}".format(pl)
-                url_poster = re.sub(r"\\u003d", "=", url_poster)
+                url_poster = re.sub(r"\\u003d", " = ", url_poster)
                 self.savePoster(dwn_poster, url_poster)
                 if self.verifyPoster(dwn_poster):
                     self.resizePoster(dwn_poster)
                     poster = pl
                     break
 
-            if poster and poster != 'null' or poster is not None or poster != '':
+            if poster:  # and poster != 'null' or poster is not None or poster != '':
                 return True, "[SUCCESS poster: google] {} [{}-{}] => {} => {}".format(title, chkType, year, url_google, url_poster)
             else:
                 if os.path.exists(dwn_poster):
@@ -611,14 +631,14 @@ class AglarePosterXDownloadThread(threading.Thread):
                     os.remove(dwn_poster)
                 except:
                     pass
-                return None
+                return False
         except Exception as e:
             print(e)
             try:
                 os.remove(dwn_poster)
             except:
                 pass
-            return None
+            return False
         return True
 
     def checkType(self, shortdesc, fulldesc):
@@ -633,12 +653,12 @@ class AglarePosterXDownloadThread(threading.Thread):
         fds = fd[:60]
         for i in self.checkMovie:
             if i in fds.lower():
-                srch = "movie"  # :" + i
+                srch = "movie:" + i
                 break
 
         for i in self.checkTV:
             if i in fds.lower():
-                srch = "tv"  # :" + i
+                srch = "tv:" + i
                 break
 
         return srch, fd
