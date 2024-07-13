@@ -11,6 +11,7 @@ from . import _, sl, isDreamOS
 from . import Utils
 from .Utils import RequestAgent
 from .data.GetEcmInfo import GetEcmInfo
+
 from Components.ActionMap import ActionMap, NumberActionMap
 from Components.Button import Button
 from Components.FileList import FileList
@@ -26,15 +27,17 @@ from Screens.InputBox import Input
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from Tools.BoundFunction import boundFunction
-from Tools.Directories import fileExists
-from Tools.Directories import resolveFilename, SCOPE_PLUGINS
+from Tools.Directories import (fileExists, resolveFilename, SCOPE_PLUGINS)
 from Tools.LoadPixmap import LoadPixmap
 # from Components.Sources.StaticText import StaticText
-from enigma import RT_HALIGN_LEFT, RT_VALIGN_CENTER
-from enigma import eListboxPythonMultiContent
-from enigma import eTimer
-from enigma import gFont
-from enigma import getDesktop
+from enigma import (
+    RT_HALIGN_LEFT,
+    RT_VALIGN_CENTER,
+    eListboxPythonMultiContent,
+    eTimer,
+    gFont,
+    getDesktop,
+)
 from os import mkdir, chmod
 from time import sleep
 from twisted.web.client import getPage
@@ -120,12 +123,14 @@ checkdir()
 
 
 # =============== SCREEN PATH SETTING
-skin_path = os.path.join(res_plugin_path, "skins/hd/")
+
 screenwidth = getDesktop(0).size()
 if screenwidth.width() == 1920:
     skin_path = res_plugin_path + 'skins/fhd/'
 if screenwidth.width() == 2560:
     skin_path = res_plugin_path + 'skins/uhd/'
+else:
+    skin_path = os.path.join(res_plugin_path, "skins/hd/")
 sl2 = skin_path + sl + '.xml'
 if os.path.exists(sl2):
     os.system('rm -rf ' + plugin_path + ' > /dev/null 2>&1')

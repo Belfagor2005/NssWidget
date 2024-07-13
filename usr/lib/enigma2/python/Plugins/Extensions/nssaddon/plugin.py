@@ -13,16 +13,21 @@ from .lib import Utils
 from .lib.Utils import RequestAgent
 from .lib.Lcn import LCN
 from .lib.Downloader import downloadWithProgress
+
 from Components.ActionMap import ActionMap
 from Components.Button import Button
 from Components.ConfigList import ConfigListScreen
-from Components.config import (config, getConfigListEntry)
-from Components.config import (ConfigYesNo, ConfigSubsection)
-from Components.config import ConfigSelection
+from Components.config import (
+    config,
+    getConfigListEntry,
+    ConfigYesNo,
+    ConfigSubsection,
+    ConfigSelection,
+)
+
 from Components.Label import Label
 from Components.MenuList import MenuList
-from Components.MultiContent import MultiContentEntryText
-from Components.MultiContent import MultiContentEntryPixmapAlphaTest
+from Components.MultiContent import (MultiContentEntryText, MultiContentEntryPixmapAlphaTest)
 from Components.Pixmap import Pixmap
 from Components.ProgressBar import ProgressBar
 # from Components.ScrollLabel import ScrollLabel
@@ -36,16 +41,19 @@ from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from Screens.Standby import TryQuitMainloop
 from Screens.VirtualKeyBoard import VirtualKeyBoard
-from Tools.Directories import SCOPE_PLUGINS
-from Tools.Directories import (fileExists, resolveFilename)
+from Tools.Directories import (SCOPE_PLUGINS, fileExists, resolveFilename
 # from Tools.Downloader import downloadWithProgress
-from enigma import (RT_HALIGN_LEFT, RT_VALIGN_CENTER)
-from enigma import (loadPNG, gFont)
-from enigma import eTimer
-from enigma import getDesktop
-from enigma import (eListboxPythonMultiContent, eConsoleAppContainer)
-from os import chmod
-from os import (listdir, mkdir)
+from enigma import (
+    RT_HALIGN_LEFT,
+    RT_VALIGN_CENTER,
+    loadPNG,
+    gFont,
+    eTimer,
+    getDesktop,
+    eListboxPythonMultiContent,
+    eConsoleAppContainer,
+)
+from os import chmod, listdir, mkdir
 from twisted.web.client import (downloadPage, getPage)
 import codecs
 import os
@@ -1808,14 +1816,11 @@ class NssInstall(Screen):
         self['info'] = Label()
         self['pth'] = Label()
         self['pform'] = Label()
-
         self['progress'] = ProgressBar()
         self["progress"].hide()
         self['progresstext'] = StaticText()
-
         self['progress'].setRange((0, 100))
         self['progress'].setValue(0)
-
         list = []
         list.sort()
         self['info'].setText(_('... please wait'))
@@ -2125,7 +2130,6 @@ class NssIPK(Screen):
         self.setup_title = (name_plug)
         Screen.__init__(self, session)
         self.setTitle(self.setup_title)
-        # self.ipkpth = str(config.plugins.nssaddon.ipkpth.value)
         self.ipkpth = '/tmp'
         self.list = []
         self.names = []
@@ -2490,9 +2494,6 @@ class ScriptExecuter(Screen):
                 fil2 = fil[:-3]
                 desc = 'N/A'
                 myfil = '/usr/script/' + str(fil)
-                # os.system("sed -i -e 's/\r$//' %s" % myfil)
-                # os.system("sed -i -e 's/^M$//' %s" % myfil)
-                # lululla fixed encode crash on atv py3
                 with codecs.open(myfil, "rb", encoding="latin-1") as f:
                     for line in f.readlines():
                         if line.find('#DESCRIPTION=') != -1:
@@ -2531,7 +2532,6 @@ class nssConfig(Screen, ConfigListScreen):
         self.setTitle(self.setup_title)
         self['description'] = Label()
         self['info'] = Label(_('SELECT YOUR CHOICE'))
-        # self['info'] = ScrollLabel()
         self['key_yellow'] = Button(_('Update'))
         self['key_green'] = Button(_('Save'))
         self['key_red'] = Button(_('Back'))
@@ -2546,11 +2546,7 @@ class nssConfig(Screen, ConfigListScreen):
                                           'ActiveCodeActions'], {'cancel': self.extnok,
                                                                  'red': self.extnok,
                                                                  'back': self.close,
-                                                                 # 'left': self.keyLeft,
-                                                                 # 'right': self.keyRight,
-                                                                 # 'yellow': self.tvUpdate,
                                                                  "showVirtualKeyboard": self.KeyText,
-                                                                 # 'ok': self.Ok_edit,
                                                                  'green': self.msgok}, -1)
         self.list = []
         ConfigListScreen.__init__(self, self.list, session=self.session, on_change=self.changedEntry)
@@ -2589,7 +2585,6 @@ class nssConfig(Screen, ConfigListScreen):
     def createSetup(self):
         self.editListEntry = None
         self.list = []
-
         # self.list.append(getConfigListEntry(_("Set the path to the Picons folder"), mmkpicon, _("Configure folder containing picons files")))
         # self.list.append(getConfigListEntry(_("Path for Picons folder"), mmkpicon, _("Folder containing picons files")))
         # self.list.append(getConfigListEntry(_("Set the path to the Picons folder"), config.usage.picon_dir, _("Configure folder containing picons files")))
@@ -2625,16 +2620,6 @@ class nssConfig(Screen, ConfigListScreen):
         from Screens.Setup import SetupSummary
         return SetupSummary
 
-    # def keyLeft(self):
-        # ConfigListScreen.keyLeft(self)
-        # print("current selection:", self["config"].l.getCurrentSelection())
-        # self.createSetup()
-
-    # def keyRight(self):
-        # ConfigListScreen.keyRight(self)
-        # print("current selection:", self["config"].l.getCurrentSelection())
-        # self.createSetup()
-
     def msgok(self):
         if self['config'].isChanged():
             for x in self["config"].list:
@@ -2642,51 +2627,6 @@ class nssConfig(Screen, ConfigListScreen):
             self.session.open(MessageBox, _('Successfully saved configuration'), MessageBox.TYPE_INFO, timeout=4)
         else:
             self.close(True)
-
-    # def Ok_edit(self):
-        # ConfigListScreen.keyOK(self)
-        # sel = self['config'].getCurrent()[1]
-        # if sel == config.plugins.nssaddon.mmkpicon:
-            # self.setting = 'mmkpicon'
-            # mmkpth = config.plugins.nssaddon.mmkpicon.value
-            # self.openDirectoryBrowser(mmkpth)
-        # else:
-            # pass
-
-    # def openDirectoryBrowser(self, path):
-        # try:
-            # self.session.openWithCallback(
-                # self.openDirectoryBrowserCB,
-                # LocationBox,
-                # windowTitle=_("Choose Directory:"),
-                # text=_("Choose directory"),
-                # currDir=str(path),
-                # bookmarks=config.movielist.videodirs,
-                # autoAdd=False,
-                # editDir=True,
-                # inhibitDirs=["/bin", "/boot", "/dev", "/home", "/lib", "/proc", "/run", "/sbin", "/sys", "/var"],
-                # minFree=15)
-        # except Exception as e:
-            # print('error: ', str(e))
-
-    # def openDirectoryBrowserCB(self, path):
-        # if path is not None:
-            # if self.setting == 'mmkpicon':
-                # config.plugins.nssaddon.mmkpicon.setValue(path)
-            # # if self.setting == 'ipkpth':
-                # # config.plugins.nssaddon.ipkpth.setValue(path)
-        # return
-
-    # def KeyText(self):
-        # sel = self['config'].getCurrent()
-        # if sel:
-            # self.session.openWithCallback(self.VirtualKeyBoardCallback, VirtualKeyBoard, title=self['config'].getCurrent()[0], text=self['config'].getCurrent()[1].value)
-
-    # def VirtualKeyBoardCallback(self, callback=None):
-        # if callback is not None and len(callback):
-            # self['config'].getCurrent()[1].value = callback
-            # self['config'].invalidate(self['config'].getCurrent())
-        # return
 
     def cancelConfirm(self, result):
         if not result:

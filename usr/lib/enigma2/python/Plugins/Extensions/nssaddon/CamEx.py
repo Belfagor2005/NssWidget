@@ -6,6 +6,8 @@
 #      24/11/2023     #
 # --------------------#
 from . import _
+from .lib.GetEcmInfo import GetEcmInfo
+
 from Components.ActionMap import ActionMap
 from Components.Button import Button
 from Components.Label import Label
@@ -15,16 +17,17 @@ from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from Tools.LoadPixmap import LoadPixmap
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
-from enigma import eListboxPythonMultiContent, gFont
-from enigma import eTimer, RT_HALIGN_LEFT, RT_VALIGN_CENTER
-from enigma import getDesktop
-# from Components.Sources.StaticText import StaticText
-
+from enigma import (
+    eListboxPythonMultiContent,
+    gFont,
+    RT_HALIGN_LEFT,
+    RT_VALIGN_CENTER,
+    eTimer,
+    getDesktop,
+)
 import os
-
-
 import sys
-from .lib.GetEcmInfo import GetEcmInfo
+
 global BlueAction
 # BlueAction = 'SOFTCAM'
 screenwidth = getDesktop(0).size()
@@ -71,9 +74,6 @@ class DCCMenu(MenuList):
 
     def __init__(self, list, selection=0, enableWrapAround=True):
         MenuList.__init__(self, list, enableWrapAround, eListboxPythonMultiContent)
-        # self.l.setFont(0, gFont('Regular', 40))
-        # self.l.setItemHeight(50)
-        # self.selection = selection
         self.l.setItemHeight(50)
         textfont = int(32)
         self.l.setFont(0, gFont('Regular', textfont))
@@ -150,7 +150,6 @@ class NSSCamsManager(Screen):
         self['ecm'] = Label('')
         self['list'] = DCCMenu(self.softcamlist)
         self.readScripts()
-        # self.setTitle(title_plug)
         BlueAction = 'SOFTCAM'
         self.blueButton()
         self.EcmInfoPollTimer = eTimer()
@@ -174,7 +173,6 @@ class NSSCamsManager(Screen):
     def blueButton(self):
         global BlueAction
         self.currCam = self.readCurrent()
-        # if self.currCam and self.currCam != 'None' or self.currCam is not None:
         print('self.currCam= 77 ', self.currCam)
         self["key_blue"].setText("Softcam")
         if self.currCam and self.currCam is not None or self.currCam != '':
