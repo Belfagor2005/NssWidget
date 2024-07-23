@@ -1,16 +1,16 @@
 
     <screen name="ChannelSelection" position="0,0" size="1920,1080" title="Channel Selection" backgroundColor="black" flags="wfNoBorder">
-            <panel name="button2temp"/>
-            <panel name="timedate"/>
-            <panel name="buttonicons"/>
-            <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
+            <panel name="button2temp" />
+            <panel name="timedate" />
+            <panel name="buttonicons" />
+            <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80" />
             <widget source="ServiceEvent" render="Label" position="1254,712" size="633,256" font="Regular; 28" backgroundColor="background" transparent="1" noWrap="1" zPosition="8" foregroundColor="white" valign="top">
             <convert type="AglareEventName2">NextEventList</convert>
             </widget>
-            <eLabel backgroundColor="mcolor3" cornerRadius="3" position="1250,483" size="640,3" zPosition="99"/>
-            <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
-            <widget source="Title" render="Label" position="36,32" size="1180,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
-            <widget name="list" position="40,94" size="1180,900" fieldMargins="15" nonplayableMargins="15" serviceItemHeight="50" serviceNumberFont="Regular;30" serviceNameFont="Regular;30" serviceInfoFont="Regular;28" additionalInfoFont="Regular;28" foregroundColor="white" foregroundColorSelected="yellow" colorServiceDescription="mint" colorServiceDescriptionSelected="#00ffffff" colorServiceStreamed="green" colorAdditionalInfo="white" colorAdditionalInfoSelected="white" foregroundColorServiceNotAvail="#444444" colorEventProgressbarBorderSelected="white" colorEventProgressbarBorder="white" zPosition="4" itemHeight="50" picServiceEventProgressbar="main/chprogressbar.png" progressbarHeight="6" progressBarWidth="100" progressbarBorderWidth="1" progressPercentWidth="60" backgroundColorMarked="#00131a1d" textSeparator="  •  " markerLine="1" markerTextAlignment="center" markerLineColor="mint" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
+            <eLabel backgroundColor="mcolor3" cornerRadius="3" position="1250,483" size="640,3" zPosition="99" />
+            <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99" />
+            <widget source="Title" render="Label" position="36,32" size="1180,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left" />
+            <widget name="list" position="40,94" size="1180,900" fieldMargins="15" nonplayableMargins="15" serviceItemHeight="50" serviceNumberFont="Regular;30" serviceNameFont="Regular;30" serviceInfoFont="Regular;28" additionalInfoFont="Regular;28" foregroundColor="white" foregroundColorSelected="yellow" colorServiceDescription="mint" colorServiceDescriptionSelected="#00ffffff" colorServiceStreamed="green" colorAdditionalInfo="white" colorAdditionalInfoSelected="white" foregroundColorServiceNotAvail="#444444" colorEventProgressbarBorderSelected="white" colorEventProgressbarBorder="white" zPosition="4" itemHeight="50" picServiceEventProgressbar="main/chprogressbar.png" progressbarHeight="6" progressBarWidth="100" progressbarBorderWidth="1" progressPercentWidth="60" backgroundColorMarked="#00131a1d" textSeparator="  •  " markerLine="1" markerTextAlignment="center" markerLineColor="mint" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" />
             <widget source="ServiceEvent" render="Progress" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" position="1250,407" size="500,10" zPosition="8">
             <convert type="EventTime">Progress</convert>
             </widget>
@@ -20,22 +20,22 @@
             <widget source="ServiceEvent" render="AglareRunningText" options="movetype=running,startpoint=0,direction=top,steptime=100,startdelay=4000,wrap,always=0" position="1252,494" size="638,182" halign="left" font="Regular; 30" transparent="1" valign="top" zPosition="99">
             <convert type="EventName">FullDescription</convert>
             </widget>
-            <widget source="session.VideoPicture" render="Pig" position="1250,54" zPosition="20" size="610,340" backgroundColor="transparent" transparent="0" cornerRadius="14"/>
-            <eLabel name="" position="31,30" size="1195,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
-            <eLabel backgroundColor="mcolor3" cornerRadius="3" position="1260,698" size="250,3" zPosition="99"/>
-            <eLabel backgroundColor="mcolor3" cornerRadius="3" position="1635,698" size="250,3" zPosition="99"/>
+            <widget source="session.VideoPicture" render="Pig" position="1250,54" zPosition="20" size="610,340" backgroundColor="transparent" transparent="0" cornerRadius="14" />
+            <eLabel name="" position="31,30" size="1195,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2" />
+            <eLabel backgroundColor="mcolor3" cornerRadius="3" position="1260,698" size="250,3" zPosition="99" />
+            <eLabel backgroundColor="mcolor3" cornerRadius="3" position="1635,698" size="250,3" zPosition="99" />
             <widget source="ServiceEvent" render="Label" position="1758,389" size="135,50" halign="center" font="Regular; 27" foregroundColor="white" backgroundColor="background" transparent="1" valign="center" zPosition="10">
             <convert type="EventTime">Duration</convert>
             <convert type="ClockToText">InMinutes</convert>
             </widget>
-            <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
-            <eLabel name="" position="1658,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
-            <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EPG"/>
-            <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
-            <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
-            <eLabel name="" position="1503,680" size="132,40" font="FA; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
+            <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK" />
+            <eLabel name="" position="1658,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU" />
+            <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EPG" />
+            <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO" />
+            <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT" />
+            <eLabel name="" position="1503,680" size="132,40" font="icomoon; 36" text="" transparent="1" valign="center" halign="center" zPosition="99" />
+            <eLabel name="" position="1254,978" size="30,30" font="icomoon; 24" text="" transparent="1" valign="center" halign="center" zPosition="99" foregroundColor="gold" />
             <widget source="ServiceEvent" render="Label" position="1293,976" size="612,34" font="Bold; 28" backgroundColor="background" transparent="1" noWrap="1" zPosition="8" foregroundColor="gold" valign="top">
             <convert type="AglareEventName2">PrimeTimeWithDuration</convert>
             </widget>
-            <eLabel name="" position="1258,979" size="30,30" font="FA; 24" text="" transparent="1" valign="center" halign="center" zPosition="99" foregroundColor="gold"/>
     </screen>

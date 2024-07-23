@@ -8,7 +8,7 @@
 	<eLabel position="1593,811" size="3,245" backgroundColor="#202020" zPosition="3" />
 	<widget name="info" position="880,810" size="704,266" font="Regular; 20" halign="right" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5" />
 	<widget name="description" position="26,745" size="700,50" font="Regular;30" halign="left" valign="center" foregroundColor="#b0b0b0" backgroundColor="#202020" transparent="1" zPosition="5" />
-		<widget source="list" render="Listbox" position="28,810" size="830,250" scrollbarMode="showOnDemand" foregroundColor="#00a0a0a0" backgroundColorSelected="#00000000" enableWrapAround="1" transparent="1" zPosition="5">
+		<widget source="list" render="Listbox" position="28,810" size="750,250" scrollbarMode="showOnDemand" foregroundColor="#00a0a0a0" backgroundColorSelected="#00000000" enableWrapAround="1" transparent="1" zPosition="5">
 			<convert type="TemplatedMultiContent">
 				{"template": [
 						MultiContentEntryPixmapAlphaTest(pos=(5, 0), size=(70, 40), png=1), # index 1 is the pixmap   

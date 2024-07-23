@@ -1,8 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <skin>
-    <!-- Aglare-FHD-NSS skin by MNASR for all images v2.0-->
-    <!-- You are free to edit or modify this skin but please keep theses lines above and add your credits below -->
+    <!-- **************************************  -->
+    <!-- Aglare-FHD skin                         -->
+    <!-- by MNASR for all images v2.0            -->
+    <!-- Currently Tested on PLI v9.X            -->
+    <!-- You are free to edit or modify this     -->
+    <!-- skin but please keep theses lines above -->
+    <!-- and add your credits below              -->
+    <!-- Don't Remove this Disclaimer            -->
+    <!-- **************************************  -->
     <!-- edit from lululla for nss team -->
-    <!-- pli core -->
+    <copyright>
+        <abouth name="Aglare-FHD">
+            author="MNASR"
+            license="Open"
+            Support="openPLi ad other image*"
+            Release="15/003/2024"
+                                     
+            supporturl="www.linuxsat-support.com"
+        </abouth>
+    </copyright>
     <output id="0">
         <resolution xres="1920" yres="1080" bpp="32"/>
     </output>
@@ -65,6 +82,8 @@
         <color name="background3" value="#80000000"/>
         <color name="background4" value="#10000000"/>
         <color name="background90" value="#20000000"/>
+        <color name="backgroundtrans1" value="#95000000"/>
+        <color name="backgroundtrans2" value="#95161414"/>
         <color name="black" value="#00000000"/>
         <color name="blue" value="#000000ff"/>
         <color name="bpSide" value="#00ff6600"/>
@@ -143,7 +162,7 @@
         <parameter name="AboutHddSplit" value="1"/>
         <parameter name="CCcamMenuListName" value="0,4,790,62"/>
         <parameter name="ChoicelistButtonIcon" value="15,14,54,34"/>
-        <parameter name="ChoicelistDash" value="8,3,790,62"/>
+        <parameter name="ChoicelistDash" value="0,3,790,62"/>
         <parameter name="ChoicelistIcon" value="8,14,54,62"/>
         <parameter name="ChoicelistName" value="80,14,790,62"/>
         <parameter name="ChoicelistButtonIcon" value="15,14,54,34"/>
@@ -160,14 +179,16 @@
         <parameter name="ExpandableListIcon" value="5,2,55,38"/>
         <parameter name="FallbackReceiverListIP" value="300,2,225,38"/>
         <parameter name="FallbackReceiverListName" value="8,2,225,38"/>
-        <parameter name="FcFileListIcon" value="10,0,30,30"/>
-        <parameter name="FcFileListMultiIcon" value="45,0,30,30"/>
+        <parameter name="icomoonllbackReceiverListIP" value="300,2,225,38"/>
+        <parameter name="icomoonllbackReceiverListName" value="8,2,225,38"/>
+        <parameter name="FcFileListIcon" value="10,2,30,30"/>
+        <parameter name="FcFileListMultiIcon" value="45,2,30,30"/>
         <parameter name="FcFileListMultiLock" value="2,0,30,30"/>
-        <parameter name="FcFileListMultiName" value="90,0,1000,32"/>
-        <parameter name="FcFileListName" value="68,0,1000,34"/>
+        <parameter name="FcFileListMultiName" value="90,2,1000,32"/>
+        <parameter name="FcFileListName" value="68,2,1000,34"/>
         <parameter name="FileListIcon" value="14,8,50,50"/>
         <parameter name="FileListMultiIcon" value="45, 4, 30, 30"/>
-        <parameter name="FileListMultiLock" value="5,0,36,36"/>
+        <parameter name="FileListMultiLock" value="2,0,36,36"/>
         <parameter name="FileListMultiName" value="90,0,1000,36"/>
         <parameter name="FileListName" value="66,0,1000,50"/>
         <parameter name="GMultiEPGTimelineItemHeight" value="60"/>
@@ -181,17 +202,17 @@
         <parameter name="PlayListIcon" value="7,12,32,48"/>
         <parameter name="PlayListName" value="45,0,1000,48"/>
         <parameter name="PluginBrowserDescColor" value="1017253"/>
-        <parameter name="PluginBrowserDescr" value="170,40,40"/>
+        <parameter name="PluginBrowserDescr" value="170,36,40"/>
         <parameter name="PluginBrowserDownloadDescColor" value="1017253"/>
         <parameter name="PluginBrowserDownloadDescr" value="120,40,40"/>
         <parameter name="PluginBrowserDownloadIcon" value="20,10,60,60"/>
         <parameter name="PluginBrowserDownloadName" value="120,4,60"/>
         <parameter name="PluginBrowserIcon" value="20,0,120,70"/>
         <parameter name="PluginBrowserName" value="160,4,40"/>
-        <parameter name="SelectionListDescr" value="50,2,900,40"/>
+        <parameter name="SelectionListDescr" value="50,2,1000,40"/>
         <parameter name="SelectionListLock" value="5,5,40,40"/>
         <parameter name="SelectionListLockOff" value="5,5,40,40"/>
-        <parameter name="ServiceInfo" value="0,0,500,50"/>
+        <parameter name="ServiceInfo" value="0,0,400,50"/>
         <parameter name="ServiceInfoFont" value="Regular;28"/>
         <parameter name="ServiceInfoLeft" value="10,0,350,50"/>
         <parameter name="ServiceInfoRight" value="370,0,450,50"/>
@@ -246,8 +267,7 @@
         <sub name="Subtitle_Bold" font="Replacement;52" foregroundColor="white" shadowColor="#00101010" shadowOffset="1,1"/>
         <sub name="Subtitle_Italic" font="Regular;52" foregroundColor="white" shadowColor="#00101010" shadowOffset="1,1"/>
     </subtitles>
-
     <include filename="skin_templates.xml"/>
     <include filename="skin_nss.xml"/>
     <include filename="skin_ll.xml"/>
-  
+

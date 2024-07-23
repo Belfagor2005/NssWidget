@@ -8,33 +8,41 @@
 #      No Coppy       #
 # --------------------#
 from __future__ import print_function
+from .. import _, sl
+from ..plugin import runningcam
+
 from Components.ActionMap import ActionMap
 from Components.Button import Button
 from Components.ConfigList import ConfigListScreen
 from Components.Label import Label
-from Components.config import ConfigNumber, ConfigSelection, ConfigYesNo
-from Components.config import ConfigSubsection, ConfigPassword
-from Components.config import config, ConfigText
-from Components.config import getConfigListEntry, NoSave
+from Components.config import (
+    ConfigNumber,
+    ConfigSelection,
+    ConfigYesNo,
+    ConfigSubsection,
+    ConfigPassword,
+    config,
+    ConfigText,
+    getConfigListEntry,
+    NoSave,
+)
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from Screens.VirtualKeyBoard import VirtualKeyBoard
-from Tools.Directories import fileExists
-from Tools.Directories import resolveFilename, SCOPE_PLUGINS
+from Tools.Directories import (fileExists, resolveFilename, SCOPE_PLUGINS)
 from Components.Sources.StaticText import StaticText
-from .. import _, sl
-from ..plugin import runningcam
 from random import choice
-from enigma import eTimer
-from enigma import getDesktop
+from enigma import (eTimer, getDesktop)
+import base64
 import os
 import re
 import ssl
 import sys
 import subprocess
 import codecs
+
 global skin_path
-import base64
+
 sss = 'aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L1U0ZU02RGpW'
 PY3 = sys.version_info.major >= 3
 if PY3:
@@ -79,6 +87,13 @@ skin_path = plugin_path
 sl2 = skin_path + sl + '.xml'
 if os.path.exists(sl2):
     os.system('rm -rf ' + plugin_path + ' > /dev/null 2>&1')
+skin_path = os.path.join(plugin_path, 'res/skins/hd/')
+res_plugin_path = os.path.join(plugin_path, "res/")
+screenwidth = getDesktop(0).size()
+if screenwidth.width() == 2560:
+    skin_path = res_plugin_path + 'skins/uhd/'
+if screenwidth.width() == 1920:
+    skin_path = res_plugin_path + 'skins/fhd/'
 
 try:
     _create_unverified_https_context = ssl._create_unverified_context
@@ -177,19 +192,6 @@ def getUrl(url):
     return content
 
 
-skin_path = os.path.join(plugin_path, 'res/skins/hd/')
-res_plugin_path = os.path.join(plugin_path, "res/")
-screenwidth = getDesktop(0).size()
-if screenwidth.width() == 1920:
-    skin_path = res_plugin_path + 'skins/fhd/'
-if screenwidth.width() == 2560:
-    skin_path = res_plugin_path + 'skins/uhd/'
-# if os.path.exists('/var/lib/dpkg/info'):
-    # skin_path = skin_path + 'dreamOs/'
-if os.path.exists(sl2):
-    os.system('rm -rf ' + plugin_path + ' > /dev/null 2>&1')
-
-
 def cccamPath():
     import os
     cmd = 'find /usr -name "CCcam.cfg"'
@@ -223,16 +225,16 @@ def cccamPath():
 
 Serverlive = [
               ('aHR0cHM6Ly9ib3NzY2NjYW0uY28vVGVzdC5waHA=', 'Server01'),
-              ('aHR0cHM6Ly9jY2NhbWlwdHYuY2x1Yi9mcmVlLWNjY2FtLw==', 'Server02'),
-              ('aHR0cHM6Ly9pcHR2LTE1ZGF5cy5ibG9nc3BvdC5jb20=', 'Server03'),
-              ('aHR0cHM6Ly9jY2NhbWlhLmNvbS9mcmVlLWNjY2FtLw==', 'Server04'),
-              ('aHR0cHM6Ly9jY2NhbXguY29tL2ZyZWUtY2NjYW0=', 'Server05'),
-              ('aHR0cHM6Ly9jY2NhbS5uZXQvZnJlZWNjY2Ft', 'Server06'),
+              ('aHR0cHM6Ly9pcHR2LTE1ZGF5cy5ibG9nc3BvdC5jb20=', 'Server02'),
+              ('aHR0cHM6Ly9jY2NhbWlhLmNvbS9mcmVlLWNjY2FtLw==', 'Server03'),
+              ('aHR0cHM6Ly9jY2NhbS5uZXQvZnJlZWNjY2Ft', 'Server04'),
+              ('aHR0cHM6Ly9jY2NhbXNhdGUuY29tL2ZyZWU=', 'Server05'),
+              ('aHR0cHM6Ly9jY2NhbXguY29tL2ZyZWUtY2NjYW0=', 'Server06'),
               ('aHR0cHM6Ly9jY2NhbS1wcmVtaXVtLmNvL2ZyZWUtY2NjYW0v', 'Server07'),
               ('aHR0cHM6Ly93d3cuY2NjYW1iaXJkMi5jb20vZnJlZWNjY2FtLnBocA==', 'Server08'),
               ('aHR0cHM6Ly9jY2NhbWZyZWUuY28vZnJlZS9nZXQucGhw', 'Server9'),
               ('aHR0cHM6Ly9jY2NhbWZyZWkuY29tL2ZyZWUvZ2V0LnBocA==', 'Server10'),
-              ('aHR0cHM6Ly9jY2NhbWF6b24uY29tL2ZyZWUvZ2V0LnBocA==', 'Server11'),
+              ('aHR0cHM6Ly9jY2NhbWlwdHYuY2x1Yi9mcmVlLWNjY2FtLw==', 'Server11'),
               ]
 
 # cfgcam = [(cccamPath(), 'CCcam'),
@@ -395,7 +397,7 @@ class nssCamConfig(Screen, ConfigListScreen):
                         else:
                             self.session.open(MessageBox, _("File no exist /tmp/emm.txt"), MessageBox.TYPE_INFO, timeout=10)
                 else:
-                    self.session.openWithCallback(self.callMyMsg, MessageBox, _('The Oscam is not active, send the command anyway?'), MessageBox.TYPE_YESNO)
+                    self.session.openWithCallback(self.callMyMsg, MessageBox, _('The Cam is not active, send the command anyway?'), MessageBox.TYPE_YESNO)
             except Exception as e:
                 print('error on emm', str(e))
 
@@ -673,6 +675,15 @@ class nssCamConfig(Screen, ConfigListScreen):
             elif 'testcline' in data.lower():
                 url1 = re.findall('C: (.+?) (.+?) (.+?) (.+?)</d', data)
 
+            elif 'free.cccam.net' in data.lower():
+                url1 = re.findall('<b>C: (.*?) (.*?) (.*?) (.*?)</b>', data)
+
+            elif 'free.cccam-premium' in data.lower():
+                url1 = re.findall('C: (.+?) (.+?) (.+?) (*?).*?</h3>', data)
+
+            elif 'cccamsate' in data.lower():
+                url1 = re.findall('<span><b>C: (.+?) (.+?) (.+?) (.+?)</b>', data)
+
             elif 'cccameagle' in data.lower():
                 url1 = re.findall('>C: (.+?) (.+?) (.+?) (.+?)</h2>', data)
 
@@ -688,9 +699,6 @@ class nssCamConfig(Screen, ConfigListScreen):
 
             elif 'cccamfree.co' in data.lower():
                 url1 = re.findall('<h1>C: (.+?) (.+?) (.+?) (.+?)\n', data)
-
-            elif 'cccam-premium' in data.lower():
-                url1 = re.findall('C: (.+?) (.+?) (.+?) (*?)\n.*?</h3>', data)
 
             elif 'iptvcccam' in data.lower():
                 url1 = re.findall('C: (.+?) (.+?) (.+?) (*?).*?</h1>', data)
@@ -724,12 +732,6 @@ class nssCamConfig(Screen, ConfigListScreen):
 
             elif 'cccamhub' in data.lower():
                 url1 = re.findall('id="cline">.*?C: (.+?) (.+?) (.+?) (.+?).*?</div>', data)
-
-            elif 'cccamsate' in data.lower():
-                url1 = re.findall('class="credentials.*?C: (.+?) (.+?) (.+?) (.+?)</b>', data)
-
-            elif 'cccam.net' in data.lower():
-                url1 = re.findall('b>C: (.*?) (.*?) (.*?) (.*?)</b>', data)
 
             elif 'rogcam' in data.lower():
                 url1 = re.findall('bg-primary"> C: (.+?) (.+?) (.+?) (.+?) </span>', data)

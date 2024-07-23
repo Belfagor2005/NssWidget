@@ -22,9 +22,8 @@ from Components.config import (
     getConfigListEntry,
     ConfigYesNo,
     ConfigSubsection,
-    ConfigSelection,
+    # ConfigSelection,
 )
-
 from Components.Label import Label
 from Components.MenuList import MenuList
 from Components.MultiContent import (MultiContentEntryText, MultiContentEntryPixmapAlphaTest)
@@ -36,12 +35,12 @@ from Components.Sources.List import List
 from Components.Sources.StaticText import StaticText
 from Plugins.Plugin import PluginDescriptor
 # from Screens.Console import Console as tvConsole
-from Screens.LocationBox import LocationBox
+# from Screens.LocationBox import LocationBox
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from Screens.Standby import TryQuitMainloop
 from Screens.VirtualKeyBoard import VirtualKeyBoard
-from Tools.Directories import (SCOPE_PLUGINS, fileExists, resolveFilename
+from Tools.Directories import (SCOPE_PLUGINS, fileExists, resolveFilename)
 # from Tools.Downloader import downloadWithProgress
 from enigma import (
     RT_HALIGN_LEFT,
@@ -64,8 +63,8 @@ import ssl
 import glob
 import six
 import subprocess
-import json
-from datetime import datetime
+# import json
+# from datetime import datetime
 
 
 global skin_path, sets, category
@@ -295,48 +294,47 @@ if not os.path.exists(mmkpicon):
 
 
 Panel_list = [
- _('LULULLA CORNER'),
- _('DAILY PICONS'),
- _('DAILY SETTINGS'),
- _('SETTING CHANNEL NSS'),
- _('DEPENDENCIES'),
- _('DRIVERS'),
- _('PLUGIN BACKUP'),
- _('PLUGIN EPG'),
- _('PLUGIN EMULATORS CAMS'),
- _('PLUGIN GAME'),
- _('PLUGIN MULTIBOOT'),
- _('PLUGIN MULTIMEDIA'),
- _('PLUGIN PICONS'),
- _('PLUGIN PPANEL'),
- _('PLUGIN SETTINGS PANEL'),
- _('PLUGIN SCRIPT'),
- _('PLUGIN SKINS'),
- _('PLUGIN SPORT'),
- _('PLUGIN UTILITY'),
- _('PLUGIN WEATHER')]
+    _('LULULLA CORNER'),
+    _('DAILY PICONS'),
+    _('DAILY SETTINGS'),
+    _('SETTING CHANNEL NSS'),
+    _('DEPENDENCIES'),
+    _('DRIVERS'),
+    _('PLUGIN BACKUP'),
+    _('PLUGIN EPG'),
+    _('PLUGIN EMULATORS CAMS'),
+    _('PLUGIN GAME'),
+    _('PLUGIN MULTIBOOT'),
+    _('PLUGIN MULTIMEDIA'),
+    _('PLUGIN PICONS'),
+    _('PLUGIN PPANEL'),
+    _('PLUGIN SETTINGS PANEL'),
+    _('PLUGIN SCRIPT'),
+    _('PLUGIN SKINS'),
+    _('PLUGIN SPORT'),
+    _('PLUGIN UTILITY'),
+    _('PLUGIN WEATHER')]
 
 Panel_list2 = [
- ('SAVE DTT BOUQUET'),
- ('RESTORE DTT BOUQUET'),
- ('UPDATE SATELLITES.XML'),
- ('UPDATE TERRESTRIAL.XML'),
- ('SETTINGS BI58'),
- ('SETTINGS CIEFP'),
- ('SETTINGS CYRUS'),
- ('SETTINGS MANUTEK'),
- # ('SETTINGS MILENKA61'),
- ('SETTINGS MORPHEUS'),
- ('SETTINGS PREDRAG'),
- ('SETTINGS VHANNIBAL'),
- ('SETTINGS VHANNIBAL 2')
-]
+    ('SAVE DTT BOUQUET'),
+    ('RESTORE DTT BOUQUET'),
+    ('UPDATE SATELLITES.XML'),
+    ('UPDATE TERRESTRIAL.XML'),
+    ('SETTINGS BI58'),
+    ('SETTINGS CIEFP'),
+    ('SETTINGS CYRUS'),
+    ('SETTINGS MANUTEK'),
+    # ('SETTINGS MILENKA61'),
+    ('SETTINGS MORPHEUS'),
+    ('SETTINGS PREDRAG'),
+    ('SETTINGS VHANNIBAL'),
+    ('SETTINGS VHANNIBAL 2')]
 
 Panel_list3 = [
- _('MMARK PICONS BLACK'),
- _('MMARK PICONS TRANSPARENT'),
- _('MMARK PICONS MOVIE'),
- _('OPEN PICONS')]
+    _('MMARK PICONS BLACK'),
+    _('MMARK PICONS TRANSPARENT'),
+    _('MMARK PICONS MOVIE'),
+    _('OPEN PICONS')]
 
 
 class nssList(MenuList):
@@ -351,7 +349,7 @@ class nssList(MenuList):
             textfont = int(32)
             self.l.setFont(0, gFont('Regular', textfont))
         else:
-            self.l.setItemHeight(42)
+            self.l.setItemHeight(45)
             textfont = int(24)
             self.l.setFont(0, gFont('Regular', textfont))
 
@@ -370,7 +368,7 @@ def nssListEntry(name, idx):
         res.append(MultiContentEntryPixmapAlphaTest(pos=(5, 5), size=(40, 40), png=loadPNG(pngs)))
         res.append(MultiContentEntryText(pos=(70, 0), size=(1000, 50), font=0, text=name, color=0xa6d1fe, flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER))
     else:
-        res.append(MultiContentEntryPixmapAlphaTest(pos=(3, 10), size=(40, 40), png=loadPNG(pngs)))
+        res.append(MultiContentEntryPixmapAlphaTest(pos=(3, 2), size=(40, 40), png=loadPNG(pngs)))
         res.append(MultiContentEntryText(pos=(50, 0), size=(500, 50), font=0, text=name, color=0xa6d1fe, flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER))
     return res
 
@@ -384,7 +382,7 @@ def oneListEntry(name):
         res.append(MultiContentEntryPixmapAlphaTest(pos=(5, 5), size=(40, 40), png=loadPNG(pngs)))
         res.append(MultiContentEntryText(pos=(70, 0), size=(1000, 50), font=0, text=name, color=0xa6d1fe, flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER))
     else:
-        res.append(MultiContentEntryPixmapAlphaTest(pos=(3, 10), size=(40, 40), png=loadPNG(pngs)))
+        res.append(MultiContentEntryPixmapAlphaTest(pos=(3, 2), size=(40, 40), png=loadPNG(pngs)))
         res.append(MultiContentEntryText(pos=(50, 0), size=(500, 50), font=0, text=name, color=0xa6d1fe, flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER))
     return res
 
@@ -498,8 +496,6 @@ class HomeNss(Screen):
     def NSSCamsManager(self):
         tvman = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('nssaddon'))
         if os.path.exists(tvman):
-            # from Plugins.Extensions.nssaddon.CamEx import NSSCamsManager
-            # self.session.openWithCallback(self.close, NSSCamsManager)
             from Plugins.Extensions.Manager.plugin import Manager
             self.session.openWithCallback(self.close, Manager)
         else:
@@ -641,8 +637,6 @@ class nssCategories(Screen):
     def NSSCamsManager(self):
         tvman = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('nssaddon'))
         if os.path.exists(tvman):
-            # from Plugins.Extensions.nssaddon.CamEx import NSSCamsManager
-            # self.session.openWithCallback(self.close, NSSCamsManager)
             from Plugins.Extensions.Manager.plugin import Manager
             self.session.openWithCallback(self.close, Manager)
         else:
@@ -705,7 +699,7 @@ class NssDailySetting(Screen):
         if self.LcnOn:
             lcn = LCN()
             lcn.read()
-            if len(lcn.lcnlist) > 0:
+            if len(lcn.lcnlist) >= 1:
                 lcn.writeBouquet()
                 lcn.ReloadBouquets()
                 self.session.open(MessageBox, _('Sorting Terrestrial channels with Lcn rules Completed'), MessageBox.TYPE_INFO, timeout=5)
@@ -1046,7 +1040,6 @@ class SettingVhan2(Screen):
                 self['info'].setText(_('Settings Installed ...'))
             else:
                 self['info'].setText(_('Settings Not Installed ...'))
-
         except Exception as e:
             print('error: ', str(e))
             self['info'].setText(_('Not Installed ...'))
@@ -1716,7 +1709,6 @@ class SettingCyrus(Screen):
         self.downloading = False
         self.timer = eTimer()
         if os.path.exists('/var/lib/dpkg/info'):
-
             self.timer_conn = self.timer.timeout.connect(self.downxmlpage)
         else:
             self.timer.callback.append(self.downxmlpage)
@@ -1866,7 +1858,6 @@ class NssInstall(Screen):
         self['key_green'].show()
 
     def message(self):
-                          
         self.session.openWithCallback(self.message1, MessageBox, _("Do you want to install?"), MessageBox.TYPE_YESNO)
 
     def message1(self, answer=False):
@@ -1910,17 +1901,7 @@ class NssInstall(Screen):
                     self.session.open(MessageBox, _('Unknow Image!'), MessageBox.TYPE_INFO, timeout=5)
                     self['info'].setText(_('Installation canceled!'))
                 else:
-                    cmd22 = 'find /usr/bin -name "wget"'
-                    res = os.popen(cmd22).read()
-                    if 'wget' not in res.lower():
-                        cmd23 = 'apt-get update && apt-get install wget'
-                        os.popen(cmd23)
-                    # cmd = 'dpkg -i %s' % down
                     cmd = 'apt-get -f -y --force-yes install %s' % down
-                    # cmd = 'dpkg --install --force-overwrite %s' % self.dest
-                    # cmd = "wget -U '%s' -c '%s' -O '%s';apt-get install -f -y %s" % (RequestAgent(), str(self.com), self.dest, self.dest)
-                    # if "https" in str(self.com):
-                        # cmd = "wget --no-check-certificate -U '%s' -c '%s' -O '%s';apt-get install -f -y %s" % (RequestAgent(), str(self.com), self.dest, self.dest)
                     self.session.open(tvConsole, _('Downloading-installing: %s') % self.dom, [cmd], closeOnSuccess=False)
                     self['info'].setText(_('Installation done !!!'))
             elif extension == "ipk":
@@ -1977,7 +1958,6 @@ class NssInstall(Screen):
                     self.session.open(tvConsole, _('Downloading: %s') % self.dom, cmd, closeOnSuccess=False)
                     self['info'].setText(_('Download done !!!'))
                     self.session.open(MessageBox, _('Download file in /tmp successful!'), MessageBox.TYPE_INFO, timeout=5)
-                    # self.timer.start(1000, True)
                     self['info'].setText(_('Download file in /tmp successful!!'))
             else:
                 self['info'].setText(_('Download Failed!!!') + self.dom + _('... Not supported'))
@@ -2019,7 +1999,6 @@ class NssInstall(Screen):
             idx = self["list"].getSelectionIndex()
             self.dom = self.names[idx]
             self.com = self.urls[idx]
-            print('1 self.com type=', type(self.com))
             self.downplug = self.com.split("/")[-1]
             self.dest = '/tmp/' + str(self.downplug)
             if os.path.exists(self.dest):
@@ -2104,7 +2083,8 @@ class NssInstall(Screen):
             self.finish(aborted=True)
 
     def NssIPK(self, string=''):
-        self.session.openWithCallback(self.close, NssIPK)
+        # self.session.openWithCallback(self.close, NssIPK)
+        self.install('None')
 
     def install(self, string=''):
         if self.aborted:
@@ -2118,7 +2098,8 @@ class NssInstall(Screen):
                 self['progress'].setValue(self.progclear)
                 self["progress"].hide()
                 self['info'].setText(_('File Downloaded ...'))
-                self.NssIPK()
+                # self.NssIPK()
+                self.session.openWithCallback(self.close, NssIPK)
 
 
 class NssIPK(Screen):
@@ -2317,7 +2298,6 @@ class NssRemove(Screen):
             self.container.appClosed.append(self.runFinished)
         except:
             self.appClosed_conn = self.container.appClosed.connect(self.runFinished)
-
         self['list'] = nssList([])
         self['key_green'] = Button(_('Uninstall'))
         self['key_yellow'] = Button(_('Restart'))
@@ -2398,7 +2378,7 @@ class NssRemove(Screen):
                         if name.startswith('enigma2-plugin-'):
                             self.names.append(str(name))
                 self.names.sort(key=lambda x: x, reverse=False)
-            if len(self.names) > -1:
+            if len(self.names) >= 1:
                 self['info'].setText(_('Please Remove ...'))
                 self['key_green'].show()
             showlistNss(self.names, self['list'])
@@ -2435,8 +2415,8 @@ class NssRemove(Screen):
         except Exception as e:
             print(e)
 
-    def msgipkrst(self, answer=None):
-        if answer is None:
+    def msgipkrst(self, answer=False):
+        if answer is False:
             self.session.openWithCallback(self.msgipkrst, MessageBox, _('Do you want restart enigma2 ?'), MessageBox.TYPE_YESNO)
         else:
             epgpath = '/media/hdd/epg.dat'
@@ -2572,7 +2552,7 @@ class nssConfig(Screen, ConfigListScreen):
             img = os.popen('cat /etc/issue').read().strip('\n\r')
             arc = os.popen('uname -m').read().strip('\n\r')
             ifg = os.popen('wget -qO - ifconfig.me').read().strip('\n\r')
-            img = img.replace('\\l', '')
+            # img = img.replace('\\l', '')
             libs = os.popen('ls -l /usr/lib/libss*.*').read().strip('\n\r')
             if libs:
                 libsssl = libs
@@ -3119,10 +3099,6 @@ class OpenPicons(Screen):
                 self.name = self.names[idx]
                 url = self.urls[idx]
                 print('1 url type=', type(url))
-                # url = six.ensure_binary(url)
-                # print('2 url type=', type(url))
-                # if PY3:
-                    # url = url.encode()
                 self.dest = "/tmp/download.tar.xz"
                 if os.path.exists(self.dest):
                     os.remove(self.dest)
@@ -3308,7 +3284,7 @@ def lcnstart():
     if os.path.exists('/etc/enigma2/lcndb'):
         lcn = LCN()
         lcn.read()
-        if len(lcn.lcnlist) > 0:
+        if len(lcn.lcnlist) >= 1:
             lcn.writeBouquet()
             ReloadBouquets()
     return

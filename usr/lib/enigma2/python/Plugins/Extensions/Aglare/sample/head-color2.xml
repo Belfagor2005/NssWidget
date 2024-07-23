@@ -1,8 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <skin>
-    <!-- Aglare-FHD-NSS skin by MNASR for all images v2.0-->
-    <!-- You are free to edit or modify this skin but please keep theses lines above and add your credits below -->
+    <!-- **************************************  -->
+    <!-- Aglare-FHD skin                         -->
+    <!-- by MNASR for all images v2.0            -->
+    <!-- Currently Tested on PLI v9.X            -->
+    <!-- You are free to edit or modify this     -->
+    <!-- skin but please keep theses lines above -->
+    <!-- and add your credits below              -->
+    <!-- Don't Remove this Disclaimer            -->
+    <!-- **************************************  -->
     <!-- edit from lululla for nss team -->
-    <!-- pli core -->
+    <copyright>
+        <abouth name="Aglare-FHD">
+            author="MNASR"
+            license="Open"
+            Support="openPLi ad other image*"
+            Release="1.0.8 15/003/2024"
+            supporturl="www.linuxsat-support.com"
+        </abouth>
+    </copyright>
     <output id="0">
         <resolution xres="1920" yres="1080" bpp="32"/>
     </output>

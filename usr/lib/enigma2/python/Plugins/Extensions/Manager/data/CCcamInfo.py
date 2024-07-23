@@ -12,32 +12,61 @@ from Components.MenuList import MenuList
 from Components.MultiContent import MultiContentEntryText, MultiContentEntryPixmapAlphaBlend
 from Components.ScrollLabel import ScrollLabel
 from Components.Sources.StaticText import StaticText
-from Components.config import config, ConfigSubsection, ConfigSelection, ConfigText, ConfigNumber, NoSave
+from Components.config import (
+    config,
+    ConfigSubsection,
+    ConfigSelection,
+    ConfigText,
+    ConfigNumber,
+    NoSave,
+)
 from Screens.HelpMenu import HelpableScreen
 from Screens.LocationBox import LocationBox
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from Screens.Setup import Setup
 from Screens.VirtualKeyBoard import VirtualKeyBoard
-from Tools.Directories import fileExists, SCOPE_GUISKIN, SCOPE_CURRENT_SKIN, resolveFilename
-from Tools.Directories import fileReadLines, fileWriteLines
+from Tools.Directories import (
+    fileExists,
+    SCOPE_GUISKIN,
+    SCOPE_CURRENT_SKIN,
+    resolveFilename,
+    fileReadLines,
+    fileWriteLines,
+)
 from Tools.LoadPixmap import LoadPixmap
 from base64 import b64encode
-from enigma import eListboxPythonMultiContent, gFont, loadPNG
-from enigma import getDesktop, RT_HALIGN_RIGHT  # , RT_HALIGN_LEFT, RT_VALIGN_CENTER
+from enigma import (
+    eListboxPythonMultiContent,
+    gFont,
+    loadPNG,
+    getDesktop,
+    RT_HALIGN_RIGHT,
+    # RT_HALIGN_LEFT,
+    # RT_VALIGN_CENTER,
+)
 from glob import glob
-from os import listdir, remove, rename, system, path
-from os.path import dirname, exists, isfile
+from os import (listdir, remove, rename, system, path)
+from os.path import (dirname, exists, isfile)
 from skin import getSkinFactor  # parameters
-from urllib.parse import urlparse, urlunparse
 import requests
+import sys
+PY3 = sys.version_info.major >= 3
+if PY3:
+    from urllib.parse import urlparse, urlunparse  
+else:
+    from urlparse import urlparse, urlunparse
+
+
+global Counter
 
 VERSION = "V3"
 DATE = "14.03.2024"
 CFG = "/etc/CCcam.cfg"
 CFG_path = '/etc'
-global Counter
 Counter = 0
+
+
 AuthHeaders = {
     "User-Agent": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36",
 }
@@ -421,21 +450,21 @@ def CCcamShareListEntry(hostname, type, caid, system, uphops, maxdown):
     screenwidth = getDesktop(0).size().width()
     if screenwidth and screenwidth == 1920:
         res = [(hostname, type, caid, system, uphops, maxdown),
-                MultiContentEntryText(pos=(10, 0), size=(550, 35), font=1, text=hostname),
-                MultiContentEntryText(pos=(650, 0), size=(500, 35), font=1, text=_("Type: ") + type, flags=RT_HALIGN_RIGHT),
-                MultiContentEntryText(pos=(10, 40), size=(250, 35), font=1, text=_("CaID: ") + caid),
-                MultiContentEntryText(pos=(230, 40), size=(250, 35), font=1, text=_("System: ") + system, flags=RT_HALIGN_RIGHT),
-                MultiContentEntryText(pos=(520, 40), size=(250, 35), font=1, text=_("Uphops: ") + uphops, flags=RT_HALIGN_RIGHT),
-                MultiContentEntryText(pos=(900, 40), size=(250, 35), font=1, text=_("Maxdown: ") + maxdown, flags=RT_HALIGN_RIGHT)]
+               MultiContentEntryText(pos=(10, 0), size=(550, 35), font=1, text=hostname),
+               MultiContentEntryText(pos=(650, 0), size=(500, 35), font=1, text=_("Type: ") + type, flags=RT_HALIGN_RIGHT),
+               MultiContentEntryText(pos=(10, 40), size=(250, 35), font=1, text=_("CaID: ") + caid),
+               MultiContentEntryText(pos=(230, 40), size=(250, 35), font=1, text=_("System: ") + system, flags=RT_HALIGN_RIGHT),
+               MultiContentEntryText(pos=(520, 40), size=(250, 35), font=1, text=_("Uphops: ") + uphops, flags=RT_HALIGN_RIGHT),
+               MultiContentEntryText(pos=(900, 40), size=(250, 35), font=1, text=_("Maxdown: ") + maxdown, flags=RT_HALIGN_RIGHT)]
         return res
     else:
         res = [(hostname, type, caid, system, uphops, maxdown),
-                MultiContentEntryText(pos=(0, 0), size=(250, 20), font=0, text=hostname),
-                MultiContentEntryText(pos=(250, 0), size=(250, 20), font=0, text=_("Type: ") + type, flags=RT_HALIGN_RIGHT),
-                MultiContentEntryText(pos=(0, 20), size=(250, 20), font=0, text=_("CaID: ") + caid),
-                MultiContentEntryText(pos=(250, 20), size=(250, 20), font=0, text=_("System: ") + system, flags=RT_HALIGN_RIGHT),
-                MultiContentEntryText(pos=(0, 40), size=(250, 20), font=0, text=_("Uphops: ") + uphops),
-                MultiContentEntryText(pos=(250, 40), size=(250, 20), font=0, text=_("Maxdown: ") + maxdown, flags=RT_HALIGN_RIGHT)]
+               MultiContentEntryText(pos=(0, 0), size=(250, 20), font=0, text=hostname),
+               MultiContentEntryText(pos=(250, 0), size=(250, 20), font=0, text=_("Type: ") + type, flags=RT_HALIGN_RIGHT),
+               MultiContentEntryText(pos=(0, 20), size=(250, 20), font=0, text=_("CaID: ") + caid),
+               MultiContentEntryText(pos=(250, 20), size=(250, 20), font=0, text=_("System: ") + system, flags=RT_HALIGN_RIGHT),
+               MultiContentEntryText(pos=(0, 40), size=(250, 20), font=0, text=_("Uphops: ") + uphops),
+               MultiContentEntryText(pos=(250, 40), size=(250, 20), font=0, text=_("Maxdown: ") + maxdown, flags=RT_HALIGN_RIGHT)]
         return res
 
 
@@ -443,15 +472,15 @@ def CCcamShareViewListEntry(caidprovider, providername, numberofcards, numberofr
     screenwidth = getDesktop(0).size().width()
     if screenwidth and screenwidth == 1920:
         res = [(caidprovider, providername, numberofcards),
-                MultiContentEntryText(pos=(10, 5), size=(800, 35), font=1, text=providername),
-                MultiContentEntryText(pos=(1050, 5), size=(50, 35), font=1, text=numberofcards, flags=RT_HALIGN_RIGHT),
-                MultiContentEntryText(pos=(1100, 5), size=(50, 35), font=1, text=numberofreshare, flags=RT_HALIGN_RIGHT)]
+               MultiContentEntryText(pos=(10, 5), size=(800, 35), font=1, text=providername),
+               MultiContentEntryText(pos=(1050, 5), size=(50, 35), font=1, text=numberofcards, flags=RT_HALIGN_RIGHT),
+               MultiContentEntryText(pos=(1100, 5), size=(50, 35), font=1, text=numberofreshare, flags=RT_HALIGN_RIGHT)]
         return res
     else:
         res = [(caidprovider, providername, numberofcards),
-                MultiContentEntryText(pos=(0, 0), size=(430, 20), font=0, text=providername),
-                MultiContentEntryText(pos=(430, 0), size=(50, 20), font=0, text=numberofcards, flags=RT_HALIGN_RIGHT),
-                MultiContentEntryText(pos=(480, 0), size=(50, 20), font=0, text=numberofreshare, flags=RT_HALIGN_RIGHT)]
+               MultiContentEntryText(pos=(0, 0), size=(430, 20), font=0, text=providername),
+               MultiContentEntryText(pos=(430, 0), size=(50, 20), font=0, text=numberofcards, flags=RT_HALIGN_RIGHT),
+               MultiContentEntryText(pos=(480, 0), size=(50, 20), font=0, text=numberofreshare, flags=RT_HALIGN_RIGHT)]
         return res
 
 
@@ -963,7 +992,6 @@ class CCcamInfoInfoScreen(Screen):
         Screen.__init__(self, session)
         self.setTitle(set_title)
         self["text"] = ScrollLabel(info)
-
         self["actions"] = ActionMap(["CCcamInfoActions"],
                                     {"ok": self.close,
                                      "cancel": self.close,
@@ -1421,14 +1449,12 @@ class CCcamInfoRemoteBoxMenu(Screen):
         self["key_blue"] = Label(_("Edit"))
         self["list"] = MenuList([])
         self["actions"] = ActionMap(["CCcamInfoActions"],
-                                    {
-            "cancel": self.exit,
-            "ok": self.profileSelected,
-            "red": self.delete,
-            "green": self.new,
-            "yellow": self.location,
-            "blue": self.edit
-        }, -1)
+                                    {"cancel": self.exit,
+                                     "ok": self.profileSelected,
+                                     "red": self.delete,
+                                     "green": self.new,
+                                     "yellow": self.location,
+                                     "blue": self.edit}, -1)
 
         self.onLayoutFinish.append(self.readProfiles)
 
@@ -1545,13 +1571,11 @@ class CCcamInfoShareInfo(Screen):
         # self["list"] = CCcamMenuList([])
         self["list"] = CCcamShareList([])
         self["actions"] = ActionMap(["CCcamInfoActions"],
-                                    {
-            "cancel": self.exit,
-            "red": self.uhopsPlus,
-            "green": self.uhopsMinus,
-            "yellow": self.maxdownPlus,
-            "blue": self.maxdownMinus
-        }, -1)
+                                    {"cancel": self.exit,
+                                     "red": self.uhopsPlus,
+                                     "green": self.uhopsMinus,
+                                     "yellow": self.maxdownPlus,
+                                     "blue": self.maxdownMinus}, -1)
 
         self.onLayoutFinish.append(self.readShares)
 
@@ -1684,14 +1708,12 @@ class CCcamInfoConfigSwitcher(Screen):
         # self["list"] = CCcamMenuList([])
         self["list"] = CCcamConfigList([])
         self["actions"] = ActionMap(["CCcamInfoActions"],
-                                    {
-            "ok": self.activate,
-            "cancel": self.close,
-            "red": self.delete,
-            "green": self.activate,
-            "yellow": self.rename,
-            "blue": self.showContent
-        }, -1)
+                                    {"ok": self.activate,
+                                     "cancel": self.close,
+                                     "red": self.delete,
+                                     "green": self.activate,
+                                     "yellow": self.rename,
+                                     "blue": self.showContent}, -1)
 
         self.onLayoutFinish.append(self.showConfigs)
 
@@ -1796,14 +1818,12 @@ class CCcamInfoMenuConfig(Screen):
         # self["list"] = CCcamMenuList([])
         self["list"] = CCcamConfigList([])
         self.getBlacklistedMenuEntries()
-
-        self["actions"] = ActionMap(["CCcamInfoActions"], {
-            "ok": self.changeState,
-            "cancel": self.close,
-            "red": self.close,
-            "green": self.save,
-            "yellow": self.location
-        }, -1)
+        self["actions"] = ActionMap(["CCcamInfoActions"],
+                                    {"ok": self.changeState,
+                                     "cancel": self.close,
+                                     "red": self.close,
+                                     "green": self.save,
+                                     "yellow": self.location}, -1)
 
         self.onLayoutFinish.append(self.showConfigs)
 

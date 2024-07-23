@@ -1,7 +1,7 @@
 
     <screen name="InfoBar" position="0,0" size="1920,1080" title="InfoBar" flags="wfNoBorder" backgroundColor="transparent">
         <panel name="infobartemp"/>
-        <panel name="infobartimedate"/>
+<!--         <panel name="infobartimedate"/>
         <eLabel backgroundColor="igsd" cornerRadius="60" position="1632,175" size="500,120"/>
         <widget render="MSNWeatherPixmap" position="1639,185" size="100,100" source="session.MSNWeather" alphatest="blend" transparent="1" zPosition="8">
             <convert type="MSNWeather">weathericon,current,/usr/share/enigma2/Aglare-FHD-NSS/weather_icons/,png</convert>
@@ -11,5 +11,5 @@
         </widget>
         <widget noWrap="1" backgroundColor="background" font="Regular; 40" foregroundColor="yellow" render="Label" position="1742,244" size="180,49" source="session.MSNWeather" transparent="1" zPosition="8" halign="center" valign="top">
             <convert type="MSNWeather">temperature_current</convert>
-        </widget>
+        </widget> -->
     </screen>

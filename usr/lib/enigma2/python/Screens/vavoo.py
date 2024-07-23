@@ -39,12 +39,17 @@ from Components.Label import Label
 from Components.MenuList import MenuList
 from Components.MultiContent import (MultiContentEntryPixmapAlphaTest, MultiContentEntryText)
 from Components.ServiceEventTracker import (ServiceEventTracker, InfoBarBase)
-from Components.config import ConfigEnableDisable
-from Components.config import (ConfigSelection, getConfigListEntry)
-from Components.config import (ConfigSelectionNumber, ConfigClock)
-from Components.config import (ConfigText, configfile)
-from Components.config import ConfigSubsection
-from Components.config import config
+from Components.config import (
+    ConfigEnableDisable,
+    ConfigSelection,
+    getConfigListEntry,
+    ConfigSelectionNumber,
+    ConfigClock,
+    configfile,
+    ConfigText,
+    ConfigSubsection,
+    config,
+)
 from Plugins.Plugin import PluginDescriptor
 from Screens.InfoBarGenerics import (
     InfoBarSubtitleSupport,
@@ -73,26 +78,21 @@ from enigma import (
 from os import path as os_path
 from os.path import exists as file_exists
 from random import choice
+from six import unichr, iteritems
+from six.moves import html_entities
 from twisted.web.client import error
 import base64
-import re
 import json
+import re
 import requests
-                             
-
-                                            
-               
-                    
-                            
-                               
+import types
 
 try:
     from Tools.Directories import SCOPE_GUISKIN as SCOPE_SKIN
 except ImportError:
     from Tools.Directories import SCOPE_SKIN
-from six import unichr, iteritems
-from six.moves import html_entities
-import types
+
+
 global HALIGN
 tmlast = None
 now = None
@@ -549,7 +549,6 @@ class vavoo_config(Screen, ConfigListScreen):
         self.editListEntry = None
         self.list = []
         indent = "- "
-
         self.list.append(getConfigListEntry(_("Server for Player Used"), cfg.server, _("Server for player.\nNow %s") % cfg.server.value))
         self.list.append(getConfigListEntry(_("Ipv6 State Of Lan (On/Off)"), cfg.ipv6, _("Active or Disactive lan Ipv6.\nNow %s") % cfg.ipv6.value))
         self.list.append(getConfigListEntry(_("Movie Services Reference"), cfg.services, _("Configure service Reference Iptv-Gstreamer-Exteplayer3")))
@@ -643,7 +642,6 @@ class vavoo_config(Screen, ConfigListScreen):
             if self.v6 != cfg.ipv6.value:
                 self.ipv6()
             # add_skin_font()
-            # self.session.open(MessageBox, _("Settings saved successfully !\nyou need to restart the GUI\nto apply the new configuration!"), MessageBox.TYPE_INFO, timeout=5)
             restartbox = self.session.openWithCallback(self.restartGUI, MessageBox, _('Settings saved successfully !\nyou need to restart the GUI\nto apply the new configuration!\nDo you want to Restart the GUI now?'), MessageBox.TYPE_YESNO)
             restartbox.setTitle(_('Restart GUI now?'))
         else:
@@ -654,7 +652,6 @@ class vavoo_config(Screen, ConfigListScreen):
             self.session.open(TryQuitMainloop, 3)
         else:
             self.close()
-            # pass  # self.close()
 
     def extnok(self, answer=None):
         if answer is None:

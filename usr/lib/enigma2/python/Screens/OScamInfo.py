@@ -1,43 +1,67 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-'''
-****************************************
-*        modded by Lululla             *
-*             26/04/2024               *
-****************************************
-# --------------------#
-# Info Linuxsat-support.com  corvoboys.org
-'''
+# from Components.About import about
 from Components.ActionMap import ActionMap, NumberActionMap
+from Components.config import (
+    config,
+    getConfigListEntry,
+    ConfigPassword,
+    ConfigYesNo,
+    ConfigSubsection,
+    ConfigIP,
+    # ConfigDirectory,
+    ConfigText,
+    ConfigInteger,
+)
 from Components.ConfigList import ConfigListScreen
 from Components.MenuList import MenuList
 from Components.Sources.List import List
 from Components.Sources.StaticText import StaticText
-from Components.config import ConfigText, ConfigInteger
-from Components.config import ConfigYesNo, ConfigSubsection, ConfigIP
-from Components.config import config, getConfigListEntry, ConfigPassword
+from enigma import (
+    eListboxPythonMultiContent,
+    gFont,
+    # loadPNG,
+    getDesktop,
+    eTimer,
+    # RT_HALIGN_RIGHT,
+    RT_HALIGN_LEFT,
+    # RT_VALIGN_CENTER,
+)
+from os import path as ospath
+from operator import itemgetter
+from xml.etree import ElementTree
 from Screens.ChoiceBox import ChoiceBox
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
-from Tools.Directories import SCOPE_CURRENT_SKIN, resolveFilename, fileExists
 from Tools.LoadPixmap import LoadPixmap
-from enigma import eTimer, RT_HALIGN_LEFT, eListboxPythonMultiContent
-from enigma import gFont, getDesktop
-from operator import itemgetter
-from os import path as ospath
-from urllib.error import URLError
-from urllib.request import urlopen, Request, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
-from xml.etree import ElementTree
-import fcntl
-import six
-import skin
+from Tools.Directories import (SCOPE_CURRENT_SKIN, resolveFilename, fileExists)
 import socket
-import struct
+import skin
+import sys
 import time
-import urllib.parse
+import six
+import fcntl
+import struct
+# required methods: Request, urlopen, URLError, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
+# from urllib.request import urlopen, Request, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
+# from urllib.error import URLError
+
+
+PY3 = sys.version_info.major >= 3
+
+if PY3:
+    from urllib.request import build_opener, HTTPHandler, Request, urlopen, install_opener, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler
+    from urllib.parse import quote_plus
+    from urllib.error import URLError
+else:
+    from urllib2 import build_opener, HTTPHandler, Request, URLError, urlopen, install_opener, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler
+    from urllib import quote_plus
+
 
 global NAMEBIN
+
+
 config.oscaminfo = ConfigSubsection()
 config.oscaminfo.userdatafromconf = ConfigYesNo(default=True)
 # config.oscaminfo.usehostname = ConfigYesNo(default=False)
@@ -262,7 +286,7 @@ class OscamInfo:
             self.url = "%s://%s:%s/%sapi.html?part=%s" % (self.proto, self.ip, self.port, NAMEBIN, part)
         if part is not None and reader is not None:
             # print("[OscamInfo][openWebIF] reader:", reader)
-            self.url = "%s://%s:%s/%sapi.html?part=%s&label=%s" % (self.proto, self.ip, self.port, NAMEBIN, part, urllib.parse.quote_plus(reader))
+            self.url = "%s://%s:%s/%sapi.html?part=%s&label=%s" % (self.proto, self.ip, self.port, NAMEBIN, part, quote_plus(reader))
         # print("[OscamInfo][openWebIF] NAMEBIN=%s, NAMEBIN=%s url=%s" % (NAMEBIN, NAMEBIN, self.url))
         # print("[OscamInfo][openWebIF] self.url=%s" % self.url)
         opener = build_opener(HTTPHandler)

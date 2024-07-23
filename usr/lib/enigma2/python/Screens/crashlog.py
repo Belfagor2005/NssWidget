@@ -18,8 +18,7 @@ from Components.Sources.StaticText import StaticText
 from Components.config import config
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
-from Tools.Directories import SCOPE_SKIN
-from Tools.Directories import resolveFilename
+from Tools.Directories import (SCOPE_SKIN, resolveFilename)
 from Tools.LoadPixmap import LoadPixmap
 from enigma import getDesktop
 import os

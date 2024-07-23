@@ -1,25 +1,33 @@
 # -*- coding: utf-8 -*-
 
 from . import _
-from Plugins.Plugin import PluginDescriptor
-from Screens.Screen import Screen
-from Screens.MessageBox import MessageBox
-from Screens.Standby import TryQuitMainloop
+
+from Components.AVSwitch import AVSwitch
 from Components.ActionMap import ActionMap
-from Components.config import ConfigSubsection, getConfigListEntry, ConfigSelection
-from Components.config import config, NoSave, ConfigNothing
+from Components.config import (
+    ConfigSubsection,
+    getConfigListEntry,
+    ConfigSelection,
+    config,
+    # NoSave,
+    # ConfigNothing,
+)
 from Components.ConfigList import ConfigListScreen
-from Components.Sources.Progress import Progress
-from Tools.Downloader import downloadWithProgress
-from Components.Sources.StaticText import StaticText
 from Components.Label import Label
 from Components.Pixmap import Pixmap
-from Components.AVSwitch import AVSwitch
-# from twisted.web.client import getPage
+from Components.Sources.Progress import Progress
+from Components.Sources.StaticText import StaticText
+from enigma import ePicLoad
+from Plugins.Plugin import PluginDescriptor
+from Screens.MessageBox import MessageBox
+from Screens.Screen import Screen
+from Screens.Standby import TryQuitMainloop
 from Tools.Directories import fileExists
+from Tools.Downloader import downloadWithProgress
+# from twisted.web.client import getPage
 import os
 import sys
-from enigma import ePicLoad
+
 
 PY3 = sys.version_info.major >= 3
 if PY3:
@@ -37,44 +45,44 @@ version = '1.08'
 
 config.plugins.AglareNss = ConfigSubsection()
 config.plugins.AglareNss.colorSelector = ConfigSelection(default='head', choices=[
- ('head', _('Default')),
- ('color1', _('Black')),
- ('color2', _('Brown')),
- ('color3', _('Green')),
- ('color4', _('Magenta')),
- ('color5', _('Blue')),
- ('color6', _('Red')),
- ('color7', _('Purple'))])
+    ('head', _('Default')),
+    ('color1', _('Black')),
+    ('color2', _('Brown')),
+    ('color3', _('Green')),
+    ('color4', _('Magenta')),
+    ('color5', _('Blue')),
+    ('color6', _('Red')),
+    ('color7', _('Purple'))])
 config.plugins.AglareNss.FontStyle = ConfigSelection(default='basic', choices=[
- ('basic', _('Default')),
- ('font1', _('HandelGotD')),
- ('font2', _('KhalidArtboldRegular')),
- ('font3', _('BebasNeue'))])
+    ('basic', _('Default')),
+    ('font1', _('HandelGotD')),
+    ('font2', _('KhalidArtboldRegular')),
+    ('font3', _('BebasNeue'))])
 config.plugins.AglareNss.skinSelector = ConfigSelection(default='base', choices=[
- ('base', _('Default'))])
+    ('base', _('Default'))])
 config.plugins.AglareNss.InfobarStyle = ConfigSelection(default='infobar_no_posters', choices=[
- ('infobar_no_posters', _('Infobar_NO_Posters')),
- ('infobar_posters_meteo', _('Infobar_Posters_Meteo')),
- ('infobar_posters', _('Infobar_Posters'))])
+    ('infobar_no_posters', _('Infobar_NO_Posters')),
+    ('infobar_posters_meteo', _('Infobar_Posters_Meteo')),
+    ('infobar_posters', _('Infobar_Posters'))])
 config.plugins.AglareNss.SecondInfobarStyle = ConfigSelection(default='secondinfobar_no_posters', choices=[
- ('secondinfobar_no_posters', _('SecondInfobar_NO_Posters')),
- ('secondinfobar_posters', _('SecondInfobar_Posters'))])
+    ('secondinfobar_no_posters', _('SecondInfobar_NO_Posters')),
+    ('secondinfobar_posters', _('SecondInfobar_Posters'))])
 config.plugins.AglareNss.ChannSelector = ConfigSelection(default='channellist_no_posters', choices=[
- ('channellist_no_posters', _('ChannelSelection_NO_Posters')),
- ('channellist_np_full', _('ChannelSelection_NO_Posters_Full')),
- ('channellist_no_posters_no_picon', _('ChannelSelection_NO_Posters_NO_Picon')),
- ('channellist_1_poster', _('ChannelSelection_1_Poster')),
- ('channellist_3_posters_v', _('ChannelSelection_3_Posters_V')),
- ('channellist_4_posters', _('ChannelSelection_4_Posters')),
- ('channellist_big_mini_tv', _('ChannelSelection_big_mini_tv'))])
+    ('channellist_no_posters', _('ChannelSelection_NO_Posters')),
+    ('channellist_np_full', _('ChannelSelection_NO_Posters_Full')),
+    ('channellist_no_posters_no_picon', _('ChannelSelection_NO_Posters_NO_Picon')),
+    ('channellist_1_poster', _('ChannelSelection_1_Poster')),
+    ('channellist_3_posters_v', _('ChannelSelection_3_Posters_V')),
+    ('channellist_4_posters', _('ChannelSelection_4_Posters')),
+    ('channellist_big_mini_tv', _('ChannelSelection_big_mini_tv'))])
 config.plugins.AglareNss.EventView = ConfigSelection(default='eventview_no_posters', choices=[
- ('eventview_no_posters', _('EventView_NO_Posters')),
- ('eventview_7_posters', _('EventView_7_Posters')),
- ('eventview_banner', _('EventView_Banner'))])
+    ('eventview_no_posters', _('EventView_NO_Posters')),
+    ('eventview_7_posters', _('EventView_7_Posters')),
+    ('eventview_banner', _('EventView_Banner'))])
 
 config.plugins.AglareNss.VolumeBar = ConfigSelection(default='volume1', choices=[
- ('volume1', _('Default')),
- ('volume2', _('volume2'))])
+    ('volume1', _('Default')),
+    ('volume2', _('volume2'))])
 
 
 def Plugins(**kwargs):
@@ -96,13 +104,14 @@ def str_encode(text, encoding="utf8"):
 
 
 class AglareSetup(ConfigListScreen, Screen):
-    # skin = '<screen name="AglareSetup" position="center,center" size="1000,640" title="Aglare-FHD-NSS Skin Controler">\n\t\t  <eLabel font="Regular; 24" foregroundColor="#00ff4A3C" halign="center" position="20,598" size="120,26" text="Cancel" />\n\t\t  <eLabel font="Regular; 24" foregroundColor="#0056C856" halign="center" position="220,598" size="120,26" text="Save" />\n\t\t  <widget name="Preview" position="997,690" size="498, 280" zPosition="1" />\n\t\t <widget name="config" font="Regular; 24" itemHeight="40" position="5,5" scrollbarMode="showOnDemand" size="990,550" />\n\t\t\n\t\t  </screen>'
-    skin = '''<screen name="AglareSetup" position="center,center" size="1000,640" title="Aglare-FHD-NSS Skin Controler">
-                <eLabel font="Regular; 24" foregroundColor="#00ff4A3C" halign="center" position="20,598" size="120,26" text="Cancel" />
-                <eLabel font="Regular; 24" foregroundColor="#0056C856" halign="center" position="220,598" size="120,26" text="Save" />
-                <widget name="Preview" position="1022,-58" size="498, 280" zPosition="1" />
-                <widget name="config" font="Regular; 24" itemHeight="40" position="5,5" scrollbarMode="showOnDemand" size="990,550" />
-              </screen>'''
+    skin = '''
+            <screen name="AglareSetup" title="Aglare-FHD-NSS position="center,center" size="1000,640" Skin Controler" zPosition="0">
+                <eLabel     text="Cancel"   font="Regular;24"   position="20,598"   size="120,26"   foregroundColor="#00ff4A3C"     halign="center" zPosition="1" />
+                <eLabel     text="Save"     font="Regular;24"   position="220,598"  size="120,26"   foregroundColor="#0056C856"     halign="center" zPosition="1" />
+                <widget     name="config"   font="Regular;24"   position="5,5"      size="990,347"  itemHeight="40" scrollbarMode="showOnDemand" />
+                <widget     name="Preview"  position="500,355"  size="498, 280" zPosition="4" />
+            </screen>
+           '''
 
     def __init__(self, session):
         self.version = '.Aglare-FHD-NSS'
@@ -199,12 +208,6 @@ class AglareSetup(ConfigListScreen, Screen):
     def keyUp(self):
         self['config'].instance.moveSelection(self['config'].instance.moveUp)
         self.ShowPicture()
-
-    # def restartGUI(self, answer):
-        # if answer is True:
-            # self.session.open(TryQuitMainloop, 3)
-        # else:
-            # self.close()
 
     def keySave(self):
         if not fileExists(self.skinFile + self.version):
@@ -316,18 +319,14 @@ class AglareSetup(ConfigListScreen, Screen):
                     self.updateurl = url.strip()
                     cc.close()
                     if str(version_server) == str(version):
-                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
-                         version_server,
-                         _('Version installed:'),
-                         version,
-                         _('You have the current version Aglare!'))
+                        message = '%s %s\n%s %s\n\n%s' % (
+                            _('Server version:'), version_server, _('Version installed:'),
+                            version, _('You have the current version Aglare!'))
                         self.session.open(MessageBox, message, MessageBox.TYPE_INFO)
                     elif version_server > version:
-                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
-                         version_server,
-                         _('Version installed:'),
-                         version,
-                         _('The update is available!\n\nDo you want to run the update now?'))
+                        message = '%s %s\n%s %s\n\n%s' % (
+                            _('Server version:'), version_server, _('Version installed:'),
+                            version, _('The update is available!\n\nDo you want to run the update now?'))
                         self.session.openWithCallback(self.update, MessageBox, message, MessageBox.TYPE_YESNO)
                     else:
                         self.session.open(MessageBox, _('You have version %s!!!') % version, MessageBox.TYPE_ERROR)
@@ -350,12 +349,11 @@ class AglareUpdater(Screen):
 
     def __init__(self, session, updateurl):
         self.session = session
-        skin = '''
-                <screen name="AglareUpdater" position="center,center" size="840,360" flags="wfNoBorder" backgroundColor="background">
+        skin = '''<screen name="AglareUpdater" position="center,center" size="840,360" flags="wfNoBorder" backgroundColor="background">
                     <widget name="status" position="20,10" size="800,70" transparent="1" font="Regular;16" foregroundColor="foreground" backgroundColor="background" valign="center" halign="left" noWrap="1" />
                     <widget source="progress" render="Progress" position="100,153" size="400,6" transparent="1" borderWidth="0" />
                     <widget source="progresstext" render="Label" position="333,184" zPosition="2" font="Regular;18" halign="center" transparent="1" size="180,20" foregroundColor="foreground" backgroundColor="background" />
-                </screen>
+                  </screen>
                 '''
         self.skin = skin
         Screen.__init__(self, session)

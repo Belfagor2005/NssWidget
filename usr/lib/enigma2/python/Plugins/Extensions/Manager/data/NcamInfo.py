@@ -1,17 +1,28 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-from os import path as ospath
-import time
-from operator import itemgetter
-from xml.etree import ElementTree
-from enigma import eTimer, RT_HALIGN_LEFT, eListboxPythonMultiContent
-from enigma import gFont, getDesktop
+                             
+           
+                               
+                                 
+                                                                     
+                                    
 # from Components.About import about
-from Components.ActionMap import ActionMap, NumberActionMap
-from Components.config import config, getConfigListEntry, ConfigInteger, ConfigIP
-from Components.config import ConfigYesNo, ConfigPassword
-from Components.config import ConfigSubsection, ConfigDirectory, ConfigText
+from Components.ActionMap import (ActionMap, NumberActionMap)
+from Components.config import (
+    config,
+    getConfigListEntry,
+    ConfigInteger,
+    ConfigIP,
+    ConfigYesNo,
+    ConfigPassword,
+    ConfigSubsection,
+    # ConfigDirectory,
+    ConfigText,
+)
+
+
+# required methods: Request, urlopen, URLError, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
 from Components.ConfigList import ConfigListScreen
 from Components.MenuList import MenuList
 from Components.Sources.List import List
@@ -19,17 +30,44 @@ from Components.Sources.StaticText import StaticText
 from Screens.ChoiceBox import ChoiceBox
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
-import skin
+from Tools.Directories import (SCOPE_CURRENT_SKIN, resolveFilename, fileExists)
 from Tools.LoadPixmap import LoadPixmap
-from Tools.Directories import SCOPE_CURRENT_SKIN, resolveFilename, fileExists
-import socket
-# required methods: Request, urlopen, URLError, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
-from urllib.request import urlopen, Request, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
-from urllib.error import URLError
-import urllib.parse
-import six
+from operator import itemgetter
+from os import path as ospath
+                                                                                                                                                 
+                                                                                                                                              
+from xml.etree import ElementTree
+                   
+          
 import fcntl
+import sys
+import six
+import skin
+import socket
 import struct
+import time
+
+from enigma import (
+    eTimer,
+    RT_HALIGN_LEFT,
+    eListboxPythonMultiContent,
+    gFont,
+    getDesktop,
+)
+PY3 = sys.version_info.major >= 3
+if PY3:
+    from urllib.request import build_opener, HTTPHandler, Request, urlopen, install_opener, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler
+    from urllib.parse import quote_plus
+    from urllib.error import URLError
+else:
+    from urllib2 import build_opener, HTTPHandler, Request, URLError, urlopen, install_opener, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler
+    from urllib import quote_plus
+
+# from urllib.request import urlopen, Request, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
+# from urllib.error import URLError
+# import urllib.parse
+
+
 global NAMEBIN
 
 config.NcamInfo = ConfigSubsection()
@@ -131,8 +169,8 @@ class NcamInfo:
     ECMTIME = 5
     IP_PORT = 6
     HEAD = {NAME: _("Reader/User"), PROT: _("Protocol"),
-        CAID_SRVID: _("Caid:Srvid"), SRVNAME: _("Channel Name"),
-        ECMTIME: _("Ecm Time"), IP_PORT: _("IP Address")}
+            CAID_SRVID: _("Caid:Srvid"), SRVNAME: _("Channel Name"),
+            ECMTIME: _("Ecm Time"), IP_PORT: _("IP Address")}
     version = ""
 
     def confPath(self):
@@ -257,7 +295,7 @@ class NcamInfo:
             self.url = "%s://%s:%s/%sapi.html?part=%s" % (self.proto, self.ip, self.port, NAMEBIN, part)
         if part is not None and reader is not None:
             # print("[NcamInfo][openWebIF] reader:", reader)
-            self.url = "%s://%s:%s/%sapi.html?part=%s&label=%s" % (self.proto, self.ip, self.port, NAMEBIN, part, urllib.parse.quote_plus(reader))
+            self.url = "%s://%s:%s/%sapi.html?part=%s&label=%s" % (self.proto, self.ip, self.port, NAMEBIN, part, quote_plus(reader))
         # print("[NcamInfo][openWebIF] NAMEBIN=%s, NAMEBIN=%s url=%s" % (NAMEBIN, NAMEBIN, self.url))
         # print("[NcamInfo][openWebIF] self.url=%s" % self.url)
         opener = build_opener(HTTPHandler)
@@ -750,28 +788,28 @@ class oscECMInfo(Screen, NcamInfo):
 
 class ncInfo(Screen, NcamInfo):
 
-    skin ='''
-        <screen name="ncInfo" position="0,0" size="1920,1080" title="Ncam Info Log" backgroundColor="#0528343b" flags="wfNoBorder">
-            <widget font="Bold; 30" halign="right" position="1401,20" render="Label" size="500,40" source="global.CurrentTime" transparent="1">
-                <convert type="ClockToText">Format:%a %d.%m.  %H:%M</convert>
-            </widget>
-            <widget name="output" position="35,95" size="1241,836" itemHeight="40" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/>
-            <eLabel name="" position="35,95" size="1242,836" zPosition="-90" cornerRadius="20" backgroundColor="#00171a1c" foregroundColor="#00171a1c"/>
-            <eLabel backgroundColor="#002d3d5b" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
-            <eLabel backgroundColor="#001a2336" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
-            <widget source="session.VideoPicture" render="Pig" position="1376,110" zPosition="1" size="494,272" backgroundColor="#ff000000" transparent="0" cornerRadius="14"/>
-            <widget source="Title" render="Label" position="36,20" size="1303,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
-            <widget source="Event" render="Progress" position="1376,444" size="494,10" backgroundColor="#005a5a5a" foregroundColor="yellow" cornerRadius="10" zPosition="33">
-                <convert type="EventTime">Progress</convert>
-            </widget>
-            <widget source="session.CurrentService" render="Label" position="1376,394" size="494,30" font="Regular; 24" borderWidth="1" backgroundColor="#0528343b" transparent="1" halign="center" zPosition="5" valign="center" noWrap="1" foregroundColor="white">
-                <convert type="ServiceName">Name</convert>
-            </widget>
-            <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="res/pics/ncam-logo.png" transparent="1" alphatest="on"/>
-            <eLabel backgroundColor="mcolor3" cornerRadius="3" position="35,931" size="850,3" zPosition="99"/>
-            <eLabel backgroundColor="mcolor3" cornerRadius="3" position="440,931" size="850,3" zPosition="99"/>
-            <eLabel name="" position="551,916" size="132,40" font="FA; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
-        </screen>'''
+    skin = '''
+            <screen name="ncInfo" position="0,0" size="1920,1080" title="Ncam Info Log" backgroundColor="#0528343b" flags="wfNoBorder">
+                <widget font="Bold; 30" halign="right" position="1401,20" render="Label" size="500,40" source="global.CurrentTime" transparent="1">
+                    <convert type="ClockToText">Format:%a %d.%m.  %H:%M</convert>
+                </widget>
+                <widget name="output" position="35,95" size="1241,836" itemHeight="40" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/>
+                <eLabel name="" position="35,95" size="1242,836" zPosition="-90" cornerRadius="20" backgroundColor="#00171a1c" foregroundColor="#00171a1c"/>
+                <eLabel backgroundColor="#002d3d5b" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
+                <eLabel backgroundColor="#001a2336" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
+                <widget source="session.VideoPicture" render="Pig" position="1376,110" zPosition="1" size="494,272" backgroundColor="#ff000000" transparent="0" cornerRadius="14"/>
+                <widget source="Title" render="Label" position="36,20" size="1303,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
+                <widget source="Event" render="Progress" position="1376,444" size="494,10" backgroundColor="#005a5a5a" foregroundColor="yellow" cornerRadius="10" zPosition="33">
+                    <convert type="EventTime">Progress</convert>
+                </widget>
+                <widget source="session.CurrentService" render="Label" position="1376,394" size="494,30" font="Regular; 24" borderWidth="1" backgroundColor="#0528343b" transparent="1" halign="center" zPosition="5" valign="center" noWrap="1" foregroundColor="white">
+                    <convert type="ServiceName">Name</convert>
+                </widget>
+                <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="res/pics/ncam-logo.png" transparent="1" alphatest="on"/>
+                <eLabel backgroundColor="mcolor3" cornerRadius="3" position="35,931" size="850,3" zPosition="99"/>
+                <eLabel backgroundColor="mcolor3" cornerRadius="3" position="440,931" size="850,3" zPosition="99"/>
+                <eLabel name="" position="551,916" size="132,40" font="FA; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
+            </screen>'''
 
     def __init__(self, session, what):
         global HDSKIN, sizeH
@@ -965,7 +1003,7 @@ class ncInfo(Screen, NcamInfo):
             # print("[NcamInfo][showData] data[0], data[1] not isinstance(data[1], str)")
             if self.what != "l":
                 heading = (self.HEAD[self.NAME], self.HEAD[self.PROT], self.HEAD[self.CAID_SRVID],
-                        self.HEAD[self.SRVNAME], self.HEAD[self.ECMTIME], self.HEAD[self.IP_PORT], "")
+                           self.HEAD[self.SRVNAME], self.HEAD[self.ECMTIME], self.HEAD[self.IP_PORT], "")
                 self.out = [self.buildListEntry(heading, heading=True)]
                 for i in data[1]:
                     self.out.append(self.buildListEntry(i))
@@ -1364,13 +1402,13 @@ class NcamInfoConfigScreen(ConfigListScreen, Screen):
         ConfigListScreen.__init__(self, [], session=session, on_change=self.changedEntry)
         # ConfigListScreen.__init__(self, [], session=session, on_change=self.changedEntry, fullUI=True)
         self["actions"] = ActionMap(["SetupActions", "ColorActions"],
-        {
-            "red": self.cancel,
-            "green": self.save,
-            "save": self.save,
-            "cancel": self.cancel,
-            "ok": self.save,
-        }, -2)
+         
+                                    {"red": self.cancel,
+                                     "green": self.save,
+                                     "save": self.save,
+                                     "cancel": self.cancel,
+                                     "ok": self.save}, -2)
+              
         # self["key_red"] = StaticText(_("Close"))
         self.createSetup()
 

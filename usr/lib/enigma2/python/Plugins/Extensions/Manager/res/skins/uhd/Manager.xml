@@ -10,7 +10,7 @@
 	<eLabel name="" position="2166,1270" size="60,52" backgroundColor="#003e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU" />
 	<eLabel name="" position="2167,1376" size="60,52" backgroundColor="#003e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO" />
 	<!-- Menu List -->
-	<widget source="list" render="Listbox" position="122,1121" size="1208,300" scrollbarMode="showOnDemand" foregroundColor="#00a0a0a0" backgroundColorSelected="#00000000" enableWrapAround="1" transparent="1" zPosition="5">
+	<widget source="list" render="Listbox" position="122,1121" size="1000,300" scrollbarMode="showOnDemand" foregroundColor="#00a0a0a0" backgroundColorSelected="#00000000" enableWrapAround="1" transparent="1" zPosition="5">
 		<convert type="TemplatedMultiContent">
             {"template": [
                     MultiContentEntryPixmapAlphaTest(pos=(5, 4), size=(70, 40), png=1), # index 1 is the pixmap   
