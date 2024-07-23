@@ -1227,14 +1227,25 @@ def main(session, **kwargs):
         pass
 
 
-def StartSetup(menuid):
+def StartSetup(menuid, **kwargs):
     if menuid == 'mainmenu':
+        from Tools.BoundFunction import boundFunction
         return [(name_plug,
-                 main,
+                 boundFunction(main, showExtentionMenuOption=True),
                  'NSS Cam Manager',
                  44)]
     else:
         return []
+
+
+# def StartSetup(menuid):
+    # if menuid == 'mainmenu':
+        # return [(name_plug,
+                 # main,
+                 # 'NSS Cam Manager',
+                 # 44)]
+    # else:
+        # return []
 
 
 def Plugins(**kwargs):

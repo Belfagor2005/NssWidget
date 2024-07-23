@@ -3197,13 +3197,6 @@ def main(session, **kwargs):
         pass
 
 
-def cfgmain(menuid, **kwargs):
-    if menuid == 'mainmenu':
-        return [(_('Nss Addons'), main, 'Nss Addon', 4)]
-    else:
-        return []
-
-
 def cfgcam(menuid, **kwargs):
     if menuid == 'cam':
         from Tools.BoundFunction import boundFunction
@@ -3213,6 +3206,24 @@ def cfgcam(menuid, **kwargs):
                  -1)]
     else:
         return []
+
+
+def cfgmain(menuid, **kwargs):
+    if menuid == 'mainmenu':
+        from Tools.BoundFunction import boundFunction
+        return [('Nss Addons',
+                 boundFunction(main, showExtentionMenuOption=True),
+                 'www.nonsolosat.net (Addons Panel)',
+                 -1)]
+    else:
+        return []
+
+
+# def cfgmain(menuid, **kwargs):
+    # if menuid == 'mainmenu':
+        # return [(_('Nss Addons'), main, 'Nss Addon', 4)]
+    # else:
+        # return []
 
 
 def main2(session, **kwargs):
