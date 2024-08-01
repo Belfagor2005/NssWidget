@@ -4,15 +4,15 @@
 # edit by lululla 07.2022
 # recode from lululla 2023
 from __future__ import absolute_import
+from Components.config import config
 from PIL import Image
+from enigma import getDesktop
 import os
 import re
 import requests
 import socket
 import sys
 import threading
-from enigma import getDesktop
-from Components.config import config
 
 global my_cur_skin, srch
 
@@ -447,7 +447,6 @@ class AglarePosterXDownloadThread(threading.Thread):
             len_plst = len(plst)
             molotov_id = 0
             molotov_table = [0, 0, None, None, 0]
-            molotov_final = False
             partialtitle = 0
             partialchannel = 0
             for pl in plst:
@@ -472,7 +471,6 @@ class AglarePosterXDownloadThread(threading.Thread):
                 if partialtitle > molotov_table[0]:
                     molotov_table = [partialtitle, partialchannel, get_name, get_path, molotov_id]
                 if partialtitle == 100 and partialchannel == 100:
-                    molotov_final = True
                     break
                 molotov_id += 1
 
@@ -558,17 +556,16 @@ class AglarePosterXDownloadThread(threading.Thread):
                 srch = chkType[6:]
             elif chkType.startswith("tv"):
                 srch = chkType[3:]
-            url_google = ''
+            url_google = '"' + quoteEventName(title) + '"'
+            if channel and title.find(channel) < 0:
+                url_google += "+{}".format(quoteEventName(channel))
             if srch:
                 url_google += "+{}".format(srch)
             if year:
                 url_google += "+{}".format(year)
-            url_name = '"' + quoteEventName(title) + '"'
-            if title.find(channel) is not None or channel < 0:
-                url_name += "+{}".format(quoteEventName(channel))
-
-            url_google = "https://www.google.com/search?q={}&tbm=isch&tbs=sbd:0".format(url_name)
-            url_google += "+{}".format(poster)
+            # url_google = "https://www.google.com/search?q={}&tbm=isch".format(url_google)
+            url_google = "https://www.google.com/search?q={}&tbm=isch&tbs=sbd:0".format(url_google)
+            # url_google += "+{}".format(poster)
             ff = requests.get(url_google, stream=True, headers=headers, cookies={'CONSENT': 'YES+'}).text
 
             posterlst = re.findall('\],\["https://(.*?)",\d+,\d+]', ff)
@@ -600,9 +597,6 @@ class AglarePosterXDownloadThread(threading.Thread):
             return False, "[ERROR : google] {} [{}-{}] => {} => {} ({})".format(title, chkType, year, url_google, url_poster, str(e))
 
     def savePoster(self, dwn_poster, url_poster):
-        # with open(dwn_poster, 'wb') as f:
-            # f.write(requests.get(url_poster, stream=True, allow_redirects=True, verify=False).content)
-            # f.close()
         with open(dwn_poster, 'wb') as f:
             f.write(urlopen(url_poster).read())
             f.flush()
@@ -661,16 +655,16 @@ class AglarePosterXDownloadThread(threading.Thread):
             fd = ''
         global srch
         srch = "multi"
-        fds = fd[:60]
-        for i in self.checkMovie:
-            if i in fds.lower():
-                srch = "movie:" + i
-                break
+        # fds = fd[:60]
+        # for i in self.checkMovie:
+            # if i in fds.lower():
+                # srch = "movie"  # :" + i
+                # break
 
-        for i in self.checkTV:
-            if i in fds.lower():
-                srch = "tv:" + i
-                break
+        # for i in self.checkTV:
+            # if i in fds.lower():
+                # srch = "tv"  # :" + i
+                # break
 
         return srch, fd
 

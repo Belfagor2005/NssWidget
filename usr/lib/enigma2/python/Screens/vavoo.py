@@ -406,8 +406,6 @@ def loop_sig():
         return sig
     pass
 
-# loop_sig()
-
 
 def returnIMDB(text_clear):
     TMDB = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('TMDB'))
@@ -888,10 +886,6 @@ class vavoox(Screen):
         global search_ok
         search_ok = False
         try:
-            # tmlast = int(time.time())
-            # sig = Sig()
-            # app = '?n=1&b=5&vavoo_auth=' + str(sig) + '#User-Agent=VAVOO/2.6'
-            # print('sig:', str(sig))
             with open(xxxname, 'w') as outfile:
                 outfile.write('#NAME %s\r\n' % self.name.capitalize())
                 content = getUrl(self.url)
@@ -978,7 +972,7 @@ class vavoox(Screen):
         service = cfg.services.value
         ch = 0
         ch = convert_bouquet(service, name, url)
-        if ch > 0:
+        if int(ch) > 0:
             localtime = time.asctime(time.localtime(time.time()))
             cfg.last_update.value = localtime
             cfg.last_update.save()
@@ -1208,10 +1202,7 @@ class Playstream2(
             'back': self.cancel
         }, -1)
 
-        if '8088' in str(self.url):
-            self.onFirstExecBegin.append(self.slinkPlay)
-        else:
-            self.onFirstExecBegin.append(self.cicleStreamType)
+        self.onFirstExecBegin.append(self.cicleStreamType)
         self.onClose.append(self.cancel)
 
     def nextitem(self):
@@ -1236,6 +1227,23 @@ class Playstream2(
         self.url = item[1]
         self.cicleStreamType()
 
+    # def doEofInternal(self, playing):
+        # self.close()
+
+    # def __evEOF(self):
+        # self.end = True
+
+    def doEofInternal(self, playing):
+        print('doEofInternal', playing)
+        vUtils.MemClean()
+        if self.execing and playing:
+            self.cicleStreamType()
+
+    def __evEOF(self):
+        print('__evEOF')
+        self.end = True
+        vUtils.MemClean()
+        self.cicleStreamType()
     def getAspect(self):
         return AVSwitch().getAspectRatioSetting()
 
@@ -1328,34 +1336,22 @@ class Playstream2(
         name = self.name
         url = url + app
         ref = "{0}:0:0:0:0:0:0:0:0:0:{1}:{2}".format(servicetype, url.replace(":", "%3a"), name.replace(":", "%3a"))
-        print('reference:   ', ref)
-        if streaml is True:
-            url = 'http://127.0.0.1:8088/' + str(url)
-            ref = "{0}:0:1:0:0:0:0:0:0:0:{1}:{2}".format(servicetype, url.replace(":", "%3a"), name.replace(":", "%3a"))
         print('final reference:   ', ref)
         sref = eServiceReference(ref)
         self.sref = sref
-        sref.setName(name)
+        self.sref.setName(name)
         self.session.nav.stopService()
-        self.session.nav.playService(sref)
+        self.session.nav.playService(self.sref)
 
     def cicleStreamType(self):
         self.servicetype = cfg.services.value
-        # print('servicetype1: ', self.servicetype)
         if not self.url.startswith('http'):
             self.url = 'http://' + self.url
         url = str(self.url)
         if str(os_path.splitext(self.url)[-1]) == ".m3u8":
             if self.servicetype == "1":
                 self.servicetype = "4097"
-        # print('servicetype2: ', self.servicetype)
         self.openTest(self.servicetype, url)
-
-    def doEofInternal(self, playing):
-        self.close()
-
-    def __evEOF(self):
-        self.end = True
 
     def showVideoInfo(self):
         if self.shown:
@@ -1390,7 +1386,6 @@ VIDEO_FMT_PRIORITY_MAP = {"38": 1, "37": 2, "22": 3, "18": 4, "35": 5, "34": 6}
 
 def convert_bouquet(service, name, url):
     from time import sleep
-    # tmlast = int(time.time())
     sig = Sig()
     app = '?n=1&b=5&vavoo_auth=' + str(sig) + '#User-Agent=VAVOO/2.6'
     dir_enigma2 = '/etc/enigma2/'

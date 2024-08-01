@@ -1,13 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-                             
-           
-                               
-                                 
-                                                                     
-                                    
 # from Components.About import about
+from .. import _
 from Components.ActionMap import (ActionMap, NumberActionMap)
 from Components.config import (
     config,
@@ -34,11 +29,7 @@ from Tools.Directories import (SCOPE_CURRENT_SKIN, resolveFilename, fileExists)
 from Tools.LoadPixmap import LoadPixmap
 from operator import itemgetter
 from os import path as ospath
-                                                                                                                                                 
-                                                                                                                                              
 from xml.etree import ElementTree
-                   
-          
 import fcntl
 import sys
 import six
@@ -533,7 +524,6 @@ class NcamInfoMenu(Screen):
             <widget name="mainmenu" position="36,98" size="890,868" itemHeight="62" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center"/>
             <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="res/pics/ncam-logo.png" transparent="1" alphatest="on"/>
         </screen> '''
-
 
     def __init__(self, session):
         Screen.__init__(self, session)
@@ -1402,13 +1392,11 @@ class NcamInfoConfigScreen(ConfigListScreen, Screen):
         ConfigListScreen.__init__(self, [], session=session, on_change=self.changedEntry)
         # ConfigListScreen.__init__(self, [], session=session, on_change=self.changedEntry, fullUI=True)
         self["actions"] = ActionMap(["SetupActions", "ColorActions"],
-         
                                     {"red": self.cancel,
                                      "green": self.save,
                                      "save": self.save,
                                      "cancel": self.cancel,
                                      "ok": self.save}, -2)
-              
         # self["key_red"] = StaticText(_("Close"))
         self.createSetup()
 

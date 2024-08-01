@@ -32,15 +32,19 @@ from Components.Sources.EventInfo import EventInfo
 from Components.Sources.ServiceEvent import ServiceEvent
 from Components.config import config
 from ServiceReference import ServiceReference
-from enigma import ePixmap, loadJPG, eEPGCache
-from enigma import eTimer
+from enigma import (
+    ePixmap,
+    loadJPG,
+    eEPGCache,
+    eTimer,
+)
 import NavigationInstance
 import os
 import re
+import shutil
 import socket
 import sys
 import time
-import shutil
 
 
 PY3 = False
@@ -65,6 +69,11 @@ else:
     from HTMLParser import HTMLParser
     html_parser = HTMLParser()
 
+
+try:
+    from urllib import unquote
+except ImportError:
+    from urllib.parse import unquote
 
 epgcache = eEPGCache.getInstance()
 
@@ -184,6 +193,14 @@ def OnclearMem():
         pass
 
 
+def quoteEventName(eventName):
+    try:
+        text = eventName.decode('utf8').replace(u'\x86', u'').replace(u'\x87', u'').encode('utf8')
+    except:
+        text = eventName
+    return quote_plus(text, safe="+")
+
+
 REGEX = re.compile(
     r'([\(\[]).*?([\)\]])|'
     r'(: odc.\d+)|'
@@ -250,6 +267,32 @@ def str_encode(text, encoding="utf8"):
     return text
 
 
+def cutName(eventName=""):
+    if eventName:
+        eventName = eventName.replace('"', '').replace('Х/Ф', '').replace('М/Ф', '').replace('Х/ф', '').replace('.', '').replace(' | ', '')
+        eventName = eventName.replace('(18+)', '').replace('18+', '').replace('(16+)', '').replace('16+', '').replace('(12+)', '')
+        eventName = eventName.replace('12+', '').replace('(7+)', '').replace('7+', '').replace('(6+)', '').replace('6+', '')
+        eventName = eventName.replace('(0+)', '').replace('0+', '').replace('+', '')
+        return eventName
+    return ""
+
+
+def getCleanTitle(eventitle=""):
+    # save_name = re.sub('\\(\d+\)$', '', eventitle)
+    # save_name = re.sub('\\(\d+\/\d+\)$', '', save_name)  # remove episode-number " (xx/xx)" at the end
+    # # save_name = re.sub('\ |\?|\.|\,|\!|\/|\;|\:|\@|\&|\'|\-|\"|\%|\(|\)|\[|\]\#|\+', '', save_name)
+    save_name = eventitle.replace(' ^`^s', '').replace(' ^`^y', '')
+    return save_name
+
+
+def dataenc(data):
+    if PY3:
+        data = data.decode("utf-8")
+    else:
+        data = data.encode("utf-8")
+    return data
+
+
 def convtext(text=''):
     try:
         if text != '' or text is not None or text != 'None':
@@ -257,12 +300,24 @@ def convtext(text=''):
             text = text.lower()
             text = remove_accents(text)
             print('remove_accents text: ', text)
+            # #
+            text = cutName(text)
+            text = getCleanTitle(text)
+            # #
             if text.endswith("the"):
                 text = "the " + text[:-4]
             text = text.replace("\xe2\x80\x93", "").replace('\xc2\x86', '').replace('\xc2\x87', '')  # replace special
             text = text.replace('1^ visione rai', '').replace('1^ visione', '').replace('primatv', '').replace('1^tv', '')
             text = text.replace('prima visione', '').replace('1^ tv', '').replace('((', '(').replace('))', ')')
             text = text.replace('live:', '').replace(' - prima tv', '')
+            if 'giochi olimpici parigi' in text:
+                text = 'olimpiadi di parigi'
+            if 'bruno barbieri' in text:
+                text = text.replace('bruno barbieri', 'brunobarbierix')
+            if "anni '60" in text:
+                text = "anni 60"
+            if 'tg regione' in text:
+                text = 'tg3'
             if 'studio aperto' in text:
                 text = 'studio aperto'
             if 'josephine ange gardien' in text:
@@ -285,23 +340,7 @@ def convtext(text=''):
                 text = 'la7'
             if 'skytg24' in text:
                 text = 'skytg24'
-            text = text + 'FIN'
-            if re.search(r'[Ss][0-9][Ee][0-9]+.*?FIN', text):
-                text = re.sub(r'[Ss][0-9][Ee][0-9]+.*?FIN', '', text)
-            if re.search(r'[Ss][0-9] [Ee][0-9]+.*?FIN', text):
-                text = re.sub(r'[Ss][0-9] [Ee][0-9]+.*?FIN', '', text)
-            text = re.sub(r'(odc.\s\d+)+.*?FIN', '', text)
-            text = re.sub(r'(odc.\d+)+.*?FIN', '', text)
-            text = re.sub(r'(\d+)+.*?FIN', '', text)
-            text = text.partition("(")[0] + 'FIN'
-            text = text.partition("(")[0]
-            text = text.partition(":")[0]
-            text = text.partition(" -")[0]
-            text = re.sub(' - +.+?FIN', '', text)  # all episodes and series ????
-            text = re.sub('FIN', '', text)
-            text = re.sub(r'^\|[\w\-\|]*\|', '', text)
-            text = re.sub(r"[-,?!/\.\":]", '', text)  # replace (- or , or ! or / or . or " or :) by space
-            '''
+
             # remove xx: at start
             text = re.sub(r'^\w{2}:', '', text)
             # remove xx|xx at start
@@ -319,12 +358,10 @@ def convtext(text=''):
             text = re.sub(r'\[\[.*?\]\]|\[.*?\]', '', text)
             # List of bad strings to remove
             bad_strings = [
-
                 "ae|", "al|", "ar|", "at|", "ba|", "be|", "bg|", "br|", "cg|", "ch|", "cz|", "da|", "de|", "dk|",
                 "ee|", "en|", "es|", "eu|", "ex-yu|", "fi|", "fr|", "gr|", "hr|", "hu|", "in|", "ir|", "it|", "lt|",
                 "mk|", "mx|", "nl|", "no|", "pl|", "pt|", "ro|", "rs|", "ru|", "se|", "si|", "sk|", "sp|", "tr|",
                 "uk|", "us|", "yu|",
-                # "- ح -",
                 "1080p", "1080p-dual-lat-cine-calidad.com", "1080p-dual-lat-cine-calidad.com-1",
                 "1080p-dual-lat-cinecalidad.mx", "1080p-lat-cine-calidad.com", "1080p-lat-cine-calidad.com-1",
                 "1080p-lat-cinecalidad.mx", "1080p.dual.lat.cine-calidad.com", "3d", "'", "#", "(", ")", "-", "[]", "/",
@@ -349,16 +386,38 @@ def convtext(text=''):
             text = bad_suffix_pattern.sub('', text)
             # Replace ".", "_", "'" with " "
             text = re.sub(r'[._\']', ' ', text)
-            # Replace "-" with space and strip trailing spaces
-            text = text.strip(' -')
+
+            # recoded lulu
+            text = text + 'FIN'
             '''
+            if re.search(r'[Ss][0-9][Ee][0-9]+.*?FIN', text):
+                text = re.sub(r'[Ss][0-9][Ee][0-9]+.*?FIN', '', text)
+            if re.search(r'[Ss][0-9] [Ee][0-9]+.*?FIN', text):
+                text = re.sub(r'[Ss][0-9] [Ee][0-9]+.*?FIN', '', text)
+            '''
+            text = re.sub(r'(odc.\s\d+)+.*?FIN', '', text)
+            text = re.sub(r'(odc.\d+)+.*?FIN', '', text)
+            text = re.sub(r'(\d+)+.*?FIN', '', text)
+            text = text.partition("(")[0] + 'FIN'
+            text = re.sub("\\s\d+", "", text)
+            text = text.partition("(")[0]
+            # text = text.partition(":")[0]  # not work on csi: new york (only-->  csi)
+            text = text.partition(" -")[0]
+            text = re.sub(' - +.+?FIN', '', text)  # all episodes and series ????
+            text = re.sub('FIN', '', text)
+            text = re.sub(r'^\|[\w\-\|]*\|', '', text)
+            text = re.sub(r"[-,?!/\.\":]", '', text)  # replace (- or , or ! or / or . or " or :) by space
+            # recoded  end
             text = text.strip(' -')
+            # forced 
+            text = text.replace('XXXXXX', '60')
+            text = text.replace('brunobarbierix', 'bruno barbieri - 4 hotel')
             text = quote(text, safe="")
             print('text safe: ', text)
             # print('Final text: ', text)
         else:
             text = text
-        return text.capitalize()
+        return unquote(text).capitalize()
     except Exception as e:
         print('convtext error: ', e)
         pass
@@ -432,7 +491,7 @@ class BackdropAutoDB(AglareBackdropXDownloadThread):
         while True:
             time.sleep(7200)  # 7200 - Start every 2 hours
             self.logAutoDB("[AutoDB] *** Running ***")
-            pstcanal = ''
+            self.pstcanal = ''
             # AUTO ADD NEW FILES - 1440 (24 hours ahead)
             for service in apdb.values():
                 try:
@@ -454,39 +513,39 @@ class BackdropAutoDB(AglareBackdropXDownloadThread):
                             canal[3] = evt[5]
                             canal[4] = evt[6]
                             canal[5] = canal[2]
-                            pstcanal = convtext(canal[5])
-                            pstrNm = path_folder + '/' + pstcanal + ".jpg"
+                            self.pstcanal = convtext(canal[5])
+                            pstrNm = path_folder + '/' + self.pstcanal + ".jpg"
                             self.pstcanal = str(pstrNm)
                             dwn_backdrop = self.pstcanal
                             if os.path.exists(dwn_backdrop):
                                 os.utime(dwn_backdrop, (time.time(), time.time()))
                             # if lng == "fr":
                                 # if not os.path.exists(dwn_backdrop):
-                                    # val, log = self.search_molotov_google(dwn_backdrop, pstcanal, canal[4], canal[3], canal[0])
+                                    # val, log = self.search_molotov_google(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
                                     # if val and log.find("SUCCESS"):
                                         # newfd += 1
                                 # if not os.path.exists(dwn_backdrop):
-                                    # val, log = self.search_programmetv_google(dwn_backdrop, pstcanal, canal[4], canal[3], canal[0])
+                                    # val, log = self.search_programmetv_google(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
                                     # if val and log.find("SUCCESS"):
                                         # newfd += 1
                             if not os.path.exists(dwn_backdrop):
-                                val, log = self.search_tmdb(dwn_backdrop, pstcanal, canal[4], canal[3], canal[0])
+                                val, log = self.search_tmdb(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
                                 if val and log.find("SUCCESS"):
                                     newfd += 1
                             elif not os.path.exists(dwn_backdrop):
-                                val, log = self.search_tvdb(dwn_backdrop, pstcanal, canal[4], canal[3], canal[0])
+                                val, log = self.search_tvdb(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
                                 if val and log.find("SUCCESS"):
                                     newfd += 1
                             elif not os.path.exists(dwn_backdrop):
-                                val, log = self.search_fanart(dwn_backdrop, pstcanal, canal[4], canal[3], canal[0])
+                                val, log = self.search_fanart(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
                                 if val and log.find("SUCCESS"):
                                     newfd += 1
                             elif not os.path.exists(dwn_backdrop):
-                                val, log = self.search_imdb(dwn_backdrop, pstcanal, canal[4], canal[3], canal[0])
+                                val, log = self.search_imdb(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
                                 if val and log.find("SUCCESS"):
                                     newfd += 1
                             elif not os.path.exists(dwn_backdrop):
-                                val, log = self.search_google(dwn_backdrop, pstcanal, canal[4], canal[3], canal[0])
+                                val, log = self.search_google(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
                                 if val and log.find("SUCCESS"):
                                     newfd += 1
                             newcn = canal[0]
@@ -618,9 +677,9 @@ class AglareBackdropX(Renderer):
                     return
                 self.oldCanal = curCanal
                 self.logBackdrop("Service: {} [{}] : {} : {}".format(servicetype, self.nxts, self.canal[0], self.oldCanal))
-                pstcanal = convtext(self.canal[5])
-                backrNm = self.path + '/' + str(pstcanal) + ".jpg"
-                self.backrNm = str(backrNm)
+                self.pstcanal = convtext(self.canal[5])
+                self.backrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
+                self.backrNm = str(self.backrNm)
                 if os.path.exists(self.backrNm):
                     self.timer.start(10, True)
                 else:
@@ -632,16 +691,15 @@ class AglareBackdropX(Renderer):
                 if self.instance:
                     self.instance.hide()
                 return
-            # OnclearMem()
 
     def showBackdrop(self):
         if self.instance:
             self.instance.hide()
         if self.canal[5]:
             if not os.path.exists(self.backrNm):
-                pstcanal = convtext(self.canal[5])
-                backrNm = self.path + '/' + str(pstcanal) + ".jpg"
-                self.backrNm = str(backrNm)
+                self.pstcanal = convtext(self.canal[5])
+                self.backrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
+                self.backrNm = str(self.backrNm)
             if os.path.exists(self.backrNm):
                 self.logBackdrop("[LOAD : showBackdrop] {}".format(self.backrNm))
                 self.instance.setPixmap(loadJPG(self.backrNm))
@@ -653,9 +711,9 @@ class AglareBackdropX(Renderer):
             self.instance.hide()
         if self.canal[5]:
             if not os.path.exists(self.backrNm):
-                pstcanal = convtext(self.canal[5])
-                backrNm = self.path + '/' + str(pstcanal) + ".jpg"
-                self.backrNm = str(backrNm)
+                self.pstcanal = convtext(self.canal[5])
+                self.backrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
+                self.backrNm = str(self.backrNm)
             loop = 180
             found = None
             self.logBackdrop("[LOOP: waitBackdrop] {}".format(self.backrNm))

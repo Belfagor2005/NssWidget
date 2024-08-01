@@ -291,7 +291,7 @@ class AglareSetup(ConfigListScreen, Screen):
         restartbox = self.session.openWithCallback(self.restartGUI, MessageBox, _('GUI needs a restart to apply a new skin.\nDo you want to Restart the GUI now?'), MessageBox.TYPE_YESNO)
         restartbox.setTitle(_('Restart GUI now?'))
 
-    def restartGUI(self, answer):
+    def restartGUI(self, answer=False):
         if answer is True:
             self.session.open(TryQuitMainloop, 3)
         else:
@@ -333,7 +333,7 @@ class AglareSetup(ConfigListScreen, Screen):
         except Exception as e:
             print('error: ', str(e))
 
-    def update(self, answer):
+    def update(self, answer=False):
         if answer is True:
             self.session.open(AglareUpdater, self.updateurl)
         else:
@@ -400,7 +400,7 @@ class AglareUpdater(Screen):
         self['progresstext'].text = '%d of %d kBytes (%.2f%%)' % (self.last_recvbytes / 1024, totalbytes / 1024, 100 * self.last_recvbytes / float(totalbytes))
         self.last_recvbytes = recvbytes
 
-    def restartGUI(self, answer):
+    def restartGUI(self, answer=False):
         if answer is True:
             self.session.open(TryQuitMainloop, 3)
         else:

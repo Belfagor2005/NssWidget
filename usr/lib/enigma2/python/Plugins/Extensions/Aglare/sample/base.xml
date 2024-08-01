@@ -4615,7 +4615,7 @@ self.instance.move(ePoint(int(deskwidth - newwidth)//2,int(deskheight - newheigh
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
         <widget name="activity" position="36,970" size="890,24" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10"/>
-        <widget name="update" position="36,98" size="890,640" font="Regular;28" backgroundColor="background" foregroundColor="white" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
+        <widget name="update" position="988,610" size="890,276" font="Regular;28" backgroundColor="background" foregroundColor="white" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" />
         <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
     </screen>
     <screen name="Seekbar" title="InfoBar" position="150,920" size="1620,150" backgroundColor="transparent" flags="wfNoBorder">
@@ -5780,7 +5780,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <panel name="button1temp"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
-        <widget name="text" position="36,98" size="890,400" zPosition="3" font="Regular; 30" transparent="1"/>
+        <widget name="text" position="986,610" size="890,246" zPosition="3" font="Regular; 30" transparent="1" />
         <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
     </screen>
     <screen name="BackupSelection" position="0,0" size="1920,1080" title="Select files/folders to backup" backgroundColor="transparent" flags="wfNoBorder">
@@ -6602,7 +6602,7 @@ MultiContentEntryText(pos = (20, 0), size = (840, 50), flags = RT_HALIGN_LEFT|RT
     <screen name="UserInterfacePositioner" position="center,center" size="1920,1080" title="User Interface Positioner" flags="wfNoBorder">
         <eLabel backgroundColor="wpmc" position="310,181" size="1300,718" zPosition="0"/>
         <widget name="HelpWindow" position="310,900" zPosition="1" size="1,1" transparent="1" alphatest="blend"/>
-        <ePixmap pixmap="MX_Slim-Line_NP/positioner.png" position="0,0" size="1920,1080" alphatest="blend" zPosition="-99"/>
+        <ePixmap pixmap="main/positioner.png" position="0,0" size="1920,1080" alphatest="blend" zPosition="-99"/>
         <eLabel name="" position="316,202" size="1286,318" zPosition="4" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
         <eLabel backgroundColor="#fe0000" cornerRadius="3" position="330,888" size="300,6" zPosition="4"/>
         <eLabel backgroundColor="#fe00" cornerRadius="3" position="650,888" size="300,6" zPosition="4"/>
@@ -6610,7 +6610,7 @@ MultiContentEntryText(pos = (20, 0), size = (840, 50), flags = RT_HALIGN_LEFT|RT
         <widget source="key_red" render="Label" position="330,840" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_green" render="Label" position="650,840" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_yellow" render="Label" position="970,840" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <widget name="config" position="330,220" size="1260,280" zPosition="5" font="Regular;30" itemHeight="40" enableWrapAround="1" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
+        <widget name="config" position="330,220" size="1260,280" zPosition="5" font="Regular;24" itemHeight="60" enableWrapAround="1" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
         <widget source="status" render="Label" position="330,620" size="1260,150" zPosition="10" font="Regular;28" halign="center" valign="center" transparent="1" backgroundColor="background"/>
         <eLabel backgroundColor="buttonsc" cornerRadius="30" position="318,838" size="1285,60" zPosition="1"/>
     </screen>
