@@ -179,13 +179,13 @@ def getUrl(url):
     return content
 
 
-skin_path = os.path.join(plugin_path, 'res/skins/hd/')
-res_plugin_path = os.path.join(plugin_path, "res/")
+skin_path = os.path.join(plugin_path, 'res/skins/hd')
+res_plugin_path = os.path.join(plugin_path, "res")
 screenwidth = getDesktop(0).size()
 if screenwidth.width() == 2560:
-    skin_path = res_plugin_path + 'skins/uhd/'
+    skin_path = res_plugin_path + '/skins/uhd/'
 if screenwidth.width() == 1920:
-    skin_path = res_plugin_path + 'skins/fhd/'
+    skin_path = res_plugin_path + '/skins/fhd/'
 
 
 def cccamPath():
@@ -220,18 +220,18 @@ def cccamPath():
 
 
 Serverlive = [
-              ('aHR0cHM6Ly9ib3NzY2NjYW0uY28vVGVzdC5waHA=', 'Server01'),
-              ('aHR0cHM6Ly9pcHR2LTE1ZGF5cy5ibG9nc3BvdC5jb20=', 'Server02'),
-              ('aHR0cHM6Ly9jY2NhbWlhLmNvbS9mcmVlLWNjY2FtLw==', 'Server03'),
-              ('aHR0cHM6Ly9jY2NhbS5uZXQvZnJlZWNjY2Ft', 'Server04'),
-              ('aHR0cHM6Ly9jY2NhbXNhdGUuY29tL2ZyZWU=', 'Server05'),
-              ('aHR0cHM6Ly9jY2NhbXguY29tL2ZyZWUtY2NjYW0=', 'Server06'),
-              ('aHR0cHM6Ly9jY2NhbS1wcmVtaXVtLmNvL2ZyZWUtY2NjYW0v', 'Server07'),
-              ('aHR0cHM6Ly93d3cuY2NjYW1iaXJkMi5jb20vZnJlZWNjY2FtLnBocA==', 'Server08'),
-              ('aHR0cHM6Ly9jY2NhbWZyZWUuY28vZnJlZS9nZXQucGhw', 'Server9'),
-              ('aHR0cHM6Ly9jY2NhbWZyZWkuY29tL2ZyZWUvZ2V0LnBocA==', 'Server10'),
-              ('aHR0cHM6Ly9jY2NhbWlwdHYuY2x1Yi9mcmVlLWNjY2FtLw==', 'Server11'),
-              ]
+    ('aHR0cHM6Ly9ib3NzY2NjYW0uY28vVGVzdC5waHA=', 'Server01'),
+    ('aHR0cHM6Ly9pcHR2LTE1ZGF5cy5ibG9nc3BvdC5jb20=', 'Server02'),
+    ('aHR0cHM6Ly9jY2NhbWlhLmNvbS9mcmVlLWNjY2FtLw==', 'Server03'),
+    ('aHR0cHM6Ly9jY2NhbS5uZXQvZnJlZWNjY2Ft', 'Server04'),
+    ('aHR0cHM6Ly9jY2NhbXNhdGUuY29tL2ZyZWU=', 'Server05'),
+    ('aHR0cHM6Ly9jY2NhbXguY29tL2ZyZWUtY2NjYW0=', 'Server06'),
+    ('aHR0cHM6Ly9jY2NhbS1wcmVtaXVtLmNvL2ZyZWUtY2NjYW0v', 'Server07'),
+    ('aHR0cHM6Ly93d3cuY2NjYW1iaXJkMi5jb20vZnJlZWNjY2FtLnBocA==', 'Server08'),
+    ('aHR0cHM6Ly9jY2NhbWZyZWUuY28vZnJlZS9nZXQucGhw', 'Server9'),
+    ('aHR0cHM6Ly9jY2NhbWZyZWkuY29tL2ZyZWUvZ2V0LnBocA==', 'Server10'),
+    ('aHR0cHM6Ly9jY2NhbWlwdHYuY2x1Yi9mcmVlLWNjY2FtLw==', 'Server11'),
+]
 
 # cfgcam = [(cccamPath(), 'CCcam'),
 cfgcam = [('/etc/CCcam.cfg', 'CCcam'),
@@ -301,8 +301,7 @@ class nssCamConfig(Screen, ConfigListScreen):
         self["key_yellow"] = StaticText("")
         self["key_blue"] = StaticText("")
         self['description'] = Label('')
-        self['info'] = Label('')
-        self['info'].setText(_('Wait please...'))
+        self['info'] = Label(_('Wait please...'))
         self.onChangedEntry = []
         self.list = []
         ConfigListScreen.__init__(self, self.list, session=self.session, on_change=self.changedEntry)
@@ -363,7 +362,7 @@ class nssCamConfig(Screen, ConfigListScreen):
                         if not access(self.cmd1, X_OK):
                             os.chmod(self.cmd1, 493)
                         # os.system(self.cmd1)
-                        import subprocess
+                        # import subprocess
                         # subprocess.check_output(['bash', self.cmd1])
                         try:
                             subprocess.check_output(['bash', self.cmd1])
@@ -375,7 +374,7 @@ class nssCamConfig(Screen, ConfigListScreen):
                         os.system('sleep 5')
                         if not os.path.exists('/tmp/emm.txt'):
                             # import wget
-                            outp = base64.b64decode(sss)
+                            # outp = base64.b64decode(sss)
                             # url = str(outp)
                             cmmnd = "wget --no-check-certificate -U 'Enigma2 - Manager Plugin' -c 'https://pastebin.com/raw/U4eM6DjV' -O '/tmp/emm.txt'"
                             # wget.download(url, '/tmp/emm.txt')
@@ -407,7 +406,7 @@ class nssCamConfig(Screen, ConfigListScreen):
             from os import access, X_OK
             if not access(self.cmd1, X_OK):
                 os.chmod(self.cmd1, 493)
-            import subprocess
+            # import subprocess
             try:
                 subprocess.check_output(['bash', self.cmd1])
                 self.session.open(MessageBox, _('Card Updated!'), MessageBox.TYPE_INFO, timeout=5)
@@ -477,14 +476,15 @@ class nssCamConfig(Screen, ConfigListScreen):
             else:
                 return
         else:
-            if runningcam == 'oscam':
+            # if runningcam == 'oscam':
+            if 'oscam' in str(runningcam): 
                 msg = []
                 msg.append(_("\n....\n.....\n"))
                 self.cmd1 = data_path + 'emm_sender.sh'
                 from os import access, X_OK
                 if not access(self.cmd1, X_OK):
                     os.chmod(self.cmd1, 493)
-                import subprocess
+                # import subprocess
                 try:
                     subprocess.check_output(['bash', self.cmd1])
                 except subprocess.CalledProcessError as e:

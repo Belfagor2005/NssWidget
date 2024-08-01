@@ -2869,19 +2869,20 @@ def cfgcam(menuid, **kwargs):
 
 
 def cfgmain(menuid, **kwargs):
-    if menuid == 'mainmenu':
-        from Tools.BoundFunction import boundFunction
-        return [('Nss Addons',
-                 boundFunction(main, showExtentionMenuOption=True),
-                 'www.nonsolosat.net (Addons Panel)',
-                 -1)]
-    else:
-        return []
+    return [('Nss Addons', main(), 'www.nonsolosat.net (Addons Panel)', 44)] if menuid == "mainmenu" else []
+    # if menuid == 'mainmenu':
+        # from Tools.BoundFunction import boundFunction
+        # return [('Nss Addons',
+                 # boundFunction(main, showExtentionMenuOption=True),
+                 # 'www.nonsolosat.net (Addons Panel)',
+                 # -1)]
+    # else:
+        # return []
 
 
 # def cfgmain(menuid, **kwargs):
     # if menuid == 'mainmenu':
-        # return [(_('Nss Addons'), main, 'Nss Addon', 4)]
+        # return [(_('Nss Addons'), main, 'Nss Addon', 44)]
     # else:
         # return []
 
