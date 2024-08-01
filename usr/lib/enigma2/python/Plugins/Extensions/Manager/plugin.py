@@ -95,7 +95,7 @@ except ImportError:
     pass
 '''
 
-
+'''
 try:
     from Screens.NcamInfo import NcamInfoMenu
 except ImportError:
@@ -114,7 +114,7 @@ try:
 except ImportError:
     from .data.CCcamInfo import CCcamInfoMain
     pass
-
+'''
 '''
 try:
     if os.path.isfile(resolveFilename(SCOPE_PLUGINS, 'Extensions/CCcamInfo/plugin.pyc')):
@@ -300,7 +300,6 @@ class Manager(Screen):
                 if os.path.exists(data_path + "/OscamInfo.pyo") or os.path.exists(data_path + '/OScamInfo.pyc'):
                     self.BlueAction = 'MOVICAMINFO'
                     self["key_blue"].setText("MOVICAMINFO")
-
             if 'ncam' in nim:
                 runningcam = "ncam"
                 if os.path.exists(data_path + "/NcamInfo.pyo") or os.path.exists(data_path + '/NcamInfo.pyc'):
@@ -335,42 +334,73 @@ class Manager(Screen):
                     # if os.path.exists(dir_work + "/OScamInfo.pyo") or os.path.exists(dir_work + '/OScamInfo.pyc'):
                         # from Screens.OScamInfo import OscamInfoMenu
                         # self.session.open(OscamInfoMenu)
-                    '''
                     if os.path.exists(data_path + "/OScamInfo.pyo") or os.path.exists(data_path + '/OScamInfo.pyc'):
+                        from .data.OScamInfo import OscamInfoMenu
                         self.session.open(OscamInfoMenu)
-
-                except ImportError:
+                    '''
+                    try:
+                        from Screens.OScamInfo import OscamInfoMenu
+                        self.session.open(OscamInfoMenu)
+                    except ImportError:
+                        from .data.OScamInfo import OscamInfoMenu
+                        self.session.open(OscamInfoMenu)
+                        pass
+                except Exception as e:
+                    print('OScamInfo e:', e)
                     pass
 
-            if self.BlueAction == 'CCCAMINFO':
+            elif self.BlueAction == 'CCCAMINFO':
                 try:
                     '''
                     # if os.path.exists(dir_work + "/CCcamInfo.pyo") or os.path.exists(dir_work + '/CCcamInfo.pyc'):
                         # from Screens.CCcamInfo import CCcamInfoMain
                         # self.session.open(CCcamInfoMain)
-                    '''
                     if os.path.exists(data_path + "/CCcamInfo.pyo") or os.path.exists(data_path + '/CCcamInfo.pyc'):
                         self.session.open(CCcamInfoMain)
-                except ImportError:
+                     '''
+                    try:
+                        from Screens.CCcamInfo import CCcamInfoMain
+                        self.session.open(CCcamInfoMain)
+                    except ImportError:
+                        from .data.CCcamInfo import CCcamInfoMain
+                        self.session.open(CCcamInfoMain)
+                        pass
+                except Exception as e:
+                    print('cccaminfo e:', e)
                     pass
 
-            if self.BlueAction == 'NCAMINFO':
+            elif self.BlueAction == 'NCAMINFO':
                 try:
                     '''
                     # if os.path.exists(dir_work + "/NcamInfo.pyo") or os.path.exists(dir_work + '/NcamInfo.pyc'):
                         # from Screens.NcamInfo import NcamInfoMenu
                         # self.session.open(NcamInfoMenu)
-                    '''
                     if os.path.exists(data_path + "/NcamInfo.pyo") or os.path.exists(data_path + '/NcamInfo.pyc'):
                         self.session.open(NcamInfoMenu)
-                except ImportError:
+                    '''
+                    try:
+                        from Screens.NcamInfo import NcamInfoMenu
+                        self.session.open(NcamInfoMenu)
+                    except ImportError:
+                        from .data.NcamInfo import NcamInfoMenu
+                        self.session.open(NcamInfoMenu)
+                        pass
+                except Exception as e:
+                    print('NcamInfo e:', e)
                     pass
 
-            if self.BlueAction == 'MOVICAMINFO':
+            elif self.BlueAction == 'MOVICAMINFO':
                 try:
-                    from .data.OScamInfo import OscamInfoMenu
-                    self.session.open(OscamInfoMenu)
-                except ImportError:
+                    try:
+                        from Screens.OScamInfo import OscamInfoMenu
+                        self.session.open(OscamInfoMenu)
+                    except ImportError:
+                        from .data.OScamInfo import OscamInfoMenu
+                        self.session.open(OscamInfoMenu)
+                        pass
+
+                except Exception as e:
+                    print('MOVICAMINFO e:', e)
                     pass
             else:
                 # return
