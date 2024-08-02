@@ -15,8 +15,6 @@ from Components.config import (
     # ConfigDirectory,
     ConfigText,
 )
-
-
 # required methods: Request, urlopen, URLError, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
 from Components.ConfigList import ConfigListScreen
 from Components.MenuList import MenuList

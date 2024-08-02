@@ -124,6 +124,8 @@
         <item level="0" text="Username" description="Edit the username.">config.cccaminfo.username</item>
         <item level="0" text="Password" description="Edit the password.">config.cccaminfo.password</item>
         <item level="0" text="Port" description="Edit the remote CCCam port.">config.cccaminfo.port</item>
+        <item level="0" text="Blacklist" description="Folder file Blacklist.">config.cccaminfo.blacklist</item>
+        <item level="0" text="Profiles" description="Folder File Profiles.">config.cccaminfo.profiles</item>
     </setup>
     <setup key="Softcam" title="Softcam Settings" showOpenWebif="1">
         <item level="0" text="Select Softcam" description="Select a Softcam from the available list.">config.misc.softcams</item>

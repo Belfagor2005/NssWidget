@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-
 # from Components.About import about
 from .. import _
 from Components.ActionMap import ActionMap, NumberActionMap
@@ -78,15 +77,15 @@ config.oscaminfo.intervall = ConfigInteger(default=10, limits=(1, 600))
 
 def check_NAMEBIN():
     NAMEBIN = "oscam"
-    if fileExists("/tmp/.oscam/oscam.version"):
-        NAMEBIN = "OScam"
+    # if fileExists("/tmp/.oscam/oscam.version"):
+        # NAMEBIN = "OScam"
     return NAMEBIN
 
 
 def check_NAMEBIN2():
     NAMEBIN2 = "OScam"
-    if fileExists("/tmp/.oscam/oscam.version"):
-        NAMEBIN2 = "OScam"
+    # if fileExists("/tmp/.oscam/oscam.version"):
+        # NAMEBIN2 = "OScam"
     return NAMEBIN2
 
 

@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 # from Components.About import about
+from .. import _
 from Components.ActionMap import (ActionMap, NumberActionMap)
 from Components.config import (
     config,
@@ -14,8 +15,6 @@ from Components.config import (
     # ConfigDirectory,
     ConfigText,
 )
-
-
 # required methods: Request, urlopen, URLError, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
 from Components.ConfigList import ConfigListScreen
 from Components.MenuList import MenuList
