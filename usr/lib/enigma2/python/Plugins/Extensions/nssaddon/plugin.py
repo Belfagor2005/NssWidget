@@ -2858,18 +2858,19 @@ def main(session, **kwargs):
 
 
 def cfgcam(menuid, **kwargs):
-    if menuid == 'cam':
-        from Tools.BoundFunction import boundFunction
-        return [(_(name_cam),
-                 boundFunction(main2, showExtentionMenuOption=True),
-                 'NSS Cam Manager',
-                 -1)]
-    else:
-        return []
+    return [(name_cam, main2, 'www.nonsolosat.net NSS Cam Manager', 44)] if menuid == "cam" else []
+    # if menuid == 'cam':
+        # from Tools.BoundFunction import boundFunction
+        # return [(_(name_cam),
+                 # boundFunction(main2, showExtentionMenuOption=True),
+                 # 'NSS Cam Manager',
+                 # -1)]
+    # else:
+        # return []
 
 
 def cfgmain(menuid, **kwargs):
-    return [('Nss Addons', main(), 'www.nonsolosat.net (Addons Panel)', 44)] if menuid == "mainmenu" else []
+    return [('Nss Addons', main, 'www.nonsolosat.net (Addons Panel)', 44)] if menuid == "mainmenu" else []
     # if menuid == 'mainmenu':
         # from Tools.BoundFunction import boundFunction
         # return [('Nss Addons',
@@ -2880,11 +2881,11 @@ def cfgmain(menuid, **kwargs):
         # return []
 
 
-# def cfgmain(menuid, **kwargs):
-    # if menuid == 'mainmenu':
-        # return [(_('Nss Addons'), main, 'Nss Addon', 44)]
-    # else:
-        # return []
+def cfgmain(menuid, **kwargs):
+    if menuid == 'mainmenu':
+        return [(_('Nss Addons'), main, 'Nss Addon', 44)]
+    else:
+        return []
 
 
 def main2(session, **kwargs):
