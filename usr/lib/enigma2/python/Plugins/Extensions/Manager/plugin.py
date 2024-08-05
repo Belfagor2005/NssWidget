@@ -78,6 +78,7 @@ OSCAMINFO = 2
 AgentRequest = RequestAgent()
 runningcam = None
 
+
 '''
 try:
     from .data.NcamInfo import NcamInfoMenu
@@ -91,6 +92,14 @@ except ImportError:
 
 try:
     from .data.CCcamInfo import CCcamInfoMain
+except ImportError:
+    pass
+'''
+
+'''
+try:
+    if os.path.isfile(resolveFilename(SCOPE_PLUGINS, 'Extensions/CCcamInfo/plugin.pyc')):
+        from Plugins.Extensions.CCcamInfo.plugin import CCcamInfoMain
 except ImportError:
     pass
 '''
@@ -114,13 +123,7 @@ except ImportError:
     from .data.CCcamInfo import CCcamInfoMain
     pass
 '''
-'''
-try:
-    if os.path.isfile(resolveFilename(SCOPE_PLUGINS, 'Extensions/CCcamInfo/plugin.pyc')):
-        from Plugins.Extensions.CCcamInfo.plugin import CCcamInfoMain
-except ImportError:
-    pass
-'''
+
 
 try:
     wgetsts()
@@ -147,7 +150,7 @@ if screenwidth.width() == 2560:
 elif screenwidth.width() == 1920:
     skin_path = res_plugin_path + '/skins/fhd/'
 else:
-    skin_path = os.path.join(res_plugin_path, "skins/hd")
+    skin_path = os.path.join(res_plugin_path, "/skins/hd/")
 
 if not os.path.exists('/etc/clist.list'):
     with open('/etc/clist.list', 'w'):
@@ -330,13 +333,17 @@ class Manager(Screen):
             try:
                 try:
                     from Screens.OScamInfo import OscamInfoMenu
-                    self.session.open(OscamInfoMenu)
+                    print('[cccam] OScamInfo')
+                    self.session.openWithCallback(self.callbackx, OscamInfoMenu)
+                    # self.session.open(OscamInfoMenu)
                 except ImportError:
                     from .data.OScamInfo import OscamInfoMenu
-                    self.session.open(OscamInfoMenu)
+                    print('[cccam] OScamInfo')
+                    self.session.openWithCallback(self.callbackx, OscamInfoMenu)
+                    # self.session.open(OscamInfoMenu)
                     pass
             except Exception as e:
-                print('OScamInfo e:', e)
+                print('[cccam] OScamInfo e:', e)
                 pass
 
         elif 'cccam' in str(self.curCam).lower():
@@ -344,13 +351,16 @@ class Manager(Screen):
                 try:
                     from Screens.CCcamInfo import CCcamInfoMain
                     print('[cccam] CCcamInfo')
-                    self.session.open(CCcamInfoMain)
+                    self.session.openWithCallback(self.callbackx, CCcamInfoMain)
+                    # self.session.open(CCcamInfoMain)
                 except ImportError:
                     from .data.CCcamInfo import CCcamInfoMain
-                    self.session.open(CCcamInfoMain)
+                    print('[cccam] CCcamInfo')
+                    self.session.openWithCallback(self.callbackx, CCcamInfoMain)
+                    # self.session.open(CCcamInfoMain)
                     pass
             except Exception as e:
-                print('cccaminfo e:', e)
+                print('[cccam] cccaminfo e:', e)
                 pass
 
         elif 'ncam' in str(self.curCam).lower():
@@ -358,13 +368,16 @@ class Manager(Screen):
                 try:
                     from Screens.NcamInfo import NcamInfoMenu
                     print('[cccam] NcamInfo')
-                    self.session.open(NcamInfoMenu)
+                    self.session.openWithCallback(self.callbackx, NcamInfoMenu)
+                    # self.session.open(NcamInfoMenu)
                 except ImportError:
                     from .data.NcamInfo import NcamInfoMenu
-                    self.session.open(NcamInfoMenu)
+                    print('[cccam] NcamInfo')
+                    self.session.openWithCallback(self.callbackx, NcamInfoMenu)
+                    # self.session.open(NcamInfoMenu)
                     pass
             except Exception as e:
-                print('NcamInfo e:', e)
+                print('[cccam] NcamInfo e:', e)
                 pass
 
         elif 'movicam' in str(self.curCam).lower():
@@ -372,20 +385,27 @@ class Manager(Screen):
                 try:
                     from Screens.OScamInfo import OscamInfoMenu
                     print('[cccam] MOVICAMINFO')
-                    self.session.open(OscamInfoMenu)
+                    self.session.openWithCallback(self.callbackx, OscamInfoMenu)
+                    # self.session.open(OscamInfoMenu)
                 except ImportError:
                     from .data.OScamInfo import OscamInfoMenu
-                    self.session.open(OscamInfoMenu)
+                    print('[cccam] MOVICAMINFO')
+                    self.session.openWithCallback(self.callbackx, OscamInfoMenu)
+                    # self.session.open(OscamInfoMenu)
                     pass
             except Exception as e:
-                print('MOVICAMINFO e:', e)
+                print('[cccam] MOVICAMINFO e:', e)
                 pass
         else:
-            # return
-            self.BlueAction = 'SOFTCAM'
-            # runningcam = 'softcam'
-            self["key_blue"].setText("Softcam")
-            self.messagekd()
+            return
+            # self.BlueAction = 'SOFTCAM'
+            # # runningcam = 'softcam'
+            # self["key_blue"].setText("Softcam")
+            # self.messagekd()
+
+    def callbackx(self, call=None):
+        print('call:', call)
+        pass
 
     def setEcmInfo(self):
         try:
