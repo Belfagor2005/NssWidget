@@ -470,7 +470,7 @@
         </widget>
         <widget source="session.Event_Now" render="Label" position="1000,918" size="140,35" backgroundColor="background" transparent="1" zPosition="10" font="Regular; 30" halign="right" valign="center">
             <convert type="EventTime">Remaining</convert>
-            <convert type="RemainingToText">InMinutes</convert>
+            <convert type="RemainingToText"/>
         </widget>
         <widget source="session.Event_Next" render="Label" position="1000,960" size="140,35" backgroundColor="background" transparent="1" zPosition="10" font="Regular; 30" halign="right" foregroundColor="white2" valign="center">
             <convert type="EventTime">Duration</convert>
@@ -501,7 +501,7 @@
         </widget>
     </screen>
     <screen name="infobartimedate" flags="wfNoBorder" position="0,0" backgroundColor="transparent">
-        <widget font="Bold; 30" halign="right" position="1632,85" render="Label" size="278,40" source="global.CurrentTime" transparent="1" zPosition="1">
+        <widget font="Bold; 30" halign="center" position="1632,85" render="Label" size="278,40" source="global.CurrentTime" transparent="1" zPosition="1">
             <convert type="ClockToText">Format:%a %d.%m. | %H:%M</convert>
         </widget>
         <eLabel backgroundColor="igsdt" cornerRadius="30" position="1632,75" size="500,60"/>
