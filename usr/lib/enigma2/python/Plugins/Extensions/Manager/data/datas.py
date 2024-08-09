@@ -299,14 +299,20 @@ class nssCamConfig(Screen, ConfigListScreen):
             self.skin = f.read()
         self.setup_title = (name_plug)
         self['title'] = Label(_(name_plug))
-        self["key_red"] = Label(_("Back"))
-        self["key_green"] = Label("")
-        self["key_yellow"] = Label("")
-        self["key_blue"] = Label("")
-        # self["key_red"] = StaticText(_("Back"))
-        # self["key_green"] = StaticText("")
-        # self["key_yellow"] = StaticText("")
-        # self["key_blue"] = StaticText("")
+        # self["key_red"] = Label(_("Back"))
+        # self["key_green"] = Label("")
+        # self["key_yellow"] = Label("")
+        # self["key_blue"] = Label("")
+        if os.path.exists('/usr/lib/enigma2/python/Plugins/PLi'):
+            self["key_red"] = StaticText(_("Back"))
+            self["key_green"] = StaticText("")
+            self["key_yellow"] = StaticText("")
+            self["key_blue"] = StaticText("")
+        else:
+            self["key_red"] = Label(_("Back"))
+            self["key_green"] = Label("")
+            self["key_yellow"] = Label("")
+            self["key_blue"] = Label("")
         self['description'] = Label('')
         self['info'] = Label(_('Wait please...'))
         self.onChangedEntry = []
@@ -329,19 +335,20 @@ class nssCamConfig(Screen, ConfigListScreen):
                                                                   'cancel': self.closex,
                                                                   'info': self.infomsg,
                                                                   'back': self.closex}, -1)
-        if config.plugins.Manager.active.value is True:
-            self['key_green'].setText(buttn)
-            self['key_yellow'].setText(_('Get Link'))
-            self['key_blue'].setText(_('Reset'))
-        else:
-            self['key_green'].setText('Force Emm Send')
-            self['key_yellow'].setText('Check Emm Send')
-            self['key_blue'].setText('')
+        # if config.plugins.Manager.active.value is True:
+            # self['key_green'].setText(buttn)
+            # self['key_yellow'].setText(_('Get Link'))
+            # self['key_blue'].setText(_('Reset'))
+        # else:
+            # self['key_green'].setText('Force Emm Send')
+            # self['key_yellow'].setText('Check Emm Send')
+            # self['key_blue'].setText('')
         self.createSetup()
         if self.selectionChanged not in self["config"].onSelectionChanged:
             self["config"].onSelectionChanged.append(self.selectionChanged)
-        self.selectionChanged()
+        # self.selectionChanged()
         self.onLayoutFinish.append(self.layoutFinished)
+        self.onLayoutFinish.append(self.showhide)
 
     def layoutFinished(self):
         self.setTitle(self.setup_title)
@@ -466,7 +473,7 @@ class nssCamConfig(Screen, ConfigListScreen):
             self['key_green'].setText('Force Emm Send')
             self['key_yellow'].setText('Check Emm Send')
             self['key_blue'].setText('')
-        return
+        # return
 
     def green(self):
         if config.plugins.Manager.active.value is True:
@@ -524,6 +531,9 @@ class nssCamConfig(Screen, ConfigListScreen):
             self.list.append(getConfigListEntry(_('Server Username'), config.plugins.Manager.user, _('Username')))
             self.list.append(getConfigListEntry(_('Server Password'), config.plugins.Manager.passw, _('Password')))
 
+            self['key_green'].setText(buttn)
+            self['key_yellow'].setText(_('Get Link'))
+            self['key_blue'].setText(_('Reset'))
         self['config'].list = self.list
         self['config'].l.setList(self.list)
         self.showhide()

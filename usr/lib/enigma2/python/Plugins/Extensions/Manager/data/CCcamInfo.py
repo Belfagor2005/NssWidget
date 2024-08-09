@@ -561,12 +561,14 @@ class CCcamInfoMain(Screen):
         if not isfile(CFG):
             print("[CCcamInfo] %s not found" % CFG)
             searchConfig()
-
-        if config.cccaminfo.profile.value == "":
-            self.readConfig()
-        else:
-            self.url = config.cccaminfo.profile.value
-
+        try:
+            if config.cccaminfo.profiles.value == "":
+                self.readConfig()
+            else:
+                self.url = config.cccaminfo.profiles.value
+        except Exception as e:
+            print(e)
+            pass
         self["actions"] = NumberActionMap(["CCcamInfoActions"],
                                           {"1": self.keyNumberGlobal,
                                            "2": self.keyNumberGlobal,
@@ -639,14 +641,14 @@ class CCcamInfoMain(Screen):
         if (username is not None) and (password is not None) and (username != "") and (password != ""):
             self.url = self.url.replace('http://', ("http://%s:%s@" % (username, password)))
 
-        config.cccaminfo.profile.value = ""
-        config.cccaminfo.profile.save()
+        config.cccaminfo.profiles.value = ""
+        config.cccaminfo.profiles.save()
 
     def profileSelected(self, url=None):
         if url is not None:
             self.url = url
-            config.cccaminfo.profile.value = self.url
-            config.cccaminfo.profile.save()
+            config.cccaminfo.profiles.value = self.url
+            config.cccaminfo.profiles.save()
             self.showInfo(_("New profile: ") + url, _("Profile"))
         else:
             self.showInfo(_("Using old profile: ") + self.url, _("Profile"))
