@@ -222,7 +222,7 @@
         <panel name="menutemp"/>
         <panel name="button1temp"/>
         <panel name="pigscreen885"/>
-        <widget name="list" position="49,118" size="850,723" scrollbarMode="showOnDemand" itemHeight="50" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049"/>
+        <widget name="list" position="49,118" size="850,723" scrollbarMode="showOnDemand" font="Regular;38" itemHeight="50" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049"/>
         <widget name="description" position="61,878" size="845,113" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
     </screen>
     <screen name="GetipkTv" position="0,0" size="1920,1080" title="Get Server" backgroundColor="#ff000000" flags="wfNoBorder">
