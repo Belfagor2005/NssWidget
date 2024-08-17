@@ -1,19 +1,19 @@
 <!-- Skin tvAll 11/05/2021 -->
 <screen name="tvall" position="0,0" size="1920,1080" title="..::NSS Addon Manager::.." backgroundColor="#ff000000" flags="wfNoBorder">
-	<widget name="title" position="431,24" size="1197,50" font="Regular; 36" halign="center" valign="center" foregroundColor="#fefe00" backgroundColor="black" transparent="1" zPosition="5" />
+	<widget name="title" position="382,29" size="1197,50" font="Regular; 36" halign="center" valign="center" foregroundColor="#fefe00" backgroundColor="black" transparent="0" zPosition="5" />
 	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/fulltophd.jpg" scale="stretch" position="0,0" size="1920,1080" zPosition="1" />
 	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/sep.png" position="836,685" size="1045,-15" zPosition="5" />
-	<widget name="info" position="479,955" size="1045,90" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
+	<widget name="info" position="382,688" size="1205,90" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
 	<!-- Menu List -->
-	<widget name="list" position="428,80" size="1200,600" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/sliderb.png" />
+	<widget name="list" position="384,80" size="1200,600" scrollbarMode="showOnDemand" font="Regular;45" itemHeight="50" transparent="0" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/sliderb.png" />
 	<!-- Colors -->
     <eLabel backgroundColor="#00ff0000" position="50,262" size="300,6" zPosition="12" />
 	<eLabel backgroundColor="#0000ff00" position="50,323" size="300,6" zPosition="12" />
 	<eLabel backgroundColor="#00ffff00" position="50,382" size="300,6" zPosition="12" />
 	<eLabel backgroundColor="#000000ff" position="50,441" size="300,6" zPosition="12" />
-	<eLabel name="" position="49,468" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="3" text="OK" />
-	<eLabel name="" position="108,468" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="3" text="MENU" />
-	<eLabel name="" position="167,468" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="3" text="INFO" />	
+	<eLabel name="" position="142,523" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="3" text="OK" />
+	<eLabel name="" position="216,523" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="3" text="MENU" />
+	<eLabel name="" position="294,524" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="3" text="INFO" />	
 	<widget name="key_red" position="50,224" size="300,40" font="Regular;30" halign="left" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
 	<widget name="key_green" position="50,280" size="300,40" font="Regular;30" halign="left" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
 	<widget name="key_yellow" position="50,342" size="300,40" font="Regular;30" halign="left" valign="center" backgroundColor="#20000000" zPosition="5" transparent="1" />
@@ -21,6 +21,6 @@
 	<eLabel name="" position="34,203" size="343,463" zPosition="3" />
 	<widget name="progress" position="45,600" size="300,50" foregroundColor="#2a70a4" backgroundColor="#10000000" transparent="1" zPosition="5" />
 	<widget source="progresstext" render="Label" font="Regular;20" position="45,600" size="300,50" backgroundColor="#202020" transparent="1" halign="center" zPosition="6" />
-	<widget name="pform" position="10,789" size="1045,50" font="Regular; 36" foregroundColor="#ffb75b" backgroundColor="#101010" halign="left" transparent="1" zPosition="2" />
-	<widget name="pth" position="11,841" size="1045,90" font="Regular;30" halign="left" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="1" zPosition="5" />
+	<widget name="pform" position="15,968" size="1045,50" font="Regular; 36" foregroundColor="#ffb75b" backgroundColor="#101010" halign="left" transparent="1" zPosition="2" />
+	<widget name="pth" position="14,1022" size="1045,50" font="Regular;30" halign="left" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="1" zPosition="5" />
 </screen>

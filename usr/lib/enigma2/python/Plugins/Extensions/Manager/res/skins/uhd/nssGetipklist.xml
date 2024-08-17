@@ -6,7 +6,7 @@
 	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/logo.png" position="246,21" size="290,100" scale="stretch" alphatest="blend" zPosition="5" />
 	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/sep.png" position="238,275" size="1372,13" alphatest="blend" zPosition="5" />
 	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/sep.png" position="238,1230" size="1372,13" alphatest="blend" zPosition="5" />
-	<widget name="list" position="238,292" size="1372,900" font="Regular;40" itemHeight="66" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/tvaddon/res/pics/sliderb.png" />
+	<widget name="list" position="238,292" size="1372,900" font="Regular;38" itemHeight="50" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/tvaddon/res/pics/sliderb.png" />
     <!-- Colors 1220 -->
 	<eLabel backgroundColor="#00ff0000" position="275,1334" size="300,6" zPosition="12" />
 	<eLabel backgroundColor="#0000ff00" position="575,1334" size="300,6" zPosition="12" />

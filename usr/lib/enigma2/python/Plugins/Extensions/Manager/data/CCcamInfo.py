@@ -64,11 +64,11 @@ from errno import ENOENT
 from enigma import eGetEnigmaDebugLvl
 import requests
 import os
-from urllib.parse import urlparse, urlunparse
-# try:
-    # from urllib.parse import urlparse, urlunparse
-# except:
-    # from urlparse import urlparse, urlunparse
+# from urllib.parse import urlparse, urlunparse
+try:
+    from urllib.parse import urlparse, urlunparse
+except:
+    from urlparse import urlparse, urlunparse
 
 
 DEFAULT_MODULE_NAME = __name__.split(".")[-1]

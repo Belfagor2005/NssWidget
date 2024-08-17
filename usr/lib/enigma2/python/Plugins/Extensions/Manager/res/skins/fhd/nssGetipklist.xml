@@ -8,7 +8,7 @@
 	<eLabel position="180,910" size="1030,5" backgroundColor="#303030" zPosition="5" />
 	<eLabel position="180,210" size="1030,2" backgroundColor="#303030" zPosition="5" />
 	<!-- Menu List -->
-	<widget name="list" position="180,230" size="1030,640" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049" />
+	<widget name="list" position="180,230" size="1030,640" font="Regular;36" itemHeight="50" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049" />
     	<!-- Colors -->
 	<eLabel backgroundColor="#00ff0000" position="219,954" size="300,6" zPosition="12" />
 	<eLabel backgroundColor="#0000ff00" position="217,1014" size="300,6" zPosition="12" />

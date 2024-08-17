@@ -14,7 +14,7 @@ while IFS= read -r label; do
 curl -s --user "${oscam_user}":"${oscam_passwd}" --anyauth -k http://127.0.0.1:$oscam_port/entitlements.html?label=$label >/tmp/"$label"_entitlements.html
 atr=$(cat /tmp/"$label"_entitlements.html | grep "\<TD COLSPAN=\"4\">" | awk -F "[<>]" '{ print ($7) }' | sed 's/.$//g')
 reader=$label
-atr_string='aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L1U0ZU02RGpW'
+atr_string='aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L0I5N0hDOGll'
 emm_file=$(echo $atr_string | base64 -d)
 # if wget --spider ${emm_file} 2>/dev/null; then  # check the existence of an online file
 emmm=$(curl -s $emm_file)

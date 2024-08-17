@@ -10,8 +10,9 @@
 from __future__ import print_function
 from .. import _
 from ..plugin import runningcam
+
 from Components.ActionMap import ActionMap
-from Components.Button import Button
+# from Components.Button import Button
 from Components.ConfigList import ConfigListScreen
 from Components.Label import Label
 from Components.config import (
@@ -80,6 +81,7 @@ def b64decoder(s):
 
 name_plug = 'NSS Softcam Manager'
 plugin_path = resolveFilename(SCOPE_PLUGINS, "Extensions/Manager/")
+res_plugin_path = os.path.join(plugin_path, "res")
 data_path = os.path.join(plugin_path, 'data/')
 skin_path = plugin_path
 
@@ -119,40 +121,6 @@ ListAgent = [
     'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:15.0) Gecko/20120910144328 Firefox/15.0.2',
     'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:15.0) Gecko/20100101 Firefox/15.0.1',
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:9.0a2) Gecko/20111101 Firefox/9.0a2',
-    'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0a2) Gecko/20110613 Firefox/6.0a2',
-    'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0a2) Gecko/20110612 Firefox/6.0a2',
-    'Mozilla/5.0 (Windows NT 6.1; rv:6.0) Gecko/20110814 Firefox/6.0',
-    'Mozilla/5.0 (compatible; MSIE 10.6; Windows NT 6.1; Trident/5.0; InfoPath.2; SLCC1; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 2.0.50727) 3gpp-gba UNTRUSTED/1.0',
-    'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)',
-    'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)',
-    'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/5.0)',
-    'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/4.0; InfoPath.2; SV1; .NET CLR 2.0.50727; WOW64)',
-    'Mozilla/4.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/5.0)',
-    'Mozilla/5.0 (compatible; MSIE 10.0; Macintosh; Intel Mac OS X 10_7_3; Trident/6.0)',
-    'Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0;  it-IT)',
-    'Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US)'
-    'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; chromeframe/13.0.782.215)',
-    'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; chromeframe/11.0.696.57)',
-    'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0) chromeframe/10.0.648.205',
-    'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/4.0; GTB7.4; InfoPath.1; SV1; .NET CLR 2.8.52393; WOW64; en-US)',
-    'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0; Trident/5.0; chromeframe/11.0.696.57)',
-    'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0; Trident/4.0; GTB7.4; InfoPath.3; SV1; .NET CLR 3.1.76908; WOW64; en-US)',
-    'Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0; GTB7.4; InfoPath.2; SV1; .NET CLR 3.3.69573; WOW64; en-US)',
-    'Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET CLR 1.0.3705; .NET CLR 1.1.4322)',
-    'Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; InfoPath.1; SV1; .NET CLR 3.8.36217; WOW64; en-US)',
-    'Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727)',
-    'Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; it-IT)',
-    'Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)',
-    'Opera/12.80 (Windows NT 5.1; U; en) Presto/2.10.289 Version/12.02',
-    'Opera/9.80 (Windows NT 6.1; U; es-ES) Presto/2.9.181 Version/12.00',
-    'Opera/9.80 (Windows NT 5.1; U; zh-sg) Presto/2.9.181 Version/12.00',
-    'Opera/12.0(Windows NT 5.2;U;en)Presto/22.9.168 Version/12.00',
-    'Opera/12.0(Windows NT 5.1;U;en)Presto/22.9.168 Version/12.00',
-    'Mozilla/5.0 (Windows NT 5.1) Gecko/20100101 Firefox/14.0 Opera/12.0',
-    'Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.13+ (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/534.55.3 (KHTML, like Gecko) Version/5.1.3 Safari/534.53.10',
-    'Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko ) Version/5.1 Mobile/9B176 Safari/7534.48.3',
 ]
 
 
@@ -180,15 +148,15 @@ def getUrl(url):
     return content
 
 
-skin_path = os.path.join(plugin_path, 'res/skins/hd')
-res_plugin_path = os.path.join(plugin_path, "res")
 screenwidth = getDesktop(0).size()
 if screenwidth.width() == 2560:
     skin_path = res_plugin_path + '/skins/uhd/'
-if screenwidth.width() == 1920:
+elif screenwidth.width() == 1920:
     skin_path = res_plugin_path + '/skins/fhd/'
-# if os.path.exists('/var/lib/dpkg/info'):
-    # skin_path = skin_path + 'dreamOs/'
+else:
+    skin_path = res_plugin_path + '/skins/hd/'
+if os.path.exists("/var/lib/dpkg/status"):
+    skin_path = skin_path + 'dreamOs/'
 
 
 def cccamPath():
@@ -228,10 +196,10 @@ Serverlive = [
     ('aHR0cHM6Ly9jY2NhbWlhLmNvbS9mcmVlLWNjY2FtLw==', 'Server03'),
     ('aHR0cHM6Ly9jY2NhbS5uZXQvZnJlZWNjY2Ft', 'Server04'),
     ('aHR0cHM6Ly9jY2NhbXNhdGUuY29tL2ZyZWU=', 'Server05'),
-    ('aHR0cHM6Ly9jY2NhbXguY29tL2ZyZWUtY2NjYW0=', 'Server06'),
+    # ('aHR0cHM6Ly9jY2NhbXguY29tL2ZyZWUtY2NjYW0=', 'Server06'),
     ('aHR0cHM6Ly9jY2NhbS1wcmVtaXVtLmNvL2ZyZWUtY2NjYW0v', 'Server07'),
-    ('aHR0cHM6Ly93d3cuY2NjYW1iaXJkMi5jb20vZnJlZWNjY2FtLnBocA==', 'Server08'),
-    ('aHR0cHM6Ly9jY2NhbWZyZWUuY28vZnJlZS9nZXQucGhw', 'Server9'),
+    ('aHR0cHM6Ly9jY2NhbS5uZXQvZnJlZWNjY2Ft', 'Server08'),
+    # ('aHR0cHM6Ly9jY2NhbWZyZWUuY28vZnJlZS9nZXQucGhw', 'Server9'),
     ('aHR0cHM6Ly9jY2NhbWZyZWkuY29tL2ZyZWUvZ2V0LnBocA==', 'Server10'),
     ('aHR0cHM6Ly9jY2NhbWlwdHYuY2x1Yi9mcmVlLWNjY2FtLw==', 'Server11'),
 ]
@@ -335,6 +303,7 @@ class nssCamConfig(Screen, ConfigListScreen):
                                                                   'cancel': self.closex,
                                                                   'info': self.infomsg,
                                                                   'back': self.closex}, -1)
+        '''
         # if config.plugins.Manager.active.value is True:
             # self['key_green'].setText(buttn)
             # self['key_yellow'].setText(_('Get Link'))
@@ -343,6 +312,7 @@ class nssCamConfig(Screen, ConfigListScreen):
             # self['key_green'].setText('Force Emm Send')
             # self['key_yellow'].setText('Check Emm Send')
             # self['key_blue'].setText('')
+        '''
         self.createSetup()
         if self.selectionChanged not in self["config"].onSelectionChanged:
             self["config"].onSelectionChanged.append(self.selectionChanged)
@@ -356,6 +326,7 @@ class nssCamConfig(Screen, ConfigListScreen):
 
     def infomsg(self):
         self.session.open(MessageBox, _("Manager by Lululla\nInstall Cam Software\nForum Support www.corvoboys.org\n"),  MessageBox.TYPE_INFO, timeout=4)
+
     def sendemm(self):
         if config.plugins.Manager.active.value is True:
             self.getcl()
@@ -490,7 +461,7 @@ class nssCamConfig(Screen, ConfigListScreen):
             else:
                 return
         else:
-            if 'oscam' in str(runningcam):  #  or 'movicam' in str(self.runningcam):
+            if 'oscam' in str(runningcam):  # or 'movicam' in str(self.runningcam):
                 msg = []
                 msg.append(_("\n....\n.....\n"))
                 self.cmd1 = data_path + 'emm_sender.sh'
@@ -681,37 +652,45 @@ class nssCamConfig(Screen, ConfigListScreen):
         global host, port, user, passw
         try:
             # data = checkStr(data)
-            url1 = re.findall('<h1>C: (.+?) (.+?) (.+?) (.+?)\n', data)
+            url1 = re.findall(r'<h1>C: (.+?) (.+?) (.+?) (.+?)\n', data)
             if 'bosscccam' in data.lower():
-                url1 = re.findall('ong>c: (.+?) (.+?) (.+?) (.+?)</', data)
+                url1 = re.findall(r'ong>c: (.+?) (.+?) (.+?) (.+?)</', data)
+
+            elif 'cccam.net/freecccam' in data.lower():
+                # <b>C: free.cccam.net 21126 by5MtVIk cccam.net</b>
+                url1 = re.findall(r'b>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)', data)
 
             elif 'testcline' in data.lower():
-                url1 = re.findall('C: (.+?) (.+?) (.+?) (.+?)</d', data)
+                url1 = re.findall(r'C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)</d', data)
 
             elif 'free.cccam.net' in data.lower():
-                url1 = re.findall('<b>C: (.*?) (.*?) (.*?) (.*?)</b>', data)
+                url1 = re.findall(r'<b>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)</b>', data)
 
-            elif 'free.cccam-premium' in data.lower():
-                url1 = re.findall('C: (.+?) (.+?) (.+?) (*?).*?</h3>', data)
+            elif 'cccam-premium.co' in data.lower():
+                url1 = re.findall(r'C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)', data)
 
             elif 'cccamsate' in data.lower():
-                url1 = re.findall('<span><b>C: (.+?) (.+?) (.+?) (.+?)</b>', data)
+                url1 = re.findall(r'<span><b>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)</b>', data)
 
             elif 'cccameagle' in data.lower():
-                url1 = re.findall('>C: (.+?) (.+?) (.+?) (.+?)</h2>', data)
+                url1 = re.findall(r'>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)</h2>', data)
 
             elif 'cccamprime' in data.lower():
-                url1 = re.findall('Cline : C: (.+?) (.+?) (.+?) (.+?).*?Host', data)
+                # url1 = re.findall('Cline : C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+).*?Host', data)
+                url1 = re.findall(r'Cline : C:\s+(.*?)\s+(\d+)\s+(\w+)\s+(.*?)\s*Host', data)
                 url1 = url1.replace('<br><br>', '')
 
             elif 'cccamprima.com' in data.lower():
-                url1 = re.findall('<h1>C: (.+?) (.+?) (.+?) (.+?)\n', data)
+                # url1 = re.findall(r'<h1>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\n', data)
+                url1 = re.findall(r'<h1>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
 
             elif 'cccampri.me' in data.lower():
-                url1 = re.findall('Cline : C: (.+?) (.+?) (.+?) (.+?)<br>', data)
+                # url1 = re.findall(r'Cline : C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)<br>', data)
+                url1 = re.findall(r'Cline : C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)<br\s*/?>', data)
 
             elif 'cccamfree.co' in data.lower():
-                url1 = re.findall('<h1>C: (.+?) (.+?) (.+?) (.+?)\n', data)
+                # url1 = re.findall(r'<h1>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\n', data)
+                url1 = re.findall(r'<h1>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
 
             elif 'iptvcccam' in data.lower():
                 url1 = re.findall('C: (.+?) (.+?) (.+?) (*?).*?</h1>', data)
@@ -720,49 +699,58 @@ class nssCamConfig(Screen, ConfigListScreen):
                 # url1 = re.findall('C: (.+?) (.+?) (.+?) (.+?)\n', data)
 
             elif 'cccamia' in data:
-                url1 = re.findall('C: (.+?) (.+?) (.+?) (.+?)\n', data)
+                # url1 = re.findall(r'>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
+                url1 = re.findall(r'>?C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
 
             elif 'cccameurop' in data.lower():
-                url1 = re.findall('C: (.+?) (.+?)</', data)
+                # url1 = re.findall(r'C:\s+([\w.-]+)\s+(\d+)</', data)
+                url1 = re.findall(r'C:\s+([\w.-]+)\s+(\d+)\s*</', data)
 
             elif 'infosat' in data.lower():
-                url1 = re.findall('host: (.+?)<br> port: (.+?) <br>.*?user:(.+?)<br>.*?pass: (.+?)\n', data)
+                # url1 = re.findall('host: (.+?)<br> port: (.+?) <br>.*?user:(.+?)<br>.*?pass: (.+?)\n', data)
+                url1 = re.findall(r'host:\s*(.+?)<br\s*/?>\s*port:\s*(.+?)<br\s*/?>\s*user:\s*(.+?)<br\s*/?>\s*pass:\s*(.+?)\s*\n', data)
 
             elif 'cccamx' in data.lower():
-                url1 = re.findall('C: (.+?) (.+?) (.+?) (.+?)\n', data)
+                # url1 = re.findall('C: (.+?) (.+?) (.+?) (.+?)\n', data)
+                url1 = re.findall(r'C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
 
             elif 'cccamiptv' in data.lower():
-                url1 = re.findall('C: (.+?) (.+?) (.+?) (.+?)\n.*?</h3>', data)
+                # url1 = re.findall('C: (.+?) (.+?) (.+?) (.+?)\n.*?</h3>', data)
+                url1 = re.findall(r'C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</h3>', data)
 
             elif 'FREEN12' in data.lower():
-                url1 = re.findall('<h1>\nC: (.+?) (.+?) (.+?) (.+?)\n', data)
+                # url1 = re.findall('<h1>\nC: (.+?) (.+?) (.+?) (.+?)\n', data)
+                url1 = re.findall(r'<h1>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
 
             elif 'history' in data.lower():
-                url1 = re.findall('of the line">C: (.+?) (.+?) (.+?) (.+?)</a>.*?title=', data)
+                # url1 = re.findall('of the line">C: (.+?) (.+?) (.+?) (.+?)</a>.*?title=', data)
+                url1 = re.findall(r'of the line">C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</a>.*?title=', data)
 
             elif 'store' in data.lower():
-                url1 = re.findall('<center><strong>C: (.+?) (.+?) (.+?) (.+?) <br>', data)
+                # url1 = re.findall('<center><strong>C: (.+?) (.+?) (.+?) (.+?) <br>', data)
+                url1 = re.findall(r'<center><strong>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*<br>', data)
 
             elif 'cccamhub' in data.lower():
-                url1 = re.findall('id="cline">.*?C: (.+?) (.+?) (.+?) (.+?).*?</div>', data)
+                url1 = re.findall(r'id="cline">.*?C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</div>', data)
 
             elif 'rogcam' in data.lower():
-                url1 = re.findall('bg-primary"> C: (.+?) (.+?) (.+?) (.+?) </span>', data)
+                url1 = re.findall(r'bg-primary"> C: (.+?) (.+?) (.+?) (.+?) </span>', data)
 
             elif 'cccambird' in data.lower():
-                url1 = re.findall('>C: (.+?) (.+?) (.+?) (.+?)</th>', data)
+                url1 = re.findall(r'>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</th>', data)
 
             elif 'bosscccam' in data.lower():
-                url1 = re.findall('<strong>c: (.+?) (.+?) (.+?) (.+?)</strong', data)
+                url1 = re.findall(r'<strong>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</strong', data)
 
             elif '15days' in data.lower():
-                url1 = re.findall('">C: (.*?) (.*?) (.*?) (.+?)</th></tr>', data)
+                url1 = re.findall(r'">C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</th></tr>', data)
 
             elif 'cccamfrei' in data.lower():
-                url1 = re.findall('<h1>C: (.+?) (.+?) (.+?) (.+?)\n', data)
-
+                # url1 = re.findall('<h1>C: (.+?) (.+?) (.+?) (.+?)\n', data)
+                url1 = re.findall(r'<h1>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
             elif 'cccamazon' in data.lower():
-                url1 = re.findall('<h1>C: (.+?) (.+?) (.+?) (.+?)\n', data)
+                # url1 = re.findall('<h1>C: (.+?) (.+?) (.+?) (.+?)\n', data)
+                url1 = re.findall(r'<h1>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
             print('===========data=========', url1)
 
             if url1 != '':
