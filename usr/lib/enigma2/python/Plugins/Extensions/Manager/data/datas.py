@@ -196,10 +196,10 @@ Serverlive = [
     ('aHR0cHM6Ly9jY2NhbWlhLmNvbS9mcmVlLWNjY2FtLw==', 'Server03'),
     ('aHR0cHM6Ly9jY2NhbS5uZXQvZnJlZWNjY2Ft', 'Server04'),
     ('aHR0cHM6Ly9jY2NhbXNhdGUuY29tL2ZyZWU=', 'Server05'),
-    # ('aHR0cHM6Ly9jY2NhbXguY29tL2ZyZWUtY2NjYW0=', 'Server06'),
+    ('aHR0cHM6Ly9jY2NhbXguY29tL2ZyZWUtY2NjYW0=', 'Server06'),
     ('aHR0cHM6Ly9jY2NhbS1wcmVtaXVtLmNvL2ZyZWUtY2NjYW0v', 'Server07'),
     ('aHR0cHM6Ly9jY2NhbS5uZXQvZnJlZWNjY2Ft', 'Server08'),
-    # ('aHR0cHM6Ly9jY2NhbWZyZWUuY28vZnJlZS9nZXQucGhw', 'Server9'),
+    ('aHR0cHM6Ly9jY2NhbWZyZWUuY28vZnJlZS9nZXQucGhw', 'Server9'),
     ('aHR0cHM6Ly9jY2NhbWZyZWkuY29tL2ZyZWUvZ2V0LnBocA==', 'Server10'),
     ('aHR0cHM6Ly9jY2NhbWlwdHYuY2x1Yi9mcmVlLWNjY2FtLw==', 'Server11'),
 ]
@@ -362,7 +362,7 @@ class nssCamConfig(Screen, ConfigListScreen):
                             # import wget
                             # outp = base64.b64decode(sss)
                             # url = str(outp)
-                            cmmnd = "wget --no-check-certificate -U 'Enigma2 - Manager Plugin' -c 'https://pastebin.com/raw/U4eM6DjV' -O '/tmp/emm.txt'"
+                            cmmnd = "wget --no-check-certificate -U 'Enigma2 - Manager Plugin' -c 'https://pastebin.com/raw/B97HC8ie' -O '/tmp/emm.txt'"
                             # wget.download(url, '/tmp/emm.txt')
                             os.system(cmmnd)
                         if os.path.exists('/tmp/emm.txt'):
