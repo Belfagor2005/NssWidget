@@ -79,6 +79,8 @@ except ImportError:
 
 
 epgcache = eEPGCache.getInstance()
+
+
 def isMountReadonly(mnt):
     mount_point = ''
     with open('/proc/mounts') as f:
@@ -203,27 +205,27 @@ def quoteEventName(eventName):
 
 
 REGEX = re.compile(
-    r'([\(\[]).*?([\)\]])|'
-    r'(: odc.\d+)|'
-    r'(\d+: odc.\d+)|'
-    r'(\d+ odc.\d+)|(:)|'
-    r'( -(.*?).*)|(,)|'
-    r'!|'
-    r'/.*|'
-    r'\|\s[0-9]+\+|'
-    r'[0-9]+\+|'
-    r'\s\*\d{4}\Z|'
-    r'([\(\[\|].*?[\)\]\|])|'
-    r'(\"|\"\.|\"\,|\.)\s.+|'
-    r'\"|:|'
-    r'Премьера\.\s|'
-    r'(х|Х|м|М|т|Т|д|Д)/ф\s|'
-    r'(х|Х|м|М|т|Т|д|Д)/с\s|'
-    r'\s(с|С)(езон|ерия|-н|-я)\s.+|'
-    r'\s\d{1,3}\s(ч|ч\.|с\.|с)\s.+|'
-    r'\.\s\d{1,3}\s(ч|ч\.|с\.|с)\s.+|'
-    r'\s(ч|ч\.|с\.|с)\s\d{1,3}.+|'
-    r'\d{1,3}(-я|-й|\sс-н).+|', re.DOTALL)
+    r'[\(\[].*?[\)\]]|'                    # Parentesi tonde o quadre
+    r':?\s?odc\.\d+|'                      # odc. con o senza numero prima
+    r'\d+\s?:?\s?odc\.\d+|'                # numero con odc.
+    r'[:!]|'                               # due punti o punto esclamativo
+    r'\s-\s.*|'                            # trattino con testo successivo
+    r',|'                                  # virgola
+    r'/.*|'                                # tutto dopo uno slash
+    r'\|\s?\d+\+|'                         # | seguito da numero e +
+    r'\d+\+|'                              # numero seguito da +
+    r'\s\*\d{4}\Z|'                        # * seguito da un anno a 4 cifre
+    r'[\(\[\|].*?[\)\]\|]|'                # Parentesi tonde, quadre o pipe
+    r'(?:\"[\.|\,]?\s.*|\"|'               # Testo tra virgolette
+    r'\.\s.+)|'                            # Punto seguito da testo
+    r'Премьера\.\s|'                       # Specifico per il russo
+    r'[хмтдХМТД]/[фс]\s|'                  # Pattern per il russo con /ф o /с
+    r'\s[сС](?:езон|ерия|-н|-я)\s.*|'      # Stagione o episodio in russo
+    r'\s\d{1,3}\s[чсЧС]\.?\s.*|'           # numero di parte/episodio in russo
+    r'\.\s\d{1,3}\s[чсЧС]\.?\s.*|'         # numero di parte/episodio in russo con punto
+    r'\s[чсЧС]\.?\s\d{1,3}.*|'             # Parte/Episodio in russo
+    r'\d{1,3}-(?:я|й)\s?с-н.*'             # Finale con numero e suffisso russo
+    , re.DOTALL)
 
 
 def intCheck():
@@ -240,15 +242,27 @@ def intCheck():
         return True
 
 
+# def remove_accents(string):
+    # if type(string) is not unicode:
+        # string = unicode(string, encoding='utf-8')
+    # string = re.sub(u"[àáâãäå]", 'a', string)
+    # string = re.sub(u"[èéêë]", 'e', string)
+    # string = re.sub(u"[ìíîï]", 'i', string)
+    # string = re.sub(u"[òóôõö]", 'o', string)
+    # string = re.sub(u"[ùúûü]", 'u', string)
+    # string = re.sub(u"[ýÿ]", 'y', string)
+    # return string
+
+
 def remove_accents(string):
-    if type(string) is not unicode:
-        string = unicode(string, encoding='utf-8')
-    string = re.sub(u"[àáâãäå]", 'a', string)
-    string = re.sub(u"[èéêë]", 'e', string)
-    string = re.sub(u"[ìíîï]", 'i', string)
-    string = re.sub(u"[òóôõö]", 'o', string)
-    string = re.sub(u"[ùúûü]", 'u', string)
-    string = re.sub(u"[ýÿ]", 'y', string)
+    import unicodedata
+    if PY3 is False:
+        if type(string) is not unicode:
+            string = unicode(string, encoding='utf-8')
+    # Normalizza la stringa usando Unicode NFD (Normalization Form D)
+    string = unicodedata.normalize('NFD', string)
+    # Rimuove i segni diacritici (accents) lasciando solo i caratteri base
+    string = re.sub(r'[\u0300-\u036f]', '', string)
     return string
 
 
@@ -301,7 +315,7 @@ def convtext(text=''):
             text = text.lower()
             text = remove_accents(text)
             print('remove_accents text: ', text)
-            
+
             # #
             text = cutName(text)
             text = getCleanTitle(text)
@@ -403,7 +417,7 @@ def convtext(text=''):
             text = re.sub(r'(odc.\d+)+.*?FIN', '', text)
             text = re.sub(r'(\d+)+.*?FIN', '', text)
             text = text.partition("(")[0] + 'FIN'
-            text = re.sub("\\s\d+", "", text)
+            text = re.sub(r"\\s\d+", "", text)
             text = text.partition("(")[0]
             # text = text.partition(":")[0]  # not work on csi: new york (only-->  csi)
             text = text.partition(" -")[0]
@@ -413,7 +427,7 @@ def convtext(text=''):
             text = re.sub(r"[-,?!/\.\":]", '', text)  # replace (- or , or ! or / or . or " or :) by space
             # recoded  end
             text = text.strip(' -')
-            # forced 
+            # forced
             text = text.replace('XXXXXX', '60')
             text = text.replace('brunobarbierix', 'bruno barbieri - 4 hotel')
             text = quote(text, safe="")

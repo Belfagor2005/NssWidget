@@ -7,7 +7,16 @@
 # --------------------#
 # imported from tvAddon Panel
 from __future__ import print_function
-from . import _, wgetsts
+from . import (
+    _,
+    epk,
+    Host,
+    wgetsts,
+    pblk,
+    ptrs,
+    ptmov,
+    data_xml,
+)
 from .Console import Console as tvConsole
 from .lib import Utils
 from .lib.Utils import RequestAgent
@@ -18,6 +27,7 @@ from .lib.Lcn import (
     terrestrial_rest,
     ReloadBouquets,
     keepiptv,
+    copy_files_to_enigma2,
 )
 from Components.ActionMap import ActionMap
 from Components.Button import Button
@@ -94,10 +104,6 @@ try:
     wgetsts()
 except:
     pass
-
-# linuxsat panel
-epk = 'https://github.com/Belfagor2005/upload/raw/main/fill/addons_2024.xml'
-Host = 'https://www.nonsolosat.net'
 
 
 def ssl_urlopen(url):
@@ -228,10 +234,6 @@ name_plug = 'NSS Addon'
 name_cam = 'NSS Cam Manager'
 category = 'lululla.xml'
 sets = 0
-pblk = 'aHR0cHM6Ly93d3cubWVkaWFmaXJlLmNvbS9hcGkvMS41L2ZvbGRlci9nZXRfY29udGVudC5waHA/Zm9sZGVyX2tleT1vdnowNG1ycHpvOXB3JmNvbnRlbnRfdHlwZT1mb2xkZXJzJmNodW5rX3NpemU9MTAwMCZyZXNwb25zZV9mb3JtYXQ9anNvbg== '
-ptrs = 'aHR0cHM6Ly93d3cubWVkaWFmaXJlLmNvbS9hcGkvMS41L2ZvbGRlci9nZXRfY29udGVudC5waHA/Zm9sZGVyX2tleT10dmJkczU5eTlocjE5JmNvbnRlbnRfdHlwZT1mb2xkZXJzJmNodW5rX3NpemU9MTAwMCZyZXNwb25zZV9mb3JtYXQ9anNvbg== '
-ptmov = 'aHR0cHM6Ly93d3cubWVkaWFmaXJlLmNvbS9hcGkvMS41L2ZvbGRlci9nZXRfY29udGVudC5waHA/Zm9sZGVyX2tleT1uazh0NTIyYnY0OTA5JmNvbnRlbnRfdHlwZT1maWxlcyZjaHVua19zaXplPTEwMDAmcmVzcG9uc2VfZm9ybWF0PWpzb24= '
-data_xml = 'aHR0cHM6Ly93d3cubm9uc29sb3NhdC5uZXQveG1sLw=='
 regexC = '<plugins cont="(.*?)"'
 regexL = 'href="(.+?)">.+?alt=.+?">(.+?)</a>.+?data.+?">(.+?)</td>'
 host_trs = Utils.b64decoder(ptrs)
@@ -242,20 +244,22 @@ plugin_path = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('nssaddon'))
 ico_path = os.path.join(plugin_path, 'logo.png')
 no_cover = os.path.join(plugin_path, 'no_coverArt.png')
 ee2ldb = '/etc/enigma2/lamedb'
+
 plugin_temp = os.path.join(plugin_path, 'temp')
 if not os.path.exists(plugin_temp):
     try:
         os.makedirs(plugin_temp)
     except OSError as e:
         print(('Error creating directory %s:\n%s') % (plugin_temp, str(e)))
+
+
+
 ServiceListNewLamedb = plugin_path + '/temp/ServiceListNewLamedb'
 TrasponderListNewLamedb = plugin_path + '/temp/TrasponderListNewLamedb'
 ServOldLamedb = plugin_path + '/temp/ServiceListOldLamedb'
 TransOldLamedb = plugin_path + '/temp/TrasponderListOldLamedb'
 TerChArch = plugin_path + '/temp/TerrestrialChannelListArchive'
-# SelBack = plugin_path + '/SelectBack'
-# SSelect = plugin_path + '/Select'
-# DIGTV = 'eeee0000'
+
 
 screenwidth = getDesktop(0).size()
 if screenwidth.width() == 2560:
@@ -2964,25 +2968,5 @@ def Plugins(**kwargs):
         result.append(mainDescriptor)
     return result
 
-
-def copy_files_to_enigma2():
-    import shutil
-    IptvChArch = plugin_path + '/temp'
-    enigma2_folder = "/etc/enigma2"
-    bouquet_file = os.path.join(enigma2_folder, "bouquets.tv")
-
-    # Copia i file dalla cartella temporanea a /etc/enigma2
-    for filename in os.listdir(IptvChArch):
-        if filename.endswith(".tv"):
-            src_path = os.path.join(IptvChArch, filename)
-            dst_path = os.path.join(enigma2_folder, filename)
-            shutil.copy(src_path, dst_path)
-
-            # Aggiungi il nome del file al file bouquet.tv
-            with open(bouquet_file, "r+") as f:
-                line = '#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "{}" ORDER BY bouquet\n'.format(filename)
-                if line not in f:
-                    f.write(line)
-    print("Operazione completata!")
 
 # ===== by lululla

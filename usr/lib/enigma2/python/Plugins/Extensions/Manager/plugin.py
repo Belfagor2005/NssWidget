@@ -9,7 +9,7 @@
 from __future__ import print_function
 from . import _, isDreamOS, wgetsts
 from . import Utils
-from .Utils import RequestAgent
+from .Utils import RequestAgent, b64decoder
 from .data.GetEcmInfo import GetEcmInfo
 from .Console import Console
 
@@ -61,6 +61,8 @@ data_path = plugin_path + '/data'
 dir_work = '/usr/lib/enigma2/python/Screens'
 FILE_XML = os.path.join(plugin_path, 'Manager.xml')
 FTP_CFG = 'http://nonsolosat.net/Manager/cfg.txt'
+xmml = 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2xldmktNDUvTXVsdGljYW0vbWFpbi9DYW1pbnN0YWxsZXIueG1s'
+xlm = b64decoder(xmml)
 local = True
 ECM_INFO = '/tmp/ecm.info'
 EMPTY_ECM_INFO = ('', '0', '0', '0')
@@ -209,7 +211,7 @@ class Manager(Screen):
             nim = str(self.curCam).lower()
             print('nim lower=', nim)
 
-            if 'oscam' in self.curCam.lower():
+            if 'oscam' in str(self.curCam).lower():
                 print('oscam in nim')
                 runningcam = "oscam"
                 self["key_blue"].setText("OSCAMINFO")
@@ -689,7 +691,7 @@ class nssGetipk(Screen):
         local = False
         self.icount = 0
         self.downloading = False
-        self.xml = 'http://nonsolosat.net/Manager/Manager.xml'
+        # self.xml = 'http://nonsolosat.net/Manager/Manager.xml'
         self.timer = eTimer()
         if os.path.exists('/var/lib/dpkg/status'):
             self.timer_conn = self.timer.timeout.connect(self._gotPageLoad)
@@ -715,35 +717,41 @@ class nssGetipk(Screen):
                 local = True
             self._gotPageLoad()
 
-    def downloadxmlpage(self):
-        url = 'http://nonsolosat.net/Manager/Manager.xml'
-        if PY3:
-            url = url.encode()
-        getPage(url).addCallback(self._gotPageLoad).addErrback(self.errorLoad)
-
-    def errorLoad(self, error):
-        print(str(error))
-        self['description'].setText(_('Try again later ...'))
-        self.downloading = False
-
     def _gotPageLoad(self):
         global local
+        self.xml = xlm
+        if PY3:
+            self.xml = self.xml.encode()
         if local is False:
-            self.xml = Utils.checkGZIP(self.xml)
-        print('self.xml', self.xml)
+            if os.path.exists('/var/lib/dpkg/info'):
+                print('have a dreamOs!!!')
+                self.data = Utils.checkGZIP(self.xml)
+                self.downloadxmlpage(self.data)
+            else:
+                print('have a Atv-PLi - etc..!!!')
+                getPage(self.xml).addCallback(self.downloadxmlpage).addErrback(self.errorLoad)
+
+    def downloadxmlpage(self, data):
+        self.xml = data
         self.list = []
         self.names = []
         try:
             if self.xml:
                 self.xmlparse = minidom.parseString(self.xml)
-                print('self.xmlparse:', self.xmlparse)
                 for plugins in self.xmlparse.getElementsByTagName('plugins'):
                     self.names.append(str(plugins.getAttribute('cont')))
+                # self["list"].l.setItemHeight(50)
                 self["list"].l.setList(self.names)
                 self['description'].setText(_('Please select ...'))
-            self.downloading = True
-        except:
+                self.downloading = True
+        except Exception as e:
+            print('error:', e)
             self['description'].setText(_('Error processing server addons data'))
+
+    def errorLoad(self, error):
+        print(str(error))
+        self['description'].setText(_('Try again later ...'))
+        self.downloading = False
 
     def okClicked(self):
         try:
@@ -851,7 +859,7 @@ class nssGetipklist(Screen):
         self.folddest = '/tmp/' + self.plug
         cmd2 = ''
         if ".deb" in self.plug:
-            cmd2 = "dpkg -i /tmp/" + self.plug  # + "'"
+            cmd2 = "dpkg -i '/tmp/" + self.plug + "'"
         if ".ipk" in self.plug:
             cmd2 = "opkg install --force-reinstall --force-overwrite '/tmp/" + self.plug + "'"
         elif ".zip" in self.plug:
@@ -860,11 +868,10 @@ class nssGetipklist(Screen):
             cmd2 = "tar -xvf '/tmp/" + self.plug + "' -C /"
         elif ".bz2" in self.plug and "gz" in self.plug:
             cmd2 = "tar -xjvf '/tmp/" + self.plug + "' -C /"
-        else:
-            return
-        # cmd3 = "rm /tmp/" + self.plug
-        cmd = cmd2  #+ " && "  # + cmd3
+        # cmd3 = "rm '/tmp/" + self.plug + "'"
+        cmd = cmd2  # + " && " + cmd3
         cmd00 = "wget --no-check-certificate -U '%s' -c '%s' -O '%s';%s > /dev/null" % (AgentRequest, str(self.com), self.folddest, cmd)
+        print('cmd00:', cmd00)
         title = (_("Installing %s\nPlease Wait...") % self.dom)
         self.session.open(Console, _(title), [cmd00], closeOnSuccess=False)
 

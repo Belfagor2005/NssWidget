@@ -318,6 +318,7 @@ def terrestrial_rest():
 
 
 def copy_files_to_enigma2():
+    import shutil
     IptvChArch = plugin_path + '/temp'
     enigma2_folder = "/etc/enigma2"
     bouquet_file = os.path.join(enigma2_folder, "bouquets.tv")

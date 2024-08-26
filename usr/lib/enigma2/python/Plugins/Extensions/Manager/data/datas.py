@@ -191,17 +191,15 @@ def cccamPath():
 
 
 Serverlive = [
-    ('aHR0cHM6Ly9ib3NzY2NjYW0uY28vVGVzdC5waHA=', 'Server01'),
-    ('aHR0cHM6Ly9pcHR2LTE1ZGF5cy5ibG9nc3BvdC5jb20=', 'Server02'),
+    ('aHR0cHM6Ly9pcHR2LTE1ZGF5cy5ibG9nc3BvdC5jb20=', 'Server01'),
+    ('aHR0cHM6Ly9ib3NzY2NjYW0uY28vVGVzdC5waHA=', 'Server02'),    
     ('aHR0cHM6Ly9jY2NhbWlhLmNvbS9mcmVlLWNjY2FtLw==', 'Server03'),
     ('aHR0cHM6Ly9jY2NhbS5uZXQvZnJlZWNjY2Ft', 'Server04'),
     ('aHR0cHM6Ly9jY2NhbXNhdGUuY29tL2ZyZWU=', 'Server05'),
     ('aHR0cHM6Ly9jY2NhbXguY29tL2ZyZWUtY2NjYW0=', 'Server06'),
     ('aHR0cHM6Ly9jY2NhbS1wcmVtaXVtLmNvL2ZyZWUtY2NjYW0v', 'Server07'),
-    ('aHR0cHM6Ly9jY2NhbS5uZXQvZnJlZWNjY2Ft', 'Server08'),
-    ('aHR0cHM6Ly9jY2NhbWZyZWUuY28vZnJlZS9nZXQucGhw', 'Server9'),
-    ('aHR0cHM6Ly9jY2NhbWZyZWkuY29tL2ZyZWUvZ2V0LnBocA==', 'Server10'),
-    ('aHR0cHM6Ly9jY2NhbWlwdHYuY2x1Yi9mcmVlLWNjY2FtLw==', 'Server11'),
+    ('aHR0cHM6Ly9jY2NhbWZyZWUuY28vZnJlZS9nZXQucGhw', 'Server8'),
+    ('aHR0cHM6Ly9jY2NhbWlwdHYucHJvL2NjY2FtLWZyZWUvI3BhZ2UtY29udGVudA==', 'Server9'),
 ]
 
 # cfgcam = [(cccamPath(), 'CCcam'),
@@ -267,10 +265,6 @@ class nssCamConfig(Screen, ConfigListScreen):
             self.skin = f.read()
         self.setup_title = (name_plug)
         self['title'] = Label(_(name_plug))
-        # self["key_red"] = Label(_("Back"))
-        # self["key_green"] = Label("")
-        # self["key_yellow"] = Label("")
-        # self["key_blue"] = Label("")
         if os.path.exists('/usr/lib/enigma2/python/Plugins/PLi'):
             self["key_red"] = StaticText(_("Back"))
             self["key_green"] = StaticText("")
@@ -292,6 +286,7 @@ class nssCamConfig(Screen, ConfigListScreen):
                                      'VirtualKeyboardActions',
                                      'MenuActions',
                                      'EPGSelectActions',
+                                                    
                                      'InfobarChannelSelection'], {'left': self.keyLeft,
                                                                   'right': self.keyRight,
                                                                   'ok': self.closex,
@@ -335,7 +330,6 @@ class nssCamConfig(Screen, ConfigListScreen):
                 print('runningcam=', runningcam)
                 if runningcam is None:
                     return
-                # if runningcam == 'oscam' or runningcam == 'ncam':
                 if runningcam == 'oscam':
                     cmd = 'ps -T'
                     res = os.popen(cmd).read()
@@ -348,8 +342,6 @@ class nssCamConfig(Screen, ConfigListScreen):
                         from os import access, X_OK
                         if not access(self.cmd1, X_OK):
                             os.chmod(self.cmd1, 493)
-                        # os.system(self.cmd1)
-                        # subprocess.check_output(['bash', self.cmd1])
                         try:
                             subprocess.check_output(['bash', self.cmd1])
                             self.session.open(MessageBox, _('Card Updated!'), MessageBox.TYPE_INFO, timeout=5)
@@ -359,11 +351,7 @@ class nssCamConfig(Screen, ConfigListScreen):
 
                         os.system('sleep 5')
                         if not os.path.exists('/tmp/emm.txt'):
-                            # import wget
-                            # outp = base64.b64decode(sss)
-                            # url = str(outp)
                             cmmnd = "wget --no-check-certificate -U 'Enigma2 - Manager Plugin' -c 'https://pastebin.com/raw/B97HC8ie' -O '/tmp/emm.txt'"
-                            # wget.download(url, '/tmp/emm.txt')
                             os.system(cmmnd)
                         if os.path.exists('/tmp/emm.txt'):
                             msg.append(_("READ EMM....\n"))
@@ -402,7 +390,6 @@ class nssCamConfig(Screen, ConfigListScreen):
             if not os.path.exists('/tmp/emm.txt'):
                 outp = base64.b64decode(sss)
                 url = str(outp)
-                # cmd = 'wget -q --no-use-server-timestamps --no-clobber --timeout=5' + url + ' -O /tmp/emm.txt'
                 try:
                     # subprocess.check_output(['bash', cmd])
                     subprocess.call(["wget", "-q", "--no-use-server-timestamps", "--no-clobber", "--timeout=5", url, "-O", '/tmp/emm.txt'])
@@ -505,6 +492,7 @@ class nssCamConfig(Screen, ConfigListScreen):
             self['key_green'].setText(buttn)
             self['key_yellow'].setText(_('Get Link'))
             self['key_blue'].setText(_('Reset'))
+
         self['config'].list = self.list
         self['config'].l.setList(self.list)
         self.showhide()
@@ -547,7 +535,6 @@ class nssCamConfig(Screen, ConfigListScreen):
         return SetupSummary
 
     def selectionChanged(self):
-        # self["info"].setText(self["config"].getCurrent()[2])
         self.showhide()
 
     def changedEntry(self):
@@ -579,7 +566,6 @@ class nssCamConfig(Screen, ConfigListScreen):
             return
         os.system('chmod -R 755 %s' % dest)
         cfgdok = open(dest, 'a')
-        # cfgdok = open(dest, 'a', encoding='utf-8')
         cfgdok.write('\n\n' + host + ' ' + port + ' ' + user + ' ' + pasw)
         cfgdok.close()
         self.session.open(MessageBox, _('Server Copy in ') + dest, type=MessageBox.TYPE_INFO, timeout=8)
@@ -597,7 +583,6 @@ class nssCamConfig(Screen, ConfigListScreen):
             return
         os.system('chmod -R 755 %s' % dest)
         cfgdok = open(dest, 'a')
-        # cfgdok = open(dest, 'a', encoding='utf-8')
         cfgdok.write('\n[reader]\nlabel = Server_' + host + '\nenable= 1\nprotocol = cccam\ndevice = ' + host + ',' + port + '\nuser = ' + user + '\npassword = ' + pasw + '\ninactivitytimeout = 30\ngroup = 3\ncccversion = 2.2.1\ncccmaxhops = 0\nccckeepalive = 1\naudisabled = 1\n\n')
         cfgdok.close()
         self.session.open(MessageBox, _('Server Copy in ') + dest, type=MessageBox.TYPE_INFO, timeout=8)
@@ -622,7 +607,6 @@ class nssCamConfig(Screen, ConfigListScreen):
             return
         os.system('chmod -R 755 %s' % dest)
         cfgdok = open(dest, 'a')
-        # cfgdok = open(dest, 'a', encoding='utf-8')
         cfgdok.write('\n[reader]\nlabel = Server_' + host + '\nenable= 1\nprotocol = cccam\ndevice = ' + host + ',' + port + '\nuser = ' + user + '\npassword = ' + pasw + '\ngroup = 3\ncccversion = 2.0.11\ndisablecrccws_only_for= 0500:032830\ncccmaxhops= 1\nccckeepalive= 1\naudisabled = 1\n\n')
         cfgdok.close()
         self.session.open(MessageBox, _('Server Copy in ') + dest, type=MessageBox.TYPE_INFO, timeout=8)
@@ -642,7 +626,6 @@ class nssCamConfig(Screen, ConfigListScreen):
                 else:
                     self.timer.callback.append(self.load_getcl(data))
                 self.timer.start(600, 1)
-                # self.load_getcl(data)
             except Exception as e:
                 print('getcl error: ', str(e))
         except Exception as e:
@@ -651,18 +634,31 @@ class nssCamConfig(Screen, ConfigListScreen):
     def load_getcl(self, data):
         global host, port, user, passw
         try:
-            # data = checkStr(data)
-            url1 = re.findall(r'<h1>C: (.+?) (.+?) (.+?) (.+?)\n', data)
+            data = checkStr(data)
+            url1 = re.findall(r'<h1>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
+
             if 'bosscccam' in data.lower():
-                url1 = re.findall(r'ong>c: (.+?) (.+?) (.+?) (.+?)</', data)
+                url1 = re.findall(r'<strong>c:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</strong', data)
+
+            # <h3 class="elementor-heading-title elementor-size-default">C: free.cccamx.com 18804 Trial978532 89390137</h3>
+            elif 'cccamx' in data.lower():
+                url1 = re.findall(r'">C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</h3>', data)
+
+            elif '15days' in data.lower():
+                url1 = re.findall(r'">C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</th></tr>', data)
+
+            elif 'cccamia' in data:
+                url1 = re.findall(r'>?C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
 
             elif 'cccam.net/freecccam' in data.lower():
-                # <b>C: free.cccam.net 21126 by5MtVIk cccam.net</b>
                 url1 = re.findall(r'b>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)', data)
 
             elif 'testcline' in data.lower():
                 url1 = re.findall(r'C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)</d', data)
 
+            # <div id="cline">C: free.cccamiptv.club 13000 ggd32x cccamiptv.pro</div>
+            elif 'cccamiptv' in data.lower():
+                url1 = re.findall(r'cline">\s*C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
             elif 'free.cccam.net' in data.lower():
                 url1 = re.findall(r'<b>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)</b>', data)
 
@@ -676,80 +672,41 @@ class nssCamConfig(Screen, ConfigListScreen):
                 url1 = re.findall(r'>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)</h2>', data)
 
             elif 'cccamprime' in data.lower():
-                # url1 = re.findall('Cline : C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+).*?Host', data)
                 url1 = re.findall(r'Cline : C:\s+(.*?)\s+(\d+)\s+(\w+)\s+(.*?)\s*Host', data)
                 url1 = url1.replace('<br><br>', '')
 
-            elif 'cccamprima.com' in data.lower():
-                # url1 = re.findall(r'<h1>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\n', data)
-                url1 = re.findall(r'<h1>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
-
             elif 'cccampri.me' in data.lower():
                 # url1 = re.findall(r'Cline : C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)<br>', data)
-                url1 = re.findall(r'Cline : C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)<br\s*/?>', data)
-
-            elif 'cccamfree.co' in data.lower():
-                # url1 = re.findall(r'<h1>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\n', data)
-                url1 = re.findall(r'<h1>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
+                url1 = re.findall(r'line : C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)<br\s*/?>', data)
 
             elif 'iptvcccam' in data.lower():
-                url1 = re.findall('C: (.+?) (.+?) (.+?) (*?).*?</h1>', data)
-
-            # elif 'premium' in data.lower():
-                # url1 = re.findall('C: (.+?) (.+?) (.+?) (.+?)\n', data)
-
-            elif 'cccamia' in data:
-                # url1 = re.findall(r'>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
-                url1 = re.findall(r'>?C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
+                url1 = re.findall(r'?C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</h1>', data)
 
             elif 'cccameurop' in data.lower():
-                # url1 = re.findall(r'C:\s+([\w.-]+)\s+(\d+)</', data)
                 url1 = re.findall(r'C:\s+([\w.-]+)\s+(\d+)\s*</', data)
 
             elif 'infosat' in data.lower():
                 # url1 = re.findall('host: (.+?)<br> port: (.+?) <br>.*?user:(.+?)<br>.*?pass: (.+?)\n', data)
                 url1 = re.findall(r'host:\s*(.+?)<br\s*/?>\s*port:\s*(.+?)<br\s*/?>\s*user:\s*(.+?)<br\s*/?>\s*pass:\s*(.+?)\s*\n', data)
 
-            elif 'cccamx' in data.lower():
-                # url1 = re.findall('C: (.+?) (.+?) (.+?) (.+?)\n', data)
-                url1 = re.findall(r'C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
+            # elif 'history' in data.lower():
+                # # url1 = re.findall('of the line">C: (.+?) (.+?) (.+?) (.+?)</a>.*?title=', data)
+                # url1 = re.findall(r'of the line">C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</a>.*?title=', data)
 
-            elif 'cccamiptv' in data.lower():
-                # url1 = re.findall('C: (.+?) (.+?) (.+?) (.+?)\n.*?</h3>', data)
-                url1 = re.findall(r'C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</h3>', data)
+            # elif 'store' in data.lower():
+                # # url1 = re.findall('<center><strong>C: (.+?) (.+?) (.+?) (.+?) <br>', data)
+                # url1 = re.findall(r'<center><strong>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*<br>', data)
 
-            elif 'FREEN12' in data.lower():
-                # url1 = re.findall('<h1>\nC: (.+?) (.+?) (.+?) (.+?)\n', data)
-                url1 = re.findall(r'<h1>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
-
-            elif 'history' in data.lower():
-                # url1 = re.findall('of the line">C: (.+?) (.+?) (.+?) (.+?)</a>.*?title=', data)
-                url1 = re.findall(r'of the line">C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</a>.*?title=', data)
-
-            elif 'store' in data.lower():
-                # url1 = re.findall('<center><strong>C: (.+?) (.+?) (.+?) (.+?) <br>', data)
-                url1 = re.findall(r'<center><strong>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*<br>', data)
-
-            elif 'cccamhub' in data.lower():
-                url1 = re.findall(r'id="cline">.*?C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</div>', data)
+            # elif 'cccamhub' in data.lower():
+                # url1 = re.findall(r'id="cline">.*?C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</div>', data)
 
             elif 'rogcam' in data.lower():
-                url1 = re.findall(r'bg-primary"> C: (.+?) (.+?) (.+?) (.+?) </span>', data)
+                url1 = re.findall(r'?C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</span>', data)
 
-            elif 'cccambird' in data.lower():
-                url1 = re.findall(r'>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</th>', data)
+            # elif 'cccambird' in data.lower():
+                # url1 = re.findall(r'>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</th>', data)
 
-            elif 'bosscccam' in data.lower():
-                url1 = re.findall(r'<strong>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</strong', data)
-
-            elif '15days' in data.lower():
-                url1 = re.findall(r'">C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*</th></tr>', data)
-
-            elif 'cccamfrei' in data.lower():
-                # url1 = re.findall('<h1>C: (.+?) (.+?) (.+?) (.+?)\n', data)
-                url1 = re.findall(r'<h1>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
-            elif 'cccamazon' in data.lower():
-                # url1 = re.findall('<h1>C: (.+?) (.+?) (.+?) (.+?)\n', data)
+            else:
                 url1 = re.findall(r'<h1>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
             print('===========data=========', url1)
 
@@ -766,17 +723,6 @@ class nssCamConfig(Screen, ConfigListScreen):
                         user = str(u)
                         password = str(pw)
                         print('Host: %s - Port: %s - User: %s - Password: %s' % (host, port, user, password))
-                elif 'cccam.net' in data.lower():
-                    for h, p, u, pw in url1:
-                        print(h, p, u, pw)
-                        host = str(h)
-                        port = str(p)
-                        user = str(u)
-                        password = str(pw)
-                        password = password.replace('</b>', '').replace('</span>', '')
-                        password = password.replace('</div>', '')
-                        password = password.replace('</h1>', '')
-                        password = password.replace('</div>', '')
                 else:
                     for h, p, u, pw in url1:
                         print(h, p, u, pw)
@@ -784,8 +730,8 @@ class nssCamConfig(Screen, ConfigListScreen):
                         port = str(p)
                         user = str(u)
                         password = str(pw)
-                        password = password.replace('</h1>', '')
-                        password = password.replace('</div>', '')
+                        password = password.replace('</h1>', '').replace('</b>', '')
+                        password = password.replace('</div>', '').replace('</span>', '')
                 # if config.plugins.Manager.active.getValue():
                 config.plugins.Manager.hostaddress.setValue(host)
                 config.plugins.Manager.port.setValue(port)

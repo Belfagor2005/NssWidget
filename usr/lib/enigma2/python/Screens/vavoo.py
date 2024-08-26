@@ -40,16 +40,18 @@ from Components.MenuList import MenuList
 from Components.MultiContent import (MultiContentEntryPixmapAlphaTest, MultiContentEntryText)
 from Components.ServiceEventTracker import (ServiceEventTracker, InfoBarBase)
 from Components.config import (
-    ConfigEnableDisable,
     ConfigSelection,
     getConfigListEntry,
     ConfigSelectionNumber,
     ConfigClock,
-    configfile,
     ConfigText,
-    ConfigSubsection,
+    configfile,
     config,
+    # ConfigYesNo,
+    ConfigEnableDisable,
+    ConfigSubsection,
 )
+
 from Plugins.Plugin import PluginDescriptor
 from Screens.InfoBarGenerics import (
     InfoBarSubtitleSupport,
@@ -78,27 +80,24 @@ from enigma import (
 from os import path as os_path
 from os.path import exists as file_exists
 from random import choice
-from six import unichr, iteritems
-from six.moves import html_entities
-from twisted.web.client import error
+# from twisted.web.client import error
 import base64
 import json
-import re
+# import re
 import requests
-import types
+
 
 try:
     from Tools.Directories import SCOPE_GUISKIN as SCOPE_SKIN
 except ImportError:
     from Tools.Directories import SCOPE_SKIN
-
-
+from six import unichr, iteritems
+from six.moves import html_entities
+import types
 global HALIGN
 tmlast = None
 now = None
 _session = None
-
-
 PY2 = sys.version_info[0] == 2
 PY3 = sys.version_info[0] == 3
 
@@ -147,7 +146,7 @@ else:
             MAXSIZE = int((1 << 63) - 1)
         del X
 
-currversion = '1.20'
+currversion = '1.25'
 title_plug = 'Vavoo'
 desc_plugin = ('..:: Vavoo by Lululla v.%s ::..' % currversion)
 stripurl = 'aHR0cHM6Ly92YXZvby50by9jaGFubmVscw=='
@@ -185,24 +184,6 @@ if file_exists('/var/lib/dpkg/info'):
     modemovie.append(("8193", "8193"))
 
 
-# GETPath = os_path.join(PLUGIN_PATH + "/fonts")
-# fonts = []
-# if file_exists(PLUGIN_PATH + "/fonts/Questrial-Regular.ttf"):
-    # try:
-        # default_font = PLUGIN_PATH + "/fonts/Questrial-Regular.ttf"
-    # except Exception as error:
-        # trace_error()
-# try:
-    # if file_exists(GETPath):
-        # for fontName in os.listdir(GETPath):
-            # fontNamePath = os_path.join(GETPath, fontName)
-            # if fontName.endswith(".ttf") or fontName.endswith(".otf"):
-                # fontName = fontName[:-4]
-                # fonts.append((fontNamePath, fontName))
-# except Exception as error:
-    # trace_error()
-
-# fonts = sorted(fonts, key=lambda x: x[1])
 # config section
 config.plugins.vavoo = ConfigSubsection()
 cfg = config.plugins.vavoo
@@ -216,8 +197,9 @@ cfg.fixedtime = ConfigClock(default=46800)
 cfg.last_update = ConfigText(default="Never")
 
 cfg.ipv6 = ConfigEnableDisable(default=False)
-# cfg.fonts = ConfigSelection(default=default_font, choices=fonts)
-# FONTSTYPE = cfg.fonts.value
+# cfg.fonts = ConfigSelection(default='vav', choices=fonts)
+# FONTSTYPE = FNTPath + '/' + str(cfg.fonts.value) + '.ttf'
+
 eserv = int(cfg.services.value)
 
 
@@ -226,23 +208,20 @@ if os_path.islink('/etc/rc3.d/S99ipv6dis.sh'):
     cfg.ipv6.save()
 
 
+# language
+locl = "ar", "ae", "bh", "dz", "eg", "in", "iq", "jo", "kw", "lb", "ly", "ma", "om", "qa", "sa", "sd", "ss", "sy", "tn", "ye"
+global lngx
+lngx = 'en'
 try:
+    from Components.config import config
     lng = config.osd.language.value
     lng = lng[:-3]
-    if lng.lower() == 'ar':
+    if any(s in lngx for s in locl):
         HALIGN = RT_HALIGN_RIGHT
 except:
     lng = 'en'
     pass
 
-                    
-                               
-                                                                                 
-                                                                              
-                                                                        
-                                                                
-                                              
-                                                                                      
 
 def ensure_str(s, encoding='utf-8', errors='strict'):
     """Coerce *s* to `str`.
@@ -433,6 +412,7 @@ def returnIMDB(text_clear):
     return False
 
 
+# check server
 def raises(url):
     try:
         from requests.adapters import HTTPAdapter, Retry
@@ -464,6 +444,11 @@ def zServer(opt=0, server=None, port=None):
         return 'https://vavoo.to'
 
 
+def rimuovi_parentesi(testo):
+    return re.sub(r'\([^)]*\)', '', testo)
+
+
+# menulist
 class m2list(MenuList):
     def __init__(self, list):
         MenuList.__init__(self, list, False, eListboxPythonMultiContent)
@@ -501,7 +486,7 @@ def show2_(name, link):
     return res
 
 
-class vavoo_config(Screen, ConfigListScreen):
+class vavoo_configx(Screen, ConfigListScreen):
     def __init__(self, session):
         Screen.__init__(self, session)
         self.session = session
@@ -513,8 +498,6 @@ class vavoo_config(Screen, ConfigListScreen):
         self["description"] = Label("")
         self["red"] = Label(_("Back"))
         self["green"] = Label(_("Save"))
-        # self["blue"] = Label(_("HALIGN")
-        # self["yellow"] = Label("")
         self['actions'] = ActionMap(['OkCancelActions', 'ColorActions', 'DirectionActions'], {
             "cancel": self.extnok,
             "left": self.keyLeft,
@@ -523,9 +506,6 @@ class vavoo_config(Screen, ConfigListScreen):
             "down": self.keyDown,
             "red": self.extnok,
             "green": self.save,
-            # "yellow": self.ipt,
-            # "blue": self.Import,
-            # "showVirtualKeyboard": self.KeyText,
             "ok": self.save,
         }, -1)
         self.update_status()
@@ -547,11 +527,11 @@ class vavoo_config(Screen, ConfigListScreen):
         self.editListEntry = None
         self.list = []
         indent = "- "
+
         self.list.append(getConfigListEntry(_("Server for Player Used"), cfg.server, _("Server for player.\nNow %s") % cfg.server.value))
         self.list.append(getConfigListEntry(_("Ipv6 State Of Lan (On/Off)"), cfg.ipv6, _("Active or Disactive lan Ipv6.\nNow %s") % cfg.ipv6.value))
         self.list.append(getConfigListEntry(_("Movie Services Reference"), cfg.services, _("Configure service Reference Iptv-Gstreamer-Exteplayer3")))
         # self.list.append(getConfigListEntry(_("Select Fonts"), cfg.fonts, _("Configure Fonts.\nEg:Arabic or other language.")))
-        # self.list.append(getConfigListEntry(_('Link in Main Menu'), cfg.stmain, _("Link in Main Menu")))
         self.list.append(getConfigListEntry(_("Scheduled Bouquet Update:"), cfg.autobouquetupdate, _("Active Automatic Bouquet Update")))
         if cfg.autobouquetupdate.value is True:
             self.list.append(getConfigListEntry(indent + _("Schedule type:"), cfg.timetype, _("At an interval of hours or at a fixed time")))
@@ -585,14 +565,12 @@ class vavoo_config(Screen, ConfigListScreen):
             if os_path.islink('/etc/rc3.d/S99ipv6dis.sh'):
                 os.unlink('/etc/rc3.d/S99ipv6dis.sh')
                 cfg.ipv6.setValue(False)
-                # self['blue'].setText('IPV6 Off')
             else:
                 os.system("echo '#!/bin/bash")
                 os.system("echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' > /etc/init.d/ipv6dis.sh")
                 os.system("chmod 755 /etc/init.d/ipv6dis.sh")
                 os.system("ln -s /etc/init.d/ipv6dis.sh /etc/rc3.d/S99ipv6dis.sh")
                 cfg.ipv6.setValue(True)
-                # self['blue'].setText('IPV6 On')
             cfg.ipv6.save()
 
     def changedEntry(self):
@@ -636,10 +614,9 @@ class vavoo_config(Screen, ConfigListScreen):
         if self["config"].isChanged():
             for x in self["config"].list:
                 x[1].save()
-            configfile.save()
             if self.v6 != cfg.ipv6.value:
                 self.ipv6()
-            # add_skin_font()
+            configfile.save()
             restartbox = self.session.openWithCallback(self.restartGUI, MessageBox, _('Settings saved successfully !\nyou need to restart the GUI\nto apply the new configuration!\nDo you want to Restart the GUI now?'), MessageBox.TYPE_YESNO)
             restartbox.setTitle(_('Restart GUI now?'))
         else:
@@ -673,7 +650,11 @@ class MainVavoox(Screen):
         self['red'] = Label(_('Exit'))
         self['green'] = Label(_('Remove') + ' Fav')
         self['yellow'] = Label()
-        self["blue"] = Label(_("HALIGN"))
+        self["blue"] = Label()
+        if HALIGN == RT_HALIGN_RIGHT:
+            self['blue'].setText(_('Halign Left'))
+        else:
+            self['blue'].setText(_('Halign Right'))
         self['name'] = Label('Loading...')
         self['version'] = Label()
         self.currentList = 'menulist'
@@ -681,7 +662,7 @@ class MainVavoox(Screen):
         self.count = 0
         self.loading = 0
         self.url = b64decoder(stripurl)
-        self['actions'] = ActionMap(['ButtonSetupActions', 'MenuActions', 'OkCancelActions', 'ColorActions', 'DirectionActions', 'HotkeyActions', 'InfobarEPGActions', 'ChannelSelectBaseActions'], {
+        self['actions'] = ActionMap(['ButtonSetupActions', 'MenuActions', 'OkCancelActions', 'DirectionActions', 'HotkeyActions', 'InfobarEPGActions', 'ChannelSelectBaseActions'], {
             'prevBouquet': self.chDown,
             'nextBouquet': self.chUp,
             'ok': self.ok,
@@ -706,12 +687,14 @@ class MainVavoox(Screen):
         global HALIGN
         if HALIGN == RT_HALIGN_LEFT:
             HALIGN = RT_HALIGN_RIGHT
+            self['blue'].setText(_('Halign Left'))
         elif HALIGN == RT_HALIGN_RIGHT:
             HALIGN = RT_HALIGN_LEFT
+            self['blue'].setText(_('Halign Right'))
         self.cat()
 
     def goConfig(self):
-        self.session.open(vavoo_config)
+        self.session.open(vavoo_configx)
 
     def info(self):
         aboutbox = self.session.open(MessageBox, _('%s\n\n\nThanks:\n@KiddaC\n@oktus\nQu4k3\nAll staff Linuxsat-support.com\nCorvoboys - Forum\n\nThis plugin is free,\nno stream direct on server\nbut only free channel found on the net') % desc_plugin, MessageBox.TYPE_INFO)
@@ -815,7 +798,11 @@ class vavoox(Screen):
         self['red'] = Label(_('Back'))
         self['green'] = Label(_('Export') + ' Fav')
         self['yellow'] = Label(_('Search'))
-        self["blue"] = Label(_("HALIGN"))
+        self["blue"] = Label()
+        if HALIGN == RT_HALIGN_RIGHT:
+            self['blue'].setText(_('Halign Left'))
+        else:
+            self['blue'].setText(_('Halign Right'))
         self['name'] = Label('Loading ...')
         self['version'] = Label()
         self.currentList = 'menulist'
@@ -824,7 +811,7 @@ class vavoox(Screen):
         self.loading = 0
         self.name = name
         self.url = url
-        self['actions'] = ActionMap(['MenuActions', 'OkCancelActions', 'ColorActions', 'EPGSelectActions', 'DirectionActions', 'ChannelSelectBaseActions'], {
+        self['actions'] = ActionMap(['MenuActions', 'OkCancelActions', 'HotkeyActions', 'EPGSelectActions', 'DirectionActions', 'ChannelSelectBaseActions'], {
             'prevBouquet': self.chDown,
             'nextBouquet': self.chUp,
             'ok': self.ok,
@@ -848,8 +835,10 @@ class vavoox(Screen):
         global HALIGN
         if HALIGN == RT_HALIGN_LEFT:
             HALIGN = RT_HALIGN_RIGHT
+            self['blue'].setText(_('Halign Left'))
         elif HALIGN == RT_HALIGN_RIGHT:
             HALIGN = RT_HALIGN_LEFT
+            self['blue'].setText(_('Halign Right'))
         self.cat()
 
     def backhome(self):
@@ -859,7 +848,7 @@ class vavoox(Screen):
             self.close()
 
     def goConfig(self):
-        self.session.open(vavoo_config)
+        self.session.open(vavoo_configx)
 
     def info(self):
         aboutbox = self.session.open(MessageBox, _('%s\n\n\nThanks:\n@KiddaC\n@oktus\nQu4k3\nAll staff Linuxsat-support.com\nCorvoboys - Forum\n\nThis plugin is free,\nno stream direct on server\nbut only free channel found on the net') % desc_plugin, MessageBox.TYPE_INFO)
@@ -900,6 +889,7 @@ class vavoox(Screen):
                     ids = ids.replace(':', '').replace(' ', '').replace(',', '')
                     url = str(server) + '/live2/play/' + str(ids) + '.ts'  # + app
                     name = decodeHtml(name)
+                    name = rimuovi_parentesi(name)
                     item = name + "###" + url + '\n'
                     items.append(item)
                 items.sort()
@@ -917,7 +907,6 @@ class vavoox(Screen):
                     outfile.write(nname)
                     outfile.write('#EXTVLCOPT:http-user-agent=VAVOO/2.6' + '\n')
                     outfile.write(str(url) + '\n')
-                outfile.close()
                 # make m3u end
                 if len(self.cat_list) < 1:
                     return
@@ -1235,15 +1224,16 @@ class Playstream2(
 
     def doEofInternal(self, playing):
         print('doEofInternal', playing)
-        vUtils.MemClean()
+        MemClean()
         if self.execing and playing:
             self.cicleStreamType()
 
     def __evEOF(self):
         print('__evEOF')
         self.end = True
-        vUtils.MemClean()
+        MemClean()
         self.cicleStreamType()
+
     def getAspect(self):
         return AVSwitch().getAspectRatioSetting()
 
@@ -1385,59 +1375,87 @@ VIDEO_FMT_PRIORITY_MAP = {"38": 1, "37": 2, "22": 3, "18": 4, "35": 5, "34": 6}
 
 
 def convert_bouquet(service, name, url):
-    from time import sleep
     sig = Sig()
-    app = '?n=1&b=5&vavoo_auth=' + str(sig) + '#User-Agent=VAVOO/2.6'
-    dir_enigma2 = '/etc/enigma2/'
-    files = '/tmp/' + name + '.m3u'
-    type = 'tv'
+    app = '?n=1&b=5&vavoo_auth=%s#User-Agent=VAVOO/2.6' % (str(sig))
+
+    files = '/tmp/%s.m3u' % name
+    bouquet_type = 'tv'
     if "radio" in name.lower():
-        type = "radio"
-    name_file = name.replace('/', '_').replace(',', '')
-    cleanName = re.sub(r'[\<\>\:\"\/\\\|\?\*]', '_', str(name_file))
-    cleanName = re.sub(r' ', '_', cleanName)
-    cleanName = re.sub(r'\d+:\d+:[\d.]+', '_', cleanName)
-    name_file = re.sub(r'_+', '_', cleanName)
+        bouquet_type = "radio"
+    name_file = re.sub(r'[<>:"/\\|?*, ]', '_', str(name))  # Replace spaces and commas with "_"
+    name_file = re.sub(r'\d+:\d+:[\d.]+', '_', name_file)  # Replace numeric patterns with "_"
+    name_file = re.sub(r'_+', '_', name_file)  # Replace sequences of "_" with a single "_"
+
     with open(enigma_path + '/Favorite.txt', 'w') as r:
         r.write(str(name_file) + '###' + str(url))
-        r.close()
-    bouquetname = 'userbouquet.vavoo_%s.%s' % (name_file.lower(), type.lower())
-    if file_exists(str(files)):
-        sleep(5)
-        ch = 0
+
+    bouquet_name = 'userbouquet.vavoo_%s.%s' % (name_file.lower(), bouquet_type.lower())
+    print("Converting Bouquet %s" % name_file)
+    path1 = '/etc/enigma2/' + str(bouquet_name)
+    path2 = '/etc/enigma2/bouquets.' + str(bouquet_type.lower())
+    ch = 0
+
+    if os.path.exists(files) and os.stat(files).st_size > 0:
         try:
-            if os_path.isfile(files) and os.stat(files).st_size > 0:
-                desk_tmp = ''
-                in_bouquets = 0
-                with open('%s%s' % (dir_enigma2, bouquetname), 'w') as outfile:
-                    outfile.write('#NAME %s\r\n' % name_file.capitalize())
-                    for line in open(files):
-                        if line.startswith('http://') or line.startswith('https'):
-                            line = str(line).strip('\n\r') + str(app) + '\n'
-                            outfile.write('#SERVICE %s:0:0:0:0:0:0:0:0:0:%s' % (service, line.replace(':', '%3a')))
-                            outfile.write('#DESCRIPTION %s' % desk_tmp)
-                        elif line.startswith('#EXTINF'):
-                            desk_tmp = '%s' % line.split(',')[-1]
+            tplst = []
+            tplst.append('#NAME %s (%s)' % (name_file.capitalize(), bouquet_type.upper()))
+            tplst.append('#SERVICE 1:64:0:0:0:0:0:0:0:0::%s CHANNELS' % name_file)
+            tplst.append('#DESCRIPTION --- %s ---' % name_file)
+
+            namel = ''
+            svz = ''
+            dct = ''
+
+            with open(files, 'r') as f:  # 'r' is for universal newlines mode
+                for line in f:
+                    if line.startswith("#EXTINF"):
+                        namel = '%s' % line.split(',')[-1]
+                        dsna = ('#DESCRIPTION %s' % namel).splitlines()
+                        dct = ''.join(dsna)
+
+                    elif line.startswith('http'):
+                        line = str(line).strip('\n\r') + str(app)
+                        tag = '1'
+                        if bouquet_type.upper() == 'RADIO':
+                            tag = '2'
+
+                        svca = ('#SERVICE %s:0:%s:0:0:0:0:0:0:0:%s' % (service, tag, line.replace(':', '%3a')))
+                        svz = (svca + ':' + namel).splitlines()
+                        svz = ''.join(svz)
+
+                    if svz not in tplst:
+                        tplst.append(svz)
+                        tplst.append(dct)
                         ch += 1
-                    outfile.close()
-                if os_path.isfile('/etc/enigma2/bouquets.tv'):
-                    for line in open('/etc/enigma2/bouquets.tv'):
-                        if bouquetname in line:
-                            in_bouquets = 1
-                    if in_bouquets == 0:
-                        if os_path.isfile('%s%s' % (dir_enigma2, bouquetname)) and os_path.isfile('/etc/enigma2/bouquets.tv'):
-                            remove_line('/etc/enigma2/bouquets.tv', bouquetname)
-                            with open('/etc/enigma2/bouquets.tv', 'a+') as outfile:
-                                outfile.write('#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "%s" ORDER BY bouquet\r\n' % bouquetname)
-                                outfile.close()
-                                in_bouquets = 1
-                ReloadBouquets()
+
+            with open(path1, 'w+') as f:
+                f_content = f.read()
+                for item in tplst:
+                    if item not in f_content:
+                        f.write("%s\n" % item)
+                        # print('item  -------- ', item)
+
+            in_bouquets = False
+
+            with open('/etc/enigma2/bouquets.%s' % bouquet_type.lower(), 'r') as f:
+                for line in f:
+                    if bouquet_name in line:
+                        in_bouquets = True
+
+            if not in_bouquets:
+
+                with open(path2, 'a+') as f:
+
+                    bouquetTvString = '#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "' + str(bouquet_name) + '" ORDER BY bouquet\n'
+                    f.write(bouquetTvString)
+
+            ReloadBouquets()
         except Exception as error:
-            trace_error()
-        return ch
+            print(error)
+
+    return ch
 
 
-_session = None
 autoStartTimer = None
 
 
@@ -1558,135 +1576,57 @@ def get_next_wakeup():
     return -1
 
 
-                    
-                              
-                                                           
-                                          
-                                                   
-
-# def add_skin_font():
-    # from enigma import addFont
-    # # addFont(filename, name, scale, isReplacement, render)
-    # # font_path = PLUGIN_PATH + '/resolver/'
-    # addFont((FONTSTYPE), 'cvfont', 100, 1)
-    # addFont((GETPath + '/lcd.ttf'), 'xLcd', 100, 1)
-
-
 def main(session, **kwargs):
     try:
         if file_exists('/tmp/vavoo.log'):
             os.remove('/tmp/vavoo.log')
-        # add_skin_font()
+
         session.open(MainVavoox)
-        # session.openWithCallback(check_configuring, MainVavoo)
     except Exception as error:
         trace_error()
 
 
 def Plugins(**kwargs):
-                                                  
-                                                                                                                                                     
     result = [PluginDescriptor(name=title_plug, description="Vavoo Stream Live", where=[PluginDescriptor.WHERE_AUTOSTART, PluginDescriptor.WHERE_SESSIONSTART], fnc=autostart, wakeupfnc=get_next_wakeup)]
-                                                                                                                                                  
-                        
-                                     
     return result
 
 
 def decodeHtml(text):
-    text = text.replace('&auml;', 'ä')
-    text = text.replace('\u00e4', 'ä')
-    text = text.replace('&#228;', 'ä')
-    text = text.replace('&Auml;', 'Ä')
-    text = text.replace('\u00c4', 'Ä')
-    text = text.replace('&#196;', 'Ä')
-    text = text.replace('&ouml;', 'ö')
-    text = text.replace('\u00f6', 'ö')
-    text = text.replace('&#246;', 'ö')
-    text = text.replace('&ouml;', 'Ö')
-    text = text.replace('&Ouml;', 'Ö')
-    text = text.replace('\u00d6', 'Ö')
-    text = text.replace('&#214;', 'Ö')
-    text = text.replace('&uuml;', 'ü')
-    text = text.replace('\u00fc', 'ü')
-    text = text.replace('&#252;', 'ü')
-    text = text.replace('&Uuml;', 'Ü')
-    text = text.replace('\u00dc', 'Ü')
-    text = text.replace('&#220;', 'Ü')
-    text = text.replace('&szlig;', 'ß')
-    text = text.replace('\u00df', 'ß')
-    text = text.replace('&#223;', 'ß')
-    text = text.replace('&amp;', '&')
-    text = text.replace('&quot;', '\"')
-    text = text.replace('&gt;', '>')
-    text = text.replace('&apos;', "'")
-    text = text.replace('&acute;', '\'')
-    text = text.replace('&ndash;', '-')
-    text = text.replace('&bdquo;', '"')
-    text = text.replace('&rdquo;', '"')
-    text = text.replace('&ldquo;', '"')
-    text = text.replace('&lsquo;', '\'')
-    text = text.replace('&rsquo;', '\'')
-    text = text.replace('&#034;', '"')
-    text = text.replace('&#34;', '"')
-    text = text.replace('&#038;', '&')
-    text = text.replace('&#039;', '\'')
-    text = text.replace('&#39;', '\'')
-    text = text.replace('&#160;', ' ')
-    text = text.replace('\u00a0', ' ')
-    text = text.replace('\u00b4', '\'')
-    text = text.replace('\u003d', '=')
-    text = text.replace('\u0026', '&')
-    text = text.replace('&#174;', '')
-    text = text.replace('&#225;', 'a')
-    text = text.replace('&#233;', 'e')
-    text = text.replace('&#243;', 'o')
-    text = text.replace('&#8211;', '-')
-    text = text.replace('&#8212;', '—')
-    text = text.replace('&mdash;', '—')
-    text = text.replace('\u2013', '–')
-    text = text.replace('&#8216;', "'")
-    text = text.replace('&#8217;', "'")
-    text = text.replace('&#8220;', "'")
-    text = text.replace('&#8221;', '"')
-    text = text.replace('&#8222;', ', ')
-    text = text.replace('\u014d', 'ō')
-    text = text.replace('\u016b', 'ū')
-    text = text.replace('\u201a', '\"')
-    text = text.replace('\u2018', '\"')
-    text = text.replace('\u201e', '\"')
-    text = text.replace('\u201c', '\"')
-    text = text.replace('\u201d', '\'')
-    text = text.replace('\u2019s', '’')
-    text = text.replace('\u00e0', 'à')
-    text = text.replace('\u00e7', 'ç')
-    text = text.replace('\u00e8', 'é')
-    text = text.replace('\u00e9', 'é')
-    text = text.replace('\u00c1', 'Á')
-    text = text.replace('\u00c6', 'Æ')
-    text = text.replace('\u00e1', 'á')
-    text = text.replace('&#xC4;', 'Ä')
-    text = text.replace('&#xD6;', 'Ö')
-    text = text.replace('&#xDC;', 'Ü')
-    text = text.replace('&#xE4;', 'ä')
-    text = text.replace('&#xF6;', 'ö')
-    text = text.replace('&#xFC;', 'ü')
-    text = text.replace('&#xDF;', 'ß')
-    text = text.replace('&#xE9;', 'é')
-    text = text.replace('&#xB7;', '·')
-    text = text.replace('&#x27;', "'")
-    text = text.replace('&#x26;', '&')
-    text = text.replace('&#xFB;', 'û')
-    text = text.replace('&#xF8;', 'ø')
-    text = text.replace('&#x21;', '!')
-    text = text.replace('&#x3f;', '?')
-    text = text.replace('&#8230;', '...')
-    text = text.replace('\u2026', '...')
-    text = text.replace('&hellip;', '...')
-    text = text.replace('&#8234;', '')
     if PY3:
-        text = text.encode('utf-8').decode('unicode_escape')
-    return str(text)  # str needed for PLi
+        import html
+        text = html.unescape(text)
+    else:
+        from six.moves import (html_parser)
+        h = html_parser.HTMLParser()
+        text = h.unescape(text.decode('utf8')).encode('utf8')
+    text = text.replace('&amp;', '&')
+    text = text.replace('&apos;', "'")
+    text = text.replace('&lt;', '<')
+    text = text.replace('&gt;', '>')
+    text = text.replace('&ndash;', '-')
+    text = text.replace('&quot;', '"')
+    text = text.replace('&ntilde;', '~')
+    text = text.replace('&rsquo;', '\'')
+    text = text.replace('&nbsp;', ' ')
+    text = text.replace('&equals;', '=')
+    text = text.replace('&quest;', '?')
+    text = text.replace('&comma;', ',')
+    text = text.replace('&period;', '.')
+    text = text.replace('&colon;', ':')
+    text = text.replace('&lpar;', '(')
+    text = text.replace('&rpar;', ')')
+    text = text.replace('&excl;', '!')
+    text = text.replace('&dollar;', '$')
+    text = text.replace('&num;', '#')
+    text = text.replace('&ast;', '*')
+    text = text.replace('&lowbar;', '_')
+    text = text.replace('&lsqb;', '[')
+    text = text.replace('&rsqb;', ']')
+    text = text.replace('&half;', '1/2')
+    text = text.replace('&DiacriticalTilde;', '~')
+    text = text.replace('&OpenCurlyDoubleQuote;', '"')
+    text = text.replace('&CloseCurlyDoubleQuote;', '"')
+    return text.strip()
 
 
 ListAgent = [
@@ -1701,45 +1641,8 @@ ListAgent = [
     'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.13 (KHTML, like Gecko) Chrome/24.0.1284.0 Safari/537.13',
     'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.8 (KHTML, like Gecko) Chrome/17.0.940.0 Safari/535.8',
     'Mozilla/6.0 (Windows NT 6.2; WOW64; rv:16.0.1) Gecko/20121011 Firefox/16.0.1',
-    'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:16.0.1) Gecko/20121011 Firefox/16.0.1',
-    'Mozilla/5.0 (Windows NT 6.2; Win64; x64; rv:16.0.1) Gecko/20121011 Firefox/16.0.1',
-    'Mozilla/5.0 (Windows NT 6.1; rv:15.0) Gecko/20120716 Firefox/15.0a2',
-    'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.1.16) Gecko/20120427 Firefox/15.0a1',
-    'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:15.0) Gecko/20120427 Firefox/15.0a1',
-    'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:15.0) Gecko/20120910144328 Firefox/15.0.2',
-    'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:15.0) Gecko/20100101 Firefox/15.0.1',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:9.0a2) Gecko/20111101 Firefox/9.0a2',
-    'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0a2) Gecko/20110613 Firefox/6.0a2',
-    'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0a2) Gecko/20110612 Firefox/6.0a2',
-    'Mozilla/5.0 (Windows NT 6.1; rv:6.0) Gecko/20110814 Firefox/6.0',
-    'Mozilla/5.0 (compatible; MSIE 10.6; Windows NT 6.1; Trident/5.0; InfoPath.2; SLCC1; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 2.0.50727) 3gpp-gba UNTRUSTED/1.0',
-    'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)',
-    'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)',
     'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/5.0)',
     'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/4.0; InfoPath.2; SV1; .NET CLR 2.0.50727; WOW64)',
-    'Mozilla/4.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/5.0)',
-    'Mozilla/5.0 (compatible; MSIE 10.0; Macintosh; Intel Mac OS X 10_7_3; Trident/6.0)',
-    'Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0;  it-IT)',
-    'Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US)'
-    'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; chromeframe/13.0.782.215)',
-    'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; chromeframe/11.0.696.57)',
-    'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0) chromeframe/10.0.648.205',
-    'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/4.0; GTB7.4; InfoPath.1; SV1; .NET CLR 2.8.52393; WOW64; en-US)',
-    'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0; Trident/5.0; chromeframe/11.0.696.57)',
-    'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0; Trident/4.0; GTB7.4; InfoPath.3; SV1; .NET CLR 3.1.76908; WOW64; en-US)',
-    'Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0; GTB7.4; InfoPath.2; SV1; .NET CLR 3.3.69573; WOW64; en-US)',
-    'Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET CLR 1.0.3705; .NET CLR 1.1.4322)',
-    'Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; InfoPath.1; SV1; .NET CLR 3.8.36217; WOW64; en-US)',
-    'Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727)',
-    'Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; it-IT)',
-    'Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)',
-    'Opera/9.80 (X11; Linux i686; Ubuntu/14.10) Presto/2.12.388 Version/12.16.2',
-    'Opera/12.80 (Windows NT 5.1; U; en) Presto/2.10.289 Version/12.02',
-    'Opera/9.80 (Windows NT 6.1; U; es-ES) Presto/2.9.181 Version/12.00',
-    'Opera/9.80 (Windows NT 5.1; U; zh-sg) Presto/2.9.181 Version/12.00',
-    'Opera/12.0(Windows NT 5.2;U;en)Presto/22.9.168 Version/12.00',
-    'Opera/12.0(Windows NT 5.1;U;en)Presto/22.9.168 Version/12.00',
-    'Mozilla/5.0 (Windows NT 5.1) Gecko/20100101 Firefox/14.0 Opera/12.0',
     'Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25',
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.13+ (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2',
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/534.55.3 (KHTML, like Gecko) Version/5.1.3 Safari/534.53.10',
@@ -1786,3 +1689,13 @@ def purge(dir, pattern):
         if os_path.isfile(file_path):
             if re.search(pattern, f):
                 os.remove(file_path)
+
+
+def MemClean():
+    try:
+        os.system('sync')
+        os.system('echo 1 > /proc/sys/vm/drop_caches')
+        os.system('echo 2 > /proc/sys/vm/drop_caches')
+        os.system('echo 3 > /proc/sys/vm/drop_caches')
+    except:
+        pass
