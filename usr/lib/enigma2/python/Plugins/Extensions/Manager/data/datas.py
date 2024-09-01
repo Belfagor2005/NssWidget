@@ -12,7 +12,6 @@ from .. import _
 from ..plugin import runningcam
 
 from Components.ActionMap import ActionMap
-# from Components.Button import Button
 from Components.ConfigList import ConfigListScreen
 from Components.Label import Label
 from Components.config import (
@@ -202,7 +201,6 @@ Serverlive = [
     ('aHR0cHM6Ly9jY2NhbWlwdHYucHJvL2NjY2FtLWZyZWUvI3BhZ2UtY29udGVudA==', 'Server9'),
 ]
 
-# cfgcam = [(cccamPath(), 'CCcam'),
 cfgcam = [('/etc/CCcam.cfg', 'CCcam'),
           ('/etc/tuxbox/config/oscam.server', 'Oscam'),
           ('/etc/tuxbox/config/oscam-emu/oscam.server', 'oscam-emu'),
@@ -286,18 +284,18 @@ class nssCamConfig(Screen, ConfigListScreen):
                                      'VirtualKeyboardActions',
                                      'MenuActions',
                                      'EPGSelectActions',
-                                                    
-                                     'InfobarChannelSelection'], {'left': self.keyLeft,
-                                                                  'right': self.keyRight,
-                                                                  'ok': self.closex,
-                                                                  'showVirtualKeyboard': self.KeyText,
-                                                                  'green': self.green,
-                                                                  'yellow': self.sendemm,
-                                                                  'blue': self.resetcfg,
-                                                                  'red': self.closex,
-                                                                  'cancel': self.closex,
-                                                                  'info': self.infomsg,
-                                                                  'back': self.closex}, -1)
+                                     'ColorActions',
+                                     'InfobarEPGActions'], {'left': self.keyLeft,
+                                                            'right': self.keyRight,
+                                                            'ok': self.closex,
+                                                            'showVirtualKeyboard': self.KeyText,
+                                                            'green': self.green,
+                                                            'yellow': self.sendemm,
+                                                            'blue': self.resetcfg,
+                                                            'red': self.closex,
+                                                            'cancel': self.closex,
+                                                            'info': self.infomsg,
+                                                            'back': self.closex}, -1)
         '''
         # if config.plugins.Manager.active.value is True:
             # self['key_green'].setText(buttn)
