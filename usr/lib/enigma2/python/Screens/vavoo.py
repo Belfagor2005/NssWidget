@@ -8,6 +8,7 @@
 ****************************************
 # --------------------#
 # Info Linuxsat-support.com & corvoboys.org
+
 put to menu.xml this:
 
 <!--  <id val="mainmenu"/>  -->
@@ -21,6 +22,7 @@ self.session.open(MainVavoo)
 
 
 '''
+from __future__ import print_function
 # Standard library imports
 import os
 import re
@@ -29,7 +31,6 @@ import ssl
 import sys
 import time
 import traceback
-
 
 # Enigma2 components
 from Components.AVSwitch import AVSwitch
@@ -51,7 +52,6 @@ from Components.config import (
     ConfigEnableDisable,
     ConfigSubsection,
 )
-
 from Plugins.Plugin import PluginDescriptor
 from Screens.InfoBarGenerics import (
     InfoBarSubtitleSupport,
@@ -64,6 +64,7 @@ from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from Screens.Standby import TryQuitMainloop
 from Screens.VirtualKeyBoard import VirtualKeyBoard
+from six.moves.urllib.parse import unquote
 from Tools.Directories import (SCOPE_PLUGINS, resolveFilename)
 from enigma import (
     RT_VALIGN_CENTER,
@@ -83,7 +84,6 @@ from random import choice
 # from twisted.web.client import error
 import base64
 import json
-# import re
 import requests
 
 
@@ -146,13 +146,13 @@ else:
             MAXSIZE = int((1 << 63) - 1)
         del X
 
-currversion = '1.25'
+currversion = '1.28'
 title_plug = 'Vavoo'
 desc_plugin = ('..:: Vavoo by Lululla v.%s ::..' % currversion)
 stripurl = 'aHR0cHM6Ly92YXZvby50by9jaGFubmVscw=='
 keyurl = 'aHR0cDovL3BhdGJ1d2ViLmNvbS92YXZvby92YXZvb2tleQ=='
 
-enigma_path = '/etc/enigma2/'
+enigma_path = '/usr/vavoo/'
 json_file = '/tmp/vavookey'
 HALIGN = RT_HALIGN_LEFT
 
@@ -166,12 +166,17 @@ if os_path.islink('/etc/rc3.d/S99ipv6dis.sh'):
     ipv6 = 'on'
 
 
+# log
 def trace_error():
     try:
+        # Stampa la traccia dell'errore su stdout
         traceback.print_exc(file=sys.stdout)
-        traceback.print_exc(file=open("/tmp/vavoo.log", "a"))
-    except:
-        pass
+        # Scrive la traccia dell'errore su un file di log
+        with open("/tmp/vavoo.log", "a") as log_file:
+            traceback.print_exc(file=log_file)
+    except Exception as e:
+        # Gestisce qualsiasi eccezione che potrebbe verificarsi durante la registrazione dell'errore
+        print("Failed to log the error:", e, file=sys.stderr)
 
 
 myser = [("https://vavoo.to", "vavoo"), ("https://oha.to", "oha"), ("https://kool.to", "kool"), ("https://huhu.to", "huhu")]
@@ -349,23 +354,26 @@ def Sig():
             vecs = json.load(f)
             vec = choice(vecs)
             # print('vec=', str(vec))
-            headers = {
-                # Already added when you pass json=
-                'Content-Type': 'application/json',
-            }
+        headers = {
+            # Already added when you pass json=
+            'Content-Type': 'application/json',
+        }
         json_data = '{"vec": "' + str(vec) + '"}'
-        if PY3:
-            req = requests.post('https://www.vavoo.tv/api/box/ping2', headers=headers, data=json_data).json()
-        else:
-            req = requests.post('https://www.vavoo.tv/api/box/ping2', headers=headers, verify=False, data=json_data).json()
-        # print('req:', req)
-        if req.get('signed'):
-            sig = req['signed']
-        elif req.get('data', {}).get('signed'):
-            sig = req['data']['signed']
-        elif req.get('response', {}).get('signed'):
-            sig = req['response']['signed']
-        # print('res key:', str(sig))
+        try:
+            if PY3:
+                req = requests.post('https://www.vavoo.tv/api/box/ping2', headers=headers, data=json_data).json()
+            else:
+                req = requests.post('https://www.vavoo.tv/api/box/ping2', headers=headers, verify=False, data=json_data).json()
+            # print('req:', req)
+            if req.get('signed'):
+                sig = req['signed']
+            elif req.get('data', {}).get('signed'):
+                sig = req['data']['signed']
+            elif req.get('response', {}).get('signed'):
+                sig = req['response']['signed']
+            # print('res key:', str(sig))
+        except requests.RequestException as e:
+            print("Request failed:", e)
     return sig
 
 
@@ -389,27 +397,24 @@ def loop_sig():
 def returnIMDB(text_clear):
     TMDB = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('TMDB'))
     IMDb = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('IMDb'))
+    text = html_unescape(text_clear)
     if file_exists(TMDB):
         try:
             from Plugins.Extensions.TMBD.plugin import TMBD
-            text = html_unescape(text_clear)
             _session.open(TMBD.tmdbScreen, text, 0)
         except Exception as e:
-            print("[XCF] Tmdb: ", e)
-        return True
+            print("[XCF] TMDB error:", e)
+            _session.open(MessageBox, "Error opening TMDB plugin: {}".format(e), MessageBox.TYPE_ERROR)
     elif file_exists(IMDb):
         try:
             from Plugins.Extensions.IMDb.plugin import main as imdb
-            text = html_unescape(text_clear)
             imdb(_session, text)
         except Exception as e:
-            print("[XCF] imdb: ", e)
-        return True
+            print("[XCF] IMDb error:", e)
+            _session.open(MessageBox, "Error opening IMDb plugin: {}".format(e), MessageBox.TYPE_ERROR)
     else:
-        text_clear = html_unescape(text_clear)
-        _session.open(MessageBox, text_clear, MessageBox.TYPE_INFO)
-        return True
-    return False
+        _session.open(MessageBox, text, MessageBox.TYPE_INFO)
+    return True
 
 
 # check server
@@ -426,6 +431,7 @@ def raises(url):
         if r.status_code == requests.codes.ok:
             return True
     except Exception as error:
+        print(error)
         trace_error()
     return False
 
@@ -527,7 +533,6 @@ class vavoo_configx(Screen, ConfigListScreen):
         self.editListEntry = None
         self.list = []
         indent = "- "
-
         self.list.append(getConfigListEntry(_("Server for Player Used"), cfg.server, _("Server for player.\nNow %s") % cfg.server.value))
         self.list.append(getConfigListEntry(_("Ipv6 State Of Lan (On/Off)"), cfg.ipv6, _("Active or Disactive lan Ipv6.\nNow %s") % cfg.ipv6.value))
         self.list.append(getConfigListEntry(_("Movie Services Reference"), cfg.services, _("Configure service Reference Iptv-Gstreamer-Exteplayer3")))
@@ -552,6 +557,7 @@ class vavoo_configx(Screen, ConfigListScreen):
                 self['description'].setText(_('SELECT YOUR CHOICE'))
             return
         except Exception as error:
+            print(error)
             trace_error()
 
     def ipv6(self):
@@ -703,14 +709,14 @@ class MainVavoox(Screen):
     def chUp(self):
         for x in range(5):
             self[self.currentList].pageUp()
-        auswahl = self['menulist'].getCurrent()[0][0]
-        self['name'].setText(str(auswahl))
+        txtsream = self['menulist'].getCurrent()[0][0]
+        self['name'].setText(str(txtsream))
 
     def chDown(self):
         for x in range(5):
             self[self.currentList].pageDown()
-        auswahl = self['menulist'].getCurrent()[0][0]
-        self['name'].setText(str(auswahl))
+        txtsream = self['menulist'].getCurrent()[0][0]
+        self['name'].setText(str(txtsream))
 
     def cat(self):
         self.cat_list = []
@@ -726,6 +732,7 @@ class MainVavoox(Screen):
             match = re.compile(regexcat, re.DOTALL).findall(content)
             for country in match:
                 if country not in self.items_tmp:
+                    country = unquote(country).strip("\r\n")
                     self.items_tmp.append(country)
                     item = country + "###" + self.url + '\n'
                     items.append(item)
@@ -740,9 +747,10 @@ class MainVavoox(Screen):
             else:
                 self['menulist'].l.setList(self.cat_list)
                 self['menulist'].moveToIndex(0)
-                auswahl = self['menulist'].getCurrent()[0][0]
-                self['name'].setText(str(auswahl))
+                txtsream = self['menulist'].getCurrent()[0][0]
+                self['name'].setText(str(txtsream))
         except Exception as error:
+            print(error)
             trace_error()
             self['name'].setText('Error')
         self['version'].setText('V.' + currversion)
@@ -753,6 +761,7 @@ class MainVavoox(Screen):
         try:
             self.session.open(vavoox, name, url)
         except Exception as error:
+            print(error)
             trace_error()
 
     def exit(self):
@@ -782,6 +791,7 @@ class MainVavoox(Screen):
                 self.session.open(MessageBox, _('Vavoo Favorites List have been removed'), MessageBox.TYPE_INFO, timeout=5)
                 ReloadBouquets()
             except Exception as error:
+                print(error)
                 trace_error()
 
 
@@ -811,7 +821,7 @@ class vavoox(Screen):
         self.loading = 0
         self.name = name
         self.url = url
-        self['actions'] = ActionMap(['MenuActions', 'OkCancelActions', 'HotkeyActions', 'EPGSelectActions', 'DirectionActions', 'ChannelSelectBaseActions'], {
+        self['actions'] = ActionMap(['ButtonSetupActions', 'MenuActions', 'OkCancelActions', 'ShortcutActions', 'HotkeyActions', 'DirectionActions', 'InfobarEPGActions', 'ChannelSelectBaseActions'], {
             'prevBouquet': self.chDown,
             'nextBouquet': self.chUp,
             'ok': self.ok,
@@ -857,14 +867,14 @@ class vavoox(Screen):
     def chUp(self):
         for x in range(5):
             self[self.currentList].pageUp()
-        auswahl = self['menulist'].getCurrent()[0][0]
-        self['name'].setText(str(auswahl))
+        txtsream = self['menulist'].getCurrent()[0][0]
+        self['name'].setText(str(txtsream))
 
     def chDown(self):
         for x in range(5):
             self[self.currentList].pageDown()
-        auswahl = self['menulist'].getCurrent()[0][0]
-        self['name'].setText(str(auswahl))
+        txtsream = self['menulist'].getCurrent()[0][0]
+        self['name'].setText(str(txtsream))
 
     def cat(self):
         self.cat_list = []
@@ -898,10 +908,10 @@ class vavoox(Screen):
                 itemlist = items
                 # use for search end
                 for item in items:
-                    name = item.split('###')[0]
+                    name1 = item.split('###')[0]
                     url = item.split('###')[1]
-                    url = url.replace('%0a', '').replace('%0A', '').strip("\r\n")
-                    self.cat_list.append(show2_(name, url))
+                    name = unquote(name1).strip("\r\n")
+                    self.cat_list.append(show_(name, url))
                     # make m3u
                     nname = '#EXTINF:-1,' + str(name) + '\n'
                     outfile.write(nname)
@@ -913,9 +923,10 @@ class vavoox(Screen):
                 else:
                     self['menulist'].l.setList(self.cat_list)
                     self['menulist'].moveToIndex(0)
-                    auswahl = self['menulist'].getCurrent()[0][0]
-                    self['name'].setText(str(auswahl))
+                    txtsream = self['menulist'].getCurrent()[0][0]
+                    self['name'].setText(str(txtsream))
         except Exception as error:
+            print(error)
             trace_error()
             self['name'].setText('Error')
         self['version'].setText('V.' + currversion)
@@ -931,6 +942,7 @@ class vavoox(Screen):
                 url = item[1]
             self.play_that_shit(url, name, self.currentindex, item, self.cat_list)
         except Exception as error:
+            print(error)
             trace_error()
 
     def play_that_shit(self, url, name, index, item, cat_list):
@@ -1004,7 +1016,7 @@ class vavoox(Screen):
         elif answer:
             name = self.name
             url = self.url
-            filenameout = enigma_path + '/userbouquet.vavoo_%s.tv' % name.lower()
+            # filenameout = enigma_path + '/userbouquet.vavoo_%s.tv' % name.lower()
             self.message3(name, url, True)
 
     def search_vavoo(self):
@@ -1034,9 +1046,10 @@ class vavoox(Screen):
                 else:
                     self['menulist'].l.setList(self.cat_list)
                     self['menulist'].moveToIndex(0)
-                    auswahl = self['menulist'].getCurrent()[0][0]
-                    self['name'].setText(str(auswahl))
+                    txtsream = self['menulist'].getCurrent()[0][0]
+                    self['name'].setText(str(txtsream))
             except Exception as error:
+                print(error)
                 trace_error()
                 self['name'].setText('Error')
                 search_ok = False
@@ -1268,6 +1281,7 @@ class Playstream2(
             AVSwitch.getInstance().setAspectRatio(self.new_aspect)
             return VIDEO_ASPECT_RATIO_MAP[self.new_aspect]
         except Exception as error:
+            print(error)
             trace_error()
             return _("Resolution Change Failed")
 
@@ -1305,7 +1319,7 @@ class Playstream2(
                 print('show imdb/tmdb')
         except Exception as error:
             trace_error()
-            print("Error: can't find Playstream2 in live_to_stream")
+            print("Error: can't find Playstream2 in live_to_stream", str(error))
 
     def slinkPlay(self):
         url = self.url
@@ -1377,7 +1391,6 @@ VIDEO_FMT_PRIORITY_MAP = {"38": 1, "37": 2, "22": 3, "18": 4, "35": 5, "34": 6}
 def convert_bouquet(service, name, url):
     sig = Sig()
     app = '?n=1&b=5&vavoo_auth=%s#User-Agent=VAVOO/2.6' % (str(sig))
-
     files = '/tmp/%s.m3u' % name
     bouquet_type = 'tv'
     if "radio" in name.lower():
@@ -1394,18 +1407,15 @@ def convert_bouquet(service, name, url):
     path1 = '/etc/enigma2/' + str(bouquet_name)
     path2 = '/etc/enigma2/bouquets.' + str(bouquet_type.lower())
     ch = 0
-
     if os.path.exists(files) and os.stat(files).st_size > 0:
         try:
             tplst = []
             tplst.append('#NAME %s (%s)' % (name_file.capitalize(), bouquet_type.upper()))
             tplst.append('#SERVICE 1:64:0:0:0:0:0:0:0:0::%s CHANNELS' % name_file)
             tplst.append('#DESCRIPTION --- %s ---' % name_file)
-
             namel = ''
             svz = ''
             dct = ''
-
             with open(files, 'r') as f:  # 'r' is for universal newlines mode
                 for line in f:
                     if line.startswith("#EXTINF"):
@@ -1436,19 +1446,14 @@ def convert_bouquet(service, name, url):
                         # print('item  -------- ', item)
 
             in_bouquets = False
-
             with open('/etc/enigma2/bouquets.%s' % bouquet_type.lower(), 'r') as f:
                 for line in f:
                     if bouquet_name in line:
                         in_bouquets = True
-
             if not in_bouquets:
-
                 with open(path2, 'a+') as f:
-
                     bouquetTvString = '#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "' + str(bouquet_name) + '" ORDER BY bouquet\n'
                     f.write(bouquetTvString)
-
             ReloadBouquets()
         except Exception as error:
             print(error)
@@ -1531,6 +1536,7 @@ class AutoStartTimer:
                 cfg.last_update.value = localtime
                 cfg.last_update.save()
             except Exception as error:
+                print(error)
                 trace_error()
         self.update(constant)
 
@@ -1583,6 +1589,7 @@ def main(session, **kwargs):
 
         session.open(MainVavoox)
     except Exception as error:
+        print(error)
         trace_error()
 
 

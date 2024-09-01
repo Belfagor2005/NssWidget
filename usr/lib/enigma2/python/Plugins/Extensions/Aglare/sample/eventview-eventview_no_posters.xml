@@ -1,12 +1,11 @@
 <screen name="EventView" position="0,0" size="1920,1080" title="Eventview" backgroundColor="background" flags="wfNoBorder">
-    <panel name="button1temp"/>
+    <panel name="ScreenTemplateAllColorButtons_menu"/>
     <panel name="timedate"/>
     <eLabel name="" position="36,24" size="40,40" font="icomoon; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
     <eLabel name="" position="36,82" size="1268,630" zPosition="-90" cornerRadius="20" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
     <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
     <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
     <widget source="session.VideoPicture" render="Pig" position="1376,110" zPosition="1" size="494,272" backgroundColor="transparent" transparent="0" cornerRadius="14"/>
-																																									 
     <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
     <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
     <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EPG"/>

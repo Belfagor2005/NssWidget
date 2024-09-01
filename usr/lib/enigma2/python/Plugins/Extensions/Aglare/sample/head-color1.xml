@@ -117,7 +117,7 @@
         <color name="greyc4" value="#00c4c4c4"/>
         <color name="hellgreen" value="#0056c856"/>
         <color name="igsd" value="#00000000"/>
-        <color name="igsdt" value="#44000000"/>
+        <color name="igsdt" value="#12000000"/>
         <color name="igsl" value="#001b1b1b"/>
         <color name="lime" value="#0000ff00"/>
         <color name="linebg" value="#00999999"/>
@@ -186,11 +186,11 @@
         <parameter name="FcFileListMultiLock" value="2,0,30,30"/>
         <parameter name="FcFileListMultiName" value="90,2,1000,32"/>
         <parameter name="FcFileListName" value="68,2,1000,34"/>
-        <parameter name="FileListIcon" value="14,8,50,50"/>
+        <parameter name="FileListIcon" value="14,6,50,50"/>
         <parameter name="FileListMultiIcon" value="45, 4, 30, 30"/>
         <parameter name="FileListMultiLock" value="2,0,36,36"/>
         <parameter name="FileListMultiName" value="90,0,1000,36"/>
-        <parameter name="FileListName" value="66,0,1000,50"/>
+        <parameter name="FileListName" value="66,6,900,45"/>
         <parameter name="GMultiEPGTimelineItemHeight" value="60"/>
         <parameter name="HelpMenuListExtHlp0" value="0,0,900,39"/>
         <parameter name="HelpMenuListExtHlp1" value="0,42,900,30"/>
@@ -205,12 +205,12 @@
         <parameter name="PluginBrowserDescr" value="170,36,40"/>
         <parameter name="PluginBrowserDownloadDescColor" value="1017253"/>
         <parameter name="PluginBrowserDownloadDescr" value="120,40,40"/>
-        <parameter name="PluginBrowserDownloadIcon" value="20,10,60,60"/>
-        <parameter name="PluginBrowserDownloadName" value="120,4,60"/>
+        <parameter name="PluginBrowserDownloadIcon" value="20,0,100,70"/>
+        <parameter name="PluginBrowserDownloadName" value="120,10,60"/>
         <parameter name="PluginBrowserIcon" value="20,0,120,70"/>
         <parameter name="PluginBrowserName" value="160,4,40"/>
-        <parameter name="SelectionListDescr" value="50,2,1000,40"/>
-        <parameter name="SelectionListLock" value="5,5,40,40"/>
+        <parameter name="SelectionListDescr" value="45,0,1000,38"/>
+        <parameter name="SelectionListLock" value="0,2,36,36"/>
         <parameter name="SelectionListLockOff" value="5,5,40,40"/>
         <parameter name="ServiceInfo" value="0,0,400,50"/>
         <parameter name="ServiceInfoFont" value="Regular;28"/>
@@ -221,8 +221,8 @@
         <parameter name="VirtualKeyboard" value="100, 100"/>
         <parameter name="VirtualKeyboard" value="80,80"/>
         <parameter name="VirtualKeyboardFont" value="Bold;40"/>
-        <parameter name="WeatherPluginCity" value="20,0,680,40"/>
-        <parameter name="WeatherPluginDegreetype" value="670,0,100,40"/>
+        <parameter name="WeatherPluginCity" value="20,0,680,50"/>
+        <parameter name="WeatherPluginDegreetype" value="670,0,100,50"/>
         <parameter name="WeatherPluginEntryListFont1" value="Regular;32"/>
         <parameter name="WeatherPluginEntryListFont2" value="Regular;32"/>
         <parameter name="WeatherPluginSearchResultListFont1" value="Regular;32"/>

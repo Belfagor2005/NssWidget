@@ -9,7 +9,7 @@
         <eLabel position="61,853" size="830,150" backgroundColor="#30000000" zPosition="1"/>
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Apsattv/plugin.png" scale="strech" alphatest="blend" position="736,35" size="191,67" zPosition="5"/>
         <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Apsattv/skin/pic/PayPal.png" scale="strech" position="1238,889" size="156,75" zPosition="5" alphatest="on"/>
@@ -31,7 +31,7 @@
     <screen name="filmon" position="0,0" size="1920,1080" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="name" position="51,124" size="850,60" noWrap="1" zPosition="1" transparent="1" font="Regular;33" valign="center" halign="left" backgroundColor="#30000000" foregroundColor="#00ffffff"/>
         <widget name="menulist" position="52,192" size="838,600" backgroundColor="#30000000" zPosition="1" scrollbarMode="showOnDemand" transparent="1" foregroundColor="#00ffffff"/>
@@ -47,7 +47,7 @@
         <eLabel position="61,853" size="830,150" backgroundColor="#30000000" zPosition="1"/>
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/freearhey/plugin.png" scale="strech" alphatest="blend" position="736,35" size="191,67" zPosition="5"/>
         <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/freearhey/skin/pic/PayPal.png" scale="strech" position="1238,889" size="156,75" zPosition="5" alphatest="on"/>
@@ -69,7 +69,7 @@
     <screen name="MainHasBahCa" position="0,0" size="1920,1080" title="..::HasBahCa::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="info" position="51,116" size="850,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
         <widget name="progress" position="563,949" size="300,50" foregroundColor="#2a70a4" backgroundColor="#10000000" transparent="1" zPosition="5"/>
@@ -90,7 +90,7 @@
     <screen name="MainSetting" position="0,0" size="1920,1080" title="..::TiVuDream::.." backgroundColor="transparent" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <!-- Menu List -->
         <widget name="info" position="51,119" size="850,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
@@ -120,7 +120,7 @@
     <screen name="Playstream1" position="0,0" size="1920,1080" title="TiVuDream" backgroundColor="#FF000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="info" position="51,119" size="850,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
         <widget name="list" position="49,191" size="850,650" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049"/>
@@ -131,7 +131,7 @@
     <screen name="MainParsa" position="0,0" size="1920,1080" title="..::parsatv::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/parsatv/plugin.png" scale="strech" alphatest="blend" position="736,35" size="191,67" zPosition="5"/>
         <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/parsatv/res/pics/PayPal.png" scale="strech" position="1238,889" size="156,75" zPosition="5" alphatest="on"/>
@@ -159,7 +159,7 @@
     <screen name="SelectPicons" position="0,0" size="1920,1080" title="..::mmPicons::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="info" position="51,116" size="850,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
         <widget name="progress" position="563,949" size="300,50" foregroundColor="#2a70a4" backgroundColor="#10000000" transparent="1" zPosition="5"/>
@@ -183,7 +183,7 @@
     <screen name="mmConfig" position="0,0" size="1920,1080" title="..::mmPicons::.." backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="config" position="55,206" size="838,640" font="Regular;30" itemHeight="50" backgroundColor="#30000000" zPosition="1" scrollbarMode="showOnDemand" transparent="1" foregroundColor="#00ffffff"/>
         <widget name="info" position="51,119" size="850,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
@@ -203,7 +203,7 @@
     <screen name="InfoCfg" position="0,0" size="1920,1080" title="Info Config" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="list" position="49,109" size="850,863" font="Regular;30" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" backgroundColor="#20000000"/>
         <widget name="description" position="999,612" size="879,313" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
@@ -211,7 +211,7 @@
     <screen name="tv_config" position="0,0" size="1920,1080" title="Config" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="config" position="49,191" size="850,650" font="Regular;30" itemHeight="50" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049"/>
         <widget name="description" position="61,878" size="845,113" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
@@ -220,7 +220,7 @@
     <screen name="GetipklistTv" position="0,0" size="1920,1080" title="Get Server" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="list" position="49,118" size="850,723" scrollbarMode="showOnDemand" font="Regular;38" itemHeight="50" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049"/>
         <widget name="description" position="61,878" size="845,113" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
@@ -231,7 +231,7 @@
     <screen name="Hometv" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="Addons Panels">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <eLabel name="" position="1734,1016" size="55,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
         <widget name="info" position="41,93" size="884,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
@@ -284,7 +284,7 @@
     <screen name="Categories" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="Addons Panels">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="list" position="43,158" size="869,826" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/>
         <eLabel name="" position="1734,1016" size="55,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
@@ -392,7 +392,7 @@
     <screen name="tvIPK" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="Addons Panels">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="info" position="42,109" size="1030,70" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
         <widget name="info1" position="41,183" size="1030,100" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
@@ -441,7 +441,7 @@
     <screen name="tvConfig" position="0,0" size="1920,1080" title="Config" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="config" position="49,191" size="850,650" font="Regular;30" itemHeight="50" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049"/>
         <widget name="description" position="61,878" size="845,113" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
@@ -457,7 +457,7 @@
      <screen name="TvToM3u" position="0,0" size="1920,1080" title="TvToM3u" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp" />
         <panel name="menutemp" />
-        <panel name="button1temp" />
+        <panel name="ScreenTemplateAllColorButtons_menu" />
         <panel name="pigscreen885" />
         <widget name="text" position="43,153" size="869,742" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1" />
         <widget name="MENU" position="43,97" size="884,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
@@ -495,7 +495,7 @@
     <screen name="vavoox" position="0,0" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="MainVavoox"/>
     </screen>
-    <screen name="vavoo_config" position="0,0" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="transparent" flags="wfNoBorder">
+    <screen name="vavoo_configx" position="0,0" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="transparent" flags="wfNoBorder">
         <ePixmap position="0,0" size="1920,1080" pixmap="vavoo/main.png" alphatest="blend" zPosition="-1"/>
         <eLabel position="0,0" size="1920,1080" backgroundColor="#30000000" transparent="0" zPosition="-9" foregroundColor="#00ffffff"/>
         <!-- <eLabel backgroundColor="#00ffffff" position="0,975" size="1920,3" zPosition="12" /> -->
@@ -538,23 +538,23 @@
         <panel name="radiom1"/>
     </screen>
     <screen name="radiom80" position="0,0" size="1920,1080" title="Radio Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
-        <ePixmap position="0,680" size="1920,400" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/RadioM/skin/fhd80bar.png" alphatest="blend" zPosition="-1"/>
-        <widget name="back" position="0,0" size="1920,1080" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/RadioM/skin/fhd/foreg.jpg" scale="1" zPosition="-2"/>
-        <widget name="logo" position="20,720" size="340,340" zPosition="0" alphatest="blend" scale="stretch" transparent="1"/>
-        <widget name="info" position="380,720" size="0,0" font="Regular;40" foregroundColor="#00ffff00" backgroundColor="#000000" transparent="1" halign="left" valign="center" zPosition="4"/>
-        <widget name="format" position="400,715" size="1500,40" font="Regular;34" foregroundColor="#00ffff00" backgroundColor="#000000" transparent="1" halign="left" valign="center" zPosition="4"/>
-        <widget name="list" position="400,760" size="600,50" zPosition="4" scrollbarMode="showOnDemand" foregroundColorSelected="#ffffff" backgroundColorSelected="#1b3c85" transparent="1"/>
-        <widget name="description" position="400,816" zPosition="4" size="950,139" font="Regular; 30" foregroundColor="#a0a0a0" backgroundColor="#000000" transparent="1" halign="left" valign="center"/>
-        <widget name="djs" position="400,955" zPosition="4" size="1000,50" font="Regular; 30" foregroundColor="#00ffff00" backgroundColor="#000000" transparent="1" halign="left" valign="center"/>
-        <widget name="current_song" position="880,790" zPosition="4" size="1000,180" font="Regular; 30" foregroundColor="#ffffff" backgroundColor="#000000" halign="right" valign="center" transparent="1"/>
-        <widget name="listeners" position="880,1010" zPosition="4" render="Label" size="1000,40" font="Regular; 30" foregroundColor="#00ffff00" backgroundColor="#000000" transparent="1" halign="right" valign="center"/>
-        <eLabel position="400,1000" zPosition="1" size="1480,3" backgroundColor="#404040"/>
-        <widget name="key_red" render="Label" position="405,1020" size="200,32" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <widget name="key_green" render="Label" position="620,1020" size="200,32" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <widget name="key_blue" render="Label" position="840,1020" size="200,32" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <eLabel backgroundColor="#00ff0000" position="400,1055" size="210,6" zPosition="12"/>
-        <eLabel backgroundColor="#0000ff00" position="615,1055" size="210,6" zPosition="12"/>
-        <eLabel backgroundColor="#000000ff" position="835,1055" size="210,6" zPosition="12"/>
+        <ePixmap position="0,680" size="1920,400" pixmap="radio/80bar.png" alphatest="blend" zPosition="-1" />
+        <widget name="back" position="0,0" size="1920,1080" pixmap="radio/foreg.jpg" scale="1" zPosition="-2" />
+        <widget name="logo" position="20,720" size="340,340" zPosition="0" alphatest="blend" scale="stretch" transparent="1" />
+        <widget name="info" position="380,720" size="0,0" font="Regular;40" foregroundColor="#00ffff00" backgroundColor="#000000" transparent="1" halign="left" valign="center" zPosition="4" />
+        <widget name="format" position="400,715" size="1500,40" font="Regular;34" foregroundColor="#00ffff00" backgroundColor="#000000" transparent="1" halign="left" valign="center" zPosition="4" />
+        <widget name="list" position="400,760" size="600,50" zPosition="4" scrollbarMode="showOnDemand" foregroundColorSelected="#ffffff" backgroundColorSelected="#1b3c85" transparent="1" />
+        <widget name="description" position="400,816" zPosition="4" size="950,139" font="Regular; 30" foregroundColor="#a0a0a0" backgroundColor="#000000" transparent="1" halign="left" valign="center" />
+        <widget name="djs" position="400,955" zPosition="4" size="1000,50" font="Regular; 30" foregroundColor="#00ffff00" backgroundColor="#000000" transparent="1" halign="left" valign="center" />
+        <widget name="current_song" position="880,790" zPosition="4" size="1000,180" font="Regular; 30" foregroundColor="#ffffff" backgroundColor="#000000" halign="right" valign="center" transparent="1" />
+        <widget name="listeners" position="880,1010" zPosition="4" render="Label" size="1000,40" font="Regular; 30" foregroundColor="#00ffff00" backgroundColor="#000000" transparent="1" halign="right" valign="center" />
+        <eLabel position="400,1000" zPosition="1" size="1480,3" backgroundColor="#404040" />
+        <widget name="key_red" render="Label" position="405,1020" size="200,32" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+        <widget name="key_green" render="Label" position="620,1020" size="200,32" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+        <widget name="key_blue" render="Label" position="840,1020" size="200,32" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+        <eLabel backgroundColor="#00ff0000" position="400,1055" size="210,6" zPosition="12" />
+        <eLabel backgroundColor="#0000ff00" position="615,1055" size="210,6" zPosition="12" />
+        <eLabel backgroundColor="#000000ff" position="835,1055" size="210,6" zPosition="12" />
     </screen>
     <!-- *************************************** -->
     <!--  WORLDCAM PANELS                           * -->
@@ -567,7 +567,7 @@
         <eLabel position="973,638" size="250,250" backgroundColor="#30000000" zPosition="1"/>
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/WorldCam/plugin.png" scale="strech" alphatest="blend" position="736,35" size="191,67" zPosition="5"/>
         <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/WorldCam/pics/PayPal.png" scale="strech" position="1238,889" size="156,75" zPosition="5" alphatest="on"/>

@@ -81,6 +81,8 @@
         <color name="background3" value="#80000000"/>
         <color name="background4" value="#10000000"/>
         <color name="background90" value="#20000000"/>
+        <color name="backgroundtrans1" value="#95000000"/>
+        <color name="backgroundtrans2" value="#95161414"/>
         <color name="black" value="#00000000"/>
         <color name="blue" value="#000000ff"/>
         <color name="bpSide" value="#00ff6600"/>
@@ -95,7 +97,7 @@
         <color name="darkgrey" value="#00888888"/>
         <color name="darkgrey2" value="#202d2d2d"/>
         <color name="description" value="#0077c411"/>
-        <color name="fgcolor" value="#00ffff73"/>
+        <color name="fgcolor" value="#00c0c0c0"/>
         <color name="foreground" value="#00f8f8f8"/>
         <color name="foreground2" value="#00e7c777"/>
         <color name="fresh" value="#009fd00b"/>
@@ -114,7 +116,7 @@
         <color name="greyc4" value="#00c4c4c4"/>
         <color name="hellgreen" value="#0056c856"/>
         <color name="igsd" value="#005e4807"/>
-        <color name="igsdt" value="#445b4500"/>
+        <color name="igsdt" value="#125b4500"/>
         <color name="igsl" value="#00664d00"/>
         <color name="lime" value="#0000ff00"/>
         <color name="linebg" value="#00999999"/>
@@ -130,13 +132,13 @@
         <color name="mcolor6" value="#008a6a09"/>
         <color name="menu" value="#25062748"/>
         <color name="mint" value="#0000cc99"/>
-        <color name="progbg" value="#005a5a5a"/>
+        <color name="progbg" value="#00000001"/>
         <color name="progfg" value="#00fefe00"/>
         <color name="red" value="#00ff0000"/>
         <color name="redfont" value="#00bd1b0e"/>
         <color name="selectbg" value="#000f4c5c"/>
         <color name="sidec1" value="#00664d00"/>
-        <color name="sidec2" value="#00d9a300"/>
+        <color name="sidec2" value="#00171a1c"/>
         <color name="sidect" value="#1123314c"/>
         <color name="silver" value="#00c0c0c0"/>
         <color name="transchsel1" value="#21020202"/>
@@ -159,7 +161,7 @@
         <parameter name="AboutHddSplit" value="1"/>
         <parameter name="CCcamMenuListName" value="0,4,790,62"/>
         <parameter name="ChoicelistButtonIcon" value="15,14,54,34"/>
-        <parameter name="ChoicelistDash" value="8,3,790,62"/>
+        <parameter name="ChoicelistDash" value="0,3,790,62"/>
         <parameter name="ChoicelistIcon" value="8,14,54,62"/>
         <parameter name="ChoicelistName" value="80,14,790,62"/>
         <parameter name="ChoicelistButtonIcon" value="15,14,54,34"/>
@@ -176,16 +178,16 @@
         <parameter name="ExpandableListIcon" value="5,2,55,38"/>
         <parameter name="FallbackReceiverListIP" value="300,2,225,38"/>
         <parameter name="FallbackReceiverListName" value="8,2,225,38"/>
-        <parameter name="FcFileListIcon" value="10,0,30,30"/>
-        <parameter name="FcFileListMultiIcon" value="45,0,30,30"/>
+        <parameter name="FcFileListIcon" value="10,2,30,30"/>
+        <parameter name="FcFileListMultiIcon" value="45,2,30,30"/>
         <parameter name="FcFileListMultiLock" value="2,0,30,30"/>
-        <parameter name="FcFileListMultiName" value="90,0,1000,32"/>
-        <parameter name="FcFileListName" value="68,0,1000,34"/>
-        <parameter name="FileListIcon" value="14,8,50,50"/>
+        <parameter name="FcFileListMultiName" value="90,2,1000,32"/>
+        <parameter name="FcFileListName" value="68,2,1000,34"/>
+        <parameter name="FileListIcon" value="14,6,50,50"/>
         <parameter name="FileListMultiIcon" value="45, 4, 30, 30"/>
-        <parameter name="FileListMultiLock" value="5,0,36,36"/>
+        <parameter name="FileListMultiLock" value="2,0,36,36"/>
         <parameter name="FileListMultiName" value="90,0,1000,36"/>
-        <parameter name="FileListName" value="66,0,1000,50"/>
+        <parameter name="FileListName" value="66,6,900,45"/>
         <parameter name="GMultiEPGTimelineItemHeight" value="60"/>
         <parameter name="HelpMenuListExtHlp0" value="0,0,900,39"/>
         <parameter name="HelpMenuListExtHlp1" value="0,42,900,30"/>
@@ -197,17 +199,17 @@
         <parameter name="PlayListIcon" value="7,12,32,48"/>
         <parameter name="PlayListName" value="45,0,1000,48"/>
         <parameter name="PluginBrowserDescColor" value="1017253"/>
-        <parameter name="PluginBrowserDescr" value="170,40,40"/>
+        <parameter name="PluginBrowserDescr" value="170,36,40"/>
         <parameter name="PluginBrowserDownloadDescColor" value="1017253"/>
         <parameter name="PluginBrowserDownloadDescr" value="120,40,40"/>
-        <parameter name="PluginBrowserDownloadIcon" value="20,10,60,60"/>
-        <parameter name="PluginBrowserDownloadName" value="120,4,60"/>
+        <parameter name="PluginBrowserDownloadIcon" value="20,0,100,70"/>
+        <parameter name="PluginBrowserDownloadName" value="120,10,60"/>
         <parameter name="PluginBrowserIcon" value="20,0,120,70"/>
         <parameter name="PluginBrowserName" value="160,4,40"/>
-        <parameter name="SelectionListDescr" value="50,2,900,40"/>
-        <parameter name="SelectionListLock" value="5,5,40,40"/>
+        <parameter name="SelectionListDescr" value="45,0,1000,38"/>
+        <parameter name="SelectionListLock" value="0,2,36,36"/>
         <parameter name="SelectionListLockOff" value="5,5,40,40"/>
-        <parameter name="ServiceInfo" value="0,0,500,50"/>
+        <parameter name="ServiceInfo" value="0,0,400,50"/>
         <parameter name="ServiceInfoFont" value="Regular;28"/>
         <parameter name="ServiceInfoLeft" value="10,0,350,50"/>
         <parameter name="ServiceInfoRight" value="370,0,450,50"/>
@@ -216,8 +218,8 @@
         <parameter name="VirtualKeyboard" value="100, 100"/>
         <parameter name="VirtualKeyboard" value="80,80"/>
         <parameter name="VirtualKeyboardFont" value="Bold;40"/>
-        <parameter name="WeatherPluginCity" value="20,0,680,40"/>
-        <parameter name="WeatherPluginDegreetype" value="670,0,100,40"/>
+        <parameter name="WeatherPluginCity" value="20,0,680,50"/>
+        <parameter name="WeatherPluginDegreetype" value="670,0,100,50"/>
         <parameter name="WeatherPluginEntryListFont1" value="Regular;32"/>
         <parameter name="WeatherPluginEntryListFont2" value="Regular;32"/>
         <parameter name="WeatherPluginSearchResultListFont1" value="Regular;32"/>
@@ -262,7 +264,6 @@
         <sub name="Subtitle_Bold" font="Replacement;52" foregroundColor="white" shadowColor="#00101010" shadowOffset="1,1"/>
         <sub name="Subtitle_Italic" font="Regular;52" foregroundColor="white" shadowColor="#00101010" shadowOffset="1,1"/>
     </subtitles>
-
     <include filename="skin_templates.xml"/>
     <include filename="skin_nss.xml"/>
     <include filename="skin_ll.xml"/>

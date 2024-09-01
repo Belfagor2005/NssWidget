@@ -23,6 +23,7 @@ from .lib.Utils import RequestAgent
 from .lib.Downloader import downloadWithProgress
 from .lib.Lcn import (
     LCN,
+    LCNBuildHelper,
     terrestrial,
     terrestrial_rest,
     ReloadBouquets,
@@ -693,15 +694,28 @@ class NssDailySetting(Screen):
 
     def Lcn(self):
         sets = 0
-        if self.LcnOn:
-            lcn = LCN()
-            lcn.read()
-            if len(lcn.lcnlist) >= 1:
-                lcn.writeBouquet()
-                ReloadBouquets(sets)
-                self.session.open(MessageBox, _('Sorting Terrestrial channels with Lcn rules Completed'),
-                                  MessageBox.TYPE_INFO,
-                                  timeout=5)
+        # if self.LcnOn:
+            # lcn = LCN()
+            # lcn.read()
+            # if len(lcn.lcnlist) >= 1:
+                # lcn.writeBouquet()
+                # ReloadBouquets(sets)
+                # self.session.open(MessageBox, _('Sorting Terrestrial channels with Lcn rules Completed'),
+                                  # MessageBox.TYPE_INFO,
+                                  # timeout=5)
+    def Lcn(self):
+        setx = 0
+        try:
+            lcn = LCNBuildHelper()
+            lcn.buildAfterScan()
+            self.session.open(MessageBox, _('Sorting Terrestrial Executed!'),
+                              MessageBox.TYPE_INFO,
+                              timeout=5)
+        except Exception as e:
+            print(e)
+            self.session.open(MessageBox, _('Sorting Terrestrial not Executed!'),
+                              MessageBox.TYPE_INFO,
+                              timeout=5)
 
     def closerm(self):
         self.close()

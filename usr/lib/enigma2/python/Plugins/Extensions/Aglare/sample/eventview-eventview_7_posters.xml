@@ -1,5 +1,5 @@
 <screen name="EventView" position="0,0" size="1920,1080" title="Eventview" backgroundColor="background" flags="wfNoBorder">
-    <panel name="button1temp"/>
+    <panel name="ScreenTemplateAllColorButtons_menu"/>
     <panel name="timedate"/>
     <eLabel name="" position="36,24" size="40,40" font="icomoon; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
     <eLabel name="" position="340,82" size="938,462" zPosition="-90" cornerRadius="20" backgroundColor="mcolor2" foregroundColor="mcolor2"/>

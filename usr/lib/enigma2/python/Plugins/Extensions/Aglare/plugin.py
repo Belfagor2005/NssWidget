@@ -57,13 +57,15 @@ config.plugins.AglareNss.FontStyle = ConfigSelection(default='basic', choices=[
     ('basic', _('Default')),
     ('font1', _('HandelGotD')),
     ('font2', _('KhalidArtboldRegular')),
-    ('font3', _('BebasNeue'))])
+    ('font3', _('BebasNeue')),
+    ('font4', _('Greta'))])
 config.plugins.AglareNss.skinSelector = ConfigSelection(default='base', choices=[
     ('base', _('Default'))])
 config.plugins.AglareNss.InfobarStyle = ConfigSelection(default='infobar_no_posters', choices=[
     ('infobar_no_posters', _('Infobar_NO_Posters')),
+    ('infobar_posters', _('Infobar_Posters')),
     ('infobar_posters_meteo', _('Infobar_Posters_Meteo')),
-    ('infobar_posters', _('Infobar_Posters'))])
+    ('infobar_no_weather', _('Infobar_NO_Weather'))])
 config.plugins.AglareNss.SecondInfobarStyle = ConfigSelection(default='secondinfobar_no_posters', choices=[
     ('secondinfobar_no_posters', _('SecondInfobar_NO_Posters')),
     ('secondinfobar_posters', _('SecondInfobar_Posters'))])
@@ -319,14 +321,18 @@ class AglareSetup(ConfigListScreen, Screen):
                     self.updateurl = url.strip()
                     cc.close()
                     if str(version_server) == str(version):
-                        message = '%s %s\n%s %s\n\n%s' % (
-                            _('Server version:'), version_server, _('Version installed:'),
-                            version, _('You have the current version Aglare!'))
+                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
+                                                          version_server,
+                                                          _('Version installed:'),
+                                                          version,
+                                                          _('You have the current version Aglare!'))
                         self.session.open(MessageBox, message, MessageBox.TYPE_INFO)
                     elif version_server > version:
-                        message = '%s %s\n%s %s\n\n%s' % (
-                            _('Server version:'), version_server, _('Version installed:'),
-                            version, _('The update is available!\n\nDo you want to run the update now?'))
+                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
+                                                          version_server,
+                                                          _('Version installed:'),
+                                                          version,
+                                                          _('The update is available!\n\nDo you want to run the update now?'))
                         self.session.openWithCallback(self.update, MessageBox, message, MessageBox.TYPE_YESNO)
                     else:
                         self.session.open(MessageBox, _('You have version %s!!!') % version, MessageBox.TYPE_ERROR)
@@ -380,7 +386,8 @@ class AglareUpdater(Screen):
 
     def downloadFinished(self, string=''):
         self['status'].setText(_('Installing updates!'))
-        os.system('cd /tmp/; tar -xvf xxx.tar -C /; sync')
+        os.system('cd /tmp/; tar -xvf xxx.tar -C /')
+        os.system('sync')
         os.system('rm /tmp/xxx*.*')
         os.system('sync')
         restartbox = self.session.openWithCallback(self.restartGUI, MessageBox, _('Aglare update was done!!!\nDo you want to restart the GUI now?'), MessageBox.TYPE_YESNO)

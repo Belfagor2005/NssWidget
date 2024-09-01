@@ -16,8 +16,7 @@
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
-        <panel name="button3temp"/>
-        <panel name="button4temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
         <panel name="pigscreen885"/>
@@ -71,7 +70,7 @@
     <screen name="NssMenu" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="NssMenu">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
         <widget name="" pixmap="image_logo/nss/zlogo.png" alphatest="blend" position="1485,632" size="445,360" zPosition="0"/>
@@ -130,10 +129,10 @@
         </widget>
     </screen>
     <!-- ************* CAM Manager ************* -->
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="NSSCamsManager" position="0,0" size="1920,1080" title="NSSCamsManager">
+    <screen name="NSSCamsManager" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="NSSCamsManager">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
         <widget name="info" position="55,513" size="842,68" font="Regular; 22" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="7"/>
@@ -141,11 +140,12 @@
         <widget name="list" position="59,102" size="837,395" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/>
         <eLabel name="" position="1734,1016" size="130,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="SECRET MENU"/>
     </screen>
+
     <!-- ************* HomeNss************* -->
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="HomeNss" position="0,0" size="1920,1080" title="NSS Addon Manager">
+    <screen name="HomeNss" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="NSS Addon Manager">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
         <eLabel name="" position="1734,1016" size="55,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
@@ -153,7 +153,7 @@
         <widget name="statusgreen" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/status-on.png" alphatest="blend" position="1013,45" size="40,40" zPosition="5"/>
         <widget name="statusred" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/res/pics/status-off.png" alphatest="blend" position="1015,44" size="40,40" zPosition="5"/>
         <widget name="status" position="1062,44" size="420,40" font="Regular; 40" foregroundColor="#ffb75b" backgroundColor="#101010" halign="left" transparent="1" zPosition="4"/>
-        <widget name="list" position="43,172" size="869,812" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/>
+        <widget name="list" position="43,172" size="869,812" font="Regular;32" itemHeight="50" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/>
         <eLabel name="" position="997,630" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 30" text="" zPosition="1"/>
         <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,634" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
             <convert type="AglareReceiverInfo">MemTotal</convert>
@@ -196,21 +196,21 @@
         </widget>
     </screen>
     <!-- ************* nssConfig************* -->
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="nssConfig" position="0,0" size="1920,1080" title="NSS Addon Manager">
+    <screen name="nssConfig" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="NSS Addon Manager">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
-        <widget name="config" position="43,161" size="869,114" font="Regular;30" itemHeight="40" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/>
+        <widget name="config" position="43,161" size="869,114" font="Regular;32" itemHeight="50" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/>
         <widget name="info" position="36,287" size="884,715" font="Regular; 26" halign="left" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
         <widget name="description" position="41,95" size="882,59" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
     </screen>
     <!-- ************* nssCamConfig************* -->
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="nssCamConfig" position="0,0" size="1920,1080" title="NSS Addon Manager">
+    <screen name="nssCamConfig" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="NSS Addon Manager">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
         <widget name="config" position="43,161" size="869,678" font="Regular;30" itemHeight="40" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/>
@@ -218,22 +218,118 @@
         <widget name="description" position="41,95" size="882,59" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
     </screen>
     <!-- ************* cccConfig************* -->
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="cccConfig" position="0,0" size="1920,1080" title="NSS Addon Manager">
+    <screen name="cccConfig" backgroundColor="transparent" flags="wfNoBorder" position="0,0" size="1920,1080" title="NSS Addon Manager">
         <!-- <panel name="nssConfig"/> -->
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
         <widget name="config" position="43,161" size="869,575" font="Regular;30" itemHeight="40" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/>
         <widget name="info" position="999,606" size="884,397" font="Regular; 28" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
         <widget name="description" position="41,95" size="882,59" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
     </screen>
+
+    <!-- ************* AddonPackagesGroups************* -->
+    <screen name="AddonPackagesGroups" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="HomeNss"/>
+    </screen>
+
+    <!-- ************* NssDailySetting************* -->
+    <screen name="NssDailySetting" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="HomeNss"/>
+    </screen>
+    <!-- ************* SettingVhan************* -->
+    <screen name="SettingVhan11" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="HomeNss"/>
+    </screen>
+    <!-- ************* SettingVhan22************* -->
+    <screen name="SettingVhan22" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="HomeNss"/>
+    </screen>
+    <!-- ************* SettingManutek************* -->
+    <screen name="SettingManutekz" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="HomeNss"/>
+    </screen>
+    <!-- ************* SettingMorpheus************* -->
+    <screen name="SettingMorpheusz" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="HomeNss"/>
+    </screen>
+    <!-- ************* SettingCiefp************* -->
+    <screen name="SettingCiefpz" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="HomeNss"/>
+    </screen>
+    <!-- ************* SelectPiconz************* -->
+    <screen name="SelectPiconz" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="HomeNss"/>
+    </screen>
+    <!-- ************* MMarkFolderz************* -->
+    <screen name="MMarkFolderz" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="HomeNss"/>
+    </screen>
+    
+    <!-- ************* MMarkFolderz************* -->
+    <screen name="ScriptExecuter" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="pigscreen885"/>
+        <panel name="bLogo"/>
+        <eLabel name="" position="1734,1016" size="55,52" backgroundColor="#3e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+        <widget name="info" position="39,107" size="884,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
+        <!-- <widget name="list" position="43,172" size="869,812" font="Regular;32" itemHeight="50" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/> -->
+        <eLabel name="" position="997,630" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 30" text="" zPosition="1"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,634" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareReceiverInfo">MemTotal</convert>
+        </widget>
+        <widget source="session.Event_Now" render="Progress" position="1058,662" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
+            <convert type="AglareReceiverInfo">MemTotal</convert>
+        </widget>
+        <eLabel name="" position="997,684" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,688" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareReceiverInfo">HddInfo</convert>
+        </widget>
+        <widget source="session.Event_Now" render="Progress" position="1058,716" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
+            <convert type="AglareReceiverInfo">HddInfo</convert>
+        </widget>
+        <eLabel name="" position="997,738" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,742" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareReceiverInfo">FlashInfo</convert>
+        </widget>
+        <widget source="session.Event_Now" render="Progress" position="1058,770" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
+            <convert type="AglareReceiverInfo">FlashInfo</convert>
+        </widget>
+        <eLabel name="" position="997,792" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 28" text="" zPosition="1"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,796" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareReceiverInfo">UsbInfo</convert>
+        </widget>
+        <widget source="session.Event_Now" render="Progress" position="1058,824" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
+            <convert type="AglareReceiverInfo">UsbInfo</convert>
+        </widget>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,859" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareBoxInfo">Boxtype</convert>
+        </widget>
+        <eLabel name="" position="997,846" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1"/>
+        <eLabel name="" position="997,900" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,913" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareBoxInfo">CpuInfo</convert>
+        </widget>
+        <eLabel name="" position="997,954" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 18" zPosition="1" text="UP"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,967" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareBoxInfo">Upinfo</convert>
+        </widget>
+
+        <widget source="list" render="Listbox" position="43,172" size="869,700" font="Regular;32" itemHeight="50" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049">
+            <convert type="StringList" />
+        </widget>
+        <widget name="labstatus" position="38,916" size="892,90" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
+    </screen>
+
     <!-- ************* nssCategories************* -->
     <screen backgroundColor="transparent" flags="wfNoBorder" name="nssCategories" position="0,0" size="1920,1080" title="NSS Addon Manager">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
         <widget name="list" position="43,178" size="869,806" scrollbarWidth="10" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1"/>
@@ -244,58 +340,30 @@
         <widget name="pth" position="996,680" size="877,90" font="Regular; 32" halign="right" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
         <widget name="pform" position="991,621" size="882,50" font="Regular;30" halign="right" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
     </screen>
-    <!-- ************* NssDailySetting************* -->
-    <screen name="NssDailySetting" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="nssCategories"/>
-    </screen>
-    <!-- ************* SettingVhan************* -->
-    <screen name="SettingVhan" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="nssCategories"/>
-    </screen>
-    <!-- ************* SettingVhan2************* -->
-    <screen name="SettingVhan2" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="nssCategories"/>
-    </screen>
-    <!-- ************* Milenka61************* -->
-    <screen name="Milenka61" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="nssCategories"/>
-    </screen>
-    <!-- ************* SettingManutek************* -->
-    <screen name="SettingManutek" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="nssCategories"/>
-    </screen>
-    <!-- ************* SettingMorpheus************* -->
-    <screen name="SettingMorpheus" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="nssCategories"/>
-    </screen>
-    <!-- ************* SettingCiefp************* -->
-    <screen name="SettingCiefp" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="nssCategories"/>
-    </screen>
-    <!-- ************* SettingBi58************* -->
-    <screen name="SettingBi58" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="nssCategories"/>
-    </screen>
-    <!-- ************* SettingPredrag************* -->
-    <screen name="SettingPredrag" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="nssCategories"/>
-    </screen>
-    <!-- ************* SettingCyrus************* -->
-    <screen name="SettingCyrus" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="nssCategories"/>
-    </screen>
     <!-- ************* NssInstall************* -->
     <screen name="NssInstall" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="nssCategories"/>
     </screen>
-    <!-- ************* NssIPK************* -->
-    <!--     <screen name="NssIPK" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+    <!-- ************* NssRemove************* -->
+    <screen name="NssRemove" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="nssCategories"/>
-    </screen> -->
+    </screen>
+    
+    <!-- ************* MMarkPiconsf************* -->
+    <screen name="MMarkPiconsf" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="nssCategories"/>
+    </screen>
+
+    <!-- ************* OpenPicons************* -->
+    <screen name="OpenPicons" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="nssCategories"/>
+    </screen>
+
+    <!-- ************* NssIPK************* -->
     <screen name="NssIPK" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="info" position="42,109" size="1030,70" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
         <widget name="info1" position="41,183" size="1030,100" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
@@ -341,66 +409,35 @@
             <convert type="AglareBoxInfo">Upinfo</convert>
         </widget>
     </screen>
-    <!-- ************* NssRemove************* -->
-    <screen name="NssRemove" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="nssCategories"/>
-    </screen>
-    <!-- ************* SelectPiconz************* -->
-    <screen name="SelectPiconz" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="nssCategories"/>
-    </screen>
-    <!-- ************* MMarkFolderz************* -->
-    <screen name="MMarkFolderz" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="nssCategories"/>
-    </screen>
-    <!-- ************* MMarkPiconsf************* -->
-    <screen name="MMarkPiconsf" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="nssCategories"/>
-    </screen>
-    <!-- ************* MMarkPiconsf************* -->
-    <screen name="MMarkPiconsf" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="nssCategories"/>
-    </screen>
-    <!-- ************* OpenPicons************* -->
-    <screen name="OpenPicons" position="0,0" size="1920,1080" title="NSS Addon Manager" backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="nssCategories"/>
-    </screen>
-    <!-- ************* Script ************* -->
-    <screen backgroundColor="transparent" flags="wfNoBorder" name="NSS Addon Manager" position="0,0" size="1920,1080" title="NSS Addon Manager">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <panel name="button1temp"/>
-        <panel name="pigscreen885"/>
-        <widget source="list" render="Listbox" position="43,159" size="869,825" font="Regular;32" scrollbarWidth="10" itemHeight="40" scrollbarMode="showOnDemand" backgroundColor="#000000" transparent="1">
-            <convert type="StringList"/>
-        </widget>
-        <widget name="labstatus" position="44,99" size="884,55" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5"/>
-        <panel name="bLogo"/>
-    </screen>
+
+
     <!-- *************************************** -->
     <!--  NEW NSS MANAGER                         * -->
     <!-- *************************************** -->
     <screen name="nssInfoCfg" position="0,0" size="1920,1080" title="NSS Softcam Manager" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
-        <widget name="list" position="49,109" size="850,863" font="Regular;30" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" backgroundColor="#20000000"/>
+        <widget name="list" position="49,109" size="850,863" font="Regular;32" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" backgroundColor="#20000000"/>
         <widget name="description" position="998,620" size="875,266" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
     </screen>
-    <screen name="nssGetipk" position="0,0" size="1920,1080" title="NSS Softcam Manager" backgroundColor="#ff000000" flags="wfNoBorder">
-        <panel name="nssGetipklist"/>
-    </screen>
+
     <screen name="nssGetipklist" position="0,0" size="1920,1080" title="NSS Softcam Manager" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
-        <widget name="list" position="49,118" size="850,723" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049"/>
+        <widget name="list" position="49,118" size="850,723" scrollbarMode="showOnDemand" font="Regular;32" itemHeight="50" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049"/>
         <widget name="description" position="61,878" size="845,113" font="Regular;30" halign="left" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5"/>
     </screen>
+
+    <screen name="nssGetipk" position="0,0" size="1920,1080" title="NSS Softcam Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+        <panel name="nssGetipklist"/>
+    </screen>
+
     <!-- *************************************** -->
     <!--  SetPiconPath Folder                              * -->
     <!-- *************************************** -->
@@ -409,8 +446,8 @@
         <panel name="pigscreen885"/>
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="button1temp"/>
-        <widget name="filelist" position="40,100" size="890,900" itemHeight="50" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center" sscrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <widget name="filelist" position="40,100" size="890,900" font="Regular;32" itemHeight="50" transparent="1" itemCornerRadius="8" valign="center" sscrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
         <panel name="bLogo"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on"/>
     </screen>

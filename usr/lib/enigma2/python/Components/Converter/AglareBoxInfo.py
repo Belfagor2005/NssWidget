@@ -164,7 +164,7 @@ class AglareBoxInfo(Poll, Converter, object):
 							cpu_speed = "%s" % str(int(binascii.hexlify(clockfrequency), 16)/1000000)
 						except:
 							cpu_speed = '-'
-				if cpu_info is '':
+				if cpu_info == '':
 					return _('%s, %s MHz (%d %s)') % (info, cpu_speed, cpu_count, cpu_count > 1 and cores or core)
 			else:
 				return _('No info')
@@ -198,7 +198,7 @@ class AglareBoxInfo(Poll, Converter, object):
 						pass
 			except:
 				info = 'N/A'
-			if self.type is self.TempInfo:
+			if self.type == self.TempInfo:
 				info = ('CPU:  ' + info[0:2] + 'C')
 			return info
 
@@ -211,7 +211,7 @@ class AglareBoxInfo(Poll, Converter, object):
 					info = open('/proc/stb/fp/fan_pwm').read().strip('\n')
 			except:
 				info = 'N/A'
-			if self.type is self.FanInfo:
+			if self.type == self.FanInfo:
 				info = 'Fan: ' + info
 			return info
 

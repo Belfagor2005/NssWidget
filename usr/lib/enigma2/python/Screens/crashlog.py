@@ -9,7 +9,6 @@
 # --------------------#
 # Info Linuxsat-support.com  corvoboys.org
 '''
-
 # by 2boom 4bob@ua.fm
 from Components.ActionMap import ActionMap
 from Components.ScrollLabel import ScrollLabel
@@ -22,51 +21,59 @@ from Tools.Directories import (SCOPE_SKIN, resolveFilename)
 from Tools.LoadPixmap import LoadPixmap
 from enigma import getDesktop
 import os
-global Crashfile, path_folder_log
+import sys
+import glob
+
+global path_folder_log
 
 
-Crashfile = " "
-version = '1.2'
-path_folder_log = '/home/root/logs/'
+version = '1.3'
+path_folder_log = '/media/usb/'
 
 
 def isMountReadonly(mnt):
     mount_point = ''
-    with open('/proc/mounts') as f:
-        for line in f:
-            line = line.split(',')[0]
-            line = line.split()
-            try:
-                device, mount_point, filesystem, flags = line
-            except Exception as err:
-                print("Error: %s" % err)
-            if mount_point == mnt:
-                return 'ro' in flags
+    try:
+        with open('/proc/mounts', 'r') as f:
+            for line in f:
+                line_parts = line.split()
+                if len(line_parts) < 4:
+                    continue
+                device, mount_point, filesystem, flags = line_parts[:4]
+                if mount_point == mnt:
+                    return 'ro' in flags
+    except IOError as e:
+        # Gestione errori di I/O (es. file non accessibile)
+        print("Errore di I/O: %s" % str(e), file=sys.stderr)
+    except Exception as err:
+        # Gestione generale delle eccezioni
+        print("Errore: %s" % str(err), file=sys.stderr)
     return "mount: '%s' doesn't exist" % mnt
 
 
 def crashlogPath():
     crashlogPath_found = False
     try:
-        path_folder_log = config.usage.debug_path.value
-    except KeyError:
+        path_folder_log = config.crash.debug_path.value
+    except (KeyError, AttributeError):
         path_folder_log = None
     if path_folder_log is None:
-        if os.path.exists("/media/hdd"):
-            if not isMountReadonly("/media/hdd"):
-                path_folder_log = "/media/hdd/"
-        elif os.path.exists("/media/usb"):
-            if not isMountReadonly("/media/usb"):
-                path_folder_log = "/media/usb/"
-        elif os.path.exists("/media/mmc"):
-            if not isMountReadonly("/media/mmc"):
-                path_folder_log = "/media/mmc/"
+        possible_paths = ["/media/hdd", "/media/usb", "/media/mmc"]
+        for path in possible_paths:
+            if os.path.exists(path) and not isMountReadonly(path):
+                path_folder_log = path + "/"
+                break
         else:
-            path_folder_log = "/home/root/logs/"
-    for crashlog in os.listdir(path_folder_log):
-        if crashlog.endswith(".log"):
-            crashlogPath_found = True
-            break
+            path_folder_log = "/tmp/"
+    try:
+        for crashlog in os.listdir(path_folder_log):
+            if crashlog.endswith(".log"):
+                crashlogPath_found = True
+                break
+    except OSError as e:
+        # Log the error if necessary, for example:
+        print("Error accessing crash log directory: %s" % str(e))
+        crashlogPath_found = False
     return crashlogPath_found
 
 
@@ -193,46 +200,65 @@ class CrashLogScreen(Screen):
         item = self["menu"].getCurrent()
         global Crashfile
         try:
-            if item[3] == '/root/':
-                Crashfile = '/home' + item[3] + item[0] + ".log"
-            elif item[3] == '/root/logs/':
-                Crashfile = '/home' + item[3] + item[0] + ".log"
-            elif item[3] == '/tmp/':
-                Crashfile = '/tmp/' + item[0] + ".log"
-            elif item[3] == '/usb/logs/':
-                Crashfile = '/media/usb/logs/' + item[0] + ".log"
+            base_dir = item[3]
+            filename = item[0] + ".log"
+            if base_dir in ['/root/', '/root/logs/']:
+                Crashfile = '/home' + base_dir + filename
+            elif base_dir == '/tmp/':
+                Crashfile = '/tmp/' + filename
+            elif base_dir == '/usb/logs/':
+                Crashfile = '/media/usb/logs/' + filename
             else:
-                Crashfile = item[3] + item[0] + ".log"
+                Crashfile = base_dir + filename
             self.session.openWithCallback(self.CfgMenu, LogScreen)
-        except:
+        except (IndexError, TypeError, KeyError) as e:
+            print(e)
             Crashfile = " "
 
     def YellowKey(self):
         item = self["menu"].getCurrent()
         try:
-            if item[3] == '/root/':
-                file = '/home' + item[3] + item[0] + ".log"
-            elif item[3] == '/root/logs/':
-                file = '/home' + item[3] + item[0] + ".log"
-            elif item[3] == '/tmp/':
-                file = '/tmp/' + item[0] + ".log"
-            elif item[3] == '/usb/logs/':
-                file = '/media/usb/logs/' + item[0] + ".log"
+            base_dir = item[3]
+            filename = item[0] + ".log"
+            if base_dir in ['/root/', '/root/logs/']:
+                file_path = '/home' + base_dir + filename
+            elif base_dir == '/tmp/':
+                file_path = '/tmp/' + filename
+            elif base_dir == '/usb/logs/':
+                file_path = '/media/usb/logs/' + filename
             else:
-                file = item[3] + item[0] + ".log"
-
-            os.system("rm %s" % (file))
-            self.mbox = self.session.open(MessageBox, (_("Removed %s") % (file)), MessageBox.TYPE_INFO, timeout=4)
-        except:
-            self.mbox = self.session.open(MessageBox, (_("Failed remove")), MessageBox.TYPE_INFO, timeout=4)
+                file_path = base_dir + filename
+            os.remove(file_path)
+            self.mbox = self.session.open(MessageBox, (_("Removed %s") % (file_path)), MessageBox.TYPE_INFO, timeout=4)
+        except (IndexError, TypeError, KeyError) as e:
+            self.mbox = self.session.open(MessageBox, (_("Failed to remove file due to an error: %s") % str(e)), MessageBox.TYPE_INFO, timeout=4)
+        except OSError as e:
+            self.mbox = self.session.open(MessageBox, (_("Failed to remove file: %s") % str(e)), MessageBox.TYPE_INFO, timeout=4)
+        except Exception as e:
+            self.mbox = self.session.open(MessageBox, (_("An unexpected error occurred: %s") % str(e)), MessageBox.TYPE_INFO, timeout=4)
         self.CfgMenu()
 
     def BlueKey(self):
         try:
-            os.system("rm %s*crash*.log rm %slogs/*crash*.log /home/root/*crash*.log /home/root/logs/*crash*.log %stwisted.log /media/usb/logs/*crash*.log /media/usb/*crash*.log" % (path_folder_log, path_folder_log, path_folder_log))
+            # Definizione dei percorsi da cercare
+            percorsi = [
+                os.path.join(path_folder_log, "*crash*.log"),
+                os.path.join(path_folder_log, "logs/*crash*.log"),
+                "/home/root/*crash*.log",
+                "/home/root/logs/*crash*.log",
+                os.path.join(path_folder_log, "twisted.log"),
+                "/media/usb/logs/*crash*.log",
+                "/media/usb/*crash*.log"
+            ]
+            # Itera su ogni percorso e rimuove i file trovati
+            for percorso in percorsi:
+                for file in glob.glob(percorso):
+                    os.remove(file)
             self.mbox = self.session.open(MessageBox, (_("Removed All Crashlog Files")), MessageBox.TYPE_INFO, timeout=4)
-        except:
-            self.mbox = self.session.open(MessageBox, (_("Failed remove")), MessageBox.TYPE_INFO, timeout=4)
+        except (OSError, IOError) as e:
+            self.mbox = self.session.open(MessageBox, (_("Failed to remove some files: %s") % str(e)), MessageBox.TYPE_INFO, timeout=4)
+        except Exception as e:
+            self.mbox = self.session.open(MessageBox, (_("An unexpected error occurred: %s") % str(e)), MessageBox.TYPE_INFO, timeout=4)
         self.CfgMenu()
 
     def infoKey(self):
