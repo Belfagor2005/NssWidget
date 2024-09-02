@@ -693,6 +693,7 @@ class NssDailySetting(Screen):
         self['info'].setText(_('Please select ...'))
 
     def Lcn(self):
+        '''
         sets = 0
         # if self.LcnOn:
             # lcn = LCN()
@@ -703,8 +704,8 @@ class NssDailySetting(Screen):
                 # self.session.open(MessageBox, _('Sorting Terrestrial channels with Lcn rules Completed'),
                                   # MessageBox.TYPE_INFO,
                                   # timeout=5)
-    def Lcn(self):
-        setx = 0
+        '''
+
         try:
             lcn = LCNBuildHelper()
             lcn.buildAfterScan()

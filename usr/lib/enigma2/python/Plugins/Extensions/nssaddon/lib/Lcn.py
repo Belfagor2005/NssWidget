@@ -3,6 +3,7 @@
 
 from __future__ import print_function
 from enigma import (eServiceReference, eServiceCenter)
+from Tools.Directories import (SCOPE_PLUGINS, resolveFilename)
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Components.ActionMap import ActionMap
@@ -16,6 +17,7 @@ from Components.config import (
     ConfigSelection,
     configfile,
 )
+
 import os
 import sys
 import re
@@ -27,7 +29,8 @@ except ImportError:
     from xml.etree.ElementTree import parse
 
 # NAME Digitale Terrestre
-plugin_path = os.path.dirname(sys.modules[__name__].__file__)
+# plugin_path = os.path.dirname(sys.modules[__name__].__file__)
+plugin_path = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('nssaddon'))
 rules = os.path.join(plugin_path, 'rules.xml')
 ServiceListNewLamedb = plugin_path + '/temp/ServiceListNewLamedb'
 TrasponderListNewLamedb = plugin_path + '/temp/TrasponderListNewLamedb'

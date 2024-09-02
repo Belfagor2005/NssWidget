@@ -152,7 +152,8 @@ desc_plugin = ('..:: Vavoo by Lululla v.%s ::..' % currversion)
 stripurl = 'aHR0cHM6Ly92YXZvby50by9jaGFubmVscw=='
 keyurl = 'aHR0cDovL3BhdGJ1d2ViLmNvbS92YXZvby92YXZvb2tleQ=='
 
-enigma_path = '/usr/vavoo/'
+enigma_list = '/usr/vavoo/'
+enigma_path = '/etc/enigma2/'
 json_file = '/tmp/vavookey'
 HALIGN = RT_HALIGN_LEFT
 
@@ -985,7 +986,7 @@ class vavoox(Screen):
     def message3(self, name, url, response):
         sig = Sig()
         app = str(sig)
-        filename = enigma_path + '/list/userbouquet.vavoo_%s.tv' % name.lower()
+        filename = enigma_list + '/userbouquet.vavoo_%s.tv' % name.lower()
         filenameout = enigma_path + '/userbouquet.vavoo_%s.tv' % name.lower()
         key = None
         with open(filename, "rt") as fin:
