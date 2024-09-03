@@ -48,7 +48,6 @@ from Components.config import (
     ConfigText,
     configfile,
     config,
-    # ConfigYesNo,
     ConfigEnableDisable,
     ConfigSubsection,
 )
@@ -81,7 +80,6 @@ from enigma import (
 from os import path as os_path
 from os.path import exists as file_exists
 from random import choice
-# from twisted.web.client import error
 import base64
 import json
 import requests
@@ -94,7 +92,9 @@ except ImportError:
 from six import unichr, iteritems
 from six.moves import html_entities
 import types
+
 global HALIGN
+
 tmlast = None
 now = None
 _session = None
@@ -112,8 +112,7 @@ if sys.version_info >= (2, 7, 9):
 if PY3:
     bytes = bytes
     unicode = str
-    from urllib.request import urlopen
-    from urllib.request import Request
+    from urllib.request import Request, urlopen
     string_types = str,
     integer_types = int,
     class_types = type,
@@ -122,8 +121,7 @@ if PY3:
     MAXSIZE = sys.maxsize
 else:
     str = str
-    from urllib2 import urlopen
-    from urllib2 import Request
+    from urllib2 import Request, urlopen
     class_types = (type, types.ClassType)
     text_type = unicode
     binary_type = str
@@ -279,65 +277,49 @@ def getserviceinfo(sref):
         return None, None
 
 
-if PY3:
-    def getUrl(url):
-        req = Request(url)
-        req.add_header('User-Agent', RequestAgent())
-        try:
-            response = urlopen(req, timeout=20)
+def getUrl(url):
+    req = Request(url)
+    req.add_header('User-Agent', RequestAgent())
+    try:
+        response = urlopen(req, timeout=20)
+        if PY3:
             link = response.read().decode(errors='ignore')
-            response.close()
-        except:
-            import ssl
-            gcontext = ssl._create_unverified_context()
-            response = urlopen(req, timeout=20, context=gcontext)
+        else:
+            link = response.read()
+        response.close()
+    except Exception as e:
+        print(e)
+        gcontext = ssl._create_unverified_context()
+        response = urlopen(req, timeout=20, context=gcontext)
+        if PY3:
             link = response.read().decode(errors='ignore')
-            response.close()
-        return link
-else:
-    def getUrl(url):
-        req = Request(url)
-        req.add_header('User-Agent', RequestAgent())
-        try:
-            response = urlopen(req, timeout=20)
+        else:
             link = response.read()
-            response.close()
-            # return link
-        except:
-            import ssl
-            gcontext = ssl._create_unverified_context()
-            response = urlopen(req, timeout=20, context=gcontext)
-            link = response.read()
-            response.close()
-        return link
+        response.close()
+    return link
 
 
 def b64decoder(s):
     '''Add missing padding to string and return the decoded base64 string.'''
-    # import base64
     s = str(s).strip()
     try:
         outp = base64.b64decode(s)
-        # print('outp1 ', outp)
         if PY3:
             outp = outp.decode('utf-8')
-            # print('outp2 ', outp)
         return outp
-
-    except TypeError:
+    except (TypeError, ValueError) as e:
+        print(e)
         padding = len(s) % 4
         if padding == 1:
             print('Invalid base64 string: {}'.format(s))
             return ''
         elif padding == 2:
-            s += b'=='
+            s += '=='
         elif padding == 3:
-            s += b'='
+            s += '='
         outp = base64.b64decode(s)
-        # print('outp1 ', outp)
         if PY3:
             outp = outp.decode('utf-8')
-            # print('outp2 ', outp)
         return outp
 
 
@@ -354,9 +336,7 @@ def Sig():
         with open(json_file) as f:
             vecs = json.load(f)
             vec = choice(vecs)
-            # print('vec=', str(vec))
         headers = {
-            # Already added when you pass json=
             'Content-Type': 'application/json',
         }
         json_data = '{"vec": "' + str(vec) + '"}'
@@ -365,14 +345,12 @@ def Sig():
                 req = requests.post('https://www.vavoo.tv/api/box/ping2', headers=headers, data=json_data).json()
             else:
                 req = requests.post('https://www.vavoo.tv/api/box/ping2', headers=headers, verify=False, data=json_data).json()
-            # print('req:', req)
             if req.get('signed'):
                 sig = req['signed']
             elif req.get('data', {}).get('signed'):
                 sig = req['data']['signed']
             elif req.get('response', {}).get('signed'):
                 sig = req['response']['signed']
-            # print('res key:', str(sig))
         except requests.RequestException as e:
             print("Request failed:", e)
     return sig
@@ -470,15 +448,41 @@ Panel_list = ("Albania", "Arabia", "Balkans", "Bulgaria",
               "Spain", "Turkey", "United Kingdom")
 
 
+'''
+# def show_(name, link):
+    # res = [(name, link)]
+    # cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
+    # pngx = os_path.dirname(resolveFilename(SCOPE_SKIN, str(cur_skin))) + "/vavoo/Internat.png"
+    # if any(s in name for s in Panel_list):
+        # pngx = os_path.dirname(resolveFilename(SCOPE_SKIN, str(cur_skin))) + '/vavoo/%s.png' % str(name)
+    # if os_path.isfile(pngx):
+        # print('pngx =:', pngx)
+        # res.append(MultiContentEntryPixmapAlphaTest(pos=(10, 5), size=(60, 40), png=loadPNG(pngx)))
+    # res.append(MultiContentEntryText(pos=(85, 0), size=(540, 50), font=0, text=name, flags=HALIGN | RT_VALIGN_CENTER))
+    # return res
+
+
+# def show2_(name, link):
+    # res = [(name, link)]
+    # cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
+    # pngx = os_path.dirname(resolveFilename(SCOPE_SKIN, str(cur_skin))) + '/vavoo/vavoo_ico.png'
+    # if os_path.isfile(pngx):
+        # res.append(MultiContentEntryPixmapAlphaTest(pos=(10, 5), size=(40, 40), png=loadPNG(pngx)))
+        # res.append(MultiContentEntryText(pos=(65, 0), size=(540, 50), font=0, text=name, flags=HALIGN | RT_VALIGN_CENTER))
+    # return res
+'''
+
+
 def show_(name, link):
     res = [(name, link)]
     cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
-    pngx = os_path.dirname(resolveFilename(SCOPE_SKIN, str(cur_skin))) + "/vavoo/Internat.png"
+    base_skin_path = os.path.dirname(resolveFilename(SCOPE_SKIN, str(cur_skin)))
+    pngx = os.path.join(base_skin_path, "vavoo", "Internat.png")
     if any(s in name for s in Panel_list):
-        pngx = os_path.dirname(resolveFilename(SCOPE_SKIN, str(cur_skin))) + '/vavoo/%s.png' % str(name)
-    if os_path.isfile(pngx):
+        pngx = os.path.join(base_skin_path, 'vavoo', f'{str(name)}.png')
+    if os.path.isfile(pngx):
         print('pngx =:', pngx)
-    res.append(MultiContentEntryPixmapAlphaTest(pos=(10, 5), size=(60, 40), png=loadPNG(pngx)))
+        res.append(MultiContentEntryPixmapAlphaTest(pos=(10, 5), size=(60, 40), png=loadPNG(pngx)))
     res.append(MultiContentEntryText(pos=(85, 0), size=(540, 50), font=0, text=name, flags=HALIGN | RT_VALIGN_CENTER))
     return res
 
@@ -486,10 +490,11 @@ def show_(name, link):
 def show2_(name, link):
     res = [(name, link)]
     cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
-    pngx = os_path.dirname(resolveFilename(SCOPE_SKIN, str(cur_skin))) + '/vavoo/vavoo_ico.png'
-    if os_path.isfile(pngx):
+    base_skin_path = os.path.dirname(resolveFilename(SCOPE_SKIN, str(cur_skin)))
+    pngx = os.path.join(base_skin_path, 'vavoo', 'vavoo_ico.png')
+    if os.path.isfile(pngx):
         res.append(MultiContentEntryPixmapAlphaTest(pos=(10, 5), size=(40, 40), png=loadPNG(pngx)))
-        res.append(MultiContentEntryText(pos=(65, 0), size=(540, 50), font=0, text=name, flags=HALIGN | RT_VALIGN_CENTER))
+    res.append(MultiContentEntryText(pos=(65, 0), size=(540, 50), font=0, text=name, flags=HALIGN | RT_VALIGN_CENTER))
     return res
 
 
@@ -698,7 +703,8 @@ class MainVavoox(Screen):
         elif HALIGN == RT_HALIGN_RIGHT:
             HALIGN = RT_HALIGN_LEFT
             self['blue'].setText(_('Halign Right'))
-        self.cat()
+        # self.cat()
+        self.timer.start(200, True)
 
     def goConfig(self):
         self.session.open(vavoo_configx)
@@ -850,7 +856,8 @@ class vavoox(Screen):
         elif HALIGN == RT_HALIGN_RIGHT:
             HALIGN = RT_HALIGN_LEFT
             self['blue'].setText(_('Halign Right'))
-        self.cat()
+        # self.cat()
+        self.timer.start(200, True)
 
     def backhome(self):
         if search_ok is True:

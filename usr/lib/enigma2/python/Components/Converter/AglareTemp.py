@@ -3,7 +3,9 @@ from Components.Converter.Converter import Converter
 from Components.Element import cached
 from Components.Converter.Poll import Poll
 from enigma import eConsoleAppContainer
-import os, re, socket
+import os
+import socket
+
 
 class AglareTemp(Poll, Converter):
     TEMPERATURE = 0
@@ -119,7 +121,7 @@ class AglareTemp(Poll, Converter):
             try:
                 cpuspeed = 0
                 for line in open('/proc/cpuinfo').readlines():
-                    line = [ x.strip() for x in line.strip().split(':') ]
+                    line = [x.strip() for x in line.strip().split(':')]
                     if line[0] == 'cpu MHz':
                         cpuspeed = '%1.0f' % float(line[1])
 
@@ -187,7 +189,7 @@ class AglareTemp(Poll, Converter):
                     if len(uptime) > 0 or minutes > '0':
                         uptime += minutes + ' ' + (minutes == '1' and 'min' or 'mins')
                 return 'Uptime: %s' % uptime
-        return text
+        return  # text
 
     text = property(getText)
 

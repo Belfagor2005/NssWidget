@@ -3,6 +3,7 @@ import re
 from Components.Converter.Converter import Converter
 from Components.Element import cached
 
+
 class AglareVpn(Converter, object):
     VPNLOAD = 0
 

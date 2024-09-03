@@ -111,9 +111,9 @@ class AglareEventName2(Converter, object):
                     duration = _('%d min') % (next.getDuration() / 60)
                     if self.type is self.PRIME_TIME_WITH_DURATION:
                         return '%s - %s (%s)  %s' % (begin,
-                         end,
-                         duration,
-                         title)
+                                                     end,
+                                                     duration,
+                                                     title)
                     elif self.type is self.PRIME_TIME_ONLY_DURATION:
                         return duration
                     elif self.type == self.PRIME_TIME_NO_DURATION:
@@ -134,9 +134,9 @@ class AglareEventName2(Converter, object):
                             if len(eventNext[0]) > 4 and eventNext[0][4]:
                                 if self.type is self.NEXT_NAME:
                                     return '%02d:%02d (%s) %s' % (t[3],
-                                     t[4],
-                                     duration,
-                                     eventNext[0][4])
+                                                                  t[4],
+                                                                  duration,
+                                                                  eventNext[0][4])
                                 elif self.type is self.NEXT_TIME_DURATION:
                                     return '%02d:%02d (%s)' % (t[3], t[4], duration)
                                 else:
@@ -160,9 +160,9 @@ class AglareEventName2(Converter, object):
                 countitem = 10
                 if info is not None:
                     eventNext = self.epgcache.lookupEvent(['IBDCT', (reference.toString(),
-                      0,
-                      -1,
-                      -1)])
+                                                          0,
+                                                          -1,
+                                                          -1)])
                     if self.type is self.NEXT_NAME_NEXT or self.type is self.NEXT_NAME_NEXTWT:
                         countitem = 4
                     if eventNext:
@@ -175,9 +175,9 @@ class AglareEventName2(Converter, object):
                                     if self.type is self.NEXT_EVENT_LIST or self.type is self.NEXT_EVENT_LIST2 or self.type is self.NEXT_NAME_NEXT:
                                         duration = _('%d min') % (int(0 if eventNext[i][2] is None else eventNext[i][2]) / 60)
                                         listEpg.append('%02d:%02d (%s) %s' % (t[3],
-                                         t[4],
-                                         duration,
-                                         x[4]))
+                                                                              t[4],
+                                                                              duration,
+                                                                              x[4]))
                                     else:
                                         listEpg.append('%02d:%02d %s' % (t[3], t[4], x[4]))
                             i += 1
