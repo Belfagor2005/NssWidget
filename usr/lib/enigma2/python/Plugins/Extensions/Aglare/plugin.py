@@ -58,7 +58,9 @@ config.plugins.AglareNss.FontStyle = ConfigSelection(default='basic', choices=[
     ('font1', _('HandelGotD')),
     ('font2', _('KhalidArtboldRegular')),
     ('font3', _('BebasNeue')),
-    ('font4', _('Greta'))])
+    ('font4', _('Greta')),
+    ('font5', _('Segoe UI light')),
+    ('font6', _('MV Boli'))])
 config.plugins.AglareNss.skinSelector = ConfigSelection(default='base', choices=[
     ('base', _('Default'))])
 config.plugins.AglareNss.InfobarStyle = ConfigSelection(default='infobar_no_posters', choices=[
@@ -76,7 +78,10 @@ config.plugins.AglareNss.ChannSelector = ConfigSelection(default='channellist_no
     ('channellist_1_poster', _('ChannelSelection_1_Poster')),
     ('channellist_3_posters_v', _('ChannelSelection_3_Posters_V')),
     ('channellist_4_posters', _('ChannelSelection_4_Posters')),
+    ('channellist_6_posters', _('ChannelSelection_6_Posters')),
+    ('channellist_backdrop_v', _('ChannelSelection_BackDrop_V')),
     ('channellist_big_mini_tv', _('ChannelSelection_big_mini_tv'))])
+
 config.plugins.AglareNss.EventView = ConfigSelection(default='eventview_no_posters', choices=[
     ('eventview_no_posters', _('EventView_NO_Posters')),
     ('eventview_7_posters', _('EventView_7_Posters')),

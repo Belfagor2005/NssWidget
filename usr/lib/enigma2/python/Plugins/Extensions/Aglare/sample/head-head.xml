@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <skin>
-	<!-- **************************************  -->
-	<!-- Aglare-FHD skin                         -->
-	<!-- by MNASR for all images v2.0            -->
-	<!-- Currently Tested on PLI v9.X            -->
-	<!-- You are free to edit or modify this     -->
-	<!-- skin but please keep theses lines above -->
-	<!-- and add your credits below              -->
-	<!-- Don't Remove this Disclaimer            -->
-	<!-- **************************************  -->
-	<!-- edit from lululla for nss team -->
-	<copyright>
-		<abouth name="Aglare-FHD">
+    <!-- **************************************  -->
+    <!-- Aglare-FHD skin                         -->
+    <!-- by MNASR for all images v2.0            -->
+    <!-- Currently Tested on PLI v9.X            -->
+    <!-- You are free to edit or modify this     -->
+    <!-- skin but please keep theses lines above -->
+    <!-- and add your credits below              -->
+    <!-- Don't Remove this Disclaimer            -->
+    <!-- **************************************  -->
+    <!-- edit from lululla for nss team -->
+    <copyright>
+        <abouth name="Aglare-FHD">
             author="MNASR"
             license="Open"
             Support="openPLi ad other image*"
             Release="1.0.8 15/003/2024"
-									 
+                                     
             supporturl="www.linuxsat-support.com"
         </abouth>
-	</copyright>
-	<output id="0">
-		<resolution xres="1920" yres="1080" bpp="32"/>
-	</output>
+    </copyright>
+    <output id="0">
+        <resolution xres="1920" yres="1080" bpp="32"/>
+    </output>
     <colors>
-        <color name="backgroundtrans1" value="#95000000"/>
-        <color name="backgroundtrans2" value="#95161414"/>
         <color name="#101010" value="#00101010"/>
         <color name="#10101010" value="#10101010"/>
         <color name="#101214" value="#00101214"/>
@@ -54,7 +52,6 @@
         <color name="#555556" value="#00555556"/>
         <color name="#606060" value="#00606060"/>
         <color name="#808080" value="#00808080"/>
-        <color name="progfg" value="#008293b3"/>
         <color name="#90000000" value="#90000000"/>
         <color name="#90ff00ff" value="#90ff00ff"/>
         <color name="#92f1fc" value="#0092f1fc"/>
@@ -114,8 +111,8 @@
         <color name="green" value="#0000ff00"/>
         <color name="greenfont" value="#0051bc0e"/>
         <color name="grey" value="#008f8f8f"/>
-        <color name="grey_tux" value="#00333333"/>
         <color name="grey2" value="#006b6b6b"/>
+        <color name="grey_tux" value="#00333333"/>
         <color name="greyc4" value="#00c4c4c4"/>
         <color name="hellgreen" value="#0056c856"/>
         <color name="igsd" value="#001d283c"/>
@@ -124,7 +121,7 @@
         <color name="lime" value="#0000ff00"/>
         <color name="linebg" value="#00999999"/>
         <color name="listbgt" value="#200a1c20"/>
-                                        
+        <color name="lmsb" value="#003e91f6"/>
         <color name="maindark" value="#000b1d21"/>
         <color name="mainlight" value="#0004495c"/>
         <color name="mainskincolor" value="#00ff00ff"/>
@@ -134,9 +131,9 @@
         <color name="mcolor5" value="#00283752"/>
         <color name="mcolor6" value="#004d5e7c"/>
         <color name="menu" value="#25062748"/>
-        <color name="lmsb" value="#003e91f6"/>
         <color name="mint" value="#0000cc99"/>
         <color name="progbg" value="#005a5a5a"/>
+        <color name="progfg" value="#008293b3"/>
         <color name="red" value="#00ff0000"/>
         <color name="redfont" value="#00bd1b0e"/>
         <color name="selectbg" value="#000f4c5c"/>
@@ -146,11 +143,11 @@
         <color name="silver" value="#00c0c0c0"/>
         <color name="transchsel1" value="#21020202"/>
         <color name="transchsel2" value="#21201120"/>
-        <color name="transparent" value="#ff000000"/>
-        <color name="transparent2" value="#ffffffff"/>
         <color name="transpBlack" value="#41000000"/>
         <color name="transpGrey" value="#41444444"/>
         <color name="transpWhite" value="#77ffffff"/>
+        <color name="transparent" value="#ff000000"/>
+        <color name="transparent2" value="#ffffffff"/>
         <color name="transpyellow" value="#33bab329"/>
         <color name="wdcolor" value="#00171a1c"/>
         <color name="white" value="#00ffffff"/>
@@ -159,53 +156,55 @@
         <color name="wpmc" value="#002d3d5b"/>
         <color name="wpuc" value="#00080b11"/>
         <color name="yellow" value="#00ffff00"/>
+        <color name="backgroundtrans1" value="#95000000"/>
+        <color name="backgroundtrans2" value="#95161414"/>
     </colors>
     <parameters>
-		<parameter name="AboutHddSplit" value="1"/>
-		<parameter name="CCcamMenuListName" value="0,4,790,62"/>
-		<parameter name="ChoicelistButtonIcon" value="15,14,54,34"/>
-		<parameter name="ChoicelistDash" value="0,3,790,62"/>
-		<parameter name="ChoicelistIcon" value="8,14,54,62"/>
-		<parameter name="ChoicelistName" value="80,14,790,62"/>
-		<parameter name="ChoicelistButtonIcon" value="15,14,54,34"/>
-		<parameter name="ChoicelistNameSingle" value="30,14,790,62"/>
-		<parameter name="ConfigListSeperator" value="600"/>
-		<parameter name="ConfigListSlider" value="20,2"/>
-		<parameter name="DreamexplorerIcon" value="15,6,30,30"/>
-		<parameter name="DreamexplorerName" value="62,2,1200,38"/>
-		<parameter name="EpgListIcon" value="2,20,25,25,2"/>
-		<parameter name="EpgListMulti" value="300,210,110,15"/>
-		<parameter name="EpgListMultiProgressBar" value="150,20,1"/>
-		<parameter name="EpgListSingle" value="88,220"/>
-		<parameter name="ExpandableListDescr" value="55,2,1000,45"/>
-		<parameter name="ExpandableListIcon" value="5,2,55,38"/>
-		<parameter name="FallbackReceiverListIP" value="300,2,225,38"/>
-		<parameter name="FallbackReceiverListName" value="8,2,225,38"/>
-		<parameter name="icomoonllbackReceiverListIP" value="300,2,225,38"/>
-		<parameter name="icomoonllbackReceiverListName" value="8,2,225,38"/>
-		<parameter name="FcFileListIcon" value="10,2,30,30"/>
-		<parameter name="FcFileListMultiIcon" value="45,2,30,30"/>
-		<parameter name="FcFileListMultiLock" value="2,0,30,30"/>
-		<parameter name="FcFileListMultiName" value="90,2,1000,32"/>
-		<parameter name="FcFileListName" value="68,2,1000,34"/>
-		<parameter name="FileListIcon" value="14,6,50,50"/>
-		<parameter name="FileListMultiIcon" value="45, 4, 30, 30"/>
-		<parameter name="FileListMultiLock" value="2,0,36,36"/>
-		<parameter name="FileListMultiName" value="90,0,1000,36"/>
+        <parameter name="AboutHddSplit" value="1"/>
+        <parameter name="CCcamMenuListName" value="0,4,790,62"/>
+        <parameter name="ChoicelistButtonIcon" value="15,14,54,34"/>
+        <parameter name="ChoicelistDash" value="0,3,790,62"/>
+        <parameter name="ChoicelistIcon" value="8,14,54,62"/>
+        <parameter name="ChoicelistName" value="80,14,790,62"/>
+        <parameter name="ChoicelistButtonIcon" value="15,14,54,34"/>
+        <parameter name="ChoicelistNameSingle" value="30,14,790,62"/>
+        <parameter name="ConfigListSeperator" value="600"/>
+        <parameter name="ConfigListSlider" value="20,2"/>
+        <parameter name="DreamexplorerIcon" value="15,6,30,30"/>
+        <parameter name="DreamexplorerName" value="62,2,1200,38"/>
+        <parameter name="EpgListIcon" value="2,20,25,25,2"/>
+        <parameter name="EpgListMulti" value="300,210,110,15"/>
+        <parameter name="EpgListMultiProgressBar" value="150,20,1"/>
+        <parameter name="EpgListSingle" value="88,220"/>
+        <parameter name="ExpandableListDescr" value="55,2,1000,45"/>
+        <parameter name="ExpandableListIcon" value="5,2,55,38"/>
+        <parameter name="FallbackReceiverListIP" value="300,2,225,38"/>
+        <parameter name="FallbackReceiverListName" value="8,2,225,38"/>
+        <parameter name="icomoonllbackReceiverListIP" value="300,2,225,38"/>
+        <parameter name="icomoonllbackReceiverListName" value="8,2,225,38"/>
+        <parameter name="FcFileListIcon" value="10,2,30,30"/>
+        <parameter name="FcFileListMultiIcon" value="45,2,30,30"/>
+        <parameter name="FcFileListMultiLock" value="2,0,30,30"/>
+        <parameter name="FcFileListMultiName" value="90,2,1000,32"/>
+        <parameter name="FcFileListName" value="68,2,1000,34"/>
+        <parameter name="FileListIcon" value="14,6,50,50"/>
+        <parameter name="FileListMultiIcon" value="45, 4, 30, 30"/>
+        <parameter name="FileListMultiLock" value="2,0,36,36"/>
+        <parameter name="FileListMultiName" value="90,0,1000,36"/>
         <parameter name="FileListName" value="66,6,900,45"/>
-		<parameter name="GMultiEPGTimelineItemHeight" value="60"/>
-		<parameter name="HelpMenuListExtHlp0" value="0,0,900,39"/>
-		<parameter name="HelpMenuListExtHlp1" value="0,42,900,30"/>
-		<parameter name="HelpMenuListHlp" value="0,0,1300,50"/>
-		<parameter name="InformationColors" value="0x00ffffff,0x00ffffff,0x00cccccc,0x00cccccc,0x00ffff00"/>
-		<parameter name="MerlinMusicPlayerFileListIcon" value="10,0,40,40"/>
-		<parameter name="MerlinMusicPlayerFileListName" value="100,0,780,50"/>
-		<parameter name="PicturePlayerThumb" value="30,285,45,300,30,25"/>
-		<parameter name="PlayListIcon" value="7,12,32,48"/>
-		<parameter name="PlayListName" value="45,0,1000,48"/>
-		<parameter name="PluginBrowserDescColor" value="1017253"/>
-		<parameter name="PluginBrowserDescr" value="170,36,40"/>
-		<parameter name="PluginBrowserDownloadDescColor" value="1017253"/>
+        <parameter name="GMultiEPGTimelineItemHeight" value="60"/>
+        <parameter name="HelpMenuListExtHlp0" value="0,0,900,39"/>
+        <parameter name="HelpMenuListExtHlp1" value="0,42,900,30"/>
+        <parameter name="HelpMenuListHlp" value="0,0,1300,50"/>
+        <parameter name="InformationColors" value="0x00ffffff,0x00ffffff,0x00cccccc,0x00cccccc,0x00ffff00"/>
+        <parameter name="MerlinMusicPlayerFileListIcon" value="10,0,40,40"/>
+        <parameter name="MerlinMusicPlayerFileListName" value="100,0,780,50"/>
+        <parameter name="PicturePlayerThumb" value="30,285,45,300,30,25"/>
+        <parameter name="PlayListIcon" value="7,12,32,48"/>
+        <parameter name="PlayListName" value="45,0,1000,48"/>
+        <parameter name="PluginBrowserDescColor" value="1017253"/>
+        <parameter name="PluginBrowserDescr" value="170,36,40"/>
+        <parameter name="PluginBrowserDownloadDescColor" value="1017253"/>
         <parameter name="PluginBrowserDownloadDescr" value="120,40,40"/>
         <parameter name="PluginBrowserDownloadIcon" value="20,0,100,70"/>
         <parameter name="PluginBrowserDownloadName" value="120,10,60"/>
@@ -213,62 +212,62 @@
         <parameter name="PluginBrowserName" value="160,4,40"/>
         <parameter name="SelectionListDescr" value="45,0,1000,38"/>
         <parameter name="SelectionListLock" value="0,2,36,36"/>
-		<parameter name="SelectionListLockOff" value="5,5,40,40"/>
-		<parameter name="ServiceInfo" value="0,0,400,50"/>
-		<parameter name="ServiceInfoFont" value="Regular;28"/>
-		<parameter name="ServiceInfoLeft" value="10,0,350,50"/>
-		<parameter name="ServiceInfoRight" value="370,0,450,50"/>
-		<parameter name="VirtualKeyBoardAlignment" value="80,80"/>
-		<parameter name="VirtualKeyBoardPadding" value="1,1"/>
-		<parameter name="VirtualKeyboard" value="100, 100"/>
-		<parameter name="VirtualKeyboard" value="80,80"/>
-		<parameter name="VirtualKeyboardFont" value="Bold;40"/>
-		<parameter name="WeatherPluginCity" value="20,0,680,50"/>
-		<parameter name="WeatherPluginDegreetype" value="670,0,100,50"/>
-		<parameter name="WeatherPluginEntryListFont1" value="Regular;32"/>
-		<parameter name="WeatherPluginEntryListFont2" value="Regular;32"/>
-		<parameter name="WeatherPluginSearchResultListFont1" value="Regular;32"/>
-		<parameter name="WeatherPluginSearchResultListFont2" value="Regular;32"/>
-		<parameter name="WeatherPluginSearchlocation" value="10,0,550,40"/>
-		<parameter name="WeatherPluginSearchresult" value="500,0,500,40"/>
-	</parameters>
-	<switchpixmap>
-		<pixmap name="menu_on" filename="Aglare-FHD-NSS/icons/menu_on.png"/>
-		<pixmap name="menu_off" filename="Aglare-FHD-NSS/icons/menu_off.png"/>
-	</switchpixmap>
-	<windowstyle type="skinned" id="0">
-		<scrolllabel scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
-		<configList entryFont="Regular;28" valueFont="Regular;28"/>
-		<title offset="30,8" font="Regular;36"/>
-		<color name="Background" color="background"/>
-		<color name="LabelForeground" color="white"/>
-		<color name="ListboxBackground" color="mcolor2"/>
-		<color name="ListboxForeground" color="white"/>
-		<color name="ListboxSelectedBackground" color="mcolor5"/>
-		<color name="ListboxSelectedForeground" color="white"/>
-		<color name="ListboxMarkedBackground" color="yellow"/>
-		<color name="ListboxMarkedForeground" color="green"/>
-		<color name="ListboxMarkedAndSelectedBackground" color="#3e91f6"/>
-		<color name="ListboxMarkedAndSelectedForeground" color="green"/>
-		<color name="WindowTitleForeground" color="chselfg"/>
-		<color name="WindowTitleBackground" color="background"/>
-		<borderset name="bsWindow">
-			<pixmap pos="bpTopLeft" filename="Aglare-FHD-NSS/window/b_tl_shadow.png"/>
-			<pixmap pos="bpTop" filename="Aglare-FHD-NSS/window/b_t_shadow.png"/>
-			<pixmap pos="bpTopRight" filename="Aglare-FHD-NSS/window/b_tr_shadow.png"/>
-			<pixmap pos="bpLeft" filename="Aglare-FHD-NSS/window/b_l_shadow.png"/>
-			<pixmap pos="bpRight" filename="Aglare-FHD-NSS/window/b_r_shadow.png"/>
-			<pixmap pos="bpBottomLeft" filename="Aglare-FHD-NSS/window/b_bl_shadow.png"/>
-			<pixmap pos="bpBottom" filename="Aglare-FHD-NSS/window/b_b_shadow.png"/>
-			<pixmap pos="bpBottomRight" filename="Aglare-FHD-NSS/window/b_br_shadow.png"/>
-		</borderset>
-	</windowstyle>
-	<subtitles>
-		<sub name="Subtitle_TTX" font="Regular;52" shadowColor="#00101010" shadowOffset="1,1"/>
-		<sub name="Subtitle_Regular" font="Regular;52" foregroundColor="white" shadowColor="#00101010" shadowOffset="1,1"/>
-		<sub name="Subtitle_Bold" font="Replacement;52" foregroundColor="white" shadowColor="#00101010" shadowOffset="1,1"/>
-		<sub name="Subtitle_Italic" font="Regular;52" foregroundColor="white" shadowColor="#00101010" shadowOffset="1,1"/>
-	</subtitles>
-	<include filename="skin_templates.xml"/>
-	<include filename="skin_nss.xml"/>
-	<include filename="skin_ll.xml"/>
+        <parameter name="SelectionListLockOff" value="5,5,40,40"/>
+        <parameter name="ServiceInfo" value="0,0,400,50"/>
+        <parameter name="ServiceInfoFont" value="Regular;28"/>
+        <parameter name="ServiceInfoLeft" value="10,0,350,50"/>
+        <parameter name="ServiceInfoRight" value="370,0,450,50"/>
+        <parameter name="VirtualKeyBoardAlignment" value="80,80"/>
+        <parameter name="VirtualKeyBoardPadding" value="1,1"/>
+        <parameter name="VirtualKeyboard" value="100, 100"/>
+        <parameter name="VirtualKeyboard" value="80,80"/>
+        <parameter name="VirtualKeyboardFont" value="Bold;40"/>
+        <parameter name="WeatherPluginCity" value="20,0,680,50"/>
+        <parameter name="WeatherPluginDegreetype" value="670,0,100,50"/>
+        <parameter name="WeatherPluginEntryListFont1" value="Regular;32"/>
+        <parameter name="WeatherPluginEntryListFont2" value="Regular;32"/>
+        <parameter name="WeatherPluginSearchResultListFont1" value="Regular;32"/>
+        <parameter name="WeatherPluginSearchResultListFont2" value="Regular;32"/>
+        <parameter name="WeatherPluginSearchlocation" value="10,0,550,40"/>
+        <parameter name="WeatherPluginSearchresult" value="500,0,500,40"/>
+    </parameters>
+    <switchpixmap>
+        <pixmap name="menu_on" filename="Aglare-FHD-NSS/icons/menu_on.png"/>
+        <pixmap name="menu_off" filename="Aglare-FHD-NSS/icons/menu_off.png"/>
+    </switchpixmap>
+    <windowstyle type="skinned" id="0">
+        <scrolllabel scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
+        <configList entryFont="Regular;28" valueFont="Regular;28"/>
+        <title offset="30,8" font="Regular;36"/>
+        <color name="Background" color="background"/>
+        <color name="LabelForeground" color="white"/>
+        <color name="ListboxBackground" color="mcolor2"/>
+        <color name="ListboxForeground" color="white"/>
+        <color name="ListboxSelectedBackground" color="mcolor5"/>
+        <color name="ListboxSelectedForeground" color="white"/>
+        <color name="ListboxMarkedBackground" color="yellow"/>
+        <color name="ListboxMarkedForeground" color="green"/>
+        <color name="ListboxMarkedAndSelectedBackground" color="#3e91f6"/>
+        <color name="ListboxMarkedAndSelectedForeground" color="green"/>
+        <color name="WindowTitleForeground" color="chselfg"/>
+        <color name="WindowTitleBackground" color="background"/>
+        <borderset name="bsWindow">
+            <pixmap pos="bpTopLeft" filename="Aglare-FHD-NSS/window/b_tl_shadow.png"/>
+            <pixmap pos="bpTop" filename="Aglare-FHD-NSS/window/b_t_shadow.png"/>
+            <pixmap pos="bpTopRight" filename="Aglare-FHD-NSS/window/b_tr_shadow.png"/>
+            <pixmap pos="bpLeft" filename="Aglare-FHD-NSS/window/b_l_shadow.png"/>
+            <pixmap pos="bpRight" filename="Aglare-FHD-NSS/window/b_r_shadow.png"/>
+            <pixmap pos="bpBottomLeft" filename="Aglare-FHD-NSS/window/b_bl_shadow.png"/>
+            <pixmap pos="bpBottom" filename="Aglare-FHD-NSS/window/b_b_shadow.png"/>
+            <pixmap pos="bpBottomRight" filename="Aglare-FHD-NSS/window/b_br_shadow.png"/>
+        </borderset>
+    </windowstyle>
+    <subtitles>
+        <sub name="Subtitle_TTX" font="Regular;52" shadowColor="#00101010" shadowOffset="1,1"/>
+        <sub name="Subtitle_Regular" font="Regular;52" foregroundColor="white" shadowColor="#00101010" shadowOffset="1,1"/>
+        <sub name="Subtitle_Bold" font="Replacement;52" foregroundColor="white" shadowColor="#00101010" shadowOffset="1,1"/>
+        <sub name="Subtitle_Italic" font="Regular;52" foregroundColor="white" shadowColor="#00101010" shadowOffset="1,1"/>
+    </subtitles>
+    <include filename="skin_templates.xml"/>
+    <include filename="skin_nss.xml"/>
+    <include filename="skin_ll.xml"/>

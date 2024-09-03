@@ -28,7 +28,6 @@
         <panel name="pigscreen885"/>
         <widget name="menu" position="36,98" size="890,868" zPosition="3" itemHeight="62" font="Regular; 30" enableWrapAround="1" transparent="1" itemCornerRadius="8" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
         <eLabel name="" position="1838,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
-        <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/sort.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="Mute" backgroundColor="transparent" flags="wfNoBorder" position="40,40" size="100,100" title="Mute" zPosition="111" transparent="0">
@@ -115,7 +114,6 @@
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
         <panel name="pigscreen885"/>
@@ -177,7 +175,6 @@
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
         <panel name="pigscreen885"/>
@@ -193,7 +190,6 @@
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="bLogo"/>
         <panel name="menusep"/>
         <panel name="pigscreen885"/>
@@ -208,7 +204,6 @@
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
         <panel name="pigscreen885"/>
@@ -217,13 +212,13 @@
         <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
         <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
+        <ePixmap name="" position="1161,616" size="550,155" pixmap="/usr/share/enigma2/Aglare-FHD-NSS/boximage.png" alphatest="on" scale="1"/>
         <panel name="bLogo"/>
     </screen>
     <screen name="menu_scan" position="0,0" size="1920,1080" title="Main menu" backgroundColor="black" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
@@ -240,7 +235,6 @@
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
         <panel name="pigscreen885"/>
@@ -255,7 +249,6 @@
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
@@ -272,7 +265,6 @@
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
         <panel name="pigscreen885"/>
@@ -287,7 +279,6 @@
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
@@ -304,7 +295,6 @@
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
         <panel name="pigscreen885"/>
@@ -319,7 +309,6 @@
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
@@ -336,7 +325,6 @@
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
         <panel name="pigscreen885"/>
@@ -351,7 +339,6 @@
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
@@ -368,7 +355,6 @@
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
         <panel name="pigscreen885"/>
@@ -383,7 +369,6 @@
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
@@ -400,7 +385,6 @@
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
         <panel name="pigscreen885"/>
@@ -415,7 +399,6 @@
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
@@ -432,7 +415,6 @@
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
         <panel name="pigscreen885"/>
@@ -448,7 +430,6 @@
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
         <panel name="pigscreen885"/>
@@ -463,7 +444,6 @@
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
@@ -505,9 +485,9 @@
         <panel name="bLogo"/>
         <widget name="AboutScrollLabel" font="Regular; 30" position="36,98" size="890,900" zPosition="2" halign="left"/>
         <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
-        <widget name="" pixmap="image_logo/nss/zlogo.png" alphatest="blend" position="1055,632" size="445,360" zPosition="1"/>
+        <widget name="" pixmap="image_logo/nss/zlogo.png" alphatest="blend" position="1055,632" size="445,360" zPosition="2"/>
         <eLabel name="" position="997,630" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="FA; 26" text="" zPosition="1"/>
-        <ePixmap name="" position="1499,622" size="386,386" pixmap="imagelogo.png" alphatest="blend" zPosition="1" transparent="1"/>
+        <!-- <ePixmap name="" position="1499,622" size="386,386" pixmap="imagelogo.png" alphatest="blend" zPosition="1" transparent="1"/> -->
         <eLabel name="" position="997,630" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 30" text="" zPosition="1"/>
         <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,634" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
             <convert type="AglareReceiverInfo">MemTotal</convert>
@@ -686,7 +666,7 @@
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
         <widget source="IF" render="Label" position="36,98" size="550,50" font="Regular; 40" backgroundColor="background" transparent="1" foregroundColor="gold"/>
-        <widget source="Statustext" render="Label" position="750,98" size="180,50" font="Regular; 40" backgroundColor="background" transparent="1" foregroundColor="gold"/>
+        <widget source="Statustext" render="Label" position="680,98" size="180,50" font="Regular; 40" backgroundColor="background" transparent="1" foregroundColor="gold"/>
         <widget name="statuspic" position="868,98" size="50,50" pixmaps="skin_default/icons/selectioncross.png,skin_default/icons/redx.png" transparent="1" alphatest="on" zPosition="5"/>
         <widget name="menulist" position="36,200" size="890,400" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" valign="center" itemCornerRadius="8" textOffset="20,8"/>
         <widget source="description" render="Label" position="997,607" size="885,180" font="Regular; 24" halign="left" valign="top" backgroundColor="background" transparent="1" zPosition="55"/>
@@ -929,15 +909,15 @@
         <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
     </screen>
     <screen name="SoftwareManagerSetup" position="0,0" size="1920,1080" title="SoftwareManager setup" backgroundColor="transparent" flags="wfNoBorder">
-        <widget source="introduction" render="Label" position="1288,230" size="410,400" font="Regular; 26" halign="left" valign="top" foregroundColor="green" backgroundColor="background" transparent="1" zPosition="55"/>
+        <widget source="introduction" render="Label" position="1227,621" size="410,300" font="Regular; 26" halign="left" valign="top" foregroundColor="green" backgroundColor="background" transparent="1" zPosition="55"/>
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="configlist45"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
-        <ePixmap name="" position="1338,620" size="180,180" zPosition="1" pixmap="main/ico/swupdate.png" transparent="1" alphatest="on"/>
-        <eLabel backgroundGradient="grdl,grdd,horizontal" cornerRadius="6" position="1350,784" size="330,10"/>
+        <ePixmap name="" position="1660,826" size="180,180" zPosition="1" pixmap="main/ico/swupdate.png" transparent="1" alphatest="on"/>
+        <eLabel backgroundGradient="grdl,grdd,horizontal" cornerRadius="6" position="1251,937" size="330,10"/>
     </screen>
     <screen name="BackupScreen" position="0,0" size="1920,1080" title="Backup is running" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="titletemp"/>
@@ -1331,9 +1311,7 @@
         <panel name="3menulist45"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
-        <ePixmap name="" position="1600,964" size="54,34" alphatest="blend" zPosition="99" pixmap="main/menu_button.png" transparent="1"/>
-        <ePixmap name="" position="1338,620" size="180,180" zPosition="1" pixmap="main/ico/media.png" transparent="1" alphatest="on"/>
-        <eLabel backgroundGradient="grdl,grdd,horizontal" cornerRadius="6" position="1350,784" size="330,10"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/media.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="MovieBrowserConfiguration" position="0,0" size="1920,1080" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="titletemp"/>
@@ -1348,7 +1326,6 @@
         <panel name="mediaplayertemp"/>
     </screen>
     <screen name="MovieSelection" position="0,0" size="1920,1080" title="Select a movie" backgroundColor="transparent" flags="wfNoBorder">
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="bLogo"/>
         <widget source="session.VideoPicture" render="Pig" position="1164,100" zPosition="20" size="742,418" backgroundColor="transparent" transparent="0" cornerRadius="14"/>
@@ -2312,7 +2289,7 @@
         <panel name="configlist45"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
-        <widget name="current_entry" position="1188,230" size="510,300" font="Regular; 26" halign="left" valign="top" foregroundColor="green" backgroundColor="background" transparent="1" zPosition="5"/>
+        <widget name="current_entry" position="1080,630" size="510,300" font="Regular; 26" halign="left" valign="top" foregroundColor="green" backgroundColor="background" transparent="1" zPosition="5"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/led.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="AC3LipSyncSetup" position="0,0" size="1920,1080" title="AC3 Lip Sync Setup" backgroundColor="transparent" flags="wfNoBorder">
@@ -2352,7 +2329,7 @@
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
-        <widget source="introduction" render="Label" position="1188,230" size="510,300" font="Regular; 26" halign="left" valign="top" foregroundColor="green" backgroundColor="background" transparent="1" zPosition="5"/>
+        <widget source="introduction" render="Label" position="1018,645" size="510,300" font="Regular; 26" halign="left" valign="top" foregroundColor="green" backgroundColor="background" transparent="1" zPosition="5"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/input_device_setup.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="VPS_Setup" position="0,0" size="1920,1080" title="VPS-Plugin" backgroundColor="transparent" flags="wfNoBorder">
@@ -2362,7 +2339,7 @@
         <panel name="configlist45"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
-        <widget source="help" render="Label" position="1188,230" size="510,300" font="Regular; 26" halign="left" valign="top" foregroundColor="green" backgroundColor="background" transparent="1" zPosition="5"/>
+        <widget source="help" render="Label" position="1080,630" size="510,300" font="Regular; 26" halign="left" valign="top" foregroundColor="green" backgroundColor="background" transparent="1" zPosition="5"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/net.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="VPS_Screen_Info" position="0,0" size="1920,1080" title="VPS-Plugin Information" backgroundColor="transparent" flags="wfNoBorder">
@@ -2370,7 +2347,7 @@
         <panel name="menutemp"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
-        <widget name="text" font="Regular; 30" position="250,230" size="1000,700" transparent="1" backgroundColor="background" valign="top"/>
+        <widget name="text" font="Regular; 30" position="40,295" size="1000,700" transparent="1" backgroundColor="background" valign="top"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/net.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="VPS_check_PDC_Screen" position="0,0" size="1920,1080" title="VPS-Plugin" backgroundColor="transparent" flags="wfNoBorder">
@@ -2378,7 +2355,7 @@
         <panel name="menutemp"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
-        <widget source="infotext" render="Label" position="250,230" size="1000,700" font="Regular; 32" transparent="1" backgroundColor="background" valign="top"/>
+        <widget source="infotext" render="Label" position="40,295" size="1000,700" font="Regular; 32" transparent="1" backgroundColor="background" valign="top"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/net.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="OSD3DSetupScreen" position="0,0" size="1920,1080" title="OSD 3D-Setup" backgroundColor="transparent" flags="wfNoBorder">
@@ -2388,8 +2365,8 @@
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
-        <widget name="info1" position="1188,230" size="510,300" font="Regular; 26" halign="left" valign="top" foregroundColor="green" backgroundColor="background" transparent="1" zPosition="5"/>
-        <widget name="info2" position="1188,830" size="510,110" font="Regular; 26" halign="left" valign="bottom" foregroundColor="yellow" backgroundColor="background" transparent="1" zPosition="5"/>
+        <widget name="info1" position="1016,610" size="622,246" font="Regular; 26" halign="left" valign="top" foregroundColor="green" backgroundColor="background" transparent="1" zPosition="5"/>
+        <widget name="info2" position="1016,863" size="510,110" font="Regular; 26" halign="left" valign="bottom" foregroundColor="yellow" backgroundColor="background" transparent="1" zPosition="5"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/osd_setup.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="ExtendedVirtualZapConfig" position="0,0" size="1920,1080" title="Extended virtual zap config" backgroundColor="transparent" flags="wfNoBorder">
@@ -3337,7 +3314,6 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="pigscreen885"/>
         <panel name="bLogo"/>
         <widget name="int_statu" position="1297,1030" size="60,50" font="Regular; 30" foregroundColor="green" backgroundColor="background" zPosition="2" transparent="1"/>
         <eLabel name="int_statu_off" position="1297,1030" size="60,50" font="Regular; 30" foregroundColor="grey" backgroundColor="background" zPosition="1" transparent="1"/>
@@ -3366,7 +3342,6 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="pigscreen885"/>
         <panel name="bLogo"/>
         <widget source="session.CurrentService" render="Label" position="36,98" size="890,50" zPosition="2" font="Regular; 40" transparent="1" backgroundColor="background" valign="center" foregroundColor="yellow">
             <convert type="ServiceName">Name</convert>
@@ -3642,7 +3617,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
-        <widget name="Picture" position="1181,422" size="500,280" alphatest="blend" zPosition="1"/>
+        <widget name="Picture" position="1220,640" size="500,280" alphatest="blend" zPosition="1"/>
         <widget source="menu" render="Listbox" position="36,98" size="890,900" transparent="1" itemHeight="50" zPosition="1" itemCornerRadius="8">
             <convert type="TemplatedMultiContent">
             {"template": [
@@ -4033,7 +4008,6 @@ self.instance.move(ePoint(int(deskwidth - newwidth)//2,int(deskheight - newheigh
         <widget name="list" position="36,98" size="890,868" itemHeight="62" font="Regular;30" transparent="1" itemCornerRadius="8"/>
         <widget name="text" position="997,607" size="885,180" font="Regular; 24" halign="left" valign="top" backgroundColor="background" transparent="1" zPosition="55"/>
         <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
-        <eLabel backgroundGradient="#0023314c,#000c101b,horizontal" cornerRadius="90" position="1600,788" size="500,180"/>
     </screen>
     <screen name="SoftwareUpdateChanges" title="Software OE Changes" position="fill" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="titletemp"/>
@@ -4368,17 +4342,16 @@ self.instance.move(ePoint(int(deskwidth - newwidth)//2,int(deskheight - newheigh
         <eLabel name="" position="895,925" size="132,40" font="icomoon; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
     </screen>
     <screen name="vEditor" position="0,0" size="1920,1080" title="vEditor" backgroundColor="transparent" flags="wfNoBorder">
-        <panel name="menutemp3" />
-        <panel name="ScreenTemplateAllColorButtons_menu" />
-        <panel name="bLogo" />
-        <widget name="filedata" position="24,100" size="1876,838" itemHeight="35" />
+        <panel name="menutemp3"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="bLogo"/>
+        <widget name="filedata" position="24,100" size="1876,838" itemHeight="35"/>
     </screen>
-    
     <screen name="MviExplorer" position="0,0" size="1920,1080" title="MviExplorer" backgroundColor="transparent" flags="wfNoBorder">
     </screen>
     <screen name="FileCommander" position="0,0" size="1920,1080" title="File Commander" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="menutemp3"/>
-        <panel name="ScreenTemplateAllColorButtons_menu" />
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="bLogo"/>
         <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
         <eLabel name="" position="1658,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
@@ -4939,8 +4912,6 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y()))
     <screen name="setup_usage" position="0,0" size="1920,1080" title="Customize" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menutemp"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
@@ -5285,11 +5256,11 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
     <screen name="CrashLogScreen" position="0,0" size="1920,1080" title="View or Remove Crashlog files" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <widget source="Redkey" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="Greenkey" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="Yellowkey" render="Label" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="Bluekey" render="Label" position="962,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
         <widget source="menu" render="Listbox" position="36,98" size="890,840" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" transparent="1" itemHeight="70" itemCornerRadius="8">
@@ -5308,9 +5279,9 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
     </screen>
     <screen name="CrashLogView" position="0,0" size="1920,1080" title="View Crashlog file" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="menutemp3"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <widget source="Redkey" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="Greenkey" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <widget name="text" position="50,130" size="1822,534" font="Console; 24" text="text" transparent="1" zPosition="1" backgroundColor="background" valign="top" halign="left"/>
         <widget name="text2" position="50,841" size="1822,153" font="Console; 26" text="text2" foregroundColor="red" transparent="1" zPosition="1" valign="top" halign="left"/>
         <eLabel backgroundColor="mcolor3" cornerRadius="3" position="40,816" size="850,3" zPosition="99"/>
@@ -6160,16 +6131,16 @@ MultiContentEntryPixmapAlphaTest(pos = (5, 1), size = (24, 24), png = 1),
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
     </screen>
     <screen name="SoftLinkScreen" position="0,0" size="1920,1080" flags="wfNoBorder" title="Make a softlink..." backgroundColor="transparent">
-        <panel name="titletemp" />
-        <panel name="menutemp" />
-        <panel name="pigscreen885" />
-        <panel name="bLogo" />
-        <widget name="File" position="36,98" size="890,148" noWrap="0" font="Regular;36" backgroundColor="background" foregroundColor="yellow" transparent="1" />
-        <widget name="SLto" position="36,272" size="878,653" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" />
-        <eLabel font="Regular; 24" halign="center" position="51,1020" size="250,40" text="Set name" transparent="1" valign="center" zPosition="6" />
-        <eLabel font="Regular; 24" halign="center" position="681,1019" size="250,40" text="Make a softlink" transparent="1" valign="center" zPosition="6" />
-        <eLabel backgroundColor="red" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11" />
-        <eLabel backgroundColor="yellow" cornerRadius="3" position="652,1064" size="300,6" zPosition="-11" />
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="pigscreen885"/>
+        <panel name="bLogo"/>
+        <widget name="File" position="36,98" size="890,148" noWrap="0" font="Regular;36" backgroundColor="background" foregroundColor="yellow" transparent="1"/>
+        <widget name="SLto" position="36,272" size="878,653" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
+        <eLabel font="Regular; 24" halign="center" position="51,1020" size="250,40" text="Set name" transparent="1" valign="center" zPosition="6"/>
+        <eLabel font="Regular; 24" halign="center" position="681,1019" size="250,40" text="Make a softlink" transparent="1" valign="center" zPosition="6"/>
+        <eLabel backgroundColor="red" cornerRadius="3" position="34,1064" size="296,6" zPosition="-11"/>
+        <eLabel backgroundColor="yellow" cornerRadius="3" position="652,1064" size="300,6" zPosition="-11"/>
     </screen>
     <screen name="PictureExplorerII" position="0,0" size="1920,1080" flags="wfNoBorder" title="Picture-Explorer" backgroundColor="black">
         <widget name="Picture" position="0,0" size="1920,1080" zPosition="1" alphatest="blend"/>
@@ -6283,7 +6254,6 @@ MultiContentEntryPixmapAlphaTest(pos = (8, 87), size = (0, 0), png = 5), # index
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menusep"/>
         <panel name="pigscreen885"/>
@@ -7745,6 +7715,31 @@ MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
         <panel name="pigscreen885"/>
         <widget name="meinelist" position="36,100" size="890,585" font="Regular;30" itemHeight="45" itemCornerRadius="10" zPosition="3" scrollbarMode="showOnDemand" textOffset="10,6"/>
         <widget name="status" font="Regular; 30" position="36,950" size="890,40" foregroundColor="white" transparent="1" zPosition="3" halign="left" valign="center"/>
+    </screen>
+    <screen name="PiconInstallerScreen" position="0,0" size="1920,1080" title="Picon Installer by acypaczom" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="pigscreen885"/>
+        <widget name="config" position="36,98" size="890,600" font="Regular; 30" transparent="1" itemHeight="50" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
+        <widget name="status" position="36,950" size="890,50" font="Regular; 30" transparent="1"/>
+    </screen>
+    <screen name="PiconRemoverScreen" title="PiconRemover" position="0,0" size="1920,1080" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="pigscreen885"/>
+        <widget name="piconpath" position="40,110" size="890,60" font="Regular;30" foregroundColor="white" transparent="1" zPosition="1" halign="left"/>
+        <widget name="piconcount" position="40,200" size="890,60" font="Regular;30" foregroundColor="yellow" transparent="1" zPosition="1" halign="left"/>
+        <widget name="picondelete" position="40,290" size="890,60" font="Regular;30" foregroundColor="red" transparent="1" zPosition="1" halign="left"/>
+    </screen>
+    <screen name="PiconRemoverFolderScreen" position="0,0" size="1920,1080" title="PiconRemoverFolderScreen" flags="wfNoBorder">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="pigscreen885"/>
+        <widget name="media" position="44,100" size="880,50" valign="center" font="Regular; 30" transparent="1" zPosition="1" foregroundColor="yellow"/>
+        <widget name="folderlist" position="36,160" zPosition="1" size="890,800" valign="center" transparent="1" itemHeight="50" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
     </screen>
 </skin>
 

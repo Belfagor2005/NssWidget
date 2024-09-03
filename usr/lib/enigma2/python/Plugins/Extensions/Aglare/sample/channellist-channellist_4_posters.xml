@@ -6,7 +6,7 @@
     <eLabel backgroundColor="mcolor3" cornerRadius="3" position="970,468" size="920,3" zPosition="99"/>
     <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
     <widget source="Title" render="Label" position="36,32" size="890,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
-    <widget name="list" position="40,94" size="890,900" fieldMargins="15" nonplayableMargins="15" serviceItemHeight="50" serviceNumberFont="Regular;30" serviceNameFont="Regular;30" serviceInfoFont="Regular;28" additionalInfoFont="Regular;28" foregroundColor="white" foregroundColorSelected="yellow" colorServiceDescription="mint" colorServiceDescriptionSelected="#00ffffff" colorServiceStreamed="green" colorAdditionalInfo="white" colorAdditionalInfoSelected="white" foregroundColorServiceNotAvail="#444444" colorEventProgressbarBorderSelected="white" colorEventProgressbarBorder="white" zPosition="4" itemHeight="50" picServiceEventProgressbar="main/chprogressbar.png" progressbarHeight="6" progressBarWidth="100" progressbarBorderWidth="1" progressPercentWidth="60" backgroundColorMarked="#00131a1d" textSeparator="  •  " markerLine="1" markerTextAlignment="center" markerLineColor="fgcolor" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
+    <widget name="list" position="40,94" size="890,900" fieldMargins="15" nonplayableMargins="15" serviceItemHeight="50" serviceNumberFont="Regular;30" serviceNameFont="Regular;30" serviceInfoFont="Regular;28" foregroundColor="white" foregroundColorSelected="yellow" colorServiceDescription="mint" colorServiceDescriptionSelected="#00ffffff" foregroundColorServiceNotAvail="#444444" colorEventProgressbarBorderSelected="white" colorEventProgressbarBorder="white" zPosition="4" itemHeight="50" picServiceEventProgressbar="main/chprogressbar.png" progressbarHeight="6" progressBarWidth="100" progressbarBorderWidth="1" progressPercentWidth="60" backgroundColorMarked="#00131a1d" textSeparator="  •  " markerLine="1" markerTextAlignment="center" markerLineColor="fgcolor" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
     <widget source="ServiceEvent" render="Picon" position="1048,80" size="230,132" transparent="1" alphatest="blend" zPosition="22">
         <convert type="ServiceName">Reference</convert>
     </widget>
@@ -61,10 +61,12 @@
     </widget>
     <eLabel name="" position="970,976" size="30,30" font="icomoon; 24" text="" transparent="1" valign="center" halign="center" zPosition="99" foregroundColor="gold"/>
     <eLabel name="" position="970,332" size="40,40" font="icomoon; 30" text="" halign="center" zPosition="99" transparent="1"/>
+    <!--		
     <widget source="ServiceEvent" render="xtraNextEvents" nextEvent="0" usedImage="poster" position="972,672" size="200,300" cornerRadius="20" zPosition="99"/>
     <widget source="ServiceEvent" render="xtraNextEvents" nextEvent="1" usedImage="poster" position="1202,672" size="200,300" cornerRadius="20" zPosition="99"/>
     <widget source="ServiceEvent" render="xtraNextEvents" nextEvent="2" usedImage="poster" position="1686,672" size="200,300" cornerRadius="20" zPosition="99"/>
     <widget source="ServiceEvent" render="xtraNextEvents" nextEvent="3" usedImage="poster" position="1686,672" size="200,300" cornerRadius="20" zPosition="99"/>
+    -->	   
     <widget source="ServiceEvent" render="AglarePosterX" position="972,672" size="200,300" cornerRadius="20" zPosition="95"/>
     <widget source="ServiceEvent" render="AglarePosterX" nexts="1" position="1202,672" size="200,300" cornerRadius="20" zPosition="95"/>
     <widget source="ServiceEvent" render="AglarePosterX" nexts="2" position="1456,672" size="200,300" cornerRadius="20" zPosition="95"/>
