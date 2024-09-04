@@ -47,7 +47,7 @@
         <widget source="session.CurrentService" render="Label" position="760,739" size="400,40" font="Regular; 24" backgroundColor="background" transparent="1" halign="center" zPosition="99" valign="center" noWrap="1">
             <convert type="AglareStreamInfo">StreamType</convert>
             <convert type="AglareStreamInfo">StreamUrl</convert>
-            <convert type="ConverterRotator">3</convert>
+            <convert type="ConverterRotator"></convert>
         </widget>
         <widget source="session.CurrentService" render="Label" position="1208,739" size="692,40" font="Regular; 24" backgroundColor="background" transparent="1" halign="center" zPosition="99" valign="center" noWrap="1">
             <convert type="AglareServName2">Reference</convert>
