@@ -12,7 +12,7 @@ from . import Utils
 from .Utils import RequestAgent, b64decoder
 from .data.GetEcmInfo import GetEcmInfo
 from .Console import Console
-
+# from Components.config import config
 from Components.ActionMap import ActionMap
 from Components.Button import Button
 from Components.Label import Label
@@ -710,6 +710,16 @@ class nssGetipk(Screen):
             if self.xml:
                 self.xmlparse = minidom.parseString(self.xml)
                 for plugins in self.xmlparse.getElementsByTagName('plugins'):
+                    # if config.ParentalControl.configured.value:
+                        # if 'adult' in str(plugins.getAttribute('cont')).lower():
+                            # continue
+                    if not os.path.exists('/var/lib/dpkg/info'):
+                        if 'deb' in str(plugins.getAttribute('cont')).lower():
+                            continue
+
+                    if os.path.exists('/var/lib/dpkg/info'):
+                        if 'deb' not in str(plugins.getAttribute('cont')).lower():
+                            continue
                     self.names.append(str(plugins.getAttribute('cont')))
                 # self["list"].l.setItemHeight(50)
                 self["list"].l.setList(self.names)
