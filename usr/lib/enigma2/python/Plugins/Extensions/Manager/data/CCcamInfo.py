@@ -62,7 +62,8 @@ from sys import _getframe as getframe
 from errno import ENOENT
 from enigma import eGetEnigmaDebugLvl
 import sys
-from base64 import encodebytes
+import base64
+# from base64 import encodebytes
 import requests
 try:
     from urllib.parse import urlparse, urlunparse
@@ -103,6 +104,15 @@ if sys.version_info >= (2, 7, 9):
         sslContext = ssl._create_unverified_context()
     except:
         sslContext = None
+
+
+# Compatibilità Python 2 e 3 per base64 encoding
+if sys.version_info[0] == 3:
+    def encodebytes(s):
+        return base64.encodebytes(s.encode('utf-8')).decode('utf-8')
+else:
+    def encodebytes(s):
+        return base64.encodestring(s.encode('utf-8')).decode('utf-8')
 
 
 def _parse(url):
@@ -558,14 +568,15 @@ class CCcamInfoMain(Screen):
         if not isfile(CFG):
             print("[CCcamInfo] %s not found" % CFG)
             searchConfig()
-        try:
-            if config.cccaminfo.profile.value == "":
-                self.readConfig()
-            else:
-                self.url = config.cccaminfo.profile.value
-        except Exception as e:
-            print(e)
-            pass
+        # try:
+            # if config.cccaminfo.profile.value == "":
+                # self.readConfig()
+            # else:
+                # self.url = config.cccaminfo.profile.value
+        # except Exception as e:
+            # print(e)
+            # pass
+        self.url = "http://127.0.0.1:16001"
         self["actions"] = NumberActionMap(["CCcamInfoActions"],
                                           {"1": self.keyNumberGlobal,
                                            "2": self.keyNumberGlobal,

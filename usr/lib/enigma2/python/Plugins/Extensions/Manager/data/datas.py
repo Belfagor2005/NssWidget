@@ -309,7 +309,7 @@ class nssCamConfig(Screen, ConfigListScreen):
         self.createSetup()
         if self.selectionChanged not in self["config"].onSelectionChanged:
             self["config"].onSelectionChanged.append(self.selectionChanged)
-        # self.selectionChanged()
+        self.selectionChanged()
         self.onLayoutFinish.append(self.layoutFinished)
         self.onLayoutFinish.append(self.showhide)
 
@@ -379,7 +379,7 @@ class nssCamConfig(Screen, ConfigListScreen):
             except subprocess.CalledProcessError as e:
                 print(e.output)
                 self.session.open(MessageBox, _('Card Not Updated!'), MessageBox.TYPE_INFO, timeout=5)
-            os.system('sleep 5')
+            os.system('sleep 3')
             if not os.path.exists('/tmp/emm.txt'):
                 outp = base64.b64decode(sss)
                 url = str(outp)
@@ -422,7 +422,7 @@ class nssCamConfig(Screen, ConfigListScreen):
             self['key_green'].setText('Force Emm Send')
             self['key_yellow'].setText('Check Emm Send')
             self['key_blue'].setText('')
-        # return
+        return
 
     def showInfo(self, info):
         self.session.openWithCallback(self.workingFinished, InfoScreen, info)

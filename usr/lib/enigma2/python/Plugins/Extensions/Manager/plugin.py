@@ -13,7 +13,7 @@ from .Utils import RequestAgent, b64decoder
 from .data.GetEcmInfo import GetEcmInfo
 from .Console import Console
 # from Components.config import config
-from Components.ActionMap import ActionMap
+from Components.ActionMap import ActionMap, NumberActionMap
 from Components.Button import Button
 from Components.Label import Label
 from Components.MenuList import MenuList
@@ -125,12 +125,10 @@ class Manager(Screen):
             self.oldService = self.session.nav.getCurrentlyPlayingServiceReference()
         except:
             self.oldService = self.session.nav.getCurrentlyPlayingServiceOrGroup()
-        '''
-        # self["NumberActions"] = NumberActionMap(["NumberActions"], {'0': self.messagekd,
-                                                                    # '1': self.cccam,
-                                                                    # '2': self.oscam
-                                                                    # })
-        '''
+        self["NumberActions"] = NumberActionMap(["NumberActions"], {'0': self.keyNumberGlobal,
+                                                                    '1': self.keyNumberGlobal,
+                                                                    '2': self.keyNumberGlobal,
+                                                                    '8': self.keyNumberGlobal},)
         self['actions'] = ActionMap(['OkCancelActions',
                                      'ColorActions',
                                      'EPGSelectActions',
@@ -275,6 +273,47 @@ class Manager(Screen):
         print('call:', call)
         pass
 
+    def cccam(self):
+        try:
+            from Screens.CCcamInfo import CCcamInfoMain
+            # self.session.openWithCallback(self.callbackx, CCcamInfoMain)
+            self.session.open(CCcamInfoMain)
+        except ImportError:
+            from .data.CCcamInfo import CCcamInfoMain
+            self.session.open(CCcamInfoMain)
+            # self.session.openWithCallback(self.callbackx, CCcamInfoMain)
+
+    def oscam(self):
+        try:
+            from Screens.OScamInfo import OSCamInfo
+            self.session.open(OSCamInfo)
+        except ImportError:
+            from .data.OScamInfo import OSCamInfo
+            self.session.open(OSCamInfo)
+            # self.session.openWithCallback(self.callbackx, OSCamInfo)
+
+    def ncam(self):
+        try:
+            from Screens.NcamInfo import NcamInfoMenu
+            self.session.open(NcamInfoMenu)
+        except ImportError:
+            from .data.NcamInfo import NcamInfoMenu
+            # self.session.openWithCallback(self.callbackx, NcamInfoMenu)
+            self.session.open(NcamInfoMenu)
+
+    def keyNumberGlobal(self, number):
+        print('pressed', number)
+        if number == 0:
+            self.messagekd()
+        elif number == 1:
+            self.cccam()
+        elif number == 2:
+            self.oscam()
+        elif number == 3:
+            self.ncam()
+        else:
+            return
+
     def setEcmInfo(self):
         try:
             self.ecminfo = GetEcmInfo()
@@ -308,15 +347,18 @@ class Manager(Screen):
 
     def keysdownload(self, result):
         if result:
-            script = ('%s/auto' % plugin_path)
+            script = os.path.join(plugin_path, 'auto')
             from os import access, X_OK
             if not access(script, X_OK):
                 chmod(script, 493)
             if os.path.exists('/usr/keys/SoftCam.Key'):
                 os.system('rm -rf /usr/keys/SoftCam.Key')
-            import subprocess
-            subprocess.check_output(['bash', script])
+            # import subprocess
+            # subprocess.check_output(['bash', script])
             self.session.open(MessageBox, _('SoftcamKeys Updated!'), MessageBox.TYPE_INFO, timeout=5)
+            cmd = script
+            title = _("Installing Softcam Keys\nPlease Wait...")
+            self.session.open(Console, _(title), [cmd], closeOnSuccess=False)
 
     def CfgInfo(self):
         self.session.open(nssInfoCfg)
@@ -710,9 +752,6 @@ class nssGetipk(Screen):
             if self.xml:
                 self.xmlparse = minidom.parseString(self.xml)
                 for plugins in self.xmlparse.getElementsByTagName('plugins'):
-                    # if config.ParentalControl.configured.value:
-                        # if 'adult' in str(plugins.getAttribute('cont')).lower():
-                            # continue
                     if not os.path.exists('/var/lib/dpkg/info'):
                         if 'deb' in str(plugins.getAttribute('cont')).lower():
                             continue
