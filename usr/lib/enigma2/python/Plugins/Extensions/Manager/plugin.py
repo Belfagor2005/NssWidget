@@ -220,13 +220,13 @@ class Manager(Screen):
         if 'oscam' in str(self.curCam).lower():
             try:
                 try:
-                    from Screens.OScamInfo import OscamInfoMenu
+                    from Screens.OScamInfo import OSCamInfo
                     print('[cccam 1] OScamInfo')
-                    self.session.open(OscamInfoMenu)
+                    self.session.open(OSCamInfo)
                 except ImportError:
-                    from .data.OScamInfo import OscamInfoMenu
+                    from .data.OScamInfo import OSCamInfo
                     print('[cccam 2] OScamInfo')
-                    self.session.open(OscamInfoMenu)
+                    self.session.open(OSCamInfo)
             except Exception as e:
                 print('[cccam] OScamInfo e:', e)
                 pass
@@ -258,13 +258,13 @@ class Manager(Screen):
         elif 'movicam' in str(self.curCam).lower():
             try:
                 try:
-                    from Screens.OScamInfo import OscamInfoMenu
+                    from Screens.OScamInfo import OSCamInfo
                     print('[cccam 1] MOVICAMINFO')
-                    self.session.open(OscamInfoMenu)
+                    self.session.open(OSCamInfo)
                 except ImportError:
-                    from .data.OScamInfo import OscamInfoMenu
+                    from .data.OScamInfo import OSCamInfo
                     print('[cccam 2] MOVICAMINFO')
-                    self.session.open(OscamInfoMenu)
+                    self.session.open(OSCamInfo)
             except Exception as e:
                 print('[cccam] MOVICAMINFO e:', e)
                 pass

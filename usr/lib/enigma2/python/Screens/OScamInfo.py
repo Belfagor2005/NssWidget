@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 # from Components.About import about
-from .. import _
+# from .. import _
 from Components.ActionMap import ActionMap, NumberActionMap
 from Components.config import (
     config,
@@ -219,7 +219,6 @@ class OscamInfo:
                 # If we have a config file, we need to investigate it further
                 with open(conf, 'r') as data:
                     for i in data:
-                        # print("[OscamInfo][getUserData] i", i)
                         if "httpuser" in i.lower():
                             user = i.split("=")[1].strip()
                         elif "httppwd" in i.lower():
@@ -233,7 +232,7 @@ class OscamInfo:
                                 ipconfigured = False
                             if "::1" in allowed or "127.0.0.1" in allowed or "0.0.0.0-255.255.255.255" in allowed:
                                 # ... until we find either 127.0.0.1 or ::1 in allowed list
-                                blocked = False  # noqa: F841
+                                blocked = False
                             else:
                                 blocked = True
             if not blocked:
@@ -243,10 +242,8 @@ class OscamInfo:
     def openWebIF(self, part=None, reader=None):
         NAMEBIN = check_NAMEBIN()
         self.proto = "http"
-        # print("[OscamInfo][openWebIF] NAMEBIN part", NAMEBIN, "   ", part)
         if config.oscaminfo.userdatafromconf.value:
             udata = self.getUserData()
-            # print("[OscamInfo][openWebIF] udata, config.oscaminfo.userdatafromconf.value: ", udata, "   ", config.oscaminfo.userdatafromconf.value)
             if isinstance(udata, str):
                 return False, udata
             else:
@@ -276,17 +273,15 @@ class OscamInfo:
             self.port = str(config.oscaminfo.port.value)
             self.username = str(config.oscaminfo.username.value)
             self.password = str(config.oscaminfo.password.value)
-            # print("[OscamInfo][openWebIF]2 self.ip self.port  self.username self.password", self.ip, "   ", self.port, "   ", self.username, "   ",  self.password)
         if self.port.startswith('+'):
             self.proto = "https"
             self.port.replace("+", "")
-            # print("[OscamInfo][openWebIF] NAMEBIN=%s, CAM=%s" % (NAMEBIN, NAMEBIN))
+        # print("[OscamInfo][openWebIF] NAMEBIN=%s, CAM=%s" % (NAMEBIN, NAMEBIN))
         if part is None:
             self.url = "%s://%s:%s/%sapi.html?part=status" % (self.proto, self.ip, self.port, NAMEBIN)
         else:
             self.url = "%s://%s:%s/%sapi.html?part=%s" % (self.proto, self.ip, self.port, NAMEBIN, part)
         if part is not None and reader is not None:
-            # print("[OscamInfo][openWebIF] reader:", reader)
             self.url = "%s://%s:%s/%sapi.html?part=%s&label=%s" % (self.proto, self.ip, self.port, NAMEBIN, part, quote_plus(reader))
         # print("[OscamInfo][openWebIF] NAMEBIN=%s, NAMEBIN=%s url=%s" % (NAMEBIN, NAMEBIN, self.url))
         # print("[OscamInfo][openWebIF] self.url=%s" % self.url)
@@ -303,7 +298,6 @@ class OscamInfo:
             data = urlopen(request).read()
             # print("[OscamInfo][openWebIF] data=", data)
         except URLError as e:
-            print("[OscamInfo][openWebIF] error: %s" % e)
             if hasattr(e, "reason"):
                 err = str(e.reason)
             elif hasattr(e, "code"):
@@ -325,15 +319,14 @@ class OscamInfo:
         retval = []
         tmp = {}
         if result[0]:
-            # print("[OscamInfo][readXML] show typ, result 0,1", typ, "   ", result[0], "  ", result[1])
             if not self.showLog:
                 dataXML = ElementTree.XML(result[1])
-                if typ == "version":
-                    if "version" in dataXML.attrib:
-                        self.version = dataXML.attrib["version"]
-                    else:
-                        self.version = "-"
-                    return self.version
+                # if typ == "version":
+                    # if "version" in dataXML.attrib:
+                        # self.version = dataXML.attrib["version"]
+                    # else:
+                        # self.version = "-"
+                    # return self.version
                 status = dataXML.find("status")
                 clients = status.findall("client")
                 for client in clients:
@@ -375,7 +368,6 @@ class OscamInfo:
                     tmp = result[1].replace("<log>", "<log><![CDATA[").replace("</log>", "]]></log>")
                 else:
                     tmp = result[1]
-                print("[OscamInfo][readXML] show tmp", tmp)
                 dataXML = ElementTree.XML(tmp)
                 log = dataXML.find("log")
                 logtext = log.text
@@ -401,16 +393,13 @@ class OscamInfo:
                         for j in tmp2:
                             txt += "%s " % j.strip()
                         retval.append(txt)
-            print("[OscamInfo][readXML] result retval", result[0], "   ", retval)
             return result[0], retval
 
         else:
-            print("[OscamInfo][readXML] result result[1]", result[0], "   ", result[1])
             return result[0], result[1]
 
     def getVersion(self):
         dataWebif = self.openWebIF()
-        print("[OscamInfo][getVersion] dataWebif", dataWebif)
         if dataWebif[0]:
             dataXML = ElementTree.XML(dataWebif[1])
             if "revision" in dataXML.attrib:
@@ -451,7 +440,6 @@ class OscamInfo:
                         else:
                             if client.attrib["name"] != "" and client.attrib["name"] != "" and client.attrib["protocol"] != "":
                                 readers.append((client.attrib["name"], client.attrib["name"]))  # return tuple for later use in Choicebox
-            print("[OscamInfo][getReaders] readers", readers)
             return readers
         else:
             return None
@@ -496,21 +484,56 @@ class OscamInfo:
             return "%s not found" % self.ecminfo
 
 
+# class oscMenuList(MenuList):
+    # def __init__(self, list, itemH=30):
+        # MenuList.__init__(self, list, False, eListboxPythonMultiContent)
+        # self.l.setItemHeight(int(itemH * f))
+        # self.l.setFont(0, gFont("Regular", int(20 * f)))
+        # self.l.setFont(1, gFont("Regular", int(18 * f)))
+        # self.clientFont = gFont("Regular", int(16 * f))
+        # self.l.setFont(2, self.clientFont)
+        # self.l.setFont(3, gFont("Regular", int(12 * f)))
+
+
 class oscMenuList(MenuList):
-    def __init__(self, list, itemH=30):
+    def __init__(self, list):
         MenuList.__init__(self, list, False, eListboxPythonMultiContent)
-        self.l.setItemHeight(int(itemH * f))
-        self.l.setFont(0, gFont("Regular", int(20 * f)))
-        self.l.setFont(1, gFont("Regular", int(18 * f)))
-        self.clientFont = gFont("Regular", int(16 * f))
-        self.l.setFont(2, self.clientFont)
-        self.l.setFont(3, gFont("Regular", int(12 * f)))
+        if f == 1.5:
+            self.l.setItemHeight(int(30 * f))
+            self.l.setFont(0, gFont("Regular", int(20 * f)))
+            self.l.setFont(1, gFont("Regular", int(18 * f)))
+            self.clientFont = gFont("Regular", int(16 * f))
+            self.l.setFont(2, self.clientFont)
+            self.l.setFont(3, gFont("Regular", int(12 * f)))
+        else:
+            self.l.setItemHeight(int(35 * f))
+            self.l.setFont(0, gFont("Regular", int(30 * f)))
+            self.l.setFont(1, gFont("Regular", int(25 * f)))
+            self.clientFont = gFont("Regular", int(25 * f))
+            self.l.setFont(2, self.clientFont)
+            self.l.setFont(3, gFont("Regular", int(25 * f)))
+
+# class oscMenuList(MenuList):
+    # def __init__(self, list, itemH=35):
+        # MenuList.__init__(self, list, False, eListboxPythonMultiContent)
+        # self.l.setItemHeight(itemH)
+        # screenwidth = getDesktop(0).size().width()
+        # self.l.setFont(0, gFont("Regular", 20))
+        # self.l.setFont(1, gFont("Regular", 18))
+        # self.clientFont = gFont("Regular", 16)
+        # self.l.setFont(2, self.clientFont)
+        # self.l.setFont(3, gFont("Regular", 12))
+        # self.l.setFont(4, gFont("Regular", 30))
+        # self.l.setFont(5, gFont("Regular", 27))
+        # self.clientFont1080 = gFont("Regular", 24)
+        # self.l.setFont(6, self.clientFont1080)
+        # self.l.setFont(7, gFont("Regular", 24))
 
 
-class OscamInfoMenu(Screen):
+class OSCamInfo(Screen):
 
     skin = '''
-        <screen name="OscamInfoMenu" position="fill" title="OscamInfoMenu" backgroundColor="#ff000000" flags="wfNoBorder">
+        <screen name="OSCamInfo" position="fill" title="OSCamInfo" backgroundColor="#ff000000" flags="wfNoBorder">
             <widget source="Title" render="Label" position="106,38" size="890,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
             <widget source="ScreenPath" render="Label" position="36,10" size="1380,22" backgroundColor="#0528343b" transparent="1" zPosition="1" font="Regular; 19" valign="center" halign="left"/>
             <eLabel backgroundColor="#002d3d5b" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
@@ -535,26 +558,24 @@ class OscamInfoMenu(Screen):
         self.osc = OscamInfo()
         self["mainmenu"] = oscMenuList([])
         self["actions"] = NumberActionMap(["OkCancelActions", "InputActions", "ColorActions"],
-                    {
-                        "ok": self.ok,
-                        "cancel": self.exit,
-                        "red": self.red,
-                        "green": self.green,
-                        "yellow": self.yellow,
-                        "blue": self.blue,
-                        "1": self.keyNumberGlobal,
-                        "2": self.keyNumberGlobal,
-                        "3": self.keyNumberGlobal,
-                        "4": self.keyNumberGlobal,
-                        "5": self.keyNumberGlobal,
-                        "6": self.keyNumberGlobal,
-                        "7": self.keyNumberGlobal,
-                        "8": self.keyNumberGlobal,
-                        "9": self.keyNumberGlobal,
-                        "0": self.keyNumberGlobal,
-                        "up": self.up,
-                        "down": self.down
-                        }, -1)  # noqa: E123
+                                          {"ok": self.ok,
+                                           "cancel": self.exit,
+                                           "red": self.red,
+                                           "green": self.green,
+                                           "yellow": self.yellow,
+                                           "blue": self.blue,
+                                           "1": self.keyNumberGlobal,
+                                           "2": self.keyNumberGlobal,
+                                           "3": self.keyNumberGlobal,
+                                           "4": self.keyNumberGlobal,
+                                           "5": self.keyNumberGlobal,
+                                           "6": self.keyNumberGlobal,
+                                           "7": self.keyNumberGlobal,
+                                           "8": self.keyNumberGlobal,
+                                           "9": self.keyNumberGlobal,
+                                           "0": self.keyNumberGlobal,
+                                           "up": self.up,
+                                           "down": self.down}, -1)
         self.onLayoutFinish.append(self.showMenu)
 
     def ok(self):
@@ -748,10 +769,8 @@ class oscECMInfo(Screen, OscamInfo):
             timeout = config.oscaminfo.intervall.value * 1000
             self.loop.start(timeout, False)
         self["actions"] = ActionMap(["SetupActions"],
-            {
-                "ok": self.exit,
-                "cancel": self.exit
-            }, -1)  # noqa: E123
+                                    {"ok": self.exit,
+                                     "cancel": self.exit}, -1)
         self["key_red"] = StaticText(_("Close"))
         self.onLayoutFinish.append(self.showData)
 
@@ -761,11 +780,9 @@ class oscECMInfo(Screen, OscamInfo):
         self.close()
 
     def buildListEntry(self, listentry):
-        return [
-            "",
-            (eListboxPythonMultiContent.TYPE_TEXT, 10 * f, 2 * f, 300 * f, 30 * f, 0, RT_HALIGN_LEFT, listentry[0]),
-            (eListboxPythonMultiContent.TYPE_TEXT, 300 * f, 2 * f, 300 * f, 30 * f, 0, RT_HALIGN_LEFT, listentry[1])
-            ]  # noqa: E123
+        return ["",
+                (eListboxPythonMultiContent.TYPE_TEXT, 10 * f, 2 * f, 300 * f, 30 * f, 0, RT_HALIGN_LEFT, listentry[0]),
+                (eListboxPythonMultiContent.TYPE_TEXT, 300 * f, 2 * f, 300 * f, 30 * f, 0, RT_HALIGN_LEFT, listentry[1])]
 
     def showData(self):
         dataECM = self.getECMInfo(self.ecminfo)
@@ -852,20 +869,18 @@ class oscInfo(Screen, OscamInfo):
             timeout = config.oscaminfo.intervall.value * 1000
             self.loop.start(timeout, False)
         self["actions"] = ActionMap(["OkCancelActions", "ColorActions", "DirectionActions"],
-            {
-                "ok": self.key_ok,
-                "cancel": self.exit,
-                "red": self.exit,
-                "green": self.key_green,
-                "yellow": self.key_yellow,
-                "blue": self.key_blue,
-                "up": self.key_up,
-                "down": self.key_down,
-                "right": self.key_right,
-                "left": self.key_left,
-                "moveUp": self.key_moveUp,
-                "moveDown": self.key_moveDown
-            }, -1)  # noqa: E123
+                                    {"ok": self.key_ok,
+                                     "cancel": self.exit,
+                                     "red": self.exit,
+                                     "green": self.key_green,
+                                     "yellow": self.key_yellow,
+                                     "blue": self.key_blue,
+                                     "up": self.key_up,
+                                     "down": self.key_down,
+                                     "right": self.key_right,
+                                     "left": self.key_left,
+                                     "moveUp": self.key_moveUp,
+                                     "moveDown": self.key_moveDown}, -1)
         self.onLayoutFinish.append(self.showData)
 
     def key_ok(self):
@@ -992,7 +1007,6 @@ class oscInfo(Screen, OscamInfo):
         self.itemheight = 25
         # print("[OscamInfo][showData] data[0], data[1]", data[0], "   ", data[1])
         if data[0]:
-            # print("[OscamInfo][showData] data[0], data[1] not isinstance(data[1], str)")
             if self.what != "l":
                 heading = (self.HEAD[self.NAME], self.HEAD[self.PROT], self.HEAD[self.CAID_SRVID],
                            self.HEAD[self.SRVNAME], self.HEAD[self.ECMTIME], self.HEAD[self.IP_PORT], "")
@@ -1106,10 +1120,8 @@ class oscEntitlements(Screen, OscamInfo):
         self.cccamreader = reader
         self["output"] = List([])
         self["actions"] = ActionMap(["SetupActions"],
-            {
-                "ok": self.showData,
-                "cancel": self.exit
-            }, -1)  # noqa: E123
+                                    {"ok": self.showData,
+                                     "cancel": self.exit}, -1)
         self["key_red"] = StaticText(_("Close"))
         self.onLayoutFinish.append(self.showData)
 
@@ -1138,10 +1150,10 @@ class oscEntitlements(Screen, OscamInfo):
             for j in prov:
                 providertxt += "%s - %s%s" % (j[0], j[1], linefeed)
             res.append((ca_id,
-                csystem,
-                str(hops[1]), str(hops[2]), str(hops[3]), str(hops[4]), str(hops[5]), str(csum), str(creshare),
-                providertxt[:-1]
-                ))  # noqa: E123
+                        csystem,
+                        str(hops[1]), str(hops[2]), str(hops[3]), str(hops[4]), str(hops[5]), str(csum), str(creshare),
+                        providertxt[:-1]
+                        ))
             outlist.append(res)
         return res
 
@@ -1248,10 +1260,8 @@ class oscReaderStats(Screen, OscamInfo):
         self.mlist = oscMenuList([])
         self["output"] = List([])
         self["actions"] = ActionMap(["SetupActions"],
-            {
-                "ok": self.showData,
-                "cancel": self.exit
-            }, -1)  # noqa: E123
+                                    {"ok": self.showData,
+                                     "cancel": self.exit}, -1)
         self["key_red"] = StaticText(_("Close"))
         self.onLayoutFinish.append(self.showData)
 
@@ -1280,10 +1290,10 @@ class oscReaderStats(Screen, OscamInfo):
             for j in prov:
                 providertxt += "%s - %s%s" % (j[0], j[1], linefeed)
             res.append((ca_id,
-                csystem,
-                str(hops[1]), str(hops[2]), str(hops[3]), str(hops[4]), str(hops[5]), str(csum), str(creshare),
-                providertxt[:-1]
-                ))  # noqa: E123
+                        csystem,
+                        str(hops[1]), str(hops[2]), str(hops[3]), str(hops[4]), str(hops[5]), str(csum), str(creshare),
+                        providertxt[:-1]
+                        ))
             outlist.append(res)
         return res
 

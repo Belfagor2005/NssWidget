@@ -81,7 +81,7 @@ def b64decoder(s):
 name_plug = 'NSS Softcam Manager'
 plugin_path = resolveFilename(SCOPE_PLUGINS, "Extensions/Manager/")
 res_plugin_path = os.path.join(plugin_path, "res")
-data_path = os.path.join(plugin_path, 'data/')
+data_path = plugin_path + 'data/'
 skin_path = plugin_path
 
 try:
@@ -149,12 +149,12 @@ def getUrl(url):
 
 screenwidth = getDesktop(0).size()
 if screenwidth.width() == 2560:
-    skin_path = res_plugin_path + '/skins/uhd/'
+    skin_path = plugin_path + '/res/skins/uhd/'
 elif screenwidth.width() == 1920:
-    skin_path = res_plugin_path + '/skins/fhd/'
+    skin_path = plugin_path + '/res/skins/fhd/'
 else:
-    skin_path = res_plugin_path + '/skins/hd/'
-if os.path.exists("/var/lib/dpkg/status"):
+    skin_path = plugin_path + '/res/skins/hd/'
+if os.path.exists('/var/lib/dpkg/info'):
     skin_path = skin_path + 'dreamOs/'
 
 
@@ -190,8 +190,8 @@ def cccamPath():
 
 
 Serverlive = [
-    ('aHR0cHM6Ly9pcHR2LTE1ZGF5cy5ibG9nc3BvdC5jb20=', 'Server01'),
-    ('aHR0cHM6Ly9ib3NzY2NjYW0uY28vVGVzdC5waHA=', 'Server02'),    
+    ('aHR0cHM6Ly9ib3NzY2NjYW0uY28vVGVzdC5waHA=', 'Server01'),
+    ('aHR0cHM6Ly9pcHR2LTE1ZGF5cy5ibG9nc3BvdC5jb20=', 'Server02'),
     ('aHR0cHM6Ly9jY2NhbWlhLmNvbS9mcmVlLWNjY2FtLw==', 'Server03'),
     ('aHR0cHM6Ly9jY2NhbS5uZXQvZnJlZWNjY2Ft', 'Server04'),
     ('aHR0cHM6Ly9jY2NhbXNhdGUuY29tL2ZyZWU=', 'Server05'),
@@ -335,7 +335,6 @@ class nssCamConfig(Screen, ConfigListScreen):
                     if 'oscam' in res.lower() or 'icam' in res.lower() or 'ncam' in res.lower() or 'gcam' in res.lower():
                         print('oscam exist')
                         msg = []
-                        msg.append(_("\n....\n.....\n"))
                         self.cmd1 = '/usr/lib/enigma2/python/Plugins/Extensions/Manager/data/emm_sender.sh'  # '/usr/lib/enigma2/python/Plugins/Extensions/Manager/data/emm_sender.sh'
                         from os import access, X_OK
                         if not access(self.cmd1, X_OK):
@@ -352,16 +351,13 @@ class nssCamConfig(Screen, ConfigListScreen):
                             cmmnd = "wget --no-check-certificate -U 'Enigma2 - Manager Plugin' -c 'https://pastebin.com/raw/B97HC8ie' -O '/tmp/emm.txt'"
                             os.system(cmmnd)
                         if os.path.exists('/tmp/emm.txt'):
-                            msg.append(_("READ EMM....\n"))
                             with open('/tmp/emm.txt') as f:
-                                f = f.read()
-                                if f.startswith('82708'):
-                                    msg.append(_("CURRENT EMM IS:\n"))
-                                    msg.append(f)
-                                    msg.append(_("\nCurrent Emm saved to /tmp/emm.txt"))
-                                else:
-                                    msg.append('No Emm Read!')
+                                file_content = f.read().strip()
+                                msg.append("CURRENT EMM IS:\n")
+                                msg.append(f"{file_content}")
+                                msg.append("\nCurrent Emm saved to /tmp/emm.txt")
                             msg = (" %s " % _("\n")).join(msg)
+                            print(f"DEBUG: msg_output = {msg}")
                             self.session.open(MessageBox, _("Please wait, %s.") % msg, MessageBox.TYPE_INFO, timeout=10)
                         else:
                             self.session.open(MessageBox, _("File no exist /tmp/emm.txt"), MessageBox.TYPE_INFO, timeout=10)
@@ -373,7 +369,6 @@ class nssCamConfig(Screen, ConfigListScreen):
     def callMyMsg(self, answer=False):
         if answer:
             msg = []
-            msg.append(_("\n....\n.....\n"))
             self.cmd1 = '/usr/lib/enigma2/python/Plugins/Extensions/Manager/data/emm_sender.sh'
             from os import access, X_OK
             if not access(self.cmd1, X_OK):
@@ -389,21 +384,19 @@ class nssCamConfig(Screen, ConfigListScreen):
                 outp = base64.b64decode(sss)
                 url = str(outp)
                 try:
-                    # subprocess.check_output(['bash', cmd])
-                    subprocess.call(["wget", "-q", "--no-use-server-timestamps", "--no-clobber", "--timeout=5", url, "-O", '/tmp/emm.txt'])
+                    print('Retrieve emm')
+                    # subprocess.call(["wget", "-q", "--no-use-server-timestamps", "--no-clobber", "--timeout=5", url, "-O", '/tmp/emm.txt'])
+                    subprocess.check_output(['bash', "wget", "-q", "--no-use-server-timestamps", "--no-clobber", "--timeout=5", url, "-O", '/tmp/emm.txt'], shell=True, encoding='utf-8')
                 except subprocess.CalledProcessError as e:
-                    print(e.output)
+                    print('Error Retrieve emm:', e.output)
             if os.path.exists('/tmp/emm.txt'):
-                msg.append(_("READ EMM....\n"))
                 with open('/tmp/emm.txt') as f:
-                    f = f.read()
-                    if f.startswith('82708'):
-                        msg.append(_("CURRENT EMM IS:\n"))
-                        msg.append(f)
-                        msg.append(_("\nCurrent Emm saved to /tmp/emm.txt"))
-                    else:
-                        msg.append('No Emm')
+                    file_content = f.read().strip()
+                    msg.append("CURRENT EMM IS:\n")
+                    msg.append(f"{file_content}")
+                    msg.append("\nCurrent Emm saved to /tmp/emm.txt")
                 msg = (" %s " % _("\n")).join(msg)
+                print(f"DEBUG: msg_output = {msg}")
                 self.session.open(MessageBox, _("Please wait, %s.") % msg, MessageBox.TYPE_INFO, timeout=10)
             else:
                 self.session.open(MessageBox, _("No Action!\nFile no exist /tmp/emm.txt"), MessageBox.TYPE_INFO, timeout=5)
@@ -431,6 +424,18 @@ class nssCamConfig(Screen, ConfigListScreen):
             self['key_blue'].setText('')
         # return
 
+    def showInfo(self, info):
+        self.session.openWithCallback(self.workingFinished, InfoScreen, info)
+
+    def workingFinished(self, callback=None):
+        self.working = False
+
+    def check_output(self, result, retval, extra_args):
+        if retval == 0:
+            self.showInfo(result)
+        else:
+            self.showInfo(str(result))
+
     def green(self):
         if config.plugins.Manager.active.value is True:
             if putlbl == '/etc/CCcam.cfg':
@@ -448,23 +453,24 @@ class nssCamConfig(Screen, ConfigListScreen):
         else:
             if 'oscam' in str(runningcam):  # or 'movicam' in str(self.runningcam):
                 msg = []
-                msg.append(_("\n....\n.....\n"))
                 self.cmd1 = data_path + 'emm_sender.sh'
                 from os import access, X_OK
                 if not access(self.cmd1, X_OK):
                     os.chmod(self.cmd1, 493)
-                try:
-                    subprocess.check_output(['bash', self.cmd1])
-                except subprocess.CalledProcessError as e:
-                    print(e.output)
+                # try:
+                    # subprocess.check_output(['bash', self.cmd1])
+                subprocess.check_output(['bash', self.cmd1], shell=True, encoding='utf-8')
+                # except subprocess.CalledProcessError as e:
+                    # print('Error Retrieve emm:', e.output)
                 os.system('sleep 3')
                 if os.path.exists('/tmp/emm.txt'):
                     msg.append(_("READ EMM....\n"))
                     with open('/tmp/emm.txt') as f:
                         f = f.read()
+                        print('emm read:\n', f)
                         if f.startswith('82708'):
                             msg.append(_("CURRENT EMM IS:\n"))
-                            msg.append(f)
+                            msg.append(str(f))
                             msg.append(_("\nCurrent Emm saved to /tmp/emm.txt"))
                         else:
                             msg.append('No Emm')
@@ -657,6 +663,7 @@ class nssCamConfig(Screen, ConfigListScreen):
             # <div id="cline">C: free.cccamiptv.club 13000 ggd32x cccamiptv.pro</div>
             elif 'cccamiptv' in data.lower():
                 url1 = re.findall(r'cline">\s*C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)\s*', data)
+
             elif 'free.cccam.net' in data.lower():
                 url1 = re.findall(r'<b>C:\s+([\w.-]+)\s+(\d+)\s+(\w+)\s+([\w.-]+)</b>', data)
 
@@ -761,3 +768,32 @@ class nssCamConfig(Screen, ConfigListScreen):
                     currCam = line
                 clist.close()
         return currCam
+
+
+if screenwidth.width() > 1200:
+    InfoScreenx = """
+    <screen position="center,center" size="800,620" title="CCcam Info">
+        <widget name="text" position="0,0" size="800,620" font="Regular; 30" />
+    </screen>"""
+else:
+    InfoScreenx = """
+    <screen position="center,center" size="500,420" title="CCcam Info" >
+        <widget name="text" position="0,0" size="500,420" font="Regular;20" />
+    </screen>"""
+
+
+class InfoScreen(Screen):
+
+    def __init__(self, session, info):
+        Screen.__init__(self, session)
+        self.skin = InfoScreenx
+        self.setTitle(_("Emm Info"))
+        from Components.ScrollLabel import ScrollLabel
+        self["text"] = ScrollLabel(info)
+        self["actions"] = ActionMap(["OkCancelActions"],
+                                    {"ok": self.close,
+                                     "cancel": self.close,
+                                     "up": self["text"].pageUp,
+                                     "down": self["text"].pageDown,
+                                     "left": self["text"].pageUp,
+                                     "right": self["text"].pageDown}, -1)

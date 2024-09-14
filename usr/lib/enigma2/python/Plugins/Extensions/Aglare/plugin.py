@@ -41,7 +41,7 @@ else:
     from urllib2 import Request
 
 
-version = '1.08'
+version = '1.09'
 
 config.plugins.AglareNss = ConfigSubsection()
 config.plugins.AglareNss.colorSelector = ConfigSelection(default='head', choices=[
