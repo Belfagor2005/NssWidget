@@ -53,8 +53,6 @@ PY3 = False
 if sys.version_info[0] >= 3:
     PY3 = True
     unicode = str
-    unichr = chr
-    long = int
     import queue
     import html
     html_parser = html
@@ -136,7 +134,6 @@ except:
 # WITH THE NUMBER OF ITEMS EXPECTED (BLANK LINE IN BOUQUET CONSIDERED)
 # IF NOT SET OR WRONG FILE THE AUTOMATIC POSTER GENERATION WILL WORK FOR
 # THE CHANNELS THAT YOU ARE VIEWING IN THE ENIGMA SESSION
-
 
 def SearchBouquetTerrestrial():
     import glob
@@ -307,7 +304,6 @@ def convtext(text=''):
             text = text.lower()
             text = remove_accents(text)
             print('remove_accents text: ', text)
-
             # #
             text = cutName(text)
             text = getCleanTitle(text)

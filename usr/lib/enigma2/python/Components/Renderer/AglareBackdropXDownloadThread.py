@@ -465,16 +465,16 @@ class AglareBackdropXDownloadThread(threading.Thread):
             for pl in plst:
                 get_path = "https://www.molotov.tv/" + pl[0]
                 get_name = self.UNAC(pl[1])
-                get_title = re.findall(r'(.*?)[ ]+en[ ]+streaming', get_name)
+                get_title = re.findall('(.*?)[ ]+en[ ]+streaming', get_name)
                 if get_title:
                     get_title = get_title[0]
                 else:
                     get_title = None
-                get_channel = re.findall(r'(?:streaming|replay)?[ ]+sur[ ]+(.*?)[ ]+molotov.tv', get_name)
+                get_channel = re.findall('(?:streaming|replay)?[ ]+sur[ ]+(.*?)[ ]+molotov.tv', get_name)
                 if get_channel:
                     get_channel = self.UNAC(get_channel[0]).replace(' ', '')
                 else:
-                    get_channel = re.findall(r'regarder[ ]+(.*?)[ ]+en', get_name)
+                    get_channel = re.findall('regarder[ ]+(.*?)[ ]+en', get_name)
                     if get_channel:
                         get_channel = self.UNAC(get_channel[0]).replace(' ', '')
                     else:
@@ -491,13 +491,13 @@ class AglareBackdropXDownloadThread(threading.Thread):
                 ffm = requests.get(molotov_table[3], stream=True, headers=headers).text
                 if not PY3:
                     ffm = ffm.encode('utf-8')
-                pltt = re.findall(r'"https://fusion.molotov.tv/(.*?)/jpg" alt="(.*?)"', ffm)
+                pltt = re.findall('"https://fusion.molotov.tv/(.*?)/jpg" alt="(.*?)"', ffm)
                 if len(pltt) > 0:
                     pltc = self.UNAC(pltt[0][1])
                     plst = "https://fusion.molotov.tv/" + pltt[0][0] + "/jpg"
                     imsg = "Found title ({}%) & channel ({}%) : '{}' + '{}' [{}/{}]".format(molotov_table[0], molotov_table[1], molotov_table[2], pltc, molotov_table[4], len_plst)
             else:
-                plst = re.findall(r'\],\["https://(.*?)",\d+,\d+].*?"https://.*?","(.*?)"', ff)
+                plst = re.findall('\],\["https://(.*?)",\d+,\d+].*?"https://.*?","(.*?)"', ff)
                 len_plst = len(plst)
                 if len_plst > 0:
                     for pl in plst:
@@ -691,26 +691,19 @@ class AglareBackdropXDownloadThread(threading.Thread):
         # Rimpiazza specifiche sequenze
         string = re.sub(r"u0026", "&", string)
         string = re.sub(r"u003d", "=", string)
-
         # Rimozione segni diacritici lasciando solo i caratteri base
         string = re.sub(r'[\u0300-\u036f]', '', string)
-
         # Rimozione di specifici caratteri di punteggiatura
         string = re.sub(r"[,!?\.\"]", ' ', string)
         string = re.sub(r"[-/:']", '', string)
-
         # Rimozione di tutto ciò che non è alfanumerico o spazio
         string = re.sub(r"[^a-zA-Z0-9 ]", "", string)
-
         # Conversione in minuscolo
         string = string.lower()
-
         # Sostituzione di spazi multipli con uno solo
         string = re.sub(r'\s+', ' ', string)
-
         # Eliminazione degli spazi all'inizio e alla fine della stringa
         string = string.strip()
-
         return string
 
     def PMATCH(self, textA, textB):
