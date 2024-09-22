@@ -113,8 +113,6 @@ if PY3:
     bytes = bytes
     unicode = str
     from urllib.request import Request, urlopen
-    string_types = str,
-    integer_types = int,
     class_types = type,
     text_type = str
     binary_type = bytes
@@ -122,6 +120,7 @@ if PY3:
 else:
     str = str
     from urllib2 import Request, urlopen
+    import unicode
     class_types = (type, types.ClassType)
     text_type = unicode
     binary_type = str
@@ -144,7 +143,7 @@ else:
             MAXSIZE = int((1 << 63) - 1)
         del X
 
-currversion = '1.28'
+currversion = '1.30'
 title_plug = 'Vavoo'
 desc_plugin = ('..:: Vavoo by Lululla v.%s ::..' % currversion)
 stripurl = 'aHR0cHM6Ly92YXZvby50by9jaGFubmVscw=='
@@ -300,27 +299,24 @@ def getUrl(url):
 
 
 def b64decoder(s):
-    '''Add missing padding to string and return the decoded base64 string.'''
+
     s = str(s).strip()
     try:
-        outp = base64.b64decode(s)
+        output = base64.b64decode(s)
         if PY3:
-            outp = outp.decode('utf-8')
-        return outp
-    except (TypeError, ValueError) as e:
-        print(e)
+            output = output.decode('utf-8')
+        return output
+    except Exception:
         padding = len(s) % 4
         if padding == 1:
             print('Invalid base64 string: {}'.format(s))
-            return ''
+            return ""
         elif padding == 2:
-            s += '=='
+            s += b'=='
         elif padding == 3:
-            s += '='
-        outp = base64.b64decode(s)
-        if PY3:
-            outp = outp.decode('utf-8')
-        return outp
+            s += b'='
+        else:
+            return ""
 
 
 def Sig():
@@ -340,19 +336,19 @@ def Sig():
             'Content-Type': 'application/json',
         }
         json_data = '{"vec": "' + str(vec) + '"}'
-        try:
-            if PY3:
-                req = requests.post('https://www.vavoo.tv/api/box/ping2', headers=headers, data=json_data).json()
-            else:
-                req = requests.post('https://www.vavoo.tv/api/box/ping2', headers=headers, verify=False, data=json_data).json()
-            if req.get('signed'):
-                sig = req['signed']
-            elif req.get('data', {}).get('signed'):
-                sig = req['data']['signed']
-            elif req.get('response', {}).get('signed'):
-                sig = req['response']['signed']
-        except requests.RequestException as e:
-            print("Request failed:", e)
+        # try:
+        if PY3:
+            req = requests.post('https://www.vavoo.tv/api/box/ping2', headers=headers, data=json_data).json()
+        else:
+            req = requests.post('https://www.vavoo.tv/api/box/ping2', headers=headers, verify=False, data=json_data).json()
+        if req.get('signed'):
+            sig = req['signed']
+        elif req.get('data', {}).get('signed'):
+            sig = req['data']['signed']
+        elif req.get('response', {}).get('signed'):
+            sig = req['response']['signed']
+        # except requests.RequestException as e:
+            # print("Request failed:", e)
     return sig
 
 
@@ -435,8 +431,9 @@ def rimuovi_parentesi(testo):
 
 # menulist
 class m2list(MenuList):
-    def __init__(self, list):
-        MenuList.__init__(self, list, False, eListboxPythonMultiContent)
+    def __init__(self, items):
+        super(m2list, self).__init__(items, False, eListboxPythonMultiContent)
+        # MenuList.__init__(self, list, False, eListboxPythonMultiContent)
         self.l.setItemHeight(50)
         textfont = int(34)
         self.l.setFont(0, gFont('Regular', textfont))
@@ -687,13 +684,7 @@ class MainVavoox(Screen):
             'red': self.close,
         }, -1)
 
-        self.timer = eTimer()
-        try:
-            self.timer_conn = self.timer.timeout.connect(self.cat)
-        except:
-            self.timer.callback.append(self.cat)
-        self.timer.start(500, True)
-        # self.onShow.append(self.check)
+        self.onLayoutFinish.append(self.cat)
 
     def arabic(self):
         global HALIGN
@@ -703,8 +694,8 @@ class MainVavoox(Screen):
         elif HALIGN == RT_HALIGN_RIGHT:
             HALIGN = RT_HALIGN_LEFT
             self['blue'].setText(_('Halign Right'))
-        # self.cat()
-        self.timer.start(200, True)
+        self.cat()
+        # self.timer.start(200, True)
 
     def goConfig(self):
         self.session.open(vavoo_configx)
@@ -841,12 +832,7 @@ class vavoox(Screen):
             'red': self.backhome
         }, -1)
 
-        self.timer = eTimer()
-        try:
-            self.timer_conn = self.timer.timeout.connect(self.cat)
-        except:
-            self.timer.callback.append(self.cat)
-        self.timer.start(500, True)
+        self.onLayoutFinish.append(self.cat)
 
     def arabic(self):
         global HALIGN
@@ -856,8 +842,8 @@ class vavoox(Screen):
         elif HALIGN == RT_HALIGN_RIGHT:
             HALIGN = RT_HALIGN_LEFT
             self['blue'].setText(_('Halign Right'))
-        # self.cat()
-        self.timer.start(200, True)
+        self.cat()
+        # self.timer.start(200, True)
 
     def backhome(self):
         if search_ok is True:
@@ -1195,7 +1181,7 @@ class Playstream2(
         self.new_aspect = self.init_aspect
         self.service = None
         self.url = url.replace('%0a', '').replace('%0A', '')
-        self.name = decodeHtml(name)
+        self.name = name
         self.state = self.STATE_PLAYING
         self.srefInit = self.session.nav.getCurrentlyPlayingServiceReference()
         self['actions'] = ActionMap(['MoviePlayerActions', 'MovieSelectionActions', 'MediaPlayerActions', 'EPGSelectActions', 'OkCancelActions',
@@ -1407,7 +1393,7 @@ def convert_bouquet(service, name, url):
     name_file = re.sub(r'\d+:\d+:[\d.]+', '_', name_file)  # Replace numeric patterns with "_"
     name_file = re.sub(r'_+', '_', name_file)  # Replace sequences of "_" with a single "_"
 
-    with open(enigma_path + '/Favorite.txt', 'w') as r:
+    with open(enigma_path + '/Favorite.txt', 'w', encoding='utf-8') as r:
         r.write(str(name_file) + '###' + str(url))
 
     bouquet_name = 'userbouquet.vavoo_%s.%s' % (name_file.lower(), bouquet_type.lower())
@@ -1446,7 +1432,7 @@ def convert_bouquet(service, name, url):
                         tplst.append(dct)
                         ch += 1
 
-            with open(path1, 'w+') as f:
+            with open(path1, 'w+', encoding='utf-8') as f:
                 f_content = f.read()
                 for item in tplst:
                     if item not in f_content:
@@ -1459,7 +1445,7 @@ def convert_bouquet(service, name, url):
                     if bouquet_name in line:
                         in_bouquets = True
             if not in_bouquets:
-                with open(path2, 'a+') as f:
+                with open(path2, 'a+', encoding='utf-8') as f:
                     bouquetTvString = '#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "' + str(bouquet_name) + '" ORDER BY bouquet\n'
                     f.write(bouquetTvString)
             ReloadBouquets()
@@ -1550,8 +1536,9 @@ class AutoStartTimer:
 
     def startMain(self):
         name = url = ''
-        if file_exists(enigma_path + '/Favorite.txt'):
-            with open(enigma_path + '/Favorite.txt', 'r') as f:
+        favorite_channel = os.path.join(enigma_path, 'Favorite.txt')
+        if file_exists(favorite_channel):
+            with open(favorite_channel, 'r') as f:
                 line = f.readline()
                 name = line.split('###')[0]
                 url = line.split('###')[1]
@@ -1559,7 +1546,6 @@ class AutoStartTimer:
             # try:'''
             print('session start convert time')
             vid2 = vavoox(_session, name, url)
-            # vid2.message2(name, url, False)
             vid2.message0(name, url, False)
             '''# except Exception as e:
                 # print('timeredit error vavoo', e)'''
@@ -1609,7 +1595,7 @@ def Plugins(**kwargs):
 def decodeHtml(text):
     if PY3:
         import html
-        text = html.unescape(text)
+        text = html.unescape(text.encode('utf-8').decode('unicode_escape'))
     else:
         from six.moves import (html_parser)
         h = html_parser.HTMLParser()

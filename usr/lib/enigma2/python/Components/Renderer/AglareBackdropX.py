@@ -133,7 +133,6 @@ except:
 # IF NOT SET OR WRONG FILE THE AUTOMATIC BACKDROP GENERATION WILL WORK FOR
 # THE CHANNELS THAT YOU ARE VIEWING IN THE ENIGMA SESSION
 
-
 def SearchBouquetTerrestrial():
     import glob
     import codecs
@@ -216,13 +215,12 @@ REGEX = re.compile(
     r'\.\s.+)|'                            # Punto seguito da testo
     r'Премьера\.\s|'                       # Specifico per il russo
     r'[хмтдХМТД]/[фс]\s|'                  # Pattern per il russo con /ф o /с
-
     r'\s[сС](?:езон|ерия|-н|-я)\s.*|'      # Stagione o episodio in russo
     r'\s\d{1,3}\s[чсЧС]\.?\s.*|'           # numero di parte/episodio in russo
     r'\.\s\d{1,3}\s[чсЧС]\.?\s.*|'         # numero di parte/episodio in russo con punto
     r'\s[чсЧС]\.?\s\d{1,3}.*|'             # Parte/Episodio in russo
-    r'\d{1,3}-(?:я|й)\s?с-н.*'             # Finale con numero e suffisso russo
-    , re.DOTALL)
+    r'\d{1,3}-(?:я|й)\s?с-н.*',            # Finale con numero e suffisso russo
+    re.DOTALL)
 
 
 def intCheck():
@@ -237,18 +235,6 @@ def intCheck():
         return False
     else:
         return True
-
-
-# def remove_accents(string):
-    # if type(string) is not unicode:
-        # string = unicode(string, encoding='utf-8')
-    # string = re.sub(u"[àáâãäå]", 'a', string)
-    # string = re.sub(u"[èéêë]", 'e', string)
-    # string = re.sub(u"[ìíîï]", 'i', string)
-    # string = re.sub(u"[òóôõö]", 'o', string)
-    # string = re.sub(u"[ùúûü]", 'u', string)
-    # string = re.sub(u"[ýÿ]", 'y', string)
-    # return string
 
 
 def remove_accents(string):
@@ -287,6 +273,10 @@ def cutName(eventName=""):
         eventName = eventName.replace('(18+)', '').replace('18+', '').replace('(16+)', '').replace('16+', '').replace('(12+)', '')
         eventName = eventName.replace('12+', '').replace('(7+)', '').replace('7+', '').replace('(6+)', '').replace('6+', '')
         eventName = eventName.replace('(0+)', '').replace('0+', '').replace('+', '')
+        eventName = eventName.replace('episode', '')
+        eventName = eventName.replace('مسلسل', '')
+        eventName = eventName.replace('فيلم وثائقى', '')
+        eventName = eventName.replace('حفل', '')
         return eventName
     return ""
 
@@ -324,8 +314,6 @@ def convtext(text=''):
             text = text.replace('1^ visione rai', '').replace('1^ visione', '').replace('primatv', '').replace('1^tv', '')
             text = text.replace('prima visione', '').replace('1^ tv', '').replace('((', '(').replace('))', ')')
             text = text.replace('live:', '').replace(' - prima tv', '')
-            # for oldem
-            text = re.sub(r'\d+\s*ح', '', text)
             if 'giochi olimpici parigi' in text:
                 text = 'olimpiadi di parigi'
             if 'bruno barbieri' in text:
@@ -372,6 +360,12 @@ def convtext(text=''):
             text = re.sub(r'\(\(.*?\)\)|\(.*?\)', '', text)
             # remove all content between and including [] multiple times
             text = re.sub(r'\[\[.*?\]\]|\[.*?\]', '', text)
+            # remove episode number in arabic series
+            text = re.sub(r' +ح', '', text)
+            # remove season number in arabic series
+            text = re.sub(r' +ج', '', text)
+            # remove season number in arabic series
+            text = re.sub(r' +م', '', text)
             # List of bad strings to remove
             bad_strings = [
                 "ae|", "al|", "ar|", "at|", "ba|", "be|", "bg|", "br|", "cg|", "ch|", "cz|", "da|", "de|", "dk|",
