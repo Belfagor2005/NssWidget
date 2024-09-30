@@ -63,16 +63,20 @@ config.plugins.AglareNss.FontStyle = ConfigSelection(default='basic', choices=[
     ('font6', _('MV Boli'))])
 config.plugins.AglareNss.skinSelector = ConfigSelection(default='base', choices=[
     ('base', _('Default'))])
-config.plugins.AglareNss.InfobarStyle = ConfigSelection(default='infobar_no_posters', choices=[
-    ('infobar_no_posters', _('Infobar_NO_Posters')),
+config.plugins.AglareNss.InfobarStyle = ConfigSelection(default='infobar_base1', choices=[
+    ('infobar_base1', _('Default')),
+    ('infobar_date', _('Infobar_Date')),
     ('infobar_posters', _('Infobar_Posters')),
-    ('infobar_posters_meteo', _('Infobar_Posters_Meteo')),
-    ('infobar_no_weather', _('Infobar_NO_Weather'))])
+    ('infobar_posters_msnweather', _('Infobar_Posters_MSN_Meteo')),
+    ('infobar_posters_oaweather', _('Infobar_Posters_OAW_Meteo'))])
+    
 config.plugins.AglareNss.SecondInfobarStyle = ConfigSelection(default='secondinfobar_no_posters', choices=[
-    ('secondinfobar_no_posters', _('SecondInfobar_NO_Posters')),
-    ('secondinfobar_posters', _('SecondInfobar_Posters'))])
+    ('secondinfobar_no_posters', _('Default')),
+    ('secondinfobar_posters', _('SecondInfobar_Posters')),
+    ('secondinfobar_msn', _('SecondInfobar_MSN_Posters')),
+    ('secondinfobar_oaweather', _('SecondInfobar_OAW_Posters'))])
 config.plugins.AglareNss.ChannSelector = ConfigSelection(default='channellist_no_posters', choices=[
-    ('channellist_no_posters', _('ChannelSelection_NO_Posters')),
+    ('channellist_no_posters', _('Default')),
     ('channellist_np_full', _('ChannelSelection_NO_Posters_Full')),
     ('channellist_no_posters_no_picon', _('ChannelSelection_NO_Posters_NO_Picon')),
     ('channellist_1_poster', _('ChannelSelection_1_Poster')),
@@ -83,7 +87,7 @@ config.plugins.AglareNss.ChannSelector = ConfigSelection(default='channellist_no
     ('channellist_big_mini_tv', _('ChannelSelection_big_mini_tv'))])
 
 config.plugins.AglareNss.EventView = ConfigSelection(default='eventview_no_posters', choices=[
-    ('eventview_no_posters', _('EventView_NO_Posters')),
+    ('eventview_no_posters', _('Default')),
     ('eventview_7_posters', _('EventView_7_Posters')),
     ('eventview_banner', _('EventView_Banner'))])
 

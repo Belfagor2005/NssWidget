@@ -255,19 +255,7 @@ class OscamInfo:
             if self.ipaccess == "yes":
                 self.ip = "::1"
             else:
-                # self.ip = "127.0.0.1"
-
                 self.ip = getIP()
-
-            # self.ip = local address 127.0.0.1 gets 403 in Oscam webif so try to pick up box IP address.
-            # eth0 = about.getIfConfig("eth0")
-            # wlan0 = about.getIfConfig("wlan0")
-            # if "addr" in eth0:
-                # self.ip = eth0["addr"]
-            # if "addr" in wlan0:
-                # self.ip = wlan0["addr"]
-                # print("[OscamInfo][openWebIF]1 self.ip self.port  self.username self.password self.ipaccess", self.ip, "   ", self.port, "   ", self.username, "   ",  self.password, "   ", self.ipaccess)
-
         else:
             self.ip = ".".join("%d" % d for d in config.oscaminfo.ip.value)
             self.port = str(config.oscaminfo.port.value)

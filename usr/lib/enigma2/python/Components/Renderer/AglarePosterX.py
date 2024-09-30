@@ -59,24 +59,28 @@ if sys.version_info[0] >= 3:
     from _thread import start_new_thread
     from urllib.error import HTTPError, URLError
     from urllib.request import urlopen
-    from urllib.parse import quote_plus, quote
+    from urllib.parse import quote_plus
 else:
     import Queue
     from thread import start_new_thread
     from urllib2 import HTTPError, URLError
     from urllib2 import urlopen
-    from urllib import quote_plus, quote
+    from urllib import quote_plus
     from HTMLParser import HTMLParser
     html_parser = HTMLParser()
 
 
 try:
-    from urllib import unquote
+    from urllib import unquote, quote
 except ImportError:
-    from urllib.parse import unquote
+    from urllib.parse import unquote, quote
 
 
 epgcache = eEPGCache.getInstance()
+if PY3:
+    pdb = queue.LifoQueue()
+else:
+    pdb = Queue.LifoQueue()
 
 
 def isMountReadonly(mnt):
@@ -437,16 +441,11 @@ def convtext(text=''):
         pass
 
 
-if PY3:
-    pdb = queue.LifoQueue()
-else:
-    pdb = Queue.LifoQueue()
-
-
 class PosterDB(AglarePosterXDownloadThread):
     def __init__(self):
         AglarePosterXDownloadThread.__init__(self)
         self.logdbg = None
+        self.pstcanal = None
 
     def run(self):
         self.logDB("[QUEUE] : Initialized")
@@ -481,16 +480,15 @@ class PosterDB(AglarePosterXDownloadThread):
                     val, log = self.search_google(dwn_poster, self.pstcanal, canal[4], canal[3], canal[0])
                     self.logDB(log)
                 pdb.task_done()
-        # else:
-            # self.pstcanal = noposter
 
     def logDB(self, logmsg):
+        import traceback
         try:
-            w = open("/tmp/PosterDB.log", "a+")
-            w.write("%s\n" % logmsg)
-            w.close()
+            with open("/tmp/PosterDB.log", "a") as w:
+                w.write("%s\n" % logmsg)
         except Exception as e:
-            print('logDB exceptions', str(e))
+            print('logDB error:', str(e))
+            traceback.print_exc()
 
 
 threadDB = PosterDB()
@@ -507,7 +505,7 @@ class PosterAutoDB(AglarePosterXDownloadThread):
         while True:
             time.sleep(7200)  # 7200 - Start every 2 hours
             self.logAutoDB("[AutoDB] *** Running ***")
-            self.pstcanal = ''
+            self.pstcanal = None
             # AUTO ADD NEW FILES - 1440 (24 hours ahead)
             for service in apdb.values():
                 try:
@@ -530,7 +528,6 @@ class PosterAutoDB(AglarePosterXDownloadThread):
                             canal[4] = evt[6]
                             canal[5] = canal[2]
                             self.pstcanal = convtext(canal[5])
-                            # if self.pstcanal is not None:
                             self.pstrNm = path_folder + '/' + self.pstcanal + ".jpg"
                             self.pstcanal = str(self.pstrNm)
                             dwn_poster = self.pstcanal
@@ -586,12 +583,13 @@ class PosterAutoDB(AglarePosterXDownloadThread):
             self.logAutoDB("[AutoDB] *** Stopping ***")
 
     def logAutoDB(self, logmsg):
+        import traceback
         try:
-            w = open("/tmp/PosterAutoDB.log", "a+")
-            w.write("%s\n" % logmsg)
-            w.close()
+            with open("/tmp/PosterAutoDB.log", "a") as w:
+                w.write("%s\n" % logmsg)
         except Exception as e:
-            print('error logAutoDB 2 ', e)
+            print('logAutoDB error', str(e))
+            traceback.print_exc()
 
 
 threadAutoDB = PosterAutoDB()
@@ -609,7 +607,7 @@ class AglarePosterX(Renderer):
         self.canal = [None, None, None, None, None, None]
         self.oldCanal = None
         self.logdbg = None
-        self.pstcanal = ''
+        self.pstcanal = None
         self.timer = eTimer()
         try:
             self.timer_conn = self.timer.timeout.connect(self.showPoster)
@@ -698,8 +696,6 @@ class AglarePosterX(Renderer):
                 if self.pstcanal is not None:
                     self.pstrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
                     self.pstcanal = str(self.pstrNm)
-                # else:
-                    # self.pstcanal = noposter
                 if os.path.exists(self.pstcanal):
                     self.timer.start(10, True)
                 else:
@@ -716,17 +712,16 @@ class AglarePosterX(Renderer):
         if self.instance:
             self.instance.hide()
         if self.canal[5]:
-            if not os.path.exists(self.pstcanal):
+            if self.pstcanal is not None and not os.path.exists(self.pstcanal):
                 self.pstcanal = convtext(self.canal[5])
                 if self.pstcanal is not None:
                     self.pstrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
                     self.pstcanal = str(self.pstrNm)
                 else:
+                    print('showPoster----')
                     self.pstcanal = noposter
-            else:
+            if os.path.exists(self.pstcanal):
                 print('showPoster----')
-                # self.pstcanal = noposter
-                # if os.path.exists(self.pstcanal):
                 self.logPoster("[LOAD : showPoster] {}".format(self.pstcanal))
                 self.instance.setPixmap(loadJPG(self.pstcanal))
                 self.instance.setScale(1)
@@ -736,32 +731,28 @@ class AglarePosterX(Renderer):
         if self.instance:
             self.instance.hide()
         if self.canal[5]:
-            if not os.path.exists(self.pstcanal):
+            if self.pstcanal is not None and not os.path.exists(self.pstcanal):
                 self.pstcanal = convtext(self.canal[5])
                 if self.pstcanal is not None:
                     self.pstrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
                     self.pstcanal = str(self.pstrNm)
-                # else:
-                    # self.pstcanal = noposter
             loop = 180
             found = None
             self.logPoster("[LOOP: waitPoster] {}".format(self.pstcanal))
             while loop >= 0:
-                if os.path.exists(self.pstcanal):
+                if self.pstcanal is not None and os.path.exists(self.pstcanal):
                     loop = 0
                     found = True
                 time.sleep(0.5)
                 loop = loop - 1
             if found:
                 self.timer.start(20, True)
-        # else:
-            # print('waitPoster----')
-            # self.pstcanal = noposter
 
     def logPoster(self, logmsg):
+        import traceback
         try:
-            w = open("/tmp/AglarePosterX.log", "a+")
-            w.write("%s\n" % logmsg)
-            w.close()
+            with open("/tmp/logPosterXx.log", "a") as w:
+                w.write("%s\n" % logmsg)
         except Exception as e:
-            print('logPoster error', e)
+            print('logPoster error:', str(e))
+            traceback.print_exc()
