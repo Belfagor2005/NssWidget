@@ -120,6 +120,8 @@ elif os.path.exists("/media/usb"):
 elif os.path.exists("/media/mmc"):
     if isMountedInRW("/media/mmc"):
         path_folder = "/media/mmc/poster"
+# else:
+    # path_folder = "/tmp/poster"
 if not os.path.exists(path_folder):
     os.makedirs(path_folder)
 
@@ -231,6 +233,15 @@ REGEX = re.compile(
     re.DOTALL)
 
 
+def getCleanContentSearchTitle(event_title=""):
+    # to search for a title in the content-table by intern cleaned clean_search_title column
+    cleanEventname = re.sub(' I$', ' 1', event_title)
+    cleanEventname = re.sub(' II$', ' 2', cleanEventname)
+    cleanEventname = re.sub(' III$', ' 3', cleanEventname)
+    cleanEventname = cleanEventname.lower().replace(",", "").replace("ß", "ss").replace(" & ", " and ").replace("!", "").replace("-", "").replace(" und ", " and ").replace(".", "").replace("'", "").replace("?", "").replace(" ", "")
+    return cleanEventname
+
+
 def intCheck():
     try:
         response = urlopen("http://google.com", None, 5)
@@ -316,7 +327,6 @@ def convtext(text=''):
             print('lowercased text: ', text)
             text = remove_accents(text)
             print('remove_accents text: ', text)
-
             # #
             text = cutName(text)
             text = getCleanTitle(text)
@@ -457,6 +467,7 @@ class PosterDB(AglarePosterXDownloadThread):
                 dwn_poster = path_folder + '/' + self.pstcanal + ".jpg"
                 if os.path.exists(dwn_poster):
                     os.utime(dwn_poster, (time.time(), time.time()))
+                '''
                 # if lng == "fr":
                     # if not os.path.exists(dwn_poster):
                         # val, log = self.search_molotov_google(dwn_poster, canal[5], canal[4], canal[3], canal[0])
@@ -464,6 +475,7 @@ class PosterDB(AglarePosterXDownloadThread):
                     # if not os.path.exists(dwn_poster):
                         # val, log = self.search_programmetv_google(dwn_poster, canal[5], canal[4], canal[3], canal[0])
                         # self.logDB(log)
+                '''
                 if not os.path.exists(dwn_poster):
                     val, log = self.search_tmdb(dwn_poster, self.pstcanal, canal[4], canal[3])
                     self.logDB(log)
@@ -533,6 +545,7 @@ class PosterAutoDB(AglarePosterXDownloadThread):
                             dwn_poster = self.pstcanal
                             if os.path.join(path_folder, dwn_poster):
                                 os.utime(dwn_poster, (time.time(), time.time()))
+                            '''
                             # if lng == "fr":
                                 # if not os.path.exists(dwn_poster):
                                     # val, log = self.search_molotov_google(dwn_poster, self.pstcanal, canal[4], canal[3], canal[0])
@@ -542,6 +555,7 @@ class PosterAutoDB(AglarePosterXDownloadThread):
                                     # val, log = self.search_programmetv_google(dwn_poster, self.pstcanal, canal[4], canal[3], canal[0])
                                     # if val and log.find("SUCCESS"):
                                         # newfd += 1
+                            '''
                             if not os.path.exists(dwn_poster):
                                 val, log = self.search_tmdb(dwn_poster, self.pstcanal, canal[4], canal[3], canal[0])
                                 if val and log.find("SUCCESS"):
@@ -613,7 +627,7 @@ class AglarePosterX(Renderer):
             self.timer_conn = self.timer.timeout.connect(self.showPoster)
         except:
             self.timer.callback.append(self.showPoster)
-        self.timer.start(10, True)
+        # self.timer.start(10, True)
 
     def applySkin(self, desktop, parent):
         attribs = []
