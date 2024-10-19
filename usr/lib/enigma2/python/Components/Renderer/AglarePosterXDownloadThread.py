@@ -65,7 +65,13 @@ try:
         for key, path in skin_paths.items():
             if os.path.exists(path):
                 with open(path, "r") as f:
-                    setattr(key, f.read().strip())
+                    value = f.read().strip()
+                    if key == "tmdb_api":
+                        tmdb_api = value
+                    elif key == "omdb_api":
+                        omdb_api = value
+                    elif key == "thetvdbkey":
+                        thetvdbkey = value
                 my_cur_skin = True
 except Exception as e:
     print("Errore nel caricamento delle API:", str(e))
