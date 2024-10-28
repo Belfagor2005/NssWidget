@@ -143,7 +143,7 @@ else:
             MAXSIZE = int((1 << 63) - 1)
         del X
 
-currversion = '1.30'
+currversion = '1.31'
 title_plug = 'Vavoo'
 desc_plugin = ('..:: Vavoo by Lululla v.%s ::..' % currversion)
 stripurl = 'aHR0cHM6Ly92YXZvby50by9jaGFubmVscw=='
@@ -167,13 +167,10 @@ if os_path.islink('/etc/rc3.d/S99ipv6dis.sh'):
 # log
 def trace_error():
     try:
-        # Stampa la traccia dell'errore su stdout
         traceback.print_exc(file=sys.stdout)
-        # Scrive la traccia dell'errore su un file di log
-        with open("/tmp/vavoo.log", "a") as log_file:
+        with open("/tmp/vavoo.log", "a", encoding='utf-8') as log_file:
             traceback.print_exc(file=log_file)
     except Exception as e:
-        # Gestisce qualsiasi eccezione che potrebbe verificarsi durante la registrazione dell'errore
         print("Failed to log the error:", e, file=sys.stderr)
 
 
@@ -347,14 +344,12 @@ def Sig():
             sig = req['data']['signed']
         elif req.get('response', {}).get('signed'):
             sig = req['response']['signed']
-        # except requests.RequestException as e:
-            # print("Request failed:", e)
     return sig
 
 
 def loop_sig():
     while True:
-        sig = ''
+        sig = None
         now = int(time.time())
         print('now=', str(now))
         last = tmlast
@@ -371,25 +366,36 @@ def loop_sig():
 
 def returnIMDB(text_clear):
     TMDB = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('TMDB'))
+    tmdb = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('tmdb'))
     IMDb = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('IMDb'))
-    text = html_unescape(text_clear)
-    if file_exists(TMDB):
+    text = html_conv.html_unescape(text_clear)
+    if os.path.exists(TMDB):
         try:
             from Plugins.Extensions.TMBD.plugin import TMBD
             _session.open(TMBD.tmdbScreen, text, 0)
         except Exception as e:
-            print("[XCF] TMDB error:", e)
-            _session.open(MessageBox, "Error opening TMDB plugin: {}".format(e), MessageBox.TYPE_ERROR)
-    elif file_exists(IMDb):
+            print("[XCF] Tmdb: ", str(e))
+        return True
+
+    elif os.path.exists(tmdb):
+        try:
+            from Plugins.Extensions.tmdb.plugin import tmdb
+            _session.open(tmdb.tmdbScreen, text, 0)
+        except Exception as e:
+            print("[XCF] Tmdb: ", str(e))
+        return True
+
+    elif os.path.exists(IMDb):
         try:
             from Plugins.Extensions.IMDb.plugin import main as imdb
             imdb(_session, text)
         except Exception as e:
-            print("[XCF] IMDb error:", e)
-            _session.open(MessageBox, "Error opening IMDb plugin: {}".format(e), MessageBox.TYPE_ERROR)
+            print("[XCF] imdb: ", str(e))
+        return True
     else:
         _session.open(MessageBox, text, MessageBox.TYPE_INFO)
-    return True
+        return True
+    return False
 
 
 # check server
@@ -560,7 +566,7 @@ class vavoo_configx(Screen, ConfigListScreen):
                 self['description'].setText(_('SELECT YOUR CHOICE'))
             return
         except Exception as error:
-            print(error)
+            print('error as:', error)
             trace_error()
 
     def ipv6(self):
@@ -695,7 +701,6 @@ class MainVavoox(Screen):
             HALIGN = RT_HALIGN_LEFT
             self['blue'].setText(_('Halign Right'))
         self.cat()
-        # self.timer.start(200, True)
 
     def goConfig(self):
         self.session.open(vavoo_configx)
@@ -726,11 +731,17 @@ class MainVavoox(Screen):
             content = getUrl(self.url)
             if PY3:
                 content = six.ensure_str(content)
-            regexcat = '"country".*?"(.*?)".*?"id".*?"name".*?".*?"'
-            match = re.compile(regexcat, re.DOTALL).findall(content)
-            for country in match:
+            try:
+                data = json.loads(content)
+            except ValueError:
+                print('Error parsing JSON data')
+                self['name'].setText('Error parsing data')
+                return
+            # data = sorted(data, key=lambda x: x["country"])
+            for entry in data:
+                country = unquote(entry["country"]).strip("\r\n")
+                name = unquote(entry["name"]).strip("\r\n")
                 if country not in self.items_tmp:
-                    country = unquote(country).strip("\r\n")
                     self.items_tmp.append(country)
                     item = country + "###" + self.url + '\n'
                     items.append(item)
@@ -748,7 +759,7 @@ class MainVavoox(Screen):
                 txtsream = self['menulist'].getCurrent()[0][0]
                 self['name'].setText(str(txtsream))
         except Exception as error:
-            print(error)
+            print('error as:', error)
             trace_error()
             self['name'].setText('Error')
         self['version'].setText('V.' + currversion)
@@ -759,7 +770,7 @@ class MainVavoox(Screen):
         try:
             self.session.open(vavoox, name, url)
         except Exception as error:
-            print(error)
+            print('error as:', error)
             trace_error()
 
     def exit(self):
@@ -843,7 +854,6 @@ class vavoox(Screen):
             HALIGN = RT_HALIGN_LEFT
             self['blue'].setText(_('Halign Right'))
         self.cat()
-        # self.timer.start(200, True)
 
     def backhome(self):
         if search_ok is True:
@@ -876,22 +886,28 @@ class vavoox(Screen):
         xxxname = '/tmp/' + self.name + '.m3u'
         svr = cfg.server.value
         server = zServer(0, svr, None)
+        data = None
         global search_ok
         search_ok = False
         try:
-            with open(xxxname, 'w') as outfile:
-                outfile.write('#NAME %s\r\n' % self.name.capitalize())
-                content = getUrl(self.url)
-                if PY3:
-                    content = six.ensure_str(content)
-                names = self.name
-                regexcat = '"country".*?"(.*?)".*?"id"(.*?)"name".*?"(.*?)"'
-                match = re.compile(regexcat, re.DOTALL).findall(content)
-                for country, ids, name in match:
-                    if country != names:
+            content = getUrl(self.url)
+            if PY3:
+                content = six.ensure_str(content)
+            data = json.loads(content)
+        except ValueError:
+            print('Error parsing JSON data')
+            self['name'].setText('Error parsing data')
+            return
+        try:
+            if data is not None:
+                for entry in data:
+                    country = unquote(entry["country"]).strip("\r\n")
+                    name = unquote(entry["name"]).strip("\r\n")
+                    ids = entry["id"]
+                    if country != self.name:
                         continue
                     ids = ids.replace(':', '').replace(' ', '').replace(',', '')
-                    url = str(server) + '/live2/play/' + str(ids) + '.ts'  # + app
+                    url = str(server) + '/live2/play/' + str(ids) + '.ts'
                     name = decodeHtml(name)
                     name = rimuovi_parentesi(name)
                     item = name + "###" + url + '\n'
@@ -901,16 +917,19 @@ class vavoox(Screen):
                 global itemlist
                 itemlist = items
                 # use for search end
-                for item in items:
-                    name1 = item.split('###')[0]
-                    url = item.split('###')[1]
-                    name = unquote(name1).strip("\r\n")
-                    self.cat_list.append(show_(name, url))
-                    # make m3u
-                    nname = '#EXTINF:-1,' + str(name) + '\n'
-                    outfile.write(nname)
-                    outfile.write('#EXTVLCOPT:http-user-agent=VAVOO/2.6' + '\n')
-                    outfile.write(str(url) + '\n')
+                with open(xxxname, 'w') as outfile:
+                    for item in items:
+                        name1 = item.split('###')[0]
+                        url = item.split('###')[1]
+                        url = url.replace('%0a', '').replace('%0A', '').strip("\r\n")
+                        name = unquote(name1).strip("\r\n")
+                        self.cat_list.append(show_(name, url))
+                        # make m3u
+                        outfile.write('#NAME %s\r\n' % self.name.capitalize())
+                        nname = '#EXTINF:-1,' + str(name) + '\n'
+                        outfile.write(nname)
+                        outfile.write('#EXTVLCOPT:http-user-agent=VAVOO/2.6' + '\n')
+                        outfile.write(str(url) + '\n')
                 # make m3u end
                 if len(self.cat_list) < 1:
                     return
@@ -920,7 +939,7 @@ class vavoox(Screen):
                     txtsream = self['menulist'].getCurrent()[0][0]
                     self['name'].setText(str(txtsream))
         except Exception as error:
-            print(error)
+            print('error as:', error)
             trace_error()
             self['name'].setText('Error')
         self['version'].setText('V.' + currversion)
@@ -936,7 +955,7 @@ class vavoox(Screen):
                 url = item[1]
             self.play_that_shit(url, name, self.currentindex, item, self.cat_list)
         except Exception as error:
-            print(error)
+            print('error as:', error)
             trace_error()
 
     def play_that_shit(self, url, name, index, item, cat_list):
@@ -968,10 +987,10 @@ class vavoox(Screen):
         ch = 0
         ch = convert_bouquet(service, name, url)
         if int(ch) > 0:
-            localtime = time.asctime(time.localtime(time.time()))
-            cfg.last_update.value = localtime
-            cfg.last_update.save()
             if response is True:
+                localtime = time.asctime(time.localtime(time.time()))
+                cfg.last_update.value = localtime
+                cfg.last_update.save()
                 _session.open(MessageBox, _('bouquets reloaded..\nWith %s channel') % str(ch), MessageBox.TYPE_INFO, timeout=5)
         else:
             _session.open(MessageBox, _('Download Error'), MessageBox.TYPE_INFO, timeout=5)
@@ -998,10 +1017,10 @@ class vavoox(Screen):
             for line in newlines:
                 f.write(line)
         ReloadBouquets()
-        localtime = time.asctime(time.localtime(time.time()))
-        cfg.last_update.value = localtime
-        cfg.last_update.save()
         if response is True:
+            localtime = time.asctime(time.localtime(time.time()))
+            cfg.last_update.value = localtime
+            cfg.last_update.save()
             _session.open(MessageBox, _('Wait...\nUpdate List Bouquet...\nbouquets reloaded..'), MessageBox.TYPE_INFO, timeout=5)
 
     def message4(self, answer=None):
@@ -1223,12 +1242,6 @@ class Playstream2(
         self.url = item[1]
         self.cicleStreamType()
 
-    # def doEofInternal(self, playing):
-        # self.close()
-
-    # def __evEOF(self):
-        # self.end = True
-
     def doEofInternal(self, playing):
         print('doEofInternal', playing)
         MemClean()
@@ -1315,22 +1328,9 @@ class Playstream2(
             trace_error()
             print("Error: can't find Playstream2 in live_to_stream", str(error))
 
-    def slinkPlay(self):
-        url = self.url
-        name = self.name
-        ref = "{0}:{1}".format(url.replace(":", "%3a"), name.replace(":", "%3a"))
-        # print('final reference:   ', ref)
-        sref = eServiceReference(ref)
-        self.sref = sref
-        sref.setName(name)
-        self.session.nav.stopService()
-        self.session.nav.playService(sref)
-
     def openTest(self, servicetype, url):
-        # tmlast = int(time.time())
         sig = Sig()
         app = '?n=1&b=5&vavoo_auth=' + str(sig) + '#User-Agent=VAVOO/2.6'
-        # print('sig:', str(sig))
         name = self.name
         url = url + app
         ref = "{0}:0:0:0:0:0:0:0:0:0:{1}:{2}".format(servicetype, url.replace(":", "%3a"), name.replace(":", "%3a"))
@@ -1389,11 +1389,11 @@ def convert_bouquet(service, name, url):
     bouquet_type = 'tv'
     if "radio" in name.lower():
         bouquet_type = "radio"
-    name_file = re.sub(r'[<>:"/\\|?*, ]', '_', str(name))  # Replace spaces and commas with "_"
-    name_file = re.sub(r'\d+:\d+:[\d.]+', '_', name_file)  # Replace numeric patterns with "_"
-    name_file = re.sub(r'_+', '_', name_file)  # Replace sequences of "_" with a single "_"
+    name_file = re.sub(r'[<>:"/\\|?*, ]', '_', str(name))
+    name_file = re.sub(r'\d+:\d+:[\d.]+', '_', name_file)
+    name_file = re.sub(r'_+', '_', name_file)
 
-    with open(enigma_path + '/Favorite.txt', 'w', encoding='utf-8') as r:
+    with open(enigma_path + '/Favorite.txt', 'w') as r:
         r.write(str(name_file) + '###' + str(url))
 
     bouquet_name = 'userbouquet.vavoo_%s.%s' % (name_file.lower(), bouquet_type.lower())
@@ -1412,13 +1412,14 @@ def convert_bouquet(service, name, url):
             dct = ''
             with open(files, 'r') as f:  # 'r' is for universal newlines mode
                 for line in f:
+                    line = str(line)
                     if line.startswith("#EXTINF"):
                         namel = '%s' % line.split(',')[-1]
                         dsna = ('#DESCRIPTION %s' % namel).splitlines()
                         dct = ''.join(dsna)
 
                     elif line.startswith('http'):
-                        line = str(line).strip('\n\r') + str(app)
+                        line = line.strip('\n\r') + str(app)
                         tag = '1'
                         if bouquet_type.upper() == 'RADIO':
                             tag = '2'
@@ -1432,12 +1433,11 @@ def convert_bouquet(service, name, url):
                         tplst.append(dct)
                         ch += 1
 
-            with open(path1, 'w+', encoding='utf-8') as f:
+            with open(path1, 'w+') as f:
                 f_content = f.read()
                 for item in tplst:
                     if item not in f_content:
                         f.write("%s\n" % item)
-                        # print('item  -------- ', item)
 
             in_bouquets = False
             with open('/etc/enigma2/bouquets.%s' % bouquet_type.lower(), 'r') as f:
@@ -1445,13 +1445,12 @@ def convert_bouquet(service, name, url):
                     if bouquet_name in line:
                         in_bouquets = True
             if not in_bouquets:
-                with open(path2, 'a+', encoding='utf-8') as f:
+                with open(path2, 'a+') as f:
                     bouquetTvString = '#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "' + str(bouquet_name) + '" ORDER BY bouquet\n'
                     f.write(bouquetTvString)
             ReloadBouquets()
         except Exception as error:
-            print(error)
-
+            print('error as:', error)
     return ch
 
 

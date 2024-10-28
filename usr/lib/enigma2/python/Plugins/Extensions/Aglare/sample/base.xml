@@ -206,7 +206,7 @@
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="bLogo"/>                                                          
+        <panel name="bLogo"/>
         <panel name="menudesc"/>
         <panel name="menusep"/>
         <panel name="pigscreen885"/>
@@ -850,7 +850,6 @@
         <panel name="bLogo"/>
         <panel name="titletemp"/>
     </screen>
-
     <screen name="ScanIP" position="0,0" size="1920,1080" title="Scan IP" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
@@ -859,7 +858,6 @@
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
         <widget name="config" position="36,100" size="890,50" itemHeight="50" font="Regular; 30" itemCornerRadius="8"/>
     </screen>
-    
     <screen name="UserDialog" position="0,0" size="1920,1080" title="UserDialog" backgroundColor="transparent" flags="wfNoBorder">
         <widget name="HelpWindow" position="694,791" size="906,188" zPosition="1" backgroundColor="background" transparent="1" alphatest="blend" font="Regular; 24"/>
         <widget source="VKeyIcon" conditional="VKeyIcon" render="Pixmap" pixmap="buttons/key_text.png" alphatest="blend" position="1590,1022" size="54,34" zPosition="10">
@@ -1448,7 +1446,7 @@
         <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
     </screen>
     <screen name="RdsInfoDisplay" position="0,0" size="1920,1080" zPosition="-2" backgroundColor="transparent" flags="wfNoBorder">
-        <widget name="RassLogo" pixmap="skin_default/icons/rass_logo.png" position="150,878" size="75,32"/>
+        <widget name="RassLogo" pixmap="skin_default/rass_logo.png" position="150,878" size="75,32"/>
         <widget name="RadioText" position="150,935" size="1620,51" font="Regular; 34" valign="bottom" noWrap="1" backgroundColor="background" shadowOffset="-2,-2" shadowColor="background" transparent="0"/>
         <widget name="RtpText" position="150,986" size="1620,51" font="Regular; 34" halign="right" valign="top" noWrap="1" backgroundColor="background" shadowOffset="-2,-2" shadowColor="background" foregroundColor="foreground"/>
     </screen>
@@ -3992,7 +3990,7 @@ self.instance.move(ePoint(int(deskwidth - newwidth)//2,int(deskheight - newheigh
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <ePixmap name="" position="1600,964" size="54,34" alphatest="blend" zPosition="99" pixmap="main/exit_button.png" transparent="1"/>
+        <ePixmap name="" position="1600,964" size="54,34" alphatest="blend" zPosition="99" pixmap="buttons/key_exit.png" transparent="1"/>
         <panel name="configlist45"/>
         <panel name="description"/>
         <panel name="footnote"/>
@@ -4006,7 +4004,7 @@ self.instance.move(ePoint(int(deskwidth - newwidth)//2,int(deskheight - newheigh
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
-        <ePixmap name="" position="1600,964" size="54,34" alphatest="blend" zPosition="99" pixmap="main/menu_button.png" transparent="1"/>
+        <ePixmap name="" position="1600,964" size="54,34" alphatest="blend" zPosition="99" pixmap="buttons/key_menu.png" transparent="1"/>
         <panel name="configlist45"/>
         <panel name="description"/>
         <panel name="footnote"/>
@@ -5310,7 +5308,7 @@ MultiContentEntryText(pos = (0, 0),   size = (680, 35),  font = 0, flags = RT_HA
         <panel name="bLogo"/>
         <widget name="config" zPosition="2" position="36,98" size="890,900" itemHeight="45" font="Regular; 26" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="8" valign="center"/>
         <widget name="key_info" position="997,948" size="510,50" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" zPosition="5" valign="center"/>
-        <ePixmap name="" position="1600,964" size="54,34" alphatest="blend" zPosition="99" pixmap="main/ok_button.png" transparent="1"/>
+        <ePixmap name="" position="1600,964" size="54,34" alphatest="blend" zPosition="99" pixmap="buttons/key_ok.png" transparent="1"/>
         <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
     </screen>
     <screen name="GraphicalEPG" title="E.P Guide" position="fill" backgroundColor="background" flags="wfNoBorder">
@@ -6072,7 +6070,7 @@ MultiContentEntryPixmapAlphaTest(pos = (5, 1), size = (24, 24), png = 1),
         <widget source="menu" render="Listbox" position="36,98" size="890,900" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1">
             <convert type="StringList"/>
         </widget>
-        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/MEDIA.png" transparent="1" alphatest="on"/>
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/media.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="EMCImdbScan" position="0,0" size="1920,1080" title="EMC Cover search" flags="wfNoBorder" backgroundColor="transparent">
         <panel name="menutemp3"/>
@@ -7268,7 +7266,7 @@ MultiContentEntryText(pos = (20, 0), size = (840, 50), flags = RT_HALIGN_LEFT|RT
         <eLabel text="Cancel" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" foregroundColor="white" backgroundColor="background" transparent="1"/>
         <eLabel text="Save" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <eLabel text="Update" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <eLabel text="Info" position="962,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
+        <eLabel text="CheckSkin" position="962,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget name="Preview" position="997,690" size="498, 280" zPosition="1"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/aglarelogo.png" transparent="1" alphatest="on"/>
     </screen>
@@ -7684,7 +7682,7 @@ MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
     </screen>
     <screen name="FileCommanderScreen" position="0,0" size="1920,1080" title="File Commander" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="menutemp3"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <!-- <panel name="ScreenTemplateAllColorButtons_menu"/> -->
         <widget name="list_left_head1" position="34,100" size="900,30" font="Regular;26" noWrap="1" backgroundColor="background" transparent="1" zPosition="1" itemHeight="30"/>
         <widget name="list_left_filename" position="34,130" size="900,21" font="Regular;18" noWrap="1" foregroundColor="yellow" backgroundColor="background" transparent="1" zPosition="1"/>
         <widget name="sort_left" position="34,151" size="900,23" halign="center" font="Regular;23" backgroundColor="background" foregroundColor="white" transparent="1" zPosition="1"/>
@@ -7693,6 +7691,10 @@ MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
         <widget name="list_right_filename" position="980,130" size="900,21" font="Regular;18" noWrap="1" foregroundColor="yellow" backgroundColor="background" transparent="1" zPosition="1"/>
         <widget name="sort_right" position="980,151" size="900,23" halign="center" font="Regular;23" backgroundColor="background" foregroundColor="white" transparent="1" zPosition="1"/>
         <widget name="list_right_free" position="980,151" size="300,25" font="Regular;22" backgroundColor="background" foregroundColor="green" transparent="1" zPosition="1"/>
+        <widget objectTypes="key_red,StaticText" source="key_red" render="Label" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
+        <widget objectTypes="key_green,StaticText" source="key_green" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
+        <widget objectTypes="key_yellow,StaticText" source="key_yellow" render="Label" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
+        <widget objectTypes="key_blue,StaticText" source="key_blue" render="Label" position="962,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
         <eLabel name="" position="1658,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
         <widget name="list_left" position="34,265" size="900,675" itemHeight="50" font="Regular;30" transparent="1" itemCornerRadius="8" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1"/>
@@ -7761,5 +7763,16 @@ MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
         <widget name="media" position="44,100" size="880,50" valign="center" font="Regular; 30" transparent="1" zPosition="1" foregroundColor="yellow"/>
         <widget name="folderlist" position="36,160" zPosition="1" size="890,800" valign="center" transparent="1" itemHeight="50" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
     </screen>
+    <screen name="MultibootSelection" position="0,0" size="1920,1080" title="Multiboot Image Selection" flags="wfNoBorder" backgroundColor="transparent">
+        <panel name="menutemp"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="titletemp"/>
+        <panel name="description"/>
+        <panel name="pigscreen885"/>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <widget name="config" position="36,98" size="890,868" itemHeight="62" enableWrapAround="1" transparent="1" font="Regular; 40" valign="center" itemCornerRadius="8"/>
+        <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
+        <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
+    </screen>                                                                                                                                                         
 </skin>
 

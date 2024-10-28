@@ -14,13 +14,23 @@ import socket
 import sys
 import threading
 import unicodedata
+import random
+import json
+
+try:
+    from http.client import HTTPConnection
+    HTTPConnection.debuglevel = 0
+except ImportError:
+    from httplib import HTTPConnection
+    HTTPConnection.debuglevel = 0
+from requests.adapters import HTTPAdapter, Retry
+
+
 global my_cur_skin, srch
 
 PY3 = False
 if sys.version_info[0] >= 3:
     PY3 = True
-    unicode = str
-    unichr = chr
     import html
     html_parser = html
 else:
@@ -46,6 +56,22 @@ except:
     pass
 
 
+def getRandomUserAgent():
+    useragents = [
+        'Mozilla/5.0 (compatible; Konqueror/4.5; FreeBSD) KHTML/4.5.4 (like Gecko)',
+        'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.67 Safari/537.36',
+        'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20120101 Firefox/29.0',
+        'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0',
+        'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:35.0) Gecko/20120101 Firefox/35.0',
+        'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0',
+        'Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.13+ (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2',
+        'Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; de) Presto/2.9.168 Version/11.52',
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0'
+    ]
+    return random.choice(useragents)
+
+
 tmdb_api = "3c3efcf47c3577558812bb9d64019d65"
 omdb_api = "cb1d9f55"
 # thetvdbkey = 'D19315B88B2DE21F'
@@ -53,6 +79,15 @@ thetvdbkey = "a99d487bb3426e5f3a60dea6d3d3c7ef"
 fanart_api = "6d231536dea4318a88cb2520ce89473b"
 my_cur_skin = False
 cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
+
+
+def clean_recursive(regexStr="", replaceStr="", eventTitle=""):
+    while True:
+        clean_name = re.sub(regexStr, replaceStr, eventTitle)
+        if clean_name == eventTitle:
+            break
+        eventTitle = clean_name
+    return clean_name
 
 
 try:
@@ -146,41 +181,82 @@ class AglarePosterXDownloadThread(threading.Thread):
 
     def search_tmdb(self, dwn_poster, title, shortdesc, fulldesc, channel=None):
         try:
-            year = None
-            url_tmdb = ""
-            poster = None
-            chkType, fd = self.checkType(shortdesc, fulldesc)
-            title = title
-            try:
-                if re.findall(r'19\d{2}|20\d{2}', title):
-                    year = re.findall(r'19\d{2}|20\d{2}', fd)[1]
-                else:
-                    year = re.findall(r'19\d{2}|20\d{2}', fd)[0]
-            except:
-                year = ''
-                pass
-            # url_tmdb = "https://api.themoviedb.org/3/search/{}?api_key={}&include_adult=true&query={}".format(srch, tmdb_api, quote(title))
-            url_tmdb = "https://api.themoviedb.org/3/search/{}?api_key={}".format(chkType, tmdb_api)
-            if year:
-                url_tmdb += "&first_air_date_year={}".format(year)
-            if lng:
-                url_tmdb += "&language={}".format(lng)
-            url_tmdb += "&query={}".format(quoteEventName(title))
-            print('url_tmdb= ', url_tmdb)
-            poster = requests.get(url_tmdb).json()
-            if poster and poster['results'] and poster['results'][0] and poster['results'][0]['poster_path']:
-                # if poster and poster != 'null' or poster is not None or poster != '':
-                url_poster = "https://image.tmdb.org/t/p/w{}{}".format(str(isz.split(",")[0]), poster['results'][0]['poster_path'])
-                self.savePoster(dwn_poster, url_poster)
-                if self.verifyPoster(dwn_poster):
-                    self.resizePoster(dwn_poster)
-                return True, "[SUCCESS poster: tmdb] {} [{}-{}] => {} => {}".format(title, chkType, year, url_tmdb, url_poster)
+            self.dwn_poster = dwn_poster
+            print('self.dwn_poster=', self.dwn_poster)
+            title_safe = quoteEventName(title)
+            url = f"https://api.themoviedb.org/3/search/multi?api_key={tmdb_api}&language={lng}&query={title_safe}"
+            data = None
+            retries = Retry(total=1, backoff_factor=1)
+            adapter = HTTPAdapter(max_retries=retries)
+            http = requests.Session()
+            http.mount("http://", adapter)
+            http.mount("https://", adapter)
+            headers = {'User-Agent': getRandomUserAgent()}
+            response = http.get(url, headers=headers, timeout=(10, 20), verify=False)
+            response.raise_for_status()
+            if response.status_code == requests.codes.ok:
+                try:
+                    data = response.json()
+                except ValueError as e:
+                    print(e)
+                    data = None
+                self.downloadData2(data)
+                return True, "Download avviato con successo"
             else:
-                return False, "[SKIP : tmdb] {} [{}-{}] => {} (Not found)".format(title, chkType, year, url_tmdb)
+                return False, f"Errore durante la ricerca su TMDb: {response.status_code}"
         except Exception as e:
-            if os.path.exists(dwn_poster):
-                os.remove(dwn_poster)
-            return False, "[ERROR : tmdb] {} [{}-{}] => {} ({})".format(title, chkType, year, url_tmdb, str(e))
+            print('Errore nella ricerca TMDb:', e)
+            return False, "Errore durante la ricerca su TMDb"
+
+    def downloadData(self, data):
+        try:
+            if isinstance(data, bytes):
+                print("Decoding bytes to string...")
+                data = data.decode('utf-8')
+            json_data = json.loads(data)
+            self.downloadData2(json_data)
+        except Exception as e:
+            print("Errore nel processare i dati scaricati:", e, "Tipo di dato:", type(data), "Contenuto:", data)
+
+    def downloadData2(self, data):
+        if isinstance(data, bytes):
+            print("Decoding bytes to string...")
+            data = data.decode('utf-8')
+        data_json = data if isinstance(data, dict) else json.loads(data)
+        if 'results' in data_json:
+            try:
+                for each in data_json['results']:
+                    media_type = str(each['media_type'])
+                    if media_type == "tv":
+                        media_type = "serie"
+                    if media_type in ['serie', 'movie']:
+                        year = ""
+                        if media_type == "movie" and 'release_date' in each and each['release_date']:
+                            year = each['release_date'].split("-")[0]
+                        elif media_type == "serie" and 'first_air_date' in each and each['first_air_date']:
+                            year = each['first_air_date'].split("-")[0]
+                        title = each.get('name', each.get('title', ''))
+                        # new_height = int(isz.split(",")[1])
+                        # backdrop = "http://image.tmdb.org/t/p/w1280" + each.get('backdrop_path', '')
+                        # poster = "http://image.tmdb.org/t/p/w500" + each.get('poster_path', '')
+                        backdrop = "http://image.tmdb.org/t/p/w1280" + each.get('backdrop_path', '')
+                        poster = "http://image.tmdb.org/t/p/w500" + each.get('poster_path', '')
+                        rating = str(each.get('vote_average', 0))
+                        show_title = title
+                        if year:
+                            show_title = "{} ({})".format(title, year)
+                        print('title, poster, backdrop, year, rating, show_title=', title, poster, backdrop, year, rating, show_title)
+                        if poster:
+                            self.savePoster(self.dwn_poster, poster)
+                            if self.verifyPoster(self.dwn_poster):
+                                self.resizePoster(self.dwn_poster)
+                        return True, "[SUCCESS poster: tmdb] title {} [poster{}-backdrop{}] => year{} => rating{} => showtitle{}".format(title, poster, backdrop, year, rating, show_title)
+                return False, "[SKIP : tmdb] Not found"
+            except Exception as e:
+                print('error=', e)
+                if os.path.exists(self.dwn_poster):
+                    os.remove(self.dwn_poster)
+                return False, "[ERROR : tmdb]"
 
     def search_tvdb(self, dwn_poster, title, shortdesc, fulldesc, channel=None):
         try:
@@ -599,16 +675,20 @@ class AglarePosterXDownloadThread(threading.Thread):
                 os.remove(dwn_poster)
             return False, "[ERROR : google] {} [{}-{}] => {} => {} ({})".format(title_safe, chkType, year, url_google, url_poster, str(e))
 
+    def downloadErrorInfo(self, error, url):
+        print('Error during download from URL:', url, error)
+
     def savePoster(self, dwn_poster, url_poster):
-        with open(dwn_poster, 'wb') as f:
-            f.write(urlopen(url_poster).read())
-            f.flush()
-            f.close()
+        try:
+            with open(dwn_poster, 'wb') as f:
+                f.write(urlopen(url_poster).read())
             file_size = os.path.getsize(dwn_poster)
             if file_size == 0:
                 os.remove(dwn_poster)
             else:
-                print('poster downlaoded:', dwn_poster)
+                print('Backdrop scaricato:', dwn_poster)
+        except Exception as e:
+            print('Errore nel salvataggio del backdrop:', e)
         return
 
     def resizePoster(self, dwn_poster):

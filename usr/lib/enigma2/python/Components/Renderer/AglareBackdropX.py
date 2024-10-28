@@ -32,6 +32,7 @@ from Components.Sources.EventInfo import EventInfo
 from Components.Sources.ServiceEvent import ServiceEvent
 from Components.config import config
 from ServiceReference import ServiceReference
+from six import text_type
 from enigma import (
     ePixmap,
     loadJPG,
@@ -50,7 +51,6 @@ import time
 PY3 = False
 if sys.version_info[0] >= 3:
     PY3 = True
-    unicode = str
     import queue
     import html
     html_parser = html
@@ -112,10 +112,10 @@ path_folder = "/tmp/backdrop"
 if os.path.exists("/media/hdd"):
     if isMountedInRW("/media/hdd"):
         path_folder = "/media/hdd/backdrop"
-if os.path.exists("/media/usb"):
+elif os.path.exists("/media/usb"):
     if isMountedInRW("/media/usb"):
         path_folder = "/media/usb/backdrop"
-if os.path.exists("/media/mmc"):
+elif os.path.exists("/media/mmc"):
     if isMountedInRW("/media/mmc"):
         path_folder = "/media/mmc/backdrop"
 if not os.path.exists(path_folder):
@@ -229,6 +229,15 @@ REGEX = re.compile(
     re.DOTALL)
 
 
+def getCleanContentSearchTitle(event_title=""):
+    # to search for a title in the content-table by intern cleaned clean_search_title column
+    cleanEventname = re.sub(' I$', ' 1', event_title)
+    cleanEventname = re.sub(' II$', ' 2', cleanEventname)
+    cleanEventname = re.sub(' III$', ' 3', cleanEventname)
+    cleanEventname = cleanEventname.lower().replace(",", "").replace("ß", "ss").replace(" & ", " and ").replace("!", "").replace("-", "").replace(" und ", " and ").replace(".", "").replace("'", "").replace("?", "").replace(" ", "")
+    return cleanEventname
+
+
 def intCheck():
     try:
         response = urlopen("http://google.com", None, 5)
@@ -244,20 +253,20 @@ def intCheck():
 
 
 def remove_accents(string):
-    import unicodedata
-    if PY3 is False:
-        if type(string) is not unicode:
-            string = unicode(string, encoding='utf-8')
-    # Normalizza la stringa usando Unicode NFD (Normalization Form D)
-    string = unicodedata.normalize('NFD', string)
-    # Rimuove i segni diacritici (accents) lasciando solo i caratteri base
-    string = re.sub(r'[\u0300-\u036f]', '', string)
+    if not isinstance(string, text_type):
+        string = text_type(string, 'utf-8')
+    string = re.sub(u"[àáâãäå]", 'a', string)
+    string = re.sub(u"[èéêë]", 'e', string)
+    string = re.sub(u"[ìíîï]", 'i', string)
+    string = re.sub(u"[òóôõö]", 'o', string)
+    string = re.sub(u"[ùúûü]", 'u', string)
+    string = re.sub(u"[ýÿ]", 'y', string)
     return string
 
 
 def unicodify(s, encoding='utf-8', norm=None):
-    if not isinstance(s, unicode):
-        s = unicode(s, encoding)
+    if not isinstance(s, text_type):
+        s = text_type(s, encoding)
     if norm:
         from unicodedata import normalize
         s = normalize(norm, s)
@@ -266,7 +275,7 @@ def unicodify(s, encoding='utf-8', norm=None):
 
 def str_encode(text, encoding="utf8"):
     if not PY3:
-        if isinstance(text, unicode):
+        if isinstance(text, text_type):
             return text.encode(encoding)
     return text
 
@@ -314,7 +323,6 @@ def convtext(text=''):
             print('lowercased text: ', text)
             text = remove_accents(text)
             print('remove_accents text: ', text)
-
             # #
             text = cutName(text)
             text = getCleanTitle(text)
@@ -455,13 +463,15 @@ class BackdropDB(AglareBackdropXDownloadThread):
                 dwn_backdrop = path_folder + '/' + self.pstcanal + ".jpg"
                 if os.path.exists(dwn_backdrop):
                     os.utime(dwn_backdrop, (time.time(), time.time()))
+                '''
                 # if lng == "fr":
-                    # if not os.path.exists(dwn_backdrop):
-                        # val, log = self.search_molotov_google(dwn_backdrop, canal[5], canal[4], canal[3], canal[0])
+                    # if not os.path.exists(dwn_poster):
+                        # val, log = self.search_molotov_google(dwn_poster, canal[5], canal[4], canal[3], canal[0])
                         # self.logDB(log)
-                    # if not os.path.exists(dwn_backdrop):
-                        # val, log = self.search_programmetv_google(dwn_backdrop, canal[5], canal[4], canal[3], canal[0])
+                    # if not os.path.exists(dwn_poster):
+                        # val, log = self.search_programmetv_google(dwn_poster, canal[5], canal[4], canal[3], canal[0])
                         # self.logDB(log)
+                '''
                 if not os.path.exists(dwn_backdrop):
                     val, log = self.search_tmdb(dwn_backdrop, self.pstcanal, canal[4], canal[3])
                     self.logDB(log)
@@ -531,6 +541,7 @@ class BackdropAutoDB(AglareBackdropXDownloadThread):
                             dwn_backdrop = self.pstcanal
                             if os.path.join(path_folder, dwn_backdrop):
                                 os.utime(dwn_backdrop, (time.time(), time.time()))
+                            '''
                             # if lng == "fr":
                                 # if not os.path.exists(dwn_backdrop):
                                     # val, log = self.search_molotov_google(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
@@ -540,6 +551,7 @@ class BackdropAutoDB(AglareBackdropXDownloadThread):
                                     # val, log = self.search_programmetv_google(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
                                     # if val and log.find("SUCCESS"):
                                         # newfd += 1
+                            '''
                             if not os.path.exists(dwn_backdrop):
                                 val, log = self.search_tmdb(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
                                 if val and log.find("SUCCESS"):
@@ -611,7 +623,7 @@ class AglareBackdropX(Renderer):
             self.timer_conn = self.timer.timeout.connect(self.showBackdrop)
         except:
             self.timer.callback.append(self.showBackdrop)
-        self.timer.start(10, True)
+        # self.timer.start(10, True)
 
     def applySkin(self, desktop, parent):
         attribs = []

@@ -852,10 +852,10 @@
     <screen name="epgtemp_pig" flags="wfNoBorder" position="0,0" backgroundColor="transparent">
         <ePixmap name="" position="0, 0" size="1920,1080" pixmap="main/widepanel.jpg" zPosition="-99"/>
         <widget source="Title" render="Label" position="34,22" size="1102,50" font="Regular; 36" backgroundColor="background" transparent="1" foregroundColor="mainskincolor" valign="center" zPosition="22" halign="left"/>
-        <ePixmap name="" position="34,1014" size="45,45" zPosition="99" pixmap="main/red.png" alphatest="on"/>
-        <ePixmap name="" position="351,1014" size="45,45" zPosition="99" pixmap="main/green.png" alphatest="on"/>
-        <ePixmap name="" position="666,1014" size="45,45" zPosition="99" pixmap="main/yellow.png" alphatest="on"/>
-        <ePixmap name="" position="981,1014" size="45,45" zPosition="99" pixmap="main/blue.png" alphatest="on"/>
+        <ePixmap name="" position="34,1014" size="45,45" zPosition="99" pixmap="buttons/red.png" alphatest="on"/>
+        <ePixmap name="" position="351,1014" size="45,45" zPosition="99" pixmap="buttons/green.png" alphatest="on"/>
+        <ePixmap name="" position="666,1014" size="45,45" zPosition="99" pixmap="buttons/yellow.png" alphatest="on"/>
+        <ePixmap name="" position="981,1014" size="45,45" zPosition="99" pixmap="buttons/blue.png" alphatest="on"/>
         <widget source="key_red" render="Label" position="79,1014" size="250,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_green" render="Label" position="396,1014" size="250,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_yellow" render="Label" position="711,1014" size="250,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white"/>
@@ -880,10 +880,10 @@
     <screen name="epgtemp_nopig" flags="wfNoBorder" position="0,0" backgroundColor="transparent">
         <ePixmap name="" position="0, 0" size="1920,1080" pixmap="main/widepanel.jpg" zPosition="-99"/>
         <widget source="Title" render="Label" position="34,22" size="1102,50" font="Regular; 36" backgroundColor="background" transparent="1" foregroundColor="mainskincolor" valign="center" zPosition="22" halign="left"/>
-        <ePixmap name="" position="34,1014" size="45,45" zPosition="99" pixmap="main/red.png" alphatest="on"/>
-        <ePixmap name="" position="351,1014" size="45,45" zPosition="99" pixmap="main/green.png" alphatest="on"/>
-        <ePixmap name="" position="666,1014" size="45,45" zPosition="99" pixmap="main/yellow.png" alphatest="on"/>
-        <ePixmap name="" position="981,1014" size="45,45" zPosition="99" pixmap="main/blue.png" alphatest="on"/>
+        <ePixmap name="" position="34,1014" size="45,45" zPosition="99" pixmap="buttons/red.png" alphatest="on"/>
+        <ePixmap name="" position="351,1014" size="45,45" zPosition="99" pixmap="buttons/green.png" alphatest="on"/>
+        <ePixmap name="" position="666,1014" size="45,45" zPosition="99" pixmap="buttons/yellow.png" alphatest="on"/>
+        <ePixmap name="" position="981,1014" size="45,45" zPosition="99" pixmap="buttons/blue.png" alphatest="on"/>
         <widget source="key_red" render="Label" position="79,1014" size="250,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_green" render="Label" position="396,1014" size="250,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <widget source="key_yellow" render="Label" position="711,1014" size="250,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white"/>

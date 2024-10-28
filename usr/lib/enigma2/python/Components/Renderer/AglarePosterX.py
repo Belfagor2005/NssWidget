@@ -34,6 +34,7 @@ from Components.Sources.EventInfo import EventInfo
 from Components.Sources.ServiceEvent import ServiceEvent
 from Components.config import config
 from ServiceReference import ServiceReference
+from six import text_type
 from enigma import (
     ePixmap,
     loadJPG,
@@ -52,7 +53,6 @@ import time
 PY3 = False
 if sys.version_info[0] >= 3:
     PY3 = True
-    unicode = str
     import queue
     import html
     html_parser = html
@@ -120,8 +120,7 @@ elif os.path.exists("/media/usb"):
 elif os.path.exists("/media/mmc"):
     if isMountedInRW("/media/mmc"):
         path_folder = "/media/mmc/poster"
-# else:
-    # path_folder = "/tmp/poster"
+
 if not os.path.exists(path_folder):
     os.makedirs(path_folder)
 
@@ -257,20 +256,20 @@ def intCheck():
 
 
 def remove_accents(string):
-    import unicodedata
-    if PY3 is False:
-        if type(string) is not unicode:
-            string = unicode(string, encoding='utf-8')
-    # Normalizza la stringa usando Unicode NFD (Normalization Form D)
-    string = unicodedata.normalize('NFD', string)
-    # Rimuove i segni diacritici (accents) lasciando solo i caratteri base
-    string = re.sub(r'[\u0300-\u036f]', '', string)
+    if not isinstance(string, text_type):
+        string = text_type(string, 'utf-8')
+    string = re.sub(u"[àáâãäå]", 'a', string)
+    string = re.sub(u"[èéêë]", 'e', string)
+    string = re.sub(u"[ìíîï]", 'i', string)
+    string = re.sub(u"[òóôõö]", 'o', string)
+    string = re.sub(u"[ùúûü]", 'u', string)
+    string = re.sub(u"[ýÿ]", 'y', string)
     return string
 
 
 def unicodify(s, encoding='utf-8', norm=None):
-    if not isinstance(s, unicode):
-        s = unicode(s, encoding)
+    if not isinstance(s, text_type):
+        s = text_type(s, encoding)
     if norm:
         from unicodedata import normalize
         s = normalize(norm, s)
@@ -279,7 +278,7 @@ def unicodify(s, encoding='utf-8', norm=None):
 
 def str_encode(text, encoding="utf8"):
     if not PY3:
-        if isinstance(text, unicode):
+        if isinstance(text, text_type):
             return text.encode(encoding)
     return text
 
@@ -731,9 +730,6 @@ class AglarePosterX(Renderer):
                 if self.pstcanal is not None:
                     self.pstrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
                     self.pstcanal = str(self.pstrNm)
-                else:
-                    print('showPoster----')
-                    self.pstcanal = noposter
             if os.path.exists(self.pstcanal):
                 print('showPoster----')
                 self.logPoster("[LOAD : showPoster] {}".format(self.pstcanal))
