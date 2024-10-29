@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# mod by Lululla
 
 from . import _
 from Components.AVSwitch import AVSwitch
@@ -6,10 +7,10 @@ from Components.ActionMap import ActionMap
 from Components.config import (
     # ConfigInteger,
     # ConfigNothing,
-    # ConfigNumber,
     # ConfigText,
-    # NoSave,
-    # configfile,
+    ConfigOnOff,
+    NoSave,
+    ConfigText,
     ConfigSelection,
     ConfigSubsection,
     ConfigYesNo,
@@ -27,6 +28,8 @@ from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from Screens.Standby import TryQuitMainloop
 from Tools.Directories import fileExists
+from Tools.Directories import SCOPE_PLUGINS
+from Tools.Directories import resolveFilename
 from Tools.Downloader import downloadWithProgress
 import os
 import sys
@@ -42,8 +45,49 @@ else:
 
 
 version = '1.09'
+my_cur_skin = False
+cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
+OAWeather = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('OAWeather'))
+weatherz = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('WeatherPlugin'))
+mvi = '/usr/share/'
+tmdb_skin = "%senigma2/%s/apikey" % (mvi, cur_skin)
+tmdb_api = "3c3efcf47c3577558812bb9d64019d65"
+omdb_skin = "%senigma2/%s/omdbkey" % (mvi, cur_skin)
+omdb_api = "cb1d9f55"
+
+try:
+    if my_cur_skin is False:
+        skin_paths = {
+            "tmdb_api": "/usr/share/enigma2/{}/apikey".format(cur_skin),
+            "omdb_api": "/usr/share/enigma2/{}/omdbkey".format(cur_skin),
+            # "thetvdbkey": "/usr/share/enigma2/{}/thetvdbkey".format(cur_skin)
+            # "visual_api": "/etc/enigma2/VisualWeather/apikey.txt"
+        }
+        for key, path in skin_paths.items():
+            if os.path.exists(path):
+                with open(path, "r") as f:
+                    value = f.read().strip()
+                    if key == "tmdb_api":
+                        tmdb_api = value
+                    elif key == "omdb_api":
+                        omdb_api = value
+                    # elif key == "thetvdbkey":
+                        # thetvdbkey = value
+                    # elif key == "visual_api":
+                        # visual_api = value
+                my_cur_skin = True
+except Exception as e:
+    print("Errore nel caricamento delle API:", str(e))
+    my_cur_skin = False
 
 config.plugins.AglareNss = ConfigSubsection()
+config.plugins.AglareNss.actapi = NoSave(ConfigOnOff(default=False))
+config.plugins.AglareNss.data = NoSave(ConfigOnOff(default=False))
+config.plugins.AglareNss.api = NoSave(ConfigYesNo(default=False))  # NoSave(ConfigSelection(['-> Ok']))
+config.plugins.AglareNss.txtapi = ConfigText(default=tmdb_api, visible_width=50, fixed_size=False)
+config.plugins.AglareNss.data2 = NoSave(ConfigOnOff(default=False))
+config.plugins.AglareNss.api2 = NoSave(ConfigYesNo(default=False))  # NoSave(ConfigSelection(['-> Ok']))
+config.plugins.AglareNss.txtapi2 = ConfigText(default=omdb_api, visible_width=50, fixed_size=False)
 config.plugins.AglareNss.colorSelector = ConfigSelection(default='head', choices=[
     ('head', _('Default')),
     ('color1', _('Black')),
@@ -118,26 +162,28 @@ class AglareSetup(ConfigListScreen, Screen):
         self.version = '.Aglare-FHD-NSS'
         Screen.__init__(self, session)
         self.session = session
-        self.skinFile = '/usr/share/enigma2/Aglare-FHD-NSS/skin.xml'
+        self.skinFile = "%senigma2/%s/skin.xml" % (mvi, cur_skin)  # '/usr/share/enigma2/Aglare-FHD-NSS/skin.xml'
         self.previewFiles = '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/sample/'
         self['Preview'] = Pixmap()
         self.onChangedEntry = []
         list = []
         ConfigListScreen.__init__(self, list, session=self.session, on_change=self.changedEntry)
-        self['actions'] = ActionMap(['OkCancelActions',
-                                     'InputBoxActions',
-                                     'NumberActions',
-                                     'HotkeyActions'], {'left': self.keyLeft,
-                                                        'right': self.keyRight,
-                                                        'down': self.keyDown,
-                                                        'up': self.keyUp,
-                                                        'red': self.keyExit,
-                                                        'green': self.keySave,
-                                                        'yellow': self.checkforUpdate,
-                                                        'info': self.info,
-                                                        'blue': self.Checkskin,
-                                                        '5': self.Checkskin,
-                                                        'cancel': self.keyExit}, -1)
+        # 'ColorActions', 'OkCancelActions',
+        # self["actions"] = HelpableActionMap(self, ['AglareActions', 'NumberActions', 'OkCancelActions'], {
+        self["actions"] = ActionMap(['NumberActions', 'ColorActions', 'OkCancelActions', 'VirtualKeyboardActions',], {
+            'showVirtualKeyboard': self.KeyText,
+            'left': self.keyLeft,
+            'right': self.keyRight,
+            'down': self.keyDown,
+            'up': self.keyUp,
+            'red': self.keyExit,
+            'green': self.keySave,
+            'yellow': self.checkforUpdate,
+            'blue': self.Checkskin,
+            'info': self.info,
+            '5': self.Checkskin,
+            'cancel': self.keyExit,
+            'ok': self.run}, -1)
 
         self.createSetup()
         self.PicLoad = ePicLoad()
@@ -148,10 +194,83 @@ class AglareSetup(ConfigListScreen, Screen):
             self.PicLoad_conn = self.PicLoad.PictureData.connect(self.DecodePicture)
         self.onLayoutFinish.append(self.UpdateComponents)
 
+    def run(self):
+        sel = self["config"].getCurrent()[1]
+        if sel and sel == config.plugins.AglareNss.api:
+            self.keyApi()
+        if sel and sel == config.plugins.AglareNss.txtapi:
+            self.KeyText()
+        if sel and sel == config.plugins.AglareNss.api2:
+            self.keyApi2()
+        if sel and sel == config.plugins.AglareNss.txtapi2:
+            self.KeyText()
+
+    def keyApi(self, answer=None):
+        api = "/tmp/apikey.txt"
+        if answer is None:
+            if fileExists(api) and os.stat(api).st_size > 0:
+                self.session.openWithCallback(self.keyApi, MessageBox, _("Import Api Key TMDB from /tmp/apikey.txt?"))
+            else:
+                self.session.open(MessageBox, (_("Missing %s !") % api), MessageBox.TYPE_INFO, timeout=4)
+        elif answer:
+            if fileExists(api) and os.stat(api).st_size > 0:
+                with open(api, 'r') as f:
+                    fpage = f.readline().strip()
+                if fpage:
+                    with open(tmdb_skin, "w") as t:
+                        t.write(fpage)
+                    config.plugins.AglareNss.txtapi.setValue(fpage)
+                    config.plugins.AglareNss.txtapi.save()
+                    self.createSetup()
+                    self.session.open(MessageBox, _("TMDB ApiKey Imported & Stored!"), MessageBox.TYPE_INFO, timeout=4)
+                else:
+                    self.session.open(MessageBox, _("TMDB ApiKey is empty!"), MessageBox.TYPE_INFO, timeout=4)
+            else:
+                self.session.open(MessageBox, (_("Missing %s !") % api), MessageBox.TYPE_INFO, timeout=4)
+        self.createSetup()
+
+    def keyApi2(self, answer=None):
+        api2 = "/tmp/omdbkey.txt"
+        if answer is None:
+            if fileExists(api2) and os.stat(api2).st_size > 0:
+                self.session.openWithCallback(self.keyApi2, MessageBox, _("Import Api Key OMDB from /tmp/omdbkey.txt?"))
+            else:
+                self.session.open(MessageBox, (_("Missing %s !") % api2), MessageBox.TYPE_INFO, timeout=4)
+        elif answer:
+            if fileExists(api2) and os.stat(api2).st_size > 0:
+                with open(api2, 'r') as f:
+                    fpage = f.readline().strip()
+                if fpage:
+                    with open(omdb_skin, "w") as t:
+                        t.write(fpage)
+                    config.plugins.AglareNss.txtapi2.setValue(fpage)
+                    config.plugins.AglareNss.txtapi2.save()
+                    self.createSetup()
+                    self.session.open(MessageBox, _("OMDB ApiKey Imported & Stored!"), MessageBox.TYPE_INFO, timeout=4)
+                else:
+                    self.session.open(MessageBox, _("OMDB ApiKey is empty!"), MessageBox.TYPE_INFO, timeout=4)
+            else:
+                self.session.open(MessageBox, (_("Missing %s !") % api2), MessageBox.TYPE_INFO, timeout=4)
+        self.createSetup()
+
+    def KeyText(self):
+        from Screens.VirtualKeyBoard import VirtualKeyBoard
+        sel = self["config"].getCurrent()
+        if sel:
+            self.session.openWithCallback(self.VirtualKeyBoardCallback, VirtualKeyBoard, title=self["config"].getCurrent()[0], text=self["config"].getCurrent()[1].value)
+
+    def VirtualKeyBoardCallback(self, callback=None):
+        if callback is not None and len(callback):
+            self["config"].getCurrent()[1].value = callback
+            self["config"].invalidate(self["config"].getCurrent())
+        return
+
     def createSetup(self):
         try:
             self.editListEntry = None
             list = []
+            section = '--------------------------( SKIN GENERAL SETUP )-----------------------'
+            list.append(getConfigListEntry(section))
             list.append(getConfigListEntry(_('Color Style:'), config.plugins.AglareNss.colorSelector))
             list.append(getConfigListEntry(_('Select Your Font:'), config.plugins.AglareNss.FontStyle))
             list.append(getConfigListEntry(_('Skin Style:'), config.plugins.AglareNss.skinSelector))
@@ -160,6 +279,18 @@ class AglareSetup(ConfigListScreen, Screen):
             list.append(getConfigListEntry(_('ChannelSelection Style:'), config.plugins.AglareNss.ChannSelector))
             list.append(getConfigListEntry(_('EventView Style:'), config.plugins.AglareNss.EventView))
             list.append(getConfigListEntry(_('VolumeBar Style:'), config.plugins.AglareNss.VolumeBar))
+            section = '--------------------------( SKIN APIKEY SETUP )-----------------------'
+            list.append(getConfigListEntry(section))
+            list.append(getConfigListEntry("API KEY SETUP:", config.plugins.AglareNss.actapi))
+            if config.plugins.AglareNss.actapi.value is True:
+                list.append(getConfigListEntry("TMDB API:", config.plugins.AglareNss.data))
+                if config.plugins.AglareNss.data.value is True:
+                    list.append(getConfigListEntry("--Load TMDB Apikey", config.plugins.AglareNss.api))
+                    list.append(getConfigListEntry("--Set TMDB Apikey", config.plugins.AglareNss.txtapi))
+                list.append(getConfigListEntry("OMDB API:", config.plugins.AglareNss.data2))
+                if config.plugins.AglareNss.data2.value is True:
+                    list.append(getConfigListEntry("--Load OMDB Apikey", config.plugins.AglareNss.api2))
+                    list.append(getConfigListEntry("--Set OMDB Apikey", config.plugins.AglareNss.txtapi2))
             self["config"].list = list
             self["config"].l.setList(list)
         except KeyError:
@@ -198,24 +329,24 @@ class AglareSetup(ConfigListScreen, Screen):
                 return '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/screens/default.png'
         except Exception as e:
             print('error GetPicturePath:', e)
-            return '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/screens/default.png'
+            # return '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/screens/default.png'
 
     def UpdatePicture(self):
-        self.PicLoad.PictureData.get().append(self.DecodePicture)
+        # self.PicLoad.PictureData.get().append(self.DecodePicture)
         self.onLayoutFinish.append(self.ShowPicture)
 
     def ShowPicture(self, data=None):
         if self["Preview"].instance:
-            width = 498
-            height = 280
-            self.PicLoad.setPara([width, height, self.Scale[0], self.Scale[1], 0, 1, "ff000000"])
-            if self.PicLoad.startDecode(self.GetPicturePath()):
+            size = self['Preview'].instance.size()
+            self.PicLoad.setPara([size.width(), size.height(), self.Scale[0], self.Scale[1], 0, 1, '#00000000'])
+            pixmapx = self.GetPicturePath()
+            if self.PicLoad.startDecode(pixmapx):
                 self.PicLoad = ePicLoad()
                 try:
                     self.PicLoad.PictureData.get().append(self.DecodePicture)
                 except:
                     self.PicLoad_conn = self.PicLoad.PictureData.connect(self.DecodePicture)
-            return
+            # return
 
     def DecodePicture(self, PicInfo=None):
         ptr = self.PicLoad.getData()
@@ -236,10 +367,30 @@ class AglareSetup(ConfigListScreen, Screen):
         self.createSetup()
         self.ShowPicture()
 
+        sel = self["config"].getCurrent()[1]
+        if sel and sel == config.plugins.AglareNss.api:
+            config.plugins.AglareNss.api.setValue(0)
+            config.plugins.AglareNss.api.save()
+            self.keyApi()
+        if sel and sel == config.plugins.AglareNss.api2:
+            config.plugins.AglareNss.api2.setValue(0)
+            config.plugins.AglareNss.api2.save()
+            self.keyApi2()
+
     def keyRight(self):
         ConfigListScreen.keyRight(self)
         self.createSetup()
         self.ShowPicture()
+
+        sel = self["config"].getCurrent()[1]
+        if sel and sel == config.plugins.AglareNss.api:
+            config.plugins.AglareNss.api.setValue(0)
+            config.plugins.AglareNss.api.save()
+            self.keyApi()
+        if sel and sel == config.plugins.AglareNss.api2:
+            config.plugins.AglareNss.api2.setValue(0)
+            config.plugins.AglareNss.api2.save()
+            self.keyApi2()
 
     def keyDown(self):
         self['config'].instance.moveSelection(self['config'].instance.moveDown)
@@ -275,13 +426,13 @@ class AglareSetup(ConfigListScreen, Screen):
         if not fileExists(self.skinFile + self.version):
             for x in self['config'].list:
                 x[1].cancel()
-
             self.close()
             return
-
-        for x in self['config'].list:
-            x[1].save()
-
+        try:
+            for x in self['config'].list:
+                x[1].save()
+        except IndexError:
+            print("Errore: x non ha abbastanza elementi.")
         try:
             skin_lines = []
 
@@ -358,8 +509,6 @@ class AglareSetup(ConfigListScreen, Screen):
             return
 
     def keyExit(self):
-        for x in self['config'].list:
-            x[1].cancel()
         self.close()
 
 
