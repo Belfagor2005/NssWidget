@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <skin>
-    <!-- **************************************  -->
-    <!-- Aglare-FHD skin                         -->
-    <!-- by MNASR for all images v2.0            -->
-    <!-- Currently Tested on PLI v9.X            -->
-    <!-- You are free to edit or modify this     -->
-    <!-- skin but please keep theses lines above -->
-    <!-- and add your credits below              -->
-    <!-- Don't Remove this Disclaimer            -->
+    <!-- *************************************************** -->
+    <!-- Aglare-FHD-PLI skin                                 -->
+    <!-- by MNASR                                            -->
+    <!-- Currently Tested on PLI v9.X                        -->
+    <!-- You are free to edit or modify this                 -->
+    <!-- skin but please keep theses lines above             -->
+    <!-- and add your credits below                          -->
+    <!-- Don't Remove this Disclaimer                        -->
+    <!-- Special thanks to  :                                -->
+    <!-- Lululla , Madhouse , digiteng ,kitte888 and kiddac  -->
     <!-- **************************************  -->
     <!-- edit from lululla for nss team -->
     <copyright>
@@ -15,7 +17,7 @@
             author="MNASR"
             license="Open"
             Support="openPLi ad other image*"
-            Release="1.0.8 15/003/2024"
+            Release="1.0.8 15/03/2024"
                                      
             supporturl="www.linuxsat-support.com"
         </abouth>

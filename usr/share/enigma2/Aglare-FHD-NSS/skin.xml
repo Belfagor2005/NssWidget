@@ -117,7 +117,7 @@
         <color name="green" value="#0000ff00"/>
         <color name="greenfont" value="#0051bc0e"/>
         <color name="grey" value="#008f8f8f"/>
-        <color name="grey2" value="#006b6b6b"/>                                               
+        <color name="grey2" value="#006b6b6b"/>
         <color name="grey_tux" value="#00333333"/>
         <color name="greyc4" value="#00c4c4c4"/>
         <color name="hellgreen" value="#0056c856"/>
@@ -831,13 +831,15 @@
         <widget source="session.Event_Now" render="Progress" position="1058,825" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
             <convert type="AglareReceiverInfo">UsbInfo</convert>
         </widget>
-        <!--         <eLabel name="" position="997,792" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 28" text="" zPosition="1"/>
+        <!--
+        <eLabel name="" position="997,792" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 28" text="" zPosition="1"/>
         <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,796" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
             <convert type="AglareReceiverInfo">MmcInfo</convert>
         </widget>
         <widget source="session.Event_Now" render="Progress" position="1058,824" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
             <convert type="AglareReceiverInfo">MmcInfo</convert>
-        </widget> -->
+        </widget>
+        -->
         <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,859" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
             <convert type="AglareBoxInfo">Boxtype</convert>
         </widget>
@@ -7945,19 +7947,19 @@ MultiContentEntryText(pos = (20, 0), size = (840, 50), flags = RT_HALIGN_LEFT|RT
         <panel name="pigscreen885"/>
         <widget name="myMenu" position="36,100" size="890,900" scrollbarMode="showOnDemand" halign="left" valign="center" itemHeight="50" font="Regular;30" itemCornerRadius="8"/>
     </screen>
-    <screen name="AglareSetup" position="0,0" size="1920,1080" title="Aglare-FHD Skin Controler" flags="wfNoBorder">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <panel name="configlist45"/>
-        <panel name="pigscreen885"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <eLabel text="Cancel" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" foregroundColor="white" backgroundColor="background" transparent="1"/>
-        <eLabel text="Save" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <eLabel text="Update" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <eLabel text="CheckSkin" position="962,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <widget name="Preview" position="997,690" size="498, 280" zPosition="1"/>
-        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/aglarelogo.png" transparent="1" alphatest="on"/>
-    </screen>
+    <!--     <screen name="AglareSetup" position="0,0" size="1920,1080" title="Aglare-FHD Skin Controler" flags="wfNoBorder">
+        <panel name="titletemp" />
+        <panel name="menutemp" />
+        <panel name="configlist45" />
+        <panel name="pigscreen885" />
+        <panel name="ScreenTemplateAllColorButtons_menu" />
+        <eLabel text="Cancel" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" foregroundColor="white" backgroundColor="background" transparent="1" />
+        <eLabel text="Save" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+        <eLabel text="Update" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+        <eLabel text="CheckSkin" position="962,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+        <widget name="Preview" position="997,690" size="498, 280" zPosition="9" />
+        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/aglarelogo.png" transparent="1" alphatest="on" />
+    </screen> -->
     <screen name="VIXMenu" position="fill" flags="wfNoBorder" backgroundColor="background">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
@@ -8461,6 +8463,6 @@ MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
         <widget name="config" position="36,98" size="890,868" itemHeight="62" enableWrapAround="1" transparent="1" font="Regular; 40" valign="center" itemCornerRadius="8"/>
         <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
         <eLabel backgroundColor="sidec2" cornerRadius="90" position="1600,788" size="500,180"/>
-    </screen>                                                                                                                                                         
+    </screen>
 </skin>
 

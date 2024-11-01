@@ -2383,7 +2383,7 @@ class ScriptExecuter(Screen):
             if mysel:
                 mysel = mysel[0]
                 mysel2 = '/usr/script/' + mysel + '.sh'
-                chmod(mysel2, 0o0755)
+                chmod(mysel2, 0o0777)
                 mytitle = 'NonSoloSat Script: ' + mysel
                 self.session.open(tvConsole, title=mytitle, cmdlist=[mysel2])
 

@@ -7,7 +7,7 @@ from Components.ActionMap import ActionMap
 from Components.config import (
     # ConfigInteger,
     # ConfigNothing,
-    # ConfigText,
+    configfile,
     ConfigOnOff,
     NoSave,
     ConfigText,
@@ -31,6 +31,7 @@ from Tools.Directories import fileExists
 from Tools.Directories import SCOPE_PLUGINS
 from Tools.Directories import resolveFilename
 from Tools.Downloader import downloadWithProgress
+from PIL import Image
 import os
 import sys
 
@@ -96,7 +97,8 @@ config.plugins.AglareNss.colorSelector = ConfigSelection(default='head', choices
     ('color4', _('Magenta')),
     ('color5', _('Blue')),
     ('color6', _('Red')),
-    ('color7', _('Purple'))])
+    ('color7', _('Purple')),
+    ('color8', _('Dark Green'))])
 config.plugins.AglareNss.FontStyle = ConfigSelection(default='basic', choices=[
     ('basic', _('Default')),
     ('font1', _('HandelGotD')),
@@ -148,13 +150,22 @@ def main(session, **kwargs):
     session.open(AglareSetup)
 
 
+def convert_image(image):
+    path = image
+    img = Image.open(path)
+    img.save(path, "PNG")
+    return image
+
+
 class AglareSetup(ConfigListScreen, Screen):
     skin = '''
-            <screen name="AglareSetup" title="Aglare-FHD-NSS position="center,center" size="1000,640" Skin Controler" zPosition="0">
-                <eLabel     text="Cancel"   font="Regular;24"   position="20,598"   size="120,26"   foregroundColor="#00ff4A3C"     halign="center" zPosition="1" />
-                <eLabel     text="Save"     font="Regular;24"   position="220,598"  size="120,26"   foregroundColor="#0056C856"     halign="center" zPosition="1" />
-                <widget     name="config"   font="Regular;24"   position="5,5"      size="990,347"  itemHeight="40" scrollbarMode="showOnDemand" />
-                <widget     name="Preview"  position="500,355"  size="498, 280"     zPosition="4" />
+            <screen name="AglareSetup" title="Aglare-FHD-NSS" position="center,center" size="1000,640" zPosition="0">
+                <eLabel text="Cancel" font="Regular;24" position="10,596" size="120,26" foregroundColor="#00ff4A3C" halign="center" zPosition="1" />
+                <eLabel text="Save" font="Regular;24" position="135,596" size="120,26" foregroundColor="#0056C856" halign="center" zPosition="1" />
+                <eLabel text="Update" font="Regular; 24" position="244,596" size="120,26" foregroundColor="#fefe00" halign="center" zPosition="1" />
+                <eLabel text="CheckSkin" font="Regular; 24" position="367,596" size="150,26" foregroundColor="#2a70a4" halign="center" zPosition="1" />
+                <widget name="config" font="Regular;24" position="5,5" size="990,347" itemHeight="40" scrollbarMode="showOnDemand" />
+                <widget name="Preview" position="505,360" size="498, 280" zPosition="11" />
             </screen>
            '''
 
@@ -165,34 +176,52 @@ class AglareSetup(ConfigListScreen, Screen):
         self.skinFile = "%senigma2/%s/skin.xml" % (mvi, cur_skin)  # '/usr/share/enigma2/Aglare-FHD-NSS/skin.xml'
         self.previewFiles = '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/sample/'
         self['Preview'] = Pixmap()
-        self.onChangedEntry = []
-        list = []
-        ConfigListScreen.__init__(self, list, session=self.session, on_change=self.changedEntry)
-        # 'ColorActions', 'OkCancelActions',
-        # self["actions"] = HelpableActionMap(self, ['AglareActions', 'NumberActions', 'OkCancelActions'], {
-        self["actions"] = ActionMap(['NumberActions', 'ColorActions', 'OkCancelActions', 'VirtualKeyboardActions',], {
-            'showVirtualKeyboard': self.KeyText,
-            'left': self.keyLeft,
-            'right': self.keyRight,
-            'down': self.keyDown,
-            'up': self.keyUp,
-            'red': self.keyExit,
-            'green': self.keySave,
-            'yellow': self.checkforUpdate,
-            'blue': self.Checkskin,
-            'info': self.info,
-            '5': self.Checkskin,
-            'cancel': self.keyExit,
-            'ok': self.run}, -1)
+        self.setup_title = ('Aglare-FHD-NSS')
 
+        list = []
+        section = '--------------------------( SKIN GENERAL SETUP )-----------------------'
+        list.append(getConfigListEntry(section))
+        section = '--------------------------( SKIN APIKEY SETUP )-----------------------'
+        list.append(getConfigListEntry(section))
+        ConfigListScreen.__init__(self, list, session=self.session, on_change=self.changedEntry)
+        self.onChangedEntry = []
         self.createSetup()
+        self['actions'] = ActionMap(['OkCancelActions',
+                                     'DirectionActions',
+                                     'InputActions',
+                                     'VirtualKeyboardActions',
+                                     'ColorActions'], {'showVirtualKeyboard': self.KeyText,
+                                                       'left': self.keyLeft,
+                                                       'right': self.keyRight,
+                                                       'down': self.keyDown,
+                                                       'up': self.keyUp,
+                                                       'red': self.keyExit,
+                                                       'green': self.keySave,
+                                                       'yellow': self.checkforUpdate,
+                                                       'blue': self.Checkskin,
+                                                       'info': self.info,
+                                                       '5': self.Checkskin,
+                                                       'cancel': self.keyExit,
+                                                       'ok': self.run}, -1)
+
         self.PicLoad = ePicLoad()
         self.Scale = AVSwitch().getFramebufferScale()
         try:
             self.PicLoad.PictureData.get().append(self.DecodePicture)
         except:
             self.PicLoad_conn = self.PicLoad.PictureData.connect(self.DecodePicture)
-        self.onLayoutFinish.append(self.UpdateComponents)
+        self.onLayoutFinish.append(self.ShowPicture)
+
+        self.onLayoutFinish.append(self.__layoutFinished)
+
+    def __layoutFinished(self):
+        # if str(cur_skin) != 'Aglare-FHD-PLI' and os.path.exists('/usr/share/enigma2/Aglare-FHD-PLI'):
+            # text = _("ATTENTION!!\nThe Skin is already installed:\nto activate you must choose from:\nmenu-setup-system-skin\nand select it!\nNow you can only update the installation.")
+            # self.session.openWithCallback(self.passs, MessageBox, text, MessageBox.TYPE_INFO, timeout=5)
+        self.setTitle(self.setup_title)
+
+    def passs(self, foo):
+        pass
 
     def run(self):
         sel = self["config"].getCurrent()[1]
@@ -293,6 +322,9 @@ class AglareSetup(ConfigListScreen, Screen):
                     list.append(getConfigListEntry("--Set OMDB Apikey", config.plugins.AglareNss.txtapi2))
             self["config"].list = list
             self["config"].l.setList(list)
+
+            self.ShowPicture()
+
         except KeyError:
             print("keyError")
 
@@ -320,16 +352,15 @@ class AglareSetup(ConfigListScreen, Screen):
             self.session.open(File_Commander, user_log)
 
     def GetPicturePath(self):
-        try:
-            returnValue = self['config'].getCurrent()[1].value
-            path = '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/screens/' + returnValue + '.png'
-            if fileExists(path):
-                return path
-            else:
-                return '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/screens/default.png'
-        except Exception as e:
-            print('error GetPicturePath:', e)
-            # return '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/screens/default.png'
+        returnValue = self['config'].getCurrent()[1].value
+        PicturePath = '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/screens/default.png'
+        if not isinstance(returnValue, str):
+            returnValue = PicturePath  # if fileExists(PicturePath) else ''
+        path = '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/screens/' + returnValue + '.png'
+        if fileExists(path):
+            return convert_image(path)
+        else:
+            return convert_image(PicturePath)
 
     def UpdatePicture(self):
         # self.PicLoad.PictureData.get().append(self.DecodePicture)
@@ -338,17 +369,31 @@ class AglareSetup(ConfigListScreen, Screen):
     def ShowPicture(self, data=None):
         if self["Preview"].instance:
             size = self['Preview'].instance.size()
+            if size.isNull():
+                size.setWidth(498)
+                size.setHeight(280)
             self.PicLoad.setPara([size.width(), size.height(), self.Scale[0], self.Scale[1], 0, 1, '#00000000'])
             pixmapx = self.GetPicturePath()
+            if not fileExists(pixmapx):
+                print("Immagine non trovata:", pixmapx)
+                return
             if self.PicLoad.startDecode(pixmapx):
+                print("Decodifica in corso:", pixmapx)
                 self.PicLoad = ePicLoad()
                 try:
                     self.PicLoad.PictureData.get().append(self.DecodePicture)
                 except:
                     self.PicLoad_conn = self.PicLoad.PictureData.connect(self.DecodePicture)
-            # return
+            else:
+                print("Errore di decodifica dell'immagine.")
+            return
 
     def DecodePicture(self, PicInfo=None):
+        print('PicInfo=', PicInfo)
+        '''
+        if PicInfo is None:
+            PicInfo = '/usr/share/enigma2/xDreamy/screens/default.png'
+        '''
         ptr = self.PicLoad.getData()
         if ptr is not None:
             self["Preview"].instance.setPixmap(ptr)
@@ -365,7 +410,6 @@ class AglareSetup(ConfigListScreen, Screen):
     def keyLeft(self):
         ConfigListScreen.keyLeft(self)
         self.createSetup()
-        self.ShowPicture()
 
         sel = self["config"].getCurrent()[1]
         if sel and sel == config.plugins.AglareNss.api:
@@ -376,11 +420,12 @@ class AglareSetup(ConfigListScreen, Screen):
             config.plugins.AglareNss.api2.setValue(0)
             config.plugins.AglareNss.api2.save()
             self.keyApi2()
+
+        self.ShowPicture()
 
     def keyRight(self):
         ConfigListScreen.keyRight(self)
         self.createSetup()
-        self.ShowPicture()
 
         sel = self["config"].getCurrent()[1]
         if sel and sel == config.plugins.AglareNss.api:
@@ -392,47 +437,60 @@ class AglareSetup(ConfigListScreen, Screen):
             config.plugins.AglareNss.api2.save()
             self.keyApi2()
 
+        self.ShowPicture()
+
     def keyDown(self):
         self['config'].instance.moveSelection(self['config'].instance.moveDown)
         self.createSetup()
-        self.ShowPicture()
+        # self.ShowPicture()
 
     def keyUp(self):
         self['config'].instance.moveSelection(self['config'].instance.moveUp)
         self.createSetup()
-        self.ShowPicture()
+        # self.ShowPicture()
 
     def changedEntry(self):
         self.item = self["config"].getCurrent()
         for x in self.onChangedEntry:
             x()
         try:
-            if isinstance(self["config"].getCurrent()[1], ConfigYesNo) or isinstance(self["config"].getCurrent()[1], ConfigSelection):
+            if isinstance(self["config"].getCurrent()[1], ConfigOnOff) or isinstance(self["config"].getCurrent()[1], ConfigYesNo) or isinstance(self["config"].getCurrent()[1], ConfigSelection):
                 self.createSetup()
-        except:
-            pass
+        except Exception as e:
+            print("Error in changedEntry:", e)
+
+    def getCurrentValue(self):
+        if self["config"].getCurrent() and len(self["config"].getCurrent()) > 0:
+            return str(self["config"].getCurrent()[1].getText())
+        return ""
 
     def getCurrentEntry(self):
         return self["config"].getCurrent() and self["config"].getCurrent()[0] or ""
-
-    def getCurrentValue(self):
-        return self["config"].getCurrent() and str(self["config"].getCurrent()[1].getText()) or ""
 
     def createSummary(self):
         from Screens.Setup import SetupSummary
         return SetupSummary
 
     def keySave(self):
+
+        def load_xml_to_skin_lines(file_path):
+            try:
+                with open(file_path, 'r') as file:
+                    return file.readlines()
+            except FileNotFoundError:
+                return []
+
         if not fileExists(self.skinFile + self.version):
             for x in self['config'].list:
                 x[1].cancel()
             self.close()
             return
-        try:
-            for x in self['config'].list:
+
+        for x in self['config'].list:
+            if len(x) > 1:  # Check if x has at least two elements
                 x[1].save()
-        except IndexError:
-            print("Errore: x non ha abbastanza elementi.")
+            config.plugins.AglareNss.save()
+            configfile.save()
         try:
             skin_lines = []
 
@@ -478,7 +536,6 @@ class AglareSetup(ConfigListScreen, Screen):
             with open(destr, 'w') as f:
                 f.write(str(fp))  # .decode("utf-8"))
                 f.seek(0)
-                f.close()
             if os.path.exists(destr):
                 with open(destr, 'r') as cc:
                     s1 = cc.readline()  # .decode("utf-8")

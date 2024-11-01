@@ -16,7 +16,7 @@
             license="Open"
             Support="openPLi ad other image*"
             Release="1.0.8 15/003/2024"
-                                     
+
             supporturl="www.linuxsat-support.com"
         </abouth>
     </copyright>
@@ -61,28 +61,20 @@
         <color name="#b0b0b0" value="#00b0b0b0"/>
         <color name="#b2049" value="#000b2049"/>
         <color name="#bab329" value="#00bab329"/>
-                                          
         <color name="#c4c4c4" value="#00c4c4c4"/>
         <color name="#cccc40" value="#00cccc40"/>
         <color name="#e5b243" value="#00e5b243"/>
         <color name="#ecbb41" value="#00ecbb41"/>
         <color name="#f3fc92" value="#00f3fc92"/>
         <color name="#f4b700" value="#00f4b700"/>
-                                       
-                                         
-                                           
-                                           
         <color name="#ffb75b" value="#00ffb75b"/>
         <color name="#fffff4" value="#00fffff4"/>
-                                           
         <color name="babyblue" value="#0089cff0"/>
         <color name="background" value="#050c101b"/>
         <color name="background2" value="#55000000"/>
         <color name="background3" value="#80000000"/>
         <color name="background4" value="#10000000"/>
         <color name="background90" value="#20000000"/>
-                                                    
-                                                    
         <color name="black" value="#00000000"/>
         <color name="blue" value="#000000ff"/>
         <color name="bpSide" value="#00ff6600"/>
@@ -139,7 +131,6 @@
         <color name="selectbg" value="#000f4c5c"/>
         <color name="sidec1" value="#0023314c"/>
         <color name="sidec2" value="#000c101b"/>
-                                          
         <color name="silver" value="#00c0c0c0"/>
         <color name="transchsel1" value="#21020202"/>
         <color name="transchsel2" value="#21201120"/>
