@@ -2,8 +2,9 @@
 # mod by Lululla
 
 from . import _
-from Components.AVSwitch import AVSwitch
+# from Components.AVSwitch import AVSwitch
 from Components.ActionMap import ActionMap
+from Components.ConfigList import ConfigListScreen
 from Components.config import (
     # ConfigInteger,
     # ConfigNothing,
@@ -17,13 +18,14 @@ from Components.config import (
     config,
     getConfigListEntry,
 )
-from Components.ConfigList import ConfigListScreen
 from Components.Label import Label
 from Components.Pixmap import Pixmap
 from Components.Sources.Progress import Progress
 from Components.Sources.StaticText import StaticText
-from enigma import ePicLoad, eTimer
+from enigma import eTimer, loadPic  # , ePicLoad
+from PIL import Image
 from Plugins.Plugin import PluginDescriptor
+# from Screens.Console import Console
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from Screens.Standby import TryQuitMainloop
@@ -31,10 +33,10 @@ from Tools.Directories import fileExists
 from Tools.Directories import SCOPE_PLUGINS
 from Tools.Directories import resolveFilename
 from Tools.Downloader import downloadWithProgress
-from PIL import Image
+
 import os
 import sys
-
+# import time
 
 PY3 = sys.version_info.major >= 3
 if PY3:
@@ -150,8 +152,14 @@ def main(session, **kwargs):
     session.open(AglareSetup)
 
 
+def remove_exif(image_path):
+    with Image.open(image_path) as img:
+        img.save(image_path, "PNG")
+
+
 def convert_image(image):
     path = image
+    # remove_exif(path)
     img = Image.open(path)
     img.save(path, "PNG")
     return image
@@ -190,6 +198,7 @@ class AglareSetup(ConfigListScreen, Screen):
                                      'DirectionActions',
                                      'InputActions',
                                      'VirtualKeyboardActions',
+                                     'MenuActions',
                                      'ColorActions'], {'showVirtualKeyboard': self.KeyText,
                                                        'left': self.keyLeft,
                                                        'right': self.keyRight,
@@ -197,27 +206,31 @@ class AglareSetup(ConfigListScreen, Screen):
                                                        'up': self.keyUp,
                                                        'red': self.keyExit,
                                                        'green': self.keySave,
+                                                       'menu': self.Checkskin,
                                                        'yellow': self.checkforUpdate,
-                                                       'blue': self.Checkskin,
+                                                       'blue': self.info,
                                                        'info': self.info,
                                                        '5': self.Checkskin,
                                                        'cancel': self.keyExit,
                                                        'ok': self.run}, -1)
-
+        '''
         self.PicLoad = ePicLoad()
         self.Scale = AVSwitch().getFramebufferScale()
         try:
             self.PicLoad.PictureData.get().append(self.DecodePicture)
         except:
             self.PicLoad_conn = self.PicLoad.PictureData.connect(self.DecodePicture)
+        '''
         self.onLayoutFinish.append(self.ShowPicture)
 
         self.onLayoutFinish.append(self.__layoutFinished)
 
     def __layoutFinished(self):
-        # if str(cur_skin) != 'Aglare-FHD-PLI' and os.path.exists('/usr/share/enigma2/Aglare-FHD-PLI'):
+        '''
+        # if str(cur_skin) != 'Aglare-FHD-NSS' and os.path.exists('/usr/share/enigma2/Aglare-FHD-NSS'):
             # text = _("ATTENTION!!\nThe Skin is already installed:\nto activate you must choose from:\nmenu-setup-system-skin\nand select it!\nNow you can only update the installation.")
             # self.session.openWithCallback(self.passs, MessageBox, text, MessageBox.TYPE_INFO, timeout=5)
+        '''
         self.setTitle(self.setup_title)
 
     def passs(self, foo):
@@ -372,21 +385,30 @@ class AglareSetup(ConfigListScreen, Screen):
             if size.isNull():
                 size.setWidth(498)
                 size.setHeight(280)
-            self.PicLoad.setPara([size.width(), size.height(), self.Scale[0], self.Scale[1], 0, 1, '#00000000'])
+
             pixmapx = self.GetPicturePath()
             if not fileExists(pixmapx):
                 print("Immagine non trovata:", pixmapx)
                 return
-            if self.PicLoad.startDecode(pixmapx):
-                print("Decodifica in corso:", pixmapx)
-                self.PicLoad = ePicLoad()
-                try:
-                    self.PicLoad.PictureData.get().append(self.DecodePicture)
-                except:
-                    self.PicLoad_conn = self.PicLoad.PictureData.connect(self.DecodePicture)
-            else:
-                print("Errore di decodifica dell'immagine.")
-            return
+            png = loadPic(pixmapx, size.width(), size.height(), 0, 0, 0, 1)
+            self["Preview"].instance.setPixmap(png)
+            '''
+            # self.PicLoad.setPara([size.width(), size.height(), self.Scale[0], self.Scale[1], 0, 1, '#00000000'])
+            # pixmapx = self.GetPicturePath()
+            # if not fileExists(pixmapx):
+                # print("Immagine non trovata:", pixmapx)
+                # return
+            # if self.PicLoad.startDecode(pixmapx):
+                # print("Decodifica in corso:", pixmapx)
+                # self.PicLoad = ePicLoad()
+                # try:
+                    # self.PicLoad.PictureData.get().append(self.DecodePicture)
+                # except:
+                    # self.PicLoad_conn = self.PicLoad.PictureData.connect(self.DecodePicture)
+            # else:
+                # print("Errore di decodifica dell'immagine.")
+            # return
+            '''
 
     def DecodePicture(self, PicInfo=None):
         print('PicInfo=', PicInfo)
@@ -421,7 +443,7 @@ class AglareSetup(ConfigListScreen, Screen):
             config.plugins.AglareNss.api2.save()
             self.keyApi2()
 
-        self.ShowPicture()
+        # self.ShowPicture()
 
     def keyRight(self):
         ConfigListScreen.keyRight(self)
@@ -437,7 +459,7 @@ class AglareSetup(ConfigListScreen, Screen):
             config.plugins.AglareNss.api2.save()
             self.keyApi2()
 
-        self.ShowPicture()
+        # self.ShowPicture()
 
     def keyDown(self):
         self['config'].instance.moveSelection(self['config'].instance.moveDown)

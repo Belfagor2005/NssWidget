@@ -5,48 +5,42 @@
 # from .. import _
 from Components.ActionMap import ActionMap, NumberActionMap
 from Components.config import (
+    # ConfigDirectory,
+    ConfigIP,
+    ConfigInteger,
+    ConfigPassword,
+    ConfigSubsection,
+    ConfigText,
+    ConfigYesNo,
     config,
     getConfigListEntry,
-    ConfigPassword,
-    ConfigYesNo,
-    ConfigSubsection,
-    ConfigIP,
-    # ConfigDirectory,
-    ConfigText,
-    ConfigInteger,
 )
 from Components.ConfigList import ConfigListScreen
 from Components.MenuList import MenuList
 from Components.Sources.List import List
 from Components.Sources.StaticText import StaticText
 from enigma import (
-    eListboxPythonMultiContent,
-    gFont,
-    # loadPNG,
-    getDesktop,
-    eTimer,
-    # RT_HALIGN_RIGHT,
     RT_HALIGN_LEFT,
-    # RT_VALIGN_CENTER,
+    eListboxPythonMultiContent,
+    eTimer,
+    gFont,
+    getDesktop,
 )
-from os import path as ospath
-from operator import itemgetter
-from xml.etree import ElementTree
 from Screens.ChoiceBox import ChoiceBox
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
-from Tools.LoadPixmap import LoadPixmap
 from Tools.Directories import (SCOPE_CURRENT_SKIN, resolveFilename, fileExists)
-import socket
+from Tools.LoadPixmap import LoadPixmap
+from operator import itemgetter
+from os import path as ospath
+from xml.etree import ElementTree
+import fcntl
+import six
 import skin
+import socket
+import struct
 import sys
 import time
-import six
-import fcntl
-import struct
-# required methods: Request, urlopen, URLError, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
-# from urllib.request import urlopen, Request, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
-# from urllib.error import URLError
 
 
 PY3 = sys.version_info.major >= 3
@@ -61,7 +55,6 @@ else:
 
 
 global NAMEBIN
-
 
 config.oscaminfo = ConfigSubsection()
 config.oscaminfo.userdatafromconf = ConfigYesNo(default=True)
@@ -264,7 +257,6 @@ class OscamInfo:
         if self.port.startswith('+'):
             self.proto = "https"
             self.port.replace("+", "")
-        # print("[OscamInfo][openWebIF] NAMEBIN=%s, CAM=%s" % (NAMEBIN, NAMEBIN))
         if part is None:
             self.url = "%s://%s:%s/%sapi.html?part=status" % (self.proto, self.ip, self.port, NAMEBIN)
         else:
@@ -500,22 +492,6 @@ class oscMenuList(MenuList):
             self.clientFont = gFont("Regular", int(25 * f))
             self.l.setFont(2, self.clientFont)
             self.l.setFont(3, gFont("Regular", int(25 * f)))
-
-# class oscMenuList(MenuList):
-    # def __init__(self, list, itemH=35):
-        # MenuList.__init__(self, list, False, eListboxPythonMultiContent)
-        # self.l.setItemHeight(itemH)
-        # screenwidth = getDesktop(0).size().width()
-        # self.l.setFont(0, gFont("Regular", 20))
-        # self.l.setFont(1, gFont("Regular", 18))
-        # self.clientFont = gFont("Regular", 16)
-        # self.l.setFont(2, self.clientFont)
-        # self.l.setFont(3, gFont("Regular", 12))
-        # self.l.setFont(4, gFont("Regular", 30))
-        # self.l.setFont(5, gFont("Regular", 27))
-        # self.clientFont1080 = gFont("Regular", 24)
-        # self.l.setFont(6, self.clientFont1080)
-        # self.l.setFont(7, gFont("Regular", 24))
 
 
 class OSCamInfo(Screen):
@@ -993,7 +969,6 @@ class oscInfo(Screen, OscamInfo):
             data = self.readXML(typ=self.what)
         self.out = []
         self.itemheight = 25
-        # print("[OscamInfo][showData] data[0], data[1]", data[0], "   ", data[1])
         if data[0]:
             if self.what != "l":
                 heading = (self.HEAD[self.NAME], self.HEAD[self.PROT], self.HEAD[self.CAID_SRVID],
@@ -1392,10 +1367,8 @@ class OscamInfoConfigScreen(ConfigListScreen, Screen):
         ConfigListScreen.__init__(self, [], session=session, on_change=self.changedEntry)
         # ConfigListScreen.__init__(self, [], session=session, on_change=self.changedEntry, fullUI=True)
         self["actions"] = ActionMap(["SetupActions"],
-            {
-                "ok": self.savx,
-                "cancel": self.exit
-            }, -1)  # noqa: E123
+                                    {"ok": self.savx,
+                                     "cancel": self.exit}, -1)
         # self["key_red"] = StaticText(_("Close"))
         self.createSetup()
 

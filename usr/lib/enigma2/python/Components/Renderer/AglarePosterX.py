@@ -232,15 +232,6 @@ REGEX = re.compile(
     re.DOTALL)
 
 
-def getCleanContentSearchTitle(event_title=""):
-    # to search for a title in the content-table by intern cleaned clean_search_title column
-    cleanEventname = re.sub(' I$', ' 1', event_title)
-    cleanEventname = re.sub(' II$', ' 2', cleanEventname)
-    cleanEventname = re.sub(' III$', ' 3', cleanEventname)
-    cleanEventname = cleanEventname.lower().replace(",", "").replace("ß", "ss").replace(" & ", " and ").replace("!", "").replace("-", "").replace(" und ", " and ").replace(".", "").replace("'", "").replace("?", "").replace(" ", "")
-    return cleanEventname
-
-
 def intCheck():
     try:
         response = urlopen("http://google.com", None, 5)
@@ -313,6 +304,85 @@ def dataenc(data):
     return data
 
 
+# def convtext(text=''):
+    # try:
+        # if text is None:
+            # print('return None original text:', type(text))
+            # return  # Esci dalla funzione se text è None
+        # if text == '':
+            # print('text is an empty string')
+        # if isinstance(text, text_type):  # Python 2 check
+            # text = text.encode('utf-8')
+        # else:
+            # print('original text: ', text)
+            # text = text.lower()
+            # print('lowercased text: ', text)
+
+            # text = remove_accents(text)
+            # print('remove_accents text: ', text)
+
+            # # Applica le funzioni di taglio e pulizia del titolo
+            # text = cutName(text)
+            # text = getCleanTitle(text)
+            # # Regola il titolo se finisce con "the"
+            # if text.endswith("the"):
+                # text = "the " + text[:-4]
+            # # Sostituisci caratteri speciali con stringhe vuote
+            # text = text.replace("\xe2\x80\x93", "").replace('\xc2\x86', '').replace('\xc2\x87', '')  # replace special
+            # text = text.replace('1^ visione rai', '').replace('1^ visione', '').replace('primatv', '').replace('1^tv', '')
+            # text = text.replace('prima visione', '').replace('1^ tv', '').replace('((', '(').replace('))', ')')
+            # text = text.replace('live:', '').replace(' - prima tv', '')
+            # # Gestione casi specifici
+            # replacements = {
+                # 'giochi olimpici': 'olimpiadi',
+                # 'bruno barbieri': 'brunobarbierix',
+                # "anni '60": 'anni 60',
+                # 'tg regione': 'tg3',
+                # 'studio aperto': 'studio aperto',
+                # 'josephine ange gardien': 'josephine ange gardien',
+                # 'elementary': 'elementary',
+                # 'squadra speciale cobra 11': 'squadra speciale cobra 11',
+                # 'criminal minds': 'criminal minds',
+                # 'i delitti del barlume': 'i delitti del barlume',
+                # 'senza traccia': 'senza traccia',
+                # 'hudson e rex': 'hudson e rex',
+                # 'ben-hur': 'ben-hur',
+                # 'la7': 'la7',
+                # 'skytg24': 'skytg24'
+            # }
+            # for key, value in replacements.items():
+                # if key in text:
+                    # text = text.replace(key, value)
+            # text = text + 'FIN'
+            # if re.search(r'[Ss][0-9][Ee][0-9]+.*?FIN', text):
+                # text = re.sub(r'[Ss][0-9][Ee][0-9]+.*?FIN', '', text)
+            # if re.search(r'[Ss][0-9] [Ee][0-9]+.*?FIN', text):
+                # text = re.sub(r'[Ss][0-9] [Ee][0-9]+.*?FIN', '', text)
+
+            # text = re.sub(r'(odc.\s\d+)+.*?FIN', '', text)
+            # text = re.sub(r'(odc.\d+)+.*?FIN', '', text)
+            # text = re.sub(r'(\d+)+.*?FIN', '', text)
+            # text = text.partition("(")[0] + 'FIN'  # .strip()
+            # # text = re.sub("\\s\d+", "", text)
+            # text = text.partition("(")[0]  # .strip()
+            # text = text.partition(":")[0]  # .strip()
+            # text = text.partition(" -")[0]  # .strip()
+            # text = re.sub(' - +.+?FIN', '', text)  # all episodes and series ????
+            # text = re.sub('FIN', '', text)
+            # text = re.sub(r'^\|[\w\-\|]*\|', '', text)
+            # text = re.sub(r"[-,?!+/\.\":]", '', text)  # replace (- or , or ! or / or . or " or :) by space
+            # # text = remove_accents(text)
+            # text = text.strip()
+            # # Modifiche forzate
+            # text = text.replace('XXXXXX', '60')
+            # text = text.replace('brunobarbierix', 'bruno barbieri - 4 hotel')
+
+            # print('text safe:', text)
+        # return unquote(text).capitalize()
+    # except Exception as e:
+        # print('convtext error:', e)
+        # return None
+
 def convtext(text=''):
     try:
         if text is None:
@@ -324,6 +394,9 @@ def convtext(text=''):
             print('original text: ', text)
             text = text.lower()
             print('lowercased text: ', text)
+
+            text = text.partition("-")[0]
+
             text = remove_accents(text)
             print('remove_accents text: ', text)
             # #
@@ -332,6 +405,7 @@ def convtext(text=''):
             # #
             if text.endswith("the"):
                 text = "the " + text[:-4]
+            text = re.sub(r'^\w{4}:', '', text)
             text = text.replace("\xe2\x80\x93", "").replace('\xc2\x86', '').replace('\xc2\x87', '')  # replace special
             text = text.replace('1^ visione rai', '').replace('1^ visione', '').replace('primatv', '').replace('1^tv', '')
             text = text.replace('prima visione', '').replace('1^ tv', '').replace('((', '(').replace('))', ')')
@@ -362,7 +436,7 @@ def convtext(text=''):
                 text = 'hudson e rex'
             if 'ben-hur' in text:
                 text = 'ben-hur'
-            if 'la7' in text:
+            if 'la7 ' in text:
                 text = 'la7'
             if 'skytg24' in text:
                 text = 'skytg24'
@@ -395,7 +469,7 @@ def convtext(text=''):
                 "uk|", "us|", "yu|",
                 "1080p", "1080p-dual-lat-cine-calidad.com", "1080p-dual-lat-cine-calidad.com-1",
                 "1080p-dual-lat-cinecalidad.mx", "1080p-lat-cine-calidad.com", "1080p-lat-cine-calidad.com-1",
-                "1080p-lat-cinecalidad.mx", "1080p.dual.lat.cine-calidad.com", "3d", "'", "#", "(", ")", "-", "[]", "/",
+                "1080p-lat-cinecalidad.mx", "1080p.dual.lat.cine-calidad.com", "3d", "'", "#", "[]",  # "/", "(", ")", "-",
                 "4k", "720p", "aac", "blueray", "ex-yu:", "fhd", "hd", "hdrip", "hindi", "imdb", "multi:", "multi-audio",
                 "multi-sub", "multi-subs", "multisub", "ozlem", "sd", "top250", "u-", "uhd", "vod", "x264"
             ]
@@ -435,8 +509,9 @@ def convtext(text=''):
             text = text.partition(" -")[0]
             text = re.sub(' - +.+?FIN', '', text)  # all episodes and series ????
             text = re.sub('FIN', '', text)
-            text = re.sub(r'^\|[\w\-\|]*\|', '', text)
-            text = re.sub(r"[-,?!/\.\":]", '', text)  # replace (- or , or ! or / or . or " or :) by space
+            text = re.sub(r"[\<\>\:\"\/\\\|\?\*!]", "_", str(text))
+            # text = re.sub(r'^\|[\w\-\|]*\|', '', text)
+            text = re.sub(r"[-,?!+/\.\":]", '', text)  # replace (- or , or ! or / or . or " or :) by space
             # recoded  end
             text = text.strip(' -')
             # forced
@@ -464,33 +539,38 @@ class PosterDB(AglarePosterXDownloadThread):
             self.pstcanal = convtext(canal[5])
             if self.pstcanal != 'None' or self.pstcanal is not None:
                 dwn_poster = path_folder + '/' + self.pstcanal + ".jpg"
-                if os.path.exists(dwn_poster):
-                    os.utime(dwn_poster, (time.time(), time.time()))
-                '''
-                # if lng == "fr":
-                    # if not os.path.exists(dwn_poster):
-                        # val, log = self.search_molotov_google(dwn_poster, canal[5], canal[4], canal[3], canal[0])
-                        # self.logDB(log)
-                    # if not os.path.exists(dwn_poster):
-                        # val, log = self.search_programmetv_google(dwn_poster, canal[5], canal[4], canal[3], canal[0])
-                        # self.logDB(log)
-                '''
-                if not os.path.exists(dwn_poster):
-                    val, log = self.search_tmdb(dwn_poster, self.pstcanal, canal[4], canal[3])
-                    self.logDB(log)
-                elif not os.path.exists(dwn_poster):
-                    val, log = self.search_tvdb(dwn_poster, self.pstcanal, canal[4], canal[3])
-                    self.logDB(log)
-                elif not os.path.exists(dwn_poster):
-                    val, log = self.search_fanart(dwn_poster, self.pstcanal, canal[4], canal[3])
-                    self.logDB(log)
-                elif not os.path.exists(dwn_poster):
-                    val, log = self.search_imdb(dwn_poster, self.pstcanal, canal[4], canal[3])
-                    self.logDB(log)
-                elif not os.path.exists(dwn_poster):
-                    val, log = self.search_google(dwn_poster, self.pstcanal, canal[4], canal[3], canal[0])
-                    self.logDB(log)
-                pdb.task_done()
+            else:
+                # Gestisci il caso in cui self.pstcanal è None o non valido
+                # dwn_poster = path_folder + '/default.jpg'  # Esempio di fallback
+                print('none type xxxxxxxxxx- posterx')
+                return
+            if os.path.exists(dwn_poster):
+                os.utime(dwn_poster, (time.time(), time.time()))
+            '''
+            # if lng == "fr":
+                # if not os.path.exists(dwn_poster):
+                    # val, log = self.search_molotov_google(dwn_poster, canal[5], canal[4], canal[3], canal[0])
+                    # self.logDB(log)
+                # if not os.path.exists(dwn_poster):
+                    # val, log = self.search_programmetv_google(dwn_poster, canal[5], canal[4], canal[3], canal[0])
+                    # self.logDB(log)
+            '''
+            if not os.path.exists(dwn_poster):
+                val, log = self.search_tmdb(dwn_poster, self.pstcanal, canal[4], canal[3])
+                self.logDB(log)
+            elif not os.path.exists(dwn_poster):
+                val, log = self.search_tvdb(dwn_poster, self.pstcanal, canal[4], canal[3])
+                self.logDB(log)
+            elif not os.path.exists(dwn_poster):
+                val, log = self.search_fanart(dwn_poster, self.pstcanal, canal[4], canal[3])
+                self.logDB(log)
+            elif not os.path.exists(dwn_poster):
+                val, log = self.search_imdb(dwn_poster, self.pstcanal, canal[4], canal[3])
+                self.logDB(log)
+            elif not os.path.exists(dwn_poster):
+                val, log = self.search_google(dwn_poster, self.pstcanal, canal[4], canal[3], canal[0])
+                self.logDB(log)
+            pdb.task_done()
 
     def logDB(self, logmsg):
         import traceback
@@ -538,9 +618,13 @@ class PosterAutoDB(AglarePosterXDownloadThread):
                             canal[3] = evt[5]
                             canal[4] = evt[6]
                             canal[5] = canal[2]
-                            self.pstcanal = convtext(canal[5])
-                            self.pstrNm = path_folder + '/' + self.pstcanal + ".jpg"
-                            self.pstcanal = str(self.pstrNm)
+                            if canal[5] and canal[5] != 'None' or canal[5] is not None:
+                                self.pstcanal = convtext(canal[5])
+                            else:
+                                # Gestisci il caso in cui self.pstcanal è None o non valido
+                                # dwn_poster = path_folder + '/default.jpg'  # Esempio di fallback
+                                print('none type xxxxxxxxxx- posterx')
+                                return
                             dwn_poster = self.pstcanal
                             if os.path.join(path_folder, dwn_poster):
                                 os.utime(dwn_poster, (time.time(), time.time()))
@@ -743,9 +827,8 @@ class AglarePosterX(Renderer):
         if self.canal[5]:
             if self.pstcanal is not None and not os.path.exists(self.pstcanal):
                 self.pstcanal = convtext(self.canal[5])
-                if self.pstcanal is not None:
-                    self.pstrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
-                    self.pstcanal = str(self.pstrNm)
+                self.pstrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
+                self.pstcanal = str(self.pstrNm)
             loop = 180
             found = None
             self.logPoster("[LOOP: waitPoster] {}".format(self.pstcanal))
