@@ -5,48 +5,42 @@
 # from .. import _
 from Components.ActionMap import ActionMap, NumberActionMap
 from Components.config import (
+    # ConfigDirectory,
+    ConfigIP,
+    ConfigInteger,
+    ConfigPassword,
+    ConfigSubsection,
+    ConfigText,
+    ConfigYesNo,
     config,
     getConfigListEntry,
-    ConfigPassword,
-    ConfigYesNo,
-    ConfigSubsection,
-    ConfigIP,
-    # ConfigDirectory,
-    ConfigText,
-    ConfigInteger,
 )
 from Components.ConfigList import ConfigListScreen
 from Components.MenuList import MenuList
 from Components.Sources.List import List
 from Components.Sources.StaticText import StaticText
 from enigma import (
-    eListboxPythonMultiContent,
-    gFont,
-    # loadPNG,
-    getDesktop,
-    eTimer,
-    # RT_HALIGN_RIGHT,
     RT_HALIGN_LEFT,
-    # RT_VALIGN_CENTER,
+    eListboxPythonMultiContent,
+    eTimer,
+    gFont,
+    getDesktop,
 )
-from os import path as ospath
-from operator import itemgetter
-from xml.etree import ElementTree
 from Screens.ChoiceBox import ChoiceBox
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
-from Tools.LoadPixmap import LoadPixmap
 from Tools.Directories import (SCOPE_CURRENT_SKIN, resolveFilename, fileExists)
-import socket
+from Tools.LoadPixmap import LoadPixmap
+from operator import itemgetter
+from os import path as ospath
+from xml.etree import ElementTree
+import fcntl
+import six
 import skin
+import socket
+import struct
 import sys
 import time
-import six
-import fcntl
-import struct
-# required methods: Request, urlopen, URLError, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
-# from urllib.request import urlopen, Request, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
-# from urllib.error import URLError
 
 
 PY3 = sys.version_info.major >= 3
@@ -61,7 +55,6 @@ else:
 
 
 global NAMEBIN
-
 
 config.oscaminfo = ConfigSubsection()
 config.oscaminfo.userdatafromconf = ConfigYesNo(default=True)
@@ -255,7 +248,7 @@ class OscamInfo:
             if self.ipaccess == "yes":
                 self.ip = "::1"
             else:
-                self.ip = "127.0.0.1"
+                self.ip = getIP()
         else:
             self.ip = ".".join("%d" % d for d in config.oscaminfo.ip.value)
             self.port = str(config.oscaminfo.port.value)
@@ -264,7 +257,6 @@ class OscamInfo:
         if self.port.startswith('+'):
             self.proto = "https"
             self.port.replace("+", "")
-        # print("[OscamInfo][openWebIF] NAMEBIN=%s, CAM=%s" % (NAMEBIN, NAMEBIN))
         if part is None:
             self.url = "%s://%s:%s/%sapi.html?part=status" % (self.proto, self.ip, self.port, NAMEBIN)
         else:
@@ -501,22 +493,6 @@ class oscMenuList(MenuList):
             self.l.setFont(2, self.clientFont)
             self.l.setFont(3, gFont("Regular", int(25 * f)))
 
-# class oscMenuList(MenuList):
-    # def __init__(self, list, itemH=35):
-        # MenuList.__init__(self, list, False, eListboxPythonMultiContent)
-        # self.l.setItemHeight(itemH)
-        # screenwidth = getDesktop(0).size().width()
-        # self.l.setFont(0, gFont("Regular", 20))
-        # self.l.setFont(1, gFont("Regular", 18))
-        # self.clientFont = gFont("Regular", 16)
-        # self.l.setFont(2, self.clientFont)
-        # self.l.setFont(3, gFont("Regular", 12))
-        # self.l.setFont(4, gFont("Regular", 30))
-        # self.l.setFont(5, gFont("Regular", 27))
-        # self.clientFont1080 = gFont("Regular", 24)
-        # self.l.setFont(6, self.clientFont1080)
-        # self.l.setFont(7, gFont("Regular", 24))
-
 
 class OSCamInfo(Screen):
 
@@ -542,13 +518,6 @@ class OSCamInfo(Screen):
         Screen.__init__(self, session)
         NAMEBIN2 = check_NAMEBIN2()
         self.setTitle(_("%s Info - Main Menu" % NAMEBIN2))
-        # if f == 1.5:
-            # self.skin = """<screen position="center,center" size="640,400" title="%s Info Main Menu">""" % NAMEBIN
-            # self.skin += """<widget name="mainmenu" position="50,50" size="590, 350" zPosition="1" scrollbarMode="showOnDemand" />"""
-        # else:
-            # self.skin = """<screen position="center,center" size="425,260" title="%s Info Main Menu">""" % NAMEBIN
-            # self.skin += """<widget name="mainmenu" position="33,33" size="392,220" zPosition="1" scrollbarMode="showOnDemand" />"""
-        # self.skin += """</screen>"""
         self.menu = [_("Show Ecm info"), _("Show Clients"), _("Show Readers/Proxies"), _("Show Log"), _("Card info (CCcam-Reader)"), _("Ecm Statistics"), _("Setup")]
         self.osc = OscamInfo()
         self["mainmenu"] = oscMenuList([])
@@ -757,14 +726,6 @@ class oscECMInfo(Screen, OscamInfo):
         self.setTitle(_("Ecm Info"))
         self.ecminfo = "/tmp/ecm.info"
         self.title = _("Ecm Info")
-        # global f
-        # if f == 1.5:
-            # self.skin = """<screen position="center,center" size="960,540" title="%s ECM info">""" % NAMEBIN
-            # self.skin += """<widget name="output" font="Regular; 30" scrollbarMode="showOnDemand" enableWrapAround="1" position="50,50" size="960,540" transparent="1" />"""
-        # else:
-            # self.skin = """<screen position="center ,center" size="640,360" title="%s ECM info">""" % NAMEBIN
-            # self.skin += """<widget name="output" font="Regular; 30" scrollbarMode="showOnDemand" enableWrapAround="1" position="33,33" size="640,360" transparent="1" />"""
-        # self.skin += """</screen>"""
         self["output"] = oscMenuList([])
         if config.oscaminfo.autoupdate.value:
             self.loop = eTimer()
@@ -793,10 +754,6 @@ class oscECMInfo(Screen, OscamInfo):
         # y = 0
         for i in dataECM:
             out.append(self.buildListEntry(i))
-        # if f == 1.5:
-            # self["output"].l.setItemHeight(int(30 * f))
-        # else:
-            # self["output"].l.setItemHeight(int(35 * f))
         self["output"].l.setItemHeight(int(30 * f))
         self["output"].l.setList(out)
         self["output"].selectionEnabled(False)
@@ -836,31 +793,12 @@ class oscInfo(Screen, OscamInfo):
         self.scrolling = False
         self.webif_data = self.readXML(typ=self.what)
         ypos = 10
-        # if f == 1.5 or f == 3:
-            # ysize = 600
-            # self.itemheight = 25
-        # else:
-            # ysize = 900
-            # self.itemheight = 35
-        # self.rows = 12
-
         ysize = 350
         self.rows = 12
         self.itemheight = 25
-
         self.sizeLH = sizeH - 20
         self.skin = """<screen position="center,center" size="%d, %d" title="Client Info" >""" % (sizeH, ysize)
         button_width = int(sizeH / 4)
-        # for k, v in enumerate(["red", "green", "yellow", "blue"]):
-            # xpos = k * button_width
-            # self.skin += """<ePixmap name="%s" position="%d,%d" size="40,40" pixmap="buttons/key_%s.png" zPosition="1" transparent="1" alphaTest="blend" />""" % (v, xpos, ypos, v)
-            # self.skin += """<widget source="key_%s" render="Label" position="%d,%d" size="%d,%d" font="Regular;26" zPosition="1" verticalAlignment="center" transparent="1" />""" % (v, xpos + 50, ypos, button_width, 27)
-        # if f == 1.5:
-            # self.skin += """<ePixmap name="divh" position="10,55" size="%d,2" pixmap="div-h-fhd.png" transparent="1" alphaTest="blend" />""" % sizeH
-        # else:
-            # self.skin += """<ePixmap name="divh" position="10,55" size="%d,2" pixmap="div-h.png" transparent="1" alphaTest="blend" />""" % sizeH
-        # self.skin += """<widget name="output" position="10,65" size="%d,%d" zPosition="1" scrollbarMode="showOnDemand" />""" % (self.sizeLH, ysize - 80)
-        # self.skin += """</screen>"""
         for k, v in enumerate(["red", "green", "yellow", "blue"]):
             xpos = k * button_width
             self.skin += """<ePixmap name="%s" position="%d,%d" size="35,25" pixmap="buttons/key_%s.png" zPosition="1" transparent="1" alphatest="on" />""" % (v, xpos, ypos, v)
@@ -1030,12 +968,7 @@ class oscInfo(Screen, OscamInfo):
         else:
             data = self.readXML(typ=self.what)
         self.out = []
-        # if f == 1.5:
-            # self.itemheight = 25
-        # else:
-            # self.itemheight = 35
         self.itemheight = 25
-        # print("[OscamInfo][showData] data[0], data[1]", data[0], "   ", data[1])
         if data[0]:
             if self.what != "l":
                 heading = (self.HEAD[self.NAME], self.HEAD[self.PROT], self.HEAD[self.CAID_SRVID],
@@ -1062,10 +995,6 @@ class oscInfo(Screen, OscamInfo):
                 self["key_green"].setText(_("Clients"))
                 self["key_yellow"].setText(_("Servers"))
                 self["key_blue"].setText("")
-                # if f == 1.5:
-                    # self.itemheight = 20
-                # else:
-                    # self.itemheight = 28
                 self.itemheight = 20
         else:
             self.errmsg = (data[1],)
@@ -1417,7 +1346,6 @@ class OscamInfoConfigScreen(ConfigListScreen, Screen):
             <eLabel backgroundColor="#002d3d5b" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
             <eLabel backgroundColor="#001a2336" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
             <eLabel name="" position="31,30" size="901,977" zPosition="-90" cornerRadius="18" backgroundColor="#00171a1c" foregroundColor="#00171a1c"/>
-            <!--
             <eLabel backgroundColor="#00ff0000" position="34,1064" size="300,6" zPosition="12"/>
             <eLabel backgroundColor="#0000ff00" position="342,1064" size="300,6" zPosition="12"/>
             <eLabel backgroundColor="#00ffff00" position="652,1064" size="300,6" zPosition="12"/>
@@ -1426,7 +1354,6 @@ class OscamInfoConfigScreen(ConfigListScreen, Screen):
             <widget source="key_green" render="Label" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#0528343b" transparent="1" foregroundColor="white"/>
             <widget source="key_yellow" render="Label" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#0528343b" transparent="1" foregroundColor="white"/>
             <widget source="key_blue" render="Label" position="962,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="#0528343b" transparent="1" foregroundColor="white"/>
-            -->
             <widget name="config" position="40,100" size="890,900" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center"/>
             <widget source="session.VideoPicture" render="Pig" position="997,100" zPosition="19" size="880,499" backgroundColor="#ff000000" transparent="0" cornerRadius="14"/>
             <widget name="status" render="Label" position="997,607" size="885,180" font="Regular; 24" halign="left" valign="top" backgroundColor="#0528343b" transparent="1" zPosition="55"/>
@@ -1440,10 +1367,8 @@ class OscamInfoConfigScreen(ConfigListScreen, Screen):
         ConfigListScreen.__init__(self, [], session=session, on_change=self.changedEntry)
         # ConfigListScreen.__init__(self, [], session=session, on_change=self.changedEntry, fullUI=True)
         self["actions"] = ActionMap(["SetupActions"],
-            {
-                "ok": self.savx,
-                "cancel": self.exit
-            }, -1)  # noqa: E123
+                                    {"ok": self.savx,
+                                     "cancel": self.exit}, -1)
         # self["key_red"] = StaticText(_("Close"))
         self.createSetup()
 
@@ -1453,7 +1378,6 @@ class OscamInfoConfigScreen(ConfigListScreen, Screen):
         ConfigListScreen.changedEntry(self)
 
     def createSetup(self):
-        # oscamconfig = []
         oscamconfig = [(getConfigListEntry(_("Read Userdata from %s.conf" % check_NAMEBIN()), config.oscaminfo.userdatafromconf))]
         if not config.oscaminfo.userdatafromconf.value:
             oscamconfig.append(getConfigListEntry(_("Username (httpuser)"), config.oscaminfo.username))

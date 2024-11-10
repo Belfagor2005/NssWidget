@@ -852,14 +852,6 @@
         <panel name="bLogo"/>
         <panel name="titletemp"/>
     </screen>
-    <screen name="ScanIP" position="0,0" size="1920,1080" title="Scan IP" flags="wfNoBorder">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="pigscreen885"/>
-        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
-        <widget name="config" position="36,100" size="890,50" itemHeight="50" font="Regular; 30" itemCornerRadius="8"/>
-    </screen>
     <screen name="UserDialog" position="0,0" size="1920,1080" title="UserDialog" backgroundColor="transparent" flags="wfNoBorder">
         <widget name="HelpWindow" position="694,791" size="906,188" zPosition="1" backgroundColor="background" transparent="1" alphatest="blend" font="Regular; 24"/>
         <widget source="VKeyIcon" conditional="VKeyIcon" render="Pixmap" pixmap="buttons/key_text.png" alphatest="blend" position="1590,1022" size="54,34" zPosition="10">
@@ -3326,32 +3318,32 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/channelselection_setup.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="downloads" position="0,0" size="1920,1080" title="downloads..." flags="wfNoBorder" backgroundColor="transparent">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="bLogo"/>
-        <widget name="int_statu" position="1297,1030" size="60,50" font="Regular; 30" foregroundColor="green" backgroundColor="background" zPosition="2" transparent="1"/>
-        <eLabel name="int_statu_off" position="1297,1030" size="60,50" font="Regular; 30" foregroundColor="grey" backgroundColor="background" zPosition="1" transparent="1"/>
-        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
-        <widget name="progress" position="36,98" size="890,20" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10"/>
-        <widget name="status" position="36,140" size="890,44" transparent="1" font="Regular;33" backgroundColor="background"/>
-        <widget name="info" position="36,220" size="890,44" transparent="1" font="Regular;33" backgroundColor="background"/>
-        <widget name="info2" position="36,310" size="890,680" transparent="1" font="Regular; 32" backgroundColor="background"/>
-        <widget name="Picture" position="1160,85" size="596,278" zPosition="2" transparent="1"/>
-        <widget name="Picture2" position="1300,85" size="320,232" zPosition="1" transparent="1" alphatest="blend"/>
-        <widget source="key_1" render="Label" font="Regular;35" foregroundColor="white" backgroundColor="background" position="997,800" size="375,50" halign="left" transparent="1" zPosition="1"/>
-        <widget source="key_2" render="Label" font="Regular;35" foregroundColor="white" backgroundColor="background" position="997,850" size="375,50" halign="left" transparent="1" zPosition="1"/>
-        <widget source="key_3" render="Label" font="Regular;35" foregroundColor="white" backgroundColor="background" position="997,900" size="375,50" halign="left" transparent="1" zPosition="1"/>
-        <widget source="key_4" render="Label" font="Regular;35" foregroundColor="white" backgroundColor="background" position="997,950" size="375,50" halign="left" transparent="1" zPosition="1"/>
-        <eLabel name="" position="997,400" size="250,50" text="Anzahl" font="Regular; 35" halign="left" backgroundColor="wpmc" foregroundColor="green"/>
-        <eLabel name="" position="997,450" size="250,50" text="Poster :     " font="Regular; 35" halign="left" backgroundColor="wpmc" foregroundColor="green"/>
-        <widget name="infoposter" position="1180,450" size="160,50" transparent="1" font="Regular;35" backgroundColor="background" valign="top" zPosition="1"/>
-        <eLabel name="" position="997,500" size="250,50" text="Backdrop :     " font="Regular; 35" halign="left" backgroundColor="wpmc" foregroundColor="green"/>
-        <widget name="infobackdrop" position="1180,500" size="160,50" transparent="1" font="Regular;35" foregroundColor="white" backgroundColor="background" valign="top" zPosition="1"/>
-        <eLabel name="" position="997,550" size="250,50" text="Banner :     " font="Regular; 35" halign="left" backgroundColor="wpmc" foregroundColor="green"/>
-        <widget name="infobanner" position="1180,550" size="160,50" transparent="1" font="Regular;35" foregroundColor="white" backgroundColor="background" valign="top" zPosition="1"/>
-        <eLabel name="" position="997,600" size="250,50" text="Infos :     " font="Regular; 35" halign="left" backgroundColor="wpmc" foregroundColor="green"/>
-        <widget name="infoinfos" position="1180,600" size="160,50" transparent="1" font="Regular;35" foregroundColor="white" backgroundColor="background" valign="top" zPosition="1"/>
+          <panel name="titletemp" />
+          <panel name="menutemp" />
+          <panel name="ScreenTemplateAllColorButtons_menu" />
+          <panel name="bLogo" />
+          <widget name="int_statu" position="998,202" size="60,50" font="Regular; 30" foregroundColor="green" backgroundColor="background" zPosition="2" transparent="1" />
+          <eLabel name="int_statu_off" position="998,199" size="60,50" font="Regular; 30" foregroundColor="grey" backgroundColor="background" zPosition="1" transparent="1" />
+          <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT" />
+          <widget name="progress" position="36,98" size="890,20" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" />
+          <widget name="status" position="36,140" size="890,44" transparent="1" font="Regular;33" backgroundColor="background" />
+          <widget name="info" position="36,220" size="890,44" transparent="1" font="Regular;33" backgroundColor="background" />
+          <widget name="info2" position="36,310" size="890,680" transparent="1" font="Regular; 32" backgroundColor="background" />
+          <widget name="Picture" position="1160,85" size="596,278" zPosition="2" transparent="1" />
+          <widget name="Picture2" position="1300,85" size="320,232" zPosition="1" transparent="1" alphatest="blend" />
+          <widget source="key_1" render="Label" font="Regular;35" foregroundColor="white" backgroundColor="background" position="997,800" size="375,50" halign="left" transparent="1" zPosition="1" />
+          <widget source="key_2" render="Label" font="Regular;35" foregroundColor="white" backgroundColor="background" position="997,850" size="375,50" halign="left" transparent="1" zPosition="1" />
+          <widget source="key_3" render="Label" font="Regular;35" foregroundColor="white" backgroundColor="background" position="997,900" size="375,50" halign="left" transparent="1" zPosition="1" />
+          <widget source="key_4" render="Label" font="Regular;35" foregroundColor="white" backgroundColor="background" position="997,950" size="375,50" halign="left" transparent="1" zPosition="1" />
+          <eLabel name="" position="997,400" size="250,50" text="Anzahl" font="Regular; 35" halign="left" backgroundColor="wpmc" foregroundColor="green" />
+          <eLabel name="" position="997,450" size="250,50" text="Poster :     " font="Regular; 35" halign="left" backgroundColor="wpmc" foregroundColor="green" />
+          <widget name="infoposter" position="1180,450" size="160,50" transparent="1" font="Regular;35" backgroundColor="background" valign="top" zPosition="1" />
+          <eLabel name="" position="997,500" size="250,50" text="Backdrop :     " font="Regular; 35" halign="left" backgroundColor="wpmc" foregroundColor="green" />
+          <widget name="infobackdrop" position="1180,500" size="160,50" transparent="1" font="Regular;35" foregroundColor="white" backgroundColor="background" valign="top" zPosition="1" />
+          <eLabel name="" position="997,550" size="250,50" text="Banner :     " font="Regular; 35" halign="left" backgroundColor="wpmc" foregroundColor="green" />
+          <widget name="infobanner" position="1180,550" size="160,50" transparent="1" font="Regular;35" foregroundColor="white" backgroundColor="background" valign="top" zPosition="1" />
+          <eLabel name="" position="997,600" size="250,50" text="Infos :     " font="Regular; 35" halign="left" backgroundColor="wpmc" foregroundColor="green" />
+          <widget name="infoinfos" position="1180,600" size="160,50" transparent="1" font="Regular;35" foregroundColor="white" backgroundColor="background" valign="top" zPosition="1" />
     </screen>
     <screen name="manuelSearch" position="0,0" size="1920,1080" title="Manuel Search..." backgroundColor="transparent" flags="wfNoBorder">
         <panel name="titletemp"/>
@@ -3368,7 +3360,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
         <widget name="Picture" position="1010,420" size="278,417" zPosition="5" transparent="1"/>
         <widget name="Picture2" position="986,133" size="320,232" zPosition="1" transparent="1" alphatest="blend"/>
         <widget name="info" position="1000,960" size="600,45" transparent="1" font="Regular;30" halign="left" foregroundColor="white" backgroundColor="background"/>
-        <widget name="int_statu" font="Regular; 30" position="1522,1024" size="40,40" foregroundColor="green" backgroundColor="background" zPosition="2" transparent="1"/>
+        <widget name="int_statu" font="Regular; 30" position="1025,888" size="40,40" foregroundColor="green" backgroundColor="background" zPosition="2" transparent="1" />
         <widget name="progress" position="36,910" size="890,20" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="20"/>
         <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
     </screen>
@@ -7265,6 +7257,7 @@ MultiContentEntryText(pos = (20, 0), size = (840, 50), flags = RT_HALIGN_LEFT|RT
         <screen name="AglareSetup" position="0,0" size="1920,1080" title="Aglare-FHD Skin Controler" flags="wfNoBorder">
         <panel name="titletemp" />
         <panel name="menutemp" />
+        <panel name="bLogo" />
         <panel name="configlist45" />
         <panel name="pigscreen885" />
         <panel name="ScreenTemplateAllColorButtons_menu" />
@@ -7451,6 +7444,7 @@ MultiContentEntryText(pos = (20, 0), size = (840, 50), flags = RT_HALIGN_LEFT|RT
     <screen name="MultiQuickButton" position="0,0" size="1920,1080" title="MultiQuickButton Panel" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
+        <panel name="bLogo" />
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
@@ -7467,6 +7461,7 @@ MultiContentEntryText(pos = (20, 0), size = (840, 50), flags = RT_HALIGN_LEFT|RT
     <screen name="QuickButton" position="0,0" size="1920,1080" title="QuickButton" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
+        <panel name="bLogo" />
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
@@ -7633,6 +7628,7 @@ MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="titletemp"/>
         <panel name="menutemp"/>
+        <panel name="bLogo" />
         <panel name="pigscreen885"/>
         <panel name="menusep"/>
         <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
@@ -7711,6 +7707,7 @@ MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
     <screen name="SoftwareManagerInfo" title="SoftwareManager information" position="fill" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
+        <panel name="bLogo" />
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget source="list" render="Listbox" position="34,100" size="890,900" selectionDisabled="0" itemHeight="50" itemCornerRadius="8" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1">
@@ -7728,6 +7725,7 @@ MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
     <screen name="WeatherSettingsViewNew" title="Weather Plugin Setup" position="0,0" size="1920,1080" backgroundColor="transparent" transparent="0" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
+        <panel name="bLogo" />
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="config" position="36,98" size="890,200" itemHeight="50" enableWrapAround="1" transparent="1" font="Regular; 30" itemCornerRadius="8" valign="center"/>
@@ -7738,6 +7736,7 @@ MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
     <screen name="TestScreen" position="center,center" size="1920,1080" backgroundColor="transparent" transparent="0" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
+        <panel name="bLogo" />
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="meinelist" position="36,100" size="890,585" font="Regular;30" itemHeight="45" itemCornerRadius="10" zPosition="3" scrollbarMode="showOnDemand" textOffset="10,6"/>
@@ -7746,6 +7745,7 @@ MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
     <screen name="PiconInstallerScreen" position="0,0" size="1920,1080" title="Picon Installer by acypaczom" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
+        <panel name="bLogo" />
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="config" position="36,98" size="890,600" font="Regular; 30" transparent="1" itemHeight="50" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
@@ -7754,6 +7754,7 @@ MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
     <screen name="PiconRemoverScreen" title="PiconRemover" position="0,0" size="1920,1080" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
+        <panel name="bLogo" />
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="piconpath" position="40,110" size="890,60" font="Regular;30" foregroundColor="white" transparent="1" zPosition="1" halign="left"/>
@@ -7763,6 +7764,7 @@ MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
     <screen name="PiconRemoverFolderScreen" position="0,0" size="1920,1080" title="PiconRemoverFolderScreen" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
+        <panel name="bLogo" />
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="pigscreen885"/>
         <widget name="media" position="44,100" size="880,50" valign="center" font="Regular; 30" transparent="1" zPosition="1" foregroundColor="yellow"/>

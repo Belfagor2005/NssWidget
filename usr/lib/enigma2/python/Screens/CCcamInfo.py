@@ -1474,7 +1474,7 @@ class CCcamInfoRemoteBoxMenu(Screen):
         self.list = []  # Ensure the list is initialized
         self.profiles = []  # Ensure the profiles list is initialized
         try:
-            with open(config.plugins.CCcamInfo.profiles.value, "r") as f:
+            with open(config.plugins.cccaminfo.profiles.value, "r") as f:
                 content = f.read()
 
         except IOError as e:

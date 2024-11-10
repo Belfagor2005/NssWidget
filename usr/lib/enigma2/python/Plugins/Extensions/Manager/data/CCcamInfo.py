@@ -6,7 +6,7 @@
 # TOGGLE_SHOW = InfoBar.toggleShow
 # modded by lululla 20240314
 from __future__ import print_function
-# from .. import _
+# from . import _
 from . import CCcamPrioMaker
 from . import CCcamOrganizer
 from Components.ActionMap import (
@@ -53,7 +53,7 @@ from enigma import (
     RT_HALIGN_RIGHT,
 )
 from glob import glob
-from os import (listdir, remove, rename, system)
+from os import (listdir, remove, rename, system, path)
 from os.path import (dirname, exists, isfile)
 from skin import getSkinFactor  # parameters
 
@@ -65,6 +65,8 @@ import sys
 import base64
 # from base64 import encodebytes
 import requests
+
+
 try:
     from urllib.parse import urlparse, urlunparse
 except:
@@ -1472,7 +1474,7 @@ class CCcamInfoRemoteBoxMenu(Screen):
         self.list = []  # Ensure the list is initialized
         self.profiles = []  # Ensure the profiles list is initialized
         try:
-            with open(config.plugins.CCcamInfo.profiles.value, "r") as f:
+            with open(config.plugins.cccaminfo.profiles.value, "r") as f:
                 content = f.read()
 
         except IOError as e:

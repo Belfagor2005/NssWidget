@@ -3,23 +3,29 @@
 
 # from Components.About import about
 # from .. import _
-from Components.ActionMap import (ActionMap, NumberActionMap)
+from Components.ActionMap import ActionMap, NumberActionMap
 from Components.config import (
-    config,
-    getConfigListEntry,
-    ConfigInteger,
+    # ConfigDirectory,
     ConfigIP,
-    ConfigYesNo,
+    ConfigInteger,
     ConfigPassword,
     ConfigSubsection,
-    # ConfigDirectory,
     ConfigText,
+    ConfigYesNo,
+    config,
+    getConfigListEntry,
 )
-# required methods: Request, urlopen, URLError, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
 from Components.ConfigList import ConfigListScreen
 from Components.MenuList import MenuList
 from Components.Sources.List import List
 from Components.Sources.StaticText import StaticText
+from enigma import (
+    RT_HALIGN_LEFT,
+    eListboxPythonMultiContent,
+    eTimer,
+    gFont,
+    getDesktop,
+)
 from Screens.ChoiceBox import ChoiceBox
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
@@ -29,21 +35,16 @@ from operator import itemgetter
 from os import path as ospath
 from xml.etree import ElementTree
 import fcntl
-import sys
 import six
 import skin
 import socket
 import struct
+import sys
 import time
 
-from enigma import (
-    eTimer,
-    RT_HALIGN_LEFT,
-    eListboxPythonMultiContent,
-    gFont,
-    getDesktop,
-)
+
 PY3 = sys.version_info.major >= 3
+
 if PY3:
     from urllib.request import build_opener, HTTPHandler, Request, urlopen, install_opener, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler
     from urllib.parse import quote_plus
@@ -52,15 +53,11 @@ else:
     from urllib2 import build_opener, HTTPHandler, Request, URLError, urlopen, install_opener, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler
     from urllib import quote_plus
 
-# from urllib.request import urlopen, Request, HTTPHandler, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, build_opener, install_opener
-# from urllib.error import URLError
-# import urllib.parse
-
 
 global NAMEBIN
 
 config.NcamInfo = ConfigSubsection()
-config.NcamInfo.showInExtensions = ConfigYesNo(default=False)
+# config.NcamInfo.showInExtensions = ConfigYesNo(default=False)
 config.NcamInfo.userdatafromconf = ConfigYesNo(default=True)
 # config.NcamInfo.usehostname = ConfigYesNo(default=False)
 config.NcamInfo.autoupdate = ConfigYesNo(default=False)
@@ -216,7 +213,6 @@ class NcamInfo:
                 # If we have a config file, we need to investigate it further
                 with open(conf, 'r') as data:
                     for i in data:
-                        # print("[NcamInfo][getUserData] i", i)
                         if "httpuser" in i.lower():
                             user = i.split("=")[1].strip()
                         elif "httppwd" in i.lower():
@@ -230,7 +226,7 @@ class NcamInfo:
                                 ipconfigured = False
                             if "::1" in allowed or "127.0.0.1" in allowed or "0.0.0.0-255.255.255.255" in allowed:
                                 # ... until we find either 127.0.0.1 or ::1 in allowed list
-                                blocked = False  # noqa: F841
+                                blocked = False
                             else:
                                 blocked = True
             if not blocked:
@@ -240,10 +236,8 @@ class NcamInfo:
     def openWebIF(self, part=None, reader=None):
         NAMEBIN = check_NAMEBIN()
         self.proto = "http"
-        # print("[NcamInfo][openWebIF] NAMEBIN part", NAMEBIN, "   ", part)
         if config.NcamInfo.userdatafromconf.value:
             udata = self.getUserData()
-            # print("[NcamInfo][openWebIF] udata, config.NcamInfo.userdatafromconf.value: ", udata, "   ", config.NcamInfo.userdatafromconf.value)
             if isinstance(udata, str):
                 return False, udata
             else:
@@ -255,35 +249,20 @@ class NcamInfo:
             if self.ipaccess == "yes":
                 self.ip = "::1"
             else:
-                # self.ip = "127.0.0.1"
-
                 self.ip = getIP()
-
-            # self.ip = local address 127.0.0.1 gets 403 in Oscam webif so try to pick up box IP address.
-            # eth0 = about.getIfConfig("eth0")
-            # wlan0 = about.getIfConfig("wlan0")
-            # if "addr" in eth0:
-                # self.ip = eth0["addr"]
-            # if "addr" in wlan0:
-                # self.ip = wlan0["addr"]
-                # print("[NcamInfo][openWebIF]1 self.ip self.port  self.username self.password self.ipaccess", self.ip, "   ", self.port, "   ", self.username, "   ",  self.password, "   ", self.ipaccess)
-
         else:
             self.ip = ".".join("%d" % d for d in config.NcamInfo.ip.value)
             self.port = str(config.NcamInfo.port.value)
             self.username = str(config.NcamInfo.username.value)
             self.password = str(config.NcamInfo.password.value)
-            # print("[NcamInfo][openWebIF]2 self.ip self.port  self.username self.password", self.ip, "   ", self.port, "   ", self.username, "   ",  self.password)
         if self.port.startswith('+'):
             self.proto = "https"
             self.port.replace("+", "")
-            # print("[NcamInfo][openWebIF] NAMEBIN=%s, CAM=%s" % (NAMEBIN, NAMEBIN))
         if part is None:
             self.url = "%s://%s:%s/%sapi.html?part=status" % (self.proto, self.ip, self.port, NAMEBIN)
         else:
             self.url = "%s://%s:%s/%sapi.html?part=%s" % (self.proto, self.ip, self.port, NAMEBIN, part)
         if part is not None and reader is not None:
-            # print("[NcamInfo][openWebIF] reader:", reader)
             self.url = "%s://%s:%s/%sapi.html?part=%s&label=%s" % (self.proto, self.ip, self.port, NAMEBIN, part, quote_plus(reader))
         # print("[NcamInfo][openWebIF] NAMEBIN=%s, NAMEBIN=%s url=%s" % (NAMEBIN, NAMEBIN, self.url))
         # print("[NcamInfo][openWebIF] self.url=%s" % self.url)
@@ -300,7 +279,6 @@ class NcamInfo:
             data = urlopen(request).read()
             # print("[NcamInfo][openWebIF] data=", data)
         except URLError as e:
-            print("[NcamInfo][openWebIF] error: %s" % e)
             if hasattr(e, "reason"):
                 err = str(e.reason)
             elif hasattr(e, "code"):
@@ -322,15 +300,14 @@ class NcamInfo:
         retval = []
         tmp = {}
         if result[0]:
-            # print("[NcamInfo][readXML] show typ, result 0,1", typ, "   ", result[0], "  ", result[1])
             if not self.showLog:
                 dataXML = ElementTree.XML(result[1])
-                if typ == "version":
-                    if "version" in dataXML.attrib:
-                        self.version = dataXML.attrib["version"]
-                    else:
-                        self.version = "-"
-                    return self.version
+                # if typ == "version":
+                    # if "version" in dataXML.attrib:
+                        # self.version = dataXML.attrib["version"]
+                    # else:
+                        # self.version = "-"
+                    # return self.version
                 status = dataXML.find("status")
                 clients = status.findall("client")
                 for client in clients:
@@ -372,7 +349,6 @@ class NcamInfo:
                     tmp = result[1].replace("<log>", "<log><![CDATA[").replace("</log>", "]]></log>")
                 else:
                     tmp = result[1]
-                print("[NcamInfo][readXML] show tmp", tmp)
                 dataXML = ElementTree.XML(tmp)
                 log = dataXML.find("log")
                 logtext = log.text
@@ -398,16 +374,13 @@ class NcamInfo:
                         for j in tmp2:
                             txt += "%s " % j.strip()
                         retval.append(txt)
-            print("[NcamInfo][readXML] result retval", result[0], "   ", retval)
             return result[0], retval
 
         else:
-            print("[NcamInfo][readXML] result result[1]", result[0], "   ", result[1])
             return result[0], result[1]
 
     def getVersion(self):
         dataWebif = self.openWebIF()
-        print("[NcamInfo][getVersion] dataWebif", dataWebif)
         if dataWebif[0]:
             dataXML = ElementTree.XML(dataWebif[1])
             if "revision" in dataXML.attrib:
@@ -448,7 +421,6 @@ class NcamInfo:
                         else:
                             if client.attrib["name"] != "" and client.attrib["name"] != "" and client.attrib["protocol"] != "":
                                 readers.append((client.attrib["name"], client.attrib["name"]))  # return tuple for later use in Choicebox
-            print("[NcamInfo][getReaders] readers", readers)
             return readers
         else:
             return None
@@ -494,14 +466,22 @@ class NcamInfo:
 
 
 class oscMenuList(MenuList):
-    def __init__(self, list, itemH=30):
+    def __init__(self, list):
         MenuList.__init__(self, list, False, eListboxPythonMultiContent)
-        self.l.setItemHeight(int(itemH * f))
-        self.l.setFont(0, gFont("Regular", int(20 * f)))
-        self.l.setFont(1, gFont("Regular", int(18 * f)))
-        self.clientFont = gFont("Regular", int(16 * f))
-        self.l.setFont(2, self.clientFont)
-        self.l.setFont(3, gFont("Regular", int(12 * f)))
+        if f == 1.5:
+            self.l.setItemHeight(int(30 * f))
+            self.l.setFont(0, gFont("Regular", int(20 * f)))
+            self.l.setFont(1, gFont("Regular", int(18 * f)))
+            self.clientFont = gFont("Regular", int(16 * f))
+            self.l.setFont(2, self.clientFont)
+            self.l.setFont(3, gFont("Regular", int(12 * f)))
+        else:
+            self.l.setItemHeight(int(35 * f))
+            self.l.setFont(0, gFont("Regular", int(30 * f)))
+            self.l.setFont(1, gFont("Regular", int(25 * f)))
+            self.clientFont = gFont("Regular", int(25 * f))
+            self.l.setFont(2, self.clientFont)
+            self.l.setFont(3, gFont("Regular", int(25 * f)))
 
 
 class NcamInfoMenu(Screen):
@@ -531,26 +511,24 @@ class NcamInfoMenu(Screen):
         self.osc = NcamInfo()
         self["mainmenu"] = oscMenuList([])
         self["actions"] = NumberActionMap(["OkCancelActions", "InputActions", "ColorActions"],
-                    {
-                        "ok": self.ok,
-                        "cancel": self.exit,
-                        "red": self.red,
-                        "green": self.green,
-                        "yellow": self.yellow,
-                        "blue": self.blue,
-                        "1": self.keyNumberGlobal,
-                        "2": self.keyNumberGlobal,
-                        "3": self.keyNumberGlobal,
-                        "4": self.keyNumberGlobal,
-                        "5": self.keyNumberGlobal,
-                        "6": self.keyNumberGlobal,
-                        "7": self.keyNumberGlobal,
-                        "8": self.keyNumberGlobal,
-                        "9": self.keyNumberGlobal,
-                        "0": self.keyNumberGlobal,
-                        "up": self.up,
-                        "down": self.down
-                        }, -1)  # noqa: E123
+                                          {"ok": self.ok,
+                                           "cancel": self.exit,
+                                           "red": self.red,
+                                           "green": self.green,
+                                           "yellow": self.yellow,
+                                           "blue": self.blue,
+                                           "1": self.keyNumberGlobal,
+                                           "2": self.keyNumberGlobal,
+                                           "3": self.keyNumberGlobal,
+                                           "4": self.keyNumberGlobal,
+                                           "5": self.keyNumberGlobal,
+                                           "6": self.keyNumberGlobal,
+                                           "7": self.keyNumberGlobal,
+                                           "8": self.keyNumberGlobal,
+                                           "9": self.keyNumberGlobal,
+                                           "0": self.keyNumberGlobal,
+                                           "up": self.up,
+                                           "down": self.down}, -1)
         self.onLayoutFinish.append(self.showMenu)
 
     def ok(self):
@@ -744,10 +722,8 @@ class oscECMInfo(Screen, NcamInfo):
             timeout = config.NcamInfo.intervall.value * 1000
             self.loop.start(timeout, False)
         self["actions"] = ActionMap(["SetupActions"],
-            {
-                "ok": self.exit,
-                "cancel": self.exit
-            }, -1)  # noqa: E123
+                                    {"ok": self.exit,
+                                     "cancel": self.exit}, -1)
         self["key_red"] = StaticText(_("Close"))
         self.onLayoutFinish.append(self.showData)
 
@@ -757,11 +733,9 @@ class oscECMInfo(Screen, NcamInfo):
         self.close()
 
     def buildListEntry(self, listentry):
-        return [
-            "",
-            (eListboxPythonMultiContent.TYPE_TEXT, 10 * f, 2 * f, 300 * f, 30 * f, 0, RT_HALIGN_LEFT, listentry[0]),
-            (eListboxPythonMultiContent.TYPE_TEXT, 300 * f, 2 * f, 300 * f, 30 * f, 0, RT_HALIGN_LEFT, listentry[1])
-            ]  # noqa: E123
+        return ["",
+                (eListboxPythonMultiContent.TYPE_TEXT, 10 * f, 2 * f, 300 * f, 30 * f, 0, RT_HALIGN_LEFT, listentry[0]),
+                (eListboxPythonMultiContent.TYPE_TEXT, 300 * f, 2 * f, 300 * f, 30 * f, 0, RT_HALIGN_LEFT, listentry[1])]
 
     def showData(self):
         dataECM = self.getECMInfo(self.ecminfo)
@@ -848,20 +822,18 @@ class ncInfo(Screen, NcamInfo):
             timeout = config.NcamInfo.intervall.value * 1000
             self.loop.start(timeout, False)
         self["actions"] = ActionMap(["OkCancelActions", "ColorActions", "DirectionActions"],
-            {
-                "ok": self.key_ok,
-                "cancel": self.exit,
-                "red": self.exit,
-                "green": self.key_green,
-                "yellow": self.key_yellow,
-                "blue": self.key_blue,
-                "up": self.key_up,
-                "down": self.key_down,
-                "right": self.key_right,
-                "left": self.key_left,
-                "moveUp": self.key_moveUp,
-                "moveDown": self.key_moveDown
-            }, -1)  # noqa: E123
+                                    {"ok": self.key_ok,
+                                     "cancel": self.exit,
+                                     "red": self.exit,
+                                     "green": self.key_green,
+                                     "yellow": self.key_yellow,
+                                     "blue": self.key_blue,
+                                     "up": self.key_up,
+                                     "down": self.key_down,
+                                     "right": self.key_right,
+                                     "left": self.key_left,
+                                     "moveUp": self.key_moveUp,
+                                     "moveDown": self.key_moveDown}, -1)
         self.onLayoutFinish.append(self.showData)
 
     def key_ok(self):
@@ -985,10 +957,8 @@ class ncInfo(Screen, NcamInfo):
         else:
             data = self.readXML(typ=self.what)
         self.out = []
-        self.itemheight = 35
-        # print("[NcamInfo][showData] data[0], data[1]", data[0], "   ", data[1])
+        self.itemheight = 25
         if data[0]:
-            # print("[NcamInfo][showData] data[0], data[1] not isinstance(data[1], str)")
             if self.what != "l":
                 heading = (self.HEAD[self.NAME], self.HEAD[self.PROT], self.HEAD[self.CAID_SRVID],
                            self.HEAD[self.SRVNAME], self.HEAD[self.ECMTIME], self.HEAD[self.IP_PORT], "")
@@ -1060,40 +1030,40 @@ class oscEntitlements(Screen, NcamInfo):
     global HDSKIN, sizeH
     sizeLH = sizeH - 20
     skin = """<screen position="center,center" size="%s, 390*f" title="Client Info" >
-            <widget source="output" render="Listbox" position="10,10" size="%s,390*f" scrollbarMode="showOnDemand" >
-                <convert type="TemplatedMultiContent">
-                {"templates":
-                    {"default": (55,[
-                            MultiContentEntryText(pos = (0, 1), size = (80, 24), font=0, flags = RT_HALIGN_LEFT, text = 0), # index 0 is caid
-                            MultiContentEntryText(pos = (90, 1), size = (150, 24), font=0, flags = RT_HALIGN_LEFT, text = 1), # index 1 is csystem
-                            MultiContentEntryText(pos = (250, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 2), # index 2 is hop 1
-                            MultiContentEntryText(pos = (290, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 3), # index 3 is hop 2
-                            MultiContentEntryText(pos = (330, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 4), # index 4 is hop 3
-                            MultiContentEntryText(pos = (370, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 5), # index 5 is hop 4
-                            MultiContentEntryText(pos = (410, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 6), # index 6 is hop 5
-                            MultiContentEntryText(pos = (480, 1), size = (70, 24), font=0, flags = RT_HALIGN_LEFT, text = 7), # index 7 is sum of cards for caid
-                            MultiContentEntryText(pos = (550, 1), size = (80, 24), font=0, flags = RT_HALIGN_LEFT, text = 8), # index 8 is reshare
-                            MultiContentEntryText(pos = (630, 25), size = (700, 24), font=1, flags = RT_HALIGN_LEFT, text = 9), # index 9 is providers
+                <widget source="output" render="Listbox" position="10,10" size="%s,390*f" scrollbarMode="showOnDemand" >
+                    <convert type="TemplatedMultiContent">
+                    {"templates":
+                        {"default": (55,[
+                                MultiContentEntryText(pos = (0, 1), size = (80, 24), font=0, flags = RT_HALIGN_LEFT, text = 0), # index 0 is caid
+                                MultiContentEntryText(pos = (90, 1), size = (150, 24), font=0, flags = RT_HALIGN_LEFT, text = 1), # index 1 is csystem
+                                MultiContentEntryText(pos = (250, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 2), # index 2 is hop 1
+                                MultiContentEntryText(pos = (290, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 3), # index 3 is hop 2
+                                MultiContentEntryText(pos = (330, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 4), # index 4 is hop 3
+                                MultiContentEntryText(pos = (370, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 5), # index 5 is hop 4
+                                MultiContentEntryText(pos = (410, 1), size = (40, 24), font=0, flags = RT_HALIGN_LEFT, text = 6), # index 6 is hop 5
+                                MultiContentEntryText(pos = (480, 1), size = (70, 24), font=0, flags = RT_HALIGN_LEFT, text = 7), # index 7 is sum of cards for caid
+                                MultiContentEntryText(pos = (550, 1), size = (80, 24), font=0, flags = RT_HALIGN_LEFT, text = 8), # index 8 is reshare
+                                MultiContentEntryText(pos = (630, 25), size = (700, 24), font=1, flags = RT_HALIGN_LEFT, text = 9), # index 9 is providers
+                                                        ]),
+                        "HD": (55,[
+                                MultiContentEntryText(pos = (0, 1), size = (80*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 0), # index 0 is caid
+                                MultiContentEntryText(pos = (90*f, 1), size = (150*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 1), # index 1 is csystem
+                                MultiContentEntryText(pos = (250*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 2), # index 2 is hop 1
+                                MultiContentEntryText(pos = (290*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 3), # index 3 is hop 2
+                                MultiContentEntryText(pos = (330*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 4), # index 4 is hop 3
+                                MultiContentEntryText(pos = (370*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 5), # index 5 is hop 4
+                                MultiContentEntryText(pos = (410*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 6), # index 6 is hop 5
+                                MultiContentEntryText(pos = (480*f, 1), size = (70*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 7), # index 7 is sum of cards for caid
+                                MultiContentEntryText(pos = (550*f, 1), size = (80*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 8), # index 8 is reshare
+                                MultiContentEntryText(pos = (630*f, 1), size = (700*f, 30*f), font=1, flags = RT_HALIGN_LEFT, text = 9), # index 9 is providers
                                                     ]),
-                    "HD": (55,[
-                            MultiContentEntryText(pos = (0, 1), size = (80*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 0), # index 0 is caid
-                            MultiContentEntryText(pos = (90*f, 1), size = (150*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 1), # index 1 is csystem
-                            MultiContentEntryText(pos = (250*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 2), # index 2 is hop 1
-                            MultiContentEntryText(pos = (290*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 3), # index 3 is hop 2
-                            MultiContentEntryText(pos = (330*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 4), # index 4 is hop 3
-                            MultiContentEntryText(pos = (370*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 5), # index 5 is hop 4
-                            MultiContentEntryText(pos = (410*f, 1), size = (40*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 6), # index 6 is hop 5
-                            MultiContentEntryText(pos = (480*f, 1), size = (70*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 7), # index 7 is sum of cards for caid
-                            MultiContentEntryText(pos = (550*f, 1), size = (80*f, 24*f), font=0, flags = RT_HALIGN_LEFT, text = 8), # index 8 is reshare
-                            MultiContentEntryText(pos = (630*f, 1), size = (700*f, 30*f), font=1, flags = RT_HALIGN_LEFT, text = 9), # index 9 is providers
-                                                ]),
-                    },
-                    "fonts": [gFont("Regular", 18*f),gFont("Regular", 12*f)],
-                    "itemHeight": 30*f
-                }
-                </convert>
-            </widget>
-        </screen>""" % (sizeH, sizeLH)
+                        },
+                        "fonts": [gFont("Regular", 18*f),gFont("Regular", 12*f)],
+                        "itemHeight": 30*f
+                    }
+                    </convert>
+                </widget>
+            </screen>""" % (sizeH, sizeLH)
 
     def __init__(self, session, reader):
         global HDSKIN, sizeH
@@ -1102,10 +1072,8 @@ class oscEntitlements(Screen, NcamInfo):
         self.cccamreader = reader
         self["output"] = List([])
         self["actions"] = ActionMap(["SetupActions"],
-            {
-                "ok": self.showData,
-                "cancel": self.exit
-            }, -1)  # noqa: E123
+                                    {"ok": self.showData,
+                                     "cancel": self.exit}, -1)
         self["key_red"] = StaticText(_("Close"))
         self.onLayoutFinish.append(self.showData)
 
@@ -1134,10 +1102,10 @@ class oscEntitlements(Screen, NcamInfo):
             for j in prov:
                 providertxt += "%s - %s%s" % (j[0], j[1], linefeed)
             res.append((ca_id,
-                csystem,
-                str(hops[1]), str(hops[2]), str(hops[3]), str(hops[4]), str(hops[5]), str(csum), str(creshare),
-                providertxt[:-1]
-                ))  # noqa: E123
+                        csystem,
+                        str(hops[1]), str(hops[2]), str(hops[3]), str(hops[4]), str(hops[5]), str(csum), str(creshare),
+                        providertxt[:-1]
+                        ))
             outlist.append(res)
         return res
 
@@ -1244,10 +1212,8 @@ class oscReaderStats(Screen, NcamInfo):
         self.mlist = oscMenuList([])
         self["output"] = List([])
         self["actions"] = ActionMap(["SetupActions"],
-            {
-                "ok": self.showData,
-                "cancel": self.exit
-            }, -1)  # noqa: E123
+                                    {"ok": self.showData,
+                                     "cancel": self.exit}, -1)
         self["key_red"] = StaticText(_("Close"))
         self.onLayoutFinish.append(self.showData)
 
@@ -1276,10 +1242,10 @@ class oscReaderStats(Screen, NcamInfo):
             for j in prov:
                 providertxt += "%s - %s%s" % (j[0], j[1], linefeed)
             res.append((ca_id,
-                csystem,
-                str(hops[1]), str(hops[2]), str(hops[3]), str(hops[4]), str(hops[5]), str(csum), str(creshare),
-                providertxt[:-1]
-                ))  # noqa: E123
+                        csystem,
+                        str(hops[1]), str(hops[2]), str(hops[3]), str(hops[4]), str(hops[5]), str(csum), str(creshare),
+                        providertxt[:-1]
+                        ))
             outlist.append(res)
         return res
 
@@ -1389,12 +1355,9 @@ class NcamInfoConfigScreen(ConfigListScreen, Screen):
         self["status"] = StaticText(_("Error:\n%s") % msg if msg is not None else "")  # what is this?
         ConfigListScreen.__init__(self, [], session=session, on_change=self.changedEntry)
         # ConfigListScreen.__init__(self, [], session=session, on_change=self.changedEntry, fullUI=True)
-        self["actions"] = ActionMap(["SetupActions", "ColorActions"],
-                                    {"red": self.cancel,
-                                     "green": self.save,
-                                     "save": self.save,
-                                     "cancel": self.cancel,
-                                     "ok": self.save}, -2)
+        self["actions"] = ActionMap(["SetupActions"],
+                                    {"ok": self.savx,
+                                     "cancel": self.exit}, -1)
         # self["key_red"] = StaticText(_("Close"))
         self.createSetup()
 
