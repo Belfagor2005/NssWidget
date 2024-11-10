@@ -168,6 +168,14 @@ def dataenc(data):
     return data
 
 
+def sanitize_filename(filename):
+    # Replace spaces with underscores and remove invalid characters (like ':')
+    sanitized = re.sub(r'[^\w\s-]', '', filename)  # Remove invalid characters
+    # sanitized = sanitized.replace(' ', '_')      # Replace spaces with underscores
+    # sanitized = sanitized.replace('-', '_')      # Replace dashes with underscores
+    return sanitized
+
+
 class AglareBackdropXDownloadThread(threading.Thread):
     def __init__(self):
         adsl = intCheck()
@@ -198,10 +206,14 @@ class AglareBackdropXDownloadThread(threading.Thread):
         try:
             self.dwn_backdrop = dwn_backdrop
             print('self.dwn_backdrop=', self.dwn_backdrop)
-            title_safe = self.UNAC(title)
-            title_safe = quoteEventName(title_safe)
+            title_safe = title
+            # title_safe = self.UNAC(title)
+            # title_safe = quoteEventName(title_safe)
             self.title_safe = title_safe.replace('+', ' ')
+            # Sanitize the filename before saving
+            self.title_safe = sanitize_filename(self.title_safe)
             url = f"https://api.themoviedb.org/3/search/multi?api_key={tmdb_api}&language={lng}&query={self.title_safe}"
+            print('backdrop search_tmdb url title safe', url)
             data = None
             retries = Retry(total=1, backoff_factor=1)
             adapter = HTTPAdapter(max_retries=retries)
@@ -233,7 +245,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
         if 'results' in data_json:
             try:
                 for each in data_json['results']:
-                    media_type = str(each['media_type'])
+                    media_type = str(each['media_type']) if each.get('media_type') else ''
                     if media_type == "tv":
                         media_type = "serie"
                     if media_type in ['serie', 'movie']:
@@ -243,11 +255,8 @@ class AglareBackdropXDownloadThread(threading.Thread):
                         elif media_type == "serie" and 'first_air_date' in each and each['first_air_date']:
                             year = each['first_air_date'].split("-")[0]
                         title = each.get('name', each.get('title', ''))
-                        # new_height = int(isz.split(",")[1])
-                        # backdrop = "http://image.tmdb.org/t/p/w1280" + each.get('backdrop_path', '')
-                        # poster = "http://image.tmdb.org/t/p/w500" + each.get('poster_path', '')
-                        backdrop = "http://image.tmdb.org/t/p/w1280" + each.get('backdrop_path', '')
-                        poster = "http://image.tmdb.org/t/p/w500" + each.get('poster_path', '')
+                        backdrop = "http://image.tmdb.org/t/p/w1280" + (each.get('backdrop_path') or '')
+                        poster = "http://image.tmdb.org/t/p/w500" + (each.get('poster_path') or '')
                         rating = str(each.get('vote_average', 0))
                         show_title = title
                         if year:
@@ -269,9 +278,12 @@ class AglareBackdropXDownloadThread(threading.Thread):
         try:
             series_nb = -1
             chkType, fd = self.checkType(shortdesc, fulldesc)
-            title_safe = self.UNAC(title)
-            title_safe = quoteEventName(title_safe)
+            title_safe = title
+            # title_safe = self.UNAC(title)
+            # title_safe = quoteEventName(title_safe)
             self.title_safe = title_safe.replace('+', ' ')
+            # Sanitize the filename before saving
+            self.title_safe = sanitize_filename(self.title_safe)
             year = re.findall(r'19\d{2}|20\d{2}', fd)
             if len(year) > 0:
                 year = year[0]
@@ -325,11 +337,16 @@ class AglareBackdropXDownloadThread(threading.Thread):
             year = None
             url_maze = ""
             url_fanart = ""
+            url_poster = None
             url_backdrop = None
+            self.sizeb = False
             id = "-"
-            title_safe = self.UNAC(title)
-            title_safe = quoteEventName(title_safe)
+            title_safe = title
+            # title_safe = self.UNAC(title)
+            # title_safe = quoteEventName(title_safe)
             self.title_safe = title_safe.replace('+', ' ')
+            # Sanitize the filename before saving
+            self.title_safe = sanitize_filename(self.title_safe)
             chkType, fd = self.checkType(shortdesc, fulldesc)
             try:
                 if re.findall(r'19\d{2}|20\d{2}', self.title_safe):
@@ -377,9 +394,12 @@ class AglareBackdropXDownloadThread(threading.Thread):
         try:
             url_backdrop = None
             chkType, fd = self.checkType(shortdesc, fulldesc)
-            title_safe = self.UNAC(title)
-            title_safe = quoteEventName(title_safe)
+            title_safe = title
+            # title_safe = self.UNAC(title)
+            # title_safe = quoteEventName(title_safe)
             self.title_safe = title_safe.replace('+', ' ')
+            # Sanitize the filename before saving
+            self.title_safe = sanitize_filename(self.title_safe)
             aka = re.findall(r'\((.*?)\)', fd)
             if len(aka) > 1 and not aka[1].isdigit():
                 aka = aka[1]
@@ -470,9 +490,12 @@ class AglareBackdropXDownloadThread(threading.Thread):
             chkType, fd = self.checkType(shortdesc, fulldesc)
             if chkType.startswith("movie"):
                 return False, "[SKIP : programmetv-google] {} [{}] => Skip movie title".format(title, chkType)
-            title_safe = self.UNAC(title)
-            title_safe = quoteEventName(title_safe)
+            title_safe = title
+            # title_safe = self.UNAC(title)
+            # title_safe = quoteEventName(title_safe)
             self.title_safe = title_safe.replace('+', ' ')
+            # Sanitize the filename before saving
+            self.title_safe = sanitize_filename(self.title_safe)
             url_ptv = "site:programme-tv.net+" + self.title_safe
             if channel and self.title_safe.find(channel.split()[0]) < 0:
                 url_ptv += "+" + quoteEventName(channel)
@@ -519,9 +542,12 @@ class AglareBackdropXDownloadThread(threading.Thread):
             url_mgoo = ''
             headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
             chkType, fd = self.checkType(shortdesc, fulldesc)
-            title_safe = self.UNAC(title)
-            title_safe = quoteEventName(title_safe)
+            title_safe = title
+            # title_safe = self.UNAC(title)
+            # title_safe = quoteEventName(title_safe)
             self.title_safe = title_safe.replace('+', ' ')
+            # Sanitize the filename before saving
+            self.title_safe = sanitize_filename(self.title_safe)
             if channel:
                 pchannel = self.UNAC(channel).replace(' ', '')
             else:
@@ -640,9 +666,12 @@ class AglareBackdropXDownloadThread(threading.Thread):
             url_backdrop = ''
             year = None
             srch = None
-            title_safe = self.UNAC(title)
-            title_safe = quoteEventName(title_safe)
+            title_safe = title
+            # title_safe = self.UNAC(title)
+            # title_safe = quoteEventName(title_safe)
             self.title_safe = title_safe.replace('+', ' ')
+            # Sanitize the filename before saving
+            self.title_safe = sanitize_filename(self.title_safe)
             year = re.findall(r'19\d{2}|20\d{2}', fd)
             if len(year) > 0:
                 year = year[0]
@@ -693,6 +722,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
             return False, "[ERROR : google] {} [{}-{}] => {} => {} ({})".format(self.title_safe, chkType, year, url_google, url_backdrop, str(e))
 
     def savebackdrop(self, dwn_backdrop, url_backdrop):
+        print('savebackdrop url_poster=', url_backdrop)
         if not os.path.exists(dwn_backdrop):
             data = urlopen(url_backdrop)
             with open(dwn_backdrop, "wb") as local_file:
@@ -706,7 +736,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
         try:
             img = Image.open(dwn_backdrop)
             width, height = img.size
-            ratio = float(width) / float(height)
+            ratio = float(width) // float(height)
             new_height = int(isz.split(",")[1])
             new_width = int(ratio * new_height)
             try:
@@ -758,8 +788,8 @@ class AglareBackdropXDownloadThread(threading.Thread):
         string = re.sub(r"u003d", "=", string)
         string = re.sub(r'[\u0300-\u036f]', '', string)
         string = re.sub(r"[,!?\.\"]", ' ', string)
-        string = re.sub(r"[-/:']", '', string)
-        string = re.sub(r"[^a-zA-Z0-9 ]", "", string)
+        # string = re.sub(r"[-/:']", '', string)
+        # string = re.sub(r"[^a-zA-Z0-9 ]", "", string)
         # string = string.lower()
         string = re.sub(r'\s+', ' ', string)
         string = string.strip()
@@ -781,5 +811,5 @@ class AglareBackdropXDownloadThread(threading.Thread):
         for id in textA:
             if id in textB:
                 cId += len(id)
-        cId = 100 * cId / lId
+        cId = 100 * cId // lId
         return cId

@@ -1348,7 +1348,7 @@
         <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
         <eLabel name="" position="31,30" size="1120,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
         <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
-        <ePixmap pixmap="buttons/media_button.png" position="1373,1011" size="300,60" zPosition="5" alphatest="blend" transparent="1"/>
+        <ePixmap pixmap="buttons/media_button.png" position="1405,540" size="300,60" zPosition="5" alphatest="blend" transparent="1" />
         <widget name="DescriptionBorder" position="0,0" size="0,0"/>
         <widget name="list" position="36,102" size="1110,900" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemHeights="100,75,45" fontSizesOriginal="36,26,24" fontSizesCompact="36,28" fontSizesMinimal="34,30" pbarShift="17" pbarHeight="20" pbarLargeWidth="72" spaceRight="3" columnsOriginal="270,300" columnsCompactDescription="240,220,240" compactColumn="300" treeDescription="250" partIconeShiftMinimal="8" partIconeShiftCompact="2" partIconeShiftOriginal="3" iconsWidth="33" spaceIconeText="6" trashShift="4" dirShift="3" itemCornerRadius="8"/>
         <widget name="freeDiskSpace" position="1160,966" size="500,40" zPosition="2" font="Regular; 28" valign="center" backgroundColor="background" transparent="1"/>
