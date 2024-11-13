@@ -1,0 +1,21 @@
+<!-- Skin tvCFG 01/12/2023 -->
+<screen name="tv_config" position="0,0" size="1920,1080" title="..::NSS Cam Manager::.." backgroundColor="#ff000000" flags="wfNoBorder">
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/main2.png" position="0,0" size="1920,1080" zPosition="1" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/logo.png" position="160,10" size="279,60" alphatest="blend" zPosition="5" />
+	<widget name="title" position="190,75" size="1025,50" font="Regular;34" halign="left" valign="center" foregroundColor="#808080" backgroundColor="black" transparent="1" zPosition="5" />
+	<widget name="info"        position="181,721" size="1030,184" font="Regular;30" halign="center" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5" />
+	<widget name="description" position="180,155" size="1030,50" font="Regular;30" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />	
+	<eLabel position="180,130" size="1030,5" backgroundColor="#303030" zPosition="5" />
+	<eLabel position="180,910" size="1030,5" backgroundColor="#303030" zPosition="5" />
+	<eLabel position="180,210" size="1030,2" backgroundColor="#303030" zPosition="5" />
+	<!-- Menu List -->
+	<widget name="config" position="180,220" size="1030,498" itemHeight="50" scrollbarMode="showOnDemand" transparent="1" zPosition="5" foregroundColor="#00a0a0a0" foregroundColorSelected="#ffffff" backgroundColor="#20000000" backgroundColorSelected="#0b2049" />
+	<eLabel backgroundColor="#00ff0000" position="219,954" size="300,6" zPosition="12" />
+	<eLabel backgroundColor="#0000ff00" position="217,1014" size="300,6" zPosition="12" />
+	<eLabel backgroundColor="#00ffff00" position="802,1014" size="300,6" zPosition="12" />
+	<eLabel backgroundColor="#000000ff" position="802,954" size="300,6" zPosition="12" />
+	<widget name="key_red" render="Label" position="219,961" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+	<widget name="key_green" render="Label" position="217,1021" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+	<widget name="key_yellow" render="Label" position="802,1021" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+	<widget name="key_blue" render="Label" position="802,961" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+</screen>
