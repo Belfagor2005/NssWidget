@@ -905,6 +905,7 @@ class CCcamInfoMain(Screen):
                                 ecm_emm
                             ])
                             client_list.append(username)
+        self.set_title = _("CCcam Clients Info")
         self.openSubMenu(client_list, info_list, self.set_title)
 
     def showCCcamServers(self, html):
