@@ -88,7 +88,7 @@ echo ""
 ## check depends packges
 mkdir -p $TMPPATH
 cd $TMPPATH
-set -e
+# set -e
 if [ $OSTYPE = "DreamOs" ]; then
    echo "# Your image is OE2.5/2.6 #"
    echo ""
@@ -105,14 +105,14 @@ sleep 2
 wget --no-check-certificate 'https://github.com/Belfagor2005/NssWidget/archive/refs/heads/main.tar.gz'
 tar -xzf main.tar.gz
 
-init 4
+# init 4
 
 cp -r 'NssWidget-main/usr' '/'
-set +e
+# set +e
 cd
 sleep 2
 
-init 3
+# init 3
 
 ## Check if plugin installed correctly
 if [ ! -d $PLUGINPATH ]; then
@@ -148,6 +148,6 @@ echo "#########################################################"
 echo "#           your Device will RESTART Now                #"
 echo "#########################################################"
 sleep 5
-
-killall -9 enigma2
+reboot
+# killall -9 enigma2
 exit 0
