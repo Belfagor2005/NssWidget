@@ -4,7 +4,7 @@
 # --------------------#
 #  coded by Lululla   #
 #   skin by MMark     #
-#     10/07/2023      #
+#     10/11/2024      #
 #      No Coppy       #
 # --------------------#
 from __future__ import print_function
@@ -154,7 +154,7 @@ elif screenwidth.width() == 1920:
     skin_path = plugin_path + '/res/skins/fhd/'
 else:
     skin_path = plugin_path + '/res/skins/hd/'
-if os.path.exists('/var/lib/dpkg/info'):
+if os.path.exists("/usr/bin/apt-get"):
     skin_path = skin_path + 'dreamOs/'
 
 
@@ -263,16 +263,10 @@ class nssCamConfig(Screen, ConfigListScreen):
             self.skin = f.read()
         self.setup_title = (name_plug)
         self['title'] = Label(_(name_plug))
-        # if os.path.exists('/usr/lib/enigma2/python/Plugins/PLi'):
         self["key_red"] = StaticText(_("Back"))
         self["key_green"] = StaticText("")
         self["key_yellow"] = StaticText("")
         self["key_blue"] = StaticText("")
-        # else:
-            # self["key_red"] = Label(_("Back"))
-            # self["key_green"] = Label("")
-            # self["key_yellow"] = Label("")
-            # self["key_blue"] = Label("")
         self['description'] = Label('')
         self['info'] = Label(_('Wait please...'))
         self.onChangedEntry = []
@@ -283,7 +277,6 @@ class nssCamConfig(Screen, ConfigListScreen):
                                      'ColorActions',
                                      'VirtualKeyboardActions',
                                      'MenuActions',
-                                     'EPGSelectActions',
                                      'ColorActions',
                                      'InfobarEPGActions'], {'left': self.keyLeft,
                                                             'right': self.keyRight,
@@ -296,16 +289,6 @@ class nssCamConfig(Screen, ConfigListScreen):
                                                             'cancel': self.closex,
                                                             'info': self.infomsg,
                                                             'back': self.closex}, -1)
-        '''
-        # if config.plugins.Manager.active.value is True:
-            # self['key_green'].setText(buttn)
-            # self['key_yellow'].setText(_('Get Link'))
-            # self['key_blue'].setText(_('Reset'))
-        # else:
-            # self['key_green'].setText('Force Emm Send')
-            # self['key_yellow'].setText('Check Emm Send')
-            # self['key_blue'].setText('')
-        '''
         self.createSetup()
         if self.selectionChanged not in self["config"].onSelectionChanged:
             self["config"].onSelectionChanged.append(self.selectionChanged)
@@ -625,7 +608,7 @@ class nssCamConfig(Screen, ConfigListScreen):
                     import six
                     data = six.ensure_str(data)
                 self.timer = eTimer()
-                if os.path.exists('/var/lib/dpkg/info'):
+                if os.path.exists("/usr/bin/apt-get"):
                     self.timer_conn = self.timer.timeout.connect(self.load_getcl(data))
                 else:
                     self.timer.callback.append(self.load_getcl(data))

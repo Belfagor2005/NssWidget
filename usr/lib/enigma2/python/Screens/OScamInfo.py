@@ -1401,3 +1401,5 @@ class OscamInfoConfigScreen(ConfigListScreen, Screen):
         config.oscaminfo.autoupdate.save()
         config.oscaminfo.intervall.save()
         self.close()
+
+OscamInfoMenu = OSCamInfo

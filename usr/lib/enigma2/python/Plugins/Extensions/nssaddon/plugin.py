@@ -2367,7 +2367,6 @@ class ScriptExecuter(Screen):
                         if line.find('#DESCRIPTION=') != -1:
                             line = line.strip()
                             desc = line[13:]
-                f.close()
                 res = (fil2, desc)
                 self.mlist.append(res)
 

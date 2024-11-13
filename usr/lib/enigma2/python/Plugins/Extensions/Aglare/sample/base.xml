@@ -4878,18 +4878,17 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y()))
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/setup.png" transparent="1" alphatest="on"/>
     </screen>
     <screen name="EMCSelectionOwn" position="0,0" size="1920,1080" title="Enhanced Movie Center" flags="wfNoBorder" backgroundColor="transparent">
-        <panel name="menutemp3"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <panel name="bLogo"/>
-        <eLabel name="" position="36,38" size="40,40" font="icomoon; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
+        <panel name="menutemp3" />
+        <panel name="ScreenTemplateAllColorButtons_menu" />
+        <eLabel name="" position="36,38" size="40,40" font="icomoon; 36" text="" transparent="1" valign="center" halign="center" zPosition="99" />
         <widget source="session.CurrentService" render="Label" position="1386,110" size="500,30" font="Regular; 26" borderWidth="1" backgroundColor="background" transparent="1" halign="center" foregroundColor="white" zPosition="30" valign="center" noWrap="1">
             <convert type="ServiceName">Name</convert>
         </widget>
-        <widget source="session.VideoPicture" render="Pig" position="1386,140" zPosition="20" size="500,282" backgroundColor="transparent" transparent="0"/>
-        <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
-        <eLabel name="" position="1658,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
-        <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
-        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <widget source="session.VideoPicture" render="Pig" position="1386,140" zPosition="20" size="500,282" backgroundColor="transparent" transparent="0" />
+        <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK" />
+        <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU" />
+        <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO" />
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT" />
         <widget source="Service" render="Label" position="1365,946" size="420,45" font="Regular;29" halign="left" transparent="1" noWrap="1">
             <convert type="ServiceTime">StartTime</convert>
             <convert type="ClockToText">Date</convert>
@@ -4897,15 +4896,15 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y()))
         <widget source="Service" render="Label" position="1737,946" size="150,45" font="Regular;29" halign="right" transparent="1" noWrap="1">
             <convert type="MovieInfo">FileSize</convert>
         </widget>
-        <widget name="wait" position="36,450" size="1300,45" zPosition="1" font="Regular;36" halign="center" valign="center" transparent="1"/>
-        <widget name="list" position="36,126" size="1300,855" itemHeight="45" CoolFont="Regular;30" CoolSelectFont="Regular;30" CoolDateFont="Regular;30" CoolSelNumTxtWidth="39" CoolProgressPos="57" CoolProgressHPos="3" CoolIconPos="6" CoolIconHPos="3" CoolIconSize="39,39" CoolBarPos="53" CoolBarHPos="18" CoolBarSize="75,15" CoolBarSizeSa="75,15" CoolMoviePos="137" CoolMovieHPos="5" CoolMovieSize="948" CoolFolderSize="1000" CoolDatePos="1070" CoolDateHPos="3" CoolDateWidth="180" CoolPiconPos="137" CoolPiconHPos="2" CoolPiconWidth="66" CoolPiconHeight="39" CoolMoviePiconPos="210" CoolMoviePiconSize="671" CoolCSWidth="210" CoolDirInfoWidth="210" CoolCSPos="837" CoolTitleColor="2" CoolDateColor="2" CoolHighlightColor="2" DefaultColor="white" TitleColor="yellow" DateColor="babyblue" UnwatchedColor="hellgreen" WatchingColor="#D8C100" FinishedColor="#5FA816" RecordingColor="#E51400" BackColor="background" BackColorSel="background" FrontColorSel="babyblue" transparent="1" scrollbarMode="showAlways" scrollbarForegroundColor="mcolor5" scrollbarBorderColor="mcolor2" scrollbarWidth="10" scrollbarBorderWidth="1" scrollbarRadius="5" itemCornerRadius="8"/>
+        <widget name="wait" position="36,450" size="1300,45" zPosition="1" font="Regular;36" halign="center" valign="center" transparent="1" />
+        <widget name="list" position="36,126" size="1300,855" itemHeight="45" CoolFont="Regular;30" CoolSelectFont="Regular;30" CoolDateFont="Regular;30" CoolSelNumTxtWidth="39" CoolProgressPos="57" CoolProgressHPos="3" CoolIconPos="6" CoolIconHPos="3" CoolIconSize="39,39" CoolBarPos="53" CoolBarHPos="18" CoolBarSize="75,15" CoolBarSizeSa="75,15" CoolMoviePos="137" CoolMovieHPos="5" CoolMovieSize="948" CoolFolderSize="1000" CoolDatePos="1070" CoolDateHPos="3" CoolDateWidth="180" CoolPiconPos="137" CoolPiconHPos="2" CoolPiconWidth="66" CoolPiconHeight="39" CoolMoviePiconPos="210" CoolMoviePiconSize="671" CoolCSWidth="210" CoolDirInfoWidth="210" CoolCSPos="837" CoolTitleColor="2" CoolDateColor="2" CoolHighlightColor="2" DefaultColor="white" TitleColor="yellow" DateColor="babyblue" UnwatchedColor="hellgreen" WatchingColor="#D8C100" FinishedColor="#5FA816" RecordingColor="#E51400" BackColor="background" BackColorSel="background" FrontColorSel="babyblue" transparent="1" scrollbarMode="showAlways" scrollbarForegroundColor="mcolor5" scrollbarBorderColor="mcolor2" scrollbarWidth="10" scrollbarBorderWidth="1" scrollbarRadius="5" itemCornerRadius="8" />
         <widget source="Service" render="Label" position="1380,428" size="521,152" font="Regular; 30" backgroundColor="background" halign="center" transparent="1" valign="center" foregroundColor="yellow">
             <convert type="EMCEventName">Name</convert>
         </widget>
-        <widget name="Cover" position="1703,585" size="200,300" zPosition="4" alphatest="blend"/>
+        <widget name="Cover" position="1703,585" size="200,300" zPosition="4" alphatest="blend" />
         <widget source="Service" render="Label" position="1490,590" size="113,38" font="Regular;30" halign="left" backgroundColor="background" foregroundColor="white" transparent="1">
             <convert type="ServiceTime">StartTime</convert>
-            <convert type="ClockToText">Format:%H:%M</convert>
+            <convert type="ClockToText">Format:%H:%M </convert>
         </widget>
         <widget source="Service" render="Label" position="1490,640" size="113,38" font="Regular;30" backgroundColor="background" foregroundColor="white" transparent="1">
             <convert type="ServiceTime">EndTime</convert>
@@ -4915,8 +4914,23 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y()))
             <convert type="ServiceTime">Duration</convert>
             <convert type="ClockToText">InMinutes</convert>
         </widget>
-        <eLabel name="" position="1390,590" size="110,38" text="START:" font="Regular; 30" transparent="1"/>
-        <eLabel name="" position="1390,640" size="110,38" text="END:" font="Regular; 30" transparent="1"/>
+        <eLabel name="" position="1390,590" size="110,38" text="START:" font="Regular; 30" transparent="1" />
+        <eLabel name="" position="1390,640" size="110,38" text="END:" font="Regular; 30" transparent="1" />
+        <widget name="CoverBg" backgroundColor="background" position="15,655" size="0,0" zPosition="2" />
+        <widget name="Video" backgroundColor="background" position="15,660" size="0,0" zPosition="2" />
+        <widget name="CoverBgLbl" backgroundColor="background" position="15,655" size="0,0" zPosition="2" />
+        <widget name="name" position="69,337" size="0,0" valign="center" halign="center" font="Regular;20" backgroundColor="background" foregroundColor="white" transparent="1" />
+        <widget name="artistAT" position="50,401" size="0,0" font="Regular;19" backgroundColor="background" foregroundColor="white" transparent="1" noWrap="1" />
+        <widget name="albumAT" position="50,462" size="0,0" font="Regular;19" backgroundColor="background" foregroundColor="white" transparent="1" noWrap="1" />
+        <widget name="genreAT" position="50,523" size="0,0" font="Regular;19" backgroundColor="background" foregroundColor="white" transparent="1" noWrap="1" />
+        <widget name="runtimeAT" position="50,584" size="0,0" font="Regular;19" backgroundColor="background" foregroundColor="white" transparent="1" noWrap="1" />
+        <widget name="artistATtxt" position="210,401" size="0,0" font="Regular;18" halign="right" backgroundColor="background" foregroundColor="white" transparent="1" />
+        <widget name="albumATtxt" position="210,462" size="0,0" font="Regular;18" halign="right" backgroundColor="background" foregroundColor="white" transparent="1" />
+        <widget name="genreATtxt" position="210,523" size="0,0" font="Regular;18" halign="right" backgroundColor="background" foregroundColor="white" transparent="1" />
+        <widget name="runtimeATtxt" position="210,584" size="0,0" font="Regular;18" halign="right" backgroundColor="background" foregroundColor="white" transparent="1" />
+        <widget name="date" position="50,640" size="0,0" font="Regular;16" halign="left" backgroundColor="background" foregroundColor="white" transparent="1" />
+        <widget name="size" position="375,640" size="0,0" font="Regular;16" halign="right" backgroundColor="background" foregroundColor="white" transparent="1" />
+        <widget source="Service" render="AglarePosterXEMC" position="1703,585" size="200,300" cornerRadius="10" backgroundColor="white" alphatest="on" zPosition="101" />
     </screen>
     <screen name="setup_usage" position="0,0" size="1920,1080" title="Customize" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="titletemp"/>

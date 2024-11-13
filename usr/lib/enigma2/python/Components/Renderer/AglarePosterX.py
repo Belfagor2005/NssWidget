@@ -309,21 +309,60 @@ def sanitize_filename(filename):
     sanitized = re.sub(r'[^\w\s-]', '', filename)  # Remove invalid characters
     # sanitized = sanitized.replace(' ', '_')      # Replace spaces with underscores
     # sanitized = sanitized.replace('-', '_')      # Replace dashes with underscores
-    return sanitized
+    return sanitized.strip()
 
 
 def convtext(text=''):
     text = text.lower()
     print('text lower init=', text)
+
+    text = text.replace("\xe2\x80\x93", "").replace('\xc2\x86', '').replace('\xc2\x87', '')  # replace special
+    text = text.replace('1^ visione rai', '').replace('1^ visione', ''.replace(' - prima tv', '')).replace(' - primatv', '')
+    text = text.replace('prima visione', '').replace('1^tv', '').replace('1^ tv', '')
+    text = text.replace('((', '(').replace('))', ')')
+    # Inglese
+    text = text.replace('first screening', '').replace('premiere:', '').replace('live:', '').replace('new:', '')
+    # Francese
+    text = text.replace('première diffusion', '').replace('nouveau:', '').replace('en direct:', '')
+    # Spagnolo
+    text = text.replace('estreno:', '').replace('nueva emisión:', '').replace('en vivo:', '')
+
+    if 'bruno barbieri' in text:
+        text = text.replace('bruno barbieri', 'brunobarbierix')
+    if "anni '60" in text:
+        text = "anni 60"
+    if 'tg regione' in text:
+        text = 'tg3'
+    if 'studio aperto' in text:
+        text = 'studio aperto'
+    if 'josephine ange gardien' in text:
+        text = 'josephine ange gardien'
+    if 'elementary' in text:
+        text = 'elementary'
+    if 'squadra speciale cobra 11' in text:
+        text = 'squadra speciale cobra 11'
+    if 'criminal minds' in text:
+        text = 'criminal minds'
+    if 'i delitti del barlume' in text:
+        text = 'i delitti del barlume'
+    if 'senza traccia' in text:
+        text = 'senza traccia'
+    if 'hudson e rex' in text:
+        text = 'hudson e rex'
+    if 'ben-hur' in text:
+        text = 'ben-hur'
+    if 'la7 ' in text:
+        text = 'la7'
+    if 'skytg24' in text:
+        text = 'skytg24'
+
     cutlist = ['x264', '720p', '1080p', '1080i', 'PAL', 'GERMAN', 'ENGLiSH', 'WS', 'DVDRiP', 'UNRATED', 'RETAIL', 'Web-DL', 'DL', 'LD', 'MiC', 'MD', 'DVDR', 'BDRiP', 'BLURAY', 'DTS', 'UNCUT', 'ANiME',
                'AC3MD', 'AC3', 'AC3D', 'TS', 'DVDSCR', 'COMPLETE', 'INTERNAL', 'DTSD', 'XViD', 'DIVX', 'DUBBED', 'LINE.DUBBED', 'DD51', 'DVDR9', 'DVDR5', 'h264', 'AVC',
                'WEBHDTVRiP', 'WEBHDRiP', 'WEBRiP', 'WEBHDTV', 'WebHD', 'HDTVRiP', 'HDRiP', 'HDTV', 'ITUNESHD', 'REPACK', 'SYNC']
     text = text.replace('.wmv', '').replace('.flv', '').replace('.ts', '').replace('.m2ts', '').replace('.mkv', '').replace('.avi', '').replace('.mpeg', '').replace('.mpg', '').replace('.iso', '').replace('.mp4', '')
-
     for word in cutlist:
         text = sub(r'(\_|\-|\.|\+)' + escape(word.lower()) + r'(\_|\-|\.|\+)', '+', text, flags=I)
     text = text.replace('.', ' ').replace('-', ' ').replace('_', ' ').replace('+', '').replace(" Director's Cut", "").replace(" director's cut", "").replace("[Uncut]", "").replace("Uncut", "")
-
     text_split = text.split()
     if text_split and text_split[0].lower() in ("new:", "live:"):
         text_split.pop(0)  # remove annoying prefixes
@@ -376,6 +415,10 @@ def convtext(text=''):
     text = re.sub('FIN', '', text)
 
     text = sanitize_filename(text)
+
+    # forced
+    text = text.replace('XXXXXX', '60')
+    text = text.replace('brunobarbierix', 'bruno barbieri - 4 hotel')
 
     text = quote(text, safe="")
     print('text final: ', text)
@@ -632,8 +675,9 @@ class PosterAutoDB(AglarePosterXDownloadThread):
                                 # dwn_poster = path_folder + '/default.jpg'  # Esempio di fallback
                                 print('none type xxxxxxxxxx- posterx')
                                 return
-                            dwn_poster = self.pstcanal
-                            if os.path.join(path_folder, dwn_poster):
+
+                            dwn_poster = os.path.join(path_folder, self.pstcanal + ".jpg")
+                            if os.path.exists(dwn_poster):
                                 os.utime(dwn_poster, (time.time(), time.time()))
                             '''
                             # if lng == "fr":

@@ -53,7 +53,7 @@ from enigma import (
     RT_HALIGN_RIGHT,
 )
 from glob import glob
-from os import (listdir, remove, rename, system, path)
+from os import (listdir, remove, rename, system)
 from os.path import (dirname, exists, isfile)
 from skin import getSkinFactor  # parameters
 
@@ -570,14 +570,6 @@ class CCcamInfoMain(Screen):
         if not isfile(CFG):
             print("[CCcamInfo] %s not found" % CFG)
             searchConfig()
-        # try:
-            # if config.cccaminfo.profile.value == "":
-                # self.readConfig()
-            # else:
-                # self.url = config.cccaminfo.profile.value
-        # except Exception as e:
-            # print(e)
-            # pass
         self.url = "http://127.0.0.1:16001"
         self["actions"] = NumberActionMap(["CCcamInfoActions"],
                                           {"1": self.keyNumberGlobal,

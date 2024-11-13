@@ -751,7 +751,6 @@ class oscECMInfo(Screen, OscamInfo):
     def showData(self):
         dataECM = self.getECMInfo(self.ecminfo)
         out = []
-        # y = 0
         for i in dataECM:
             out.append(self.buildListEntry(i))
         self["output"].l.setItemHeight(int(30 * f))
@@ -1401,3 +1400,5 @@ class OscamInfoConfigScreen(ConfigListScreen, Screen):
         config.oscaminfo.autoupdate.save()
         config.oscaminfo.intervall.save()
         self.close()
+
+OscamInfoMenu = OSCamInfo

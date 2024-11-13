@@ -913,7 +913,7 @@ class CCcamInfoMain(Screen):
                                 ecm_emm
                             ])
                             client_list.append(username)
-        self.openSubMenu(client_list, info_list, self.set_title)
+        self.openSubMenu(client_list, info_list, self.setTitle)
 
     def showCCcamServers(self, html):
         first_line = True
