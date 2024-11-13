@@ -1,0 +1,232 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: AglarePlugin\n"
+"POT-Creation-Date: 2024-07-30 22:44+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.4\n"
+"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-SearchPath-0: plugin.py\n"
+
+#: plugin.py:48 plugin.py:57 plugin.py:62 plugin.py:84
+msgid "Default"
+msgstr ""
+
+#: plugin.py:49
+msgid "Black"
+msgstr ""
+
+#: plugin.py:50
+msgid "Brown"
+msgstr ""
+
+#: plugin.py:51
+msgid "Green"
+msgstr ""
+
+#: plugin.py:52
+msgid "Magenta"
+msgstr ""
+
+#: plugin.py:53
+msgid "Blue"
+msgstr ""
+
+#: plugin.py:54
+msgid "Red"
+msgstr ""
+
+#: plugin.py:55
+msgid "Purple"
+msgstr ""
+
+#: plugin.py:58
+msgid "HandelGotD"
+msgstr ""
+
+#: plugin.py:59
+msgid "KhalidArtboldRegular"
+msgstr ""
+
+#: plugin.py:60
+msgid "BebasNeue"
+msgstr ""
+
+#: plugin.py:64
+msgid "Infobar_NO_Posters"
+msgstr ""
+
+#: plugin.py:65
+msgid "Infobar_Posters_Meteo"
+msgstr ""
+
+#: plugin.py:66
+msgid "Infobar_Posters"
+msgstr ""
+
+#: plugin.py:68
+msgid "SecondInfobar_NO_Posters"
+msgstr ""
+
+#: plugin.py:69
+msgid "SecondInfobar_Posters"
+msgstr ""
+
+#: plugin.py:71
+msgid "ChannelSelection_NO_Posters"
+msgstr ""
+
+#: plugin.py:72
+msgid "ChannelSelection_NO_Posters_Full"
+msgstr ""
+
+#: plugin.py:73
+msgid "ChannelSelection_NO_Posters_NO_Picon"
+msgstr ""
+
+#: plugin.py:74
+msgid "ChannelSelection_1_Poster"
+msgstr ""
+
+#: plugin.py:75
+msgid "ChannelSelection_3_Posters_V"
+msgstr ""
+
+#: plugin.py:76
+msgid "ChannelSelection_4_Posters"
+msgstr ""
+
+#: plugin.py:77
+msgid "ChannelSelection_big_mini_tv"
+msgstr ""
+
+#: plugin.py:79
+msgid "EventView_NO_Posters"
+msgstr ""
+
+#: plugin.py:80
+msgid "EventView_7_Posters"
+msgstr ""
+
+#: plugin.py:81
+msgid "EventView_Banner"
+msgstr ""
+
+#: plugin.py:85
+msgid "volume2"
+msgstr ""
+
+#: plugin.py:89
+msgid "Customization tool for Aglare-FHD-NSS Skin"
+msgstr ""
+
+#: plugin.py:124
+msgid "Color Style:"
+msgstr ""
+
+#: plugin.py:125
+msgid "Select Your Font:"
+msgstr ""
+
+#: plugin.py:126
+msgid "Skin Style:"
+msgstr ""
+
+#: plugin.py:127
+msgid "InfoBar Style:"
+msgstr ""
+
+#: plugin.py:128
+msgid "SecondInfobar Style:"
+msgstr ""
+
+#: plugin.py:129
+msgid "ChannelSelection Style:"
+msgstr ""
+
+#: plugin.py:130
+msgid "EventView Style:"
+msgstr ""
+
+#: plugin.py:131
+msgid "VolumeBar Style:"
+msgstr ""
+
+#: plugin.py:193
+#, python-format
+msgid ""
+"Setup Plugin for Aglare-FHD-NSS v.%s\n"
+" mod by Lululla"
+msgstr ""
+
+#: plugin.py:194
+msgid "Info..."
+msgstr ""
+
+#: plugin.py:289
+msgid "Error by processing the skin file !!!"
+msgstr ""
+
+#: plugin.py:291
+msgid ""
+"GUI needs a restart to apply a new skin.\n"
+"Do you want to Restart the GUI now?"
+msgstr ""
+
+#: plugin.py:292 plugin.py:387
+msgid "Restart GUI now?"
+msgstr "Riavviare GUI adesso?"
+
+#: plugin.py:323 plugin.py:328
+msgid "Server version:"
+msgstr ""
+
+#: plugin.py:323 plugin.py:328
+msgid "Version installed:"
+msgstr "Versione Installata:"
+
+#: plugin.py:324
+msgid "You have the current version Aglare!"
+msgstr ""
+
+#: plugin.py:329
+msgid ""
+"The update is available!\n"
+"\n"
+"Do you want to run the update now?"
+msgstr ""
+"Nuovo aggiornamento disponibile!!\n"
+"\n"
+"Vuoi aggiornare il plugin ora?"
+
+#: plugin.py:332
+#, python-format
+msgid "You have version %s!!!"
+msgstr ""
+
+#: plugin.py:374
+msgid "Downloading Aglare..."
+msgstr ""
+
+#: plugin.py:382
+msgid "Installing updates!"
+msgstr "Installo Aggiornamento!"
+
+#: plugin.py:386
+msgid ""
+"Aglare update was done!!!\n"
+"Do you want to restart the GUI now?"
+msgstr ""
+
+#: plugin.py:390
+msgid "Error downloading files!"
+msgstr ""
+
+#: plugin.py:398
+msgid "Download in progress..."
+msgstr ""

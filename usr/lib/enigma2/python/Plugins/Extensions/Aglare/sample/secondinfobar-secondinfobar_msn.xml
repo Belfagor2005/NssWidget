@@ -1,0 +1,147 @@
+<screen name="SecondInfoBar" position="0,0" size="1920,1080" backgroundColor="transparent" flags="wfNoBorder">
+    <panel name="infobartemp"/>
+    <eLabel backgroundColor="igsdt" cornerRadius="30" position="10,31" size="1900,759" zPosition="-99"/>
+    <eLabel backgroundColor="wdcolor" cornerRadius="30" position="20,734" size="1880,50" zPosition="-80"/>
+    <eLabel name="" position="20,110" size="1880,300" zPosition="-70" cornerRadius="30" backgroundColor="#10171a1c" foregroundColor="#10171a1c"/>
+    <eLabel name="" position="20,426" size="1880,300" zPosition="-71" cornerRadius="30" backgroundColor="#10171a1c" foregroundColor="#10171a1c"/>
+    <eLabel backgroundColor="mcolor3" cornerRadius="3" position="40,167" size="1840,3" zPosition="99"/>
+    <eLabel backgroundColor="mcolor3" cornerRadius="3" position="40,483" size="1840,3" zPosition="99"/>
+    <!-- /* sep #####################################################-->
+    <widget source="session.Event_Now" render="Label" position="180,120" size="880,40" font="Regular; 32" halign="left" valign="center" transparent="1" backgroundColor="background" noWrap="1" zPosition="2">
+        <convert type="EventName">Name</convert>
+    </widget>
+    <widget source="session.Event_Next" render="Label" position="180,436" size="880,40" font="Regular; 32" halign="left" valign="center" transparent="1" backgroundColor="background" noWrap="1" zPosition="2">
+        <convert type="EventName">Name</convert>
+    </widget>
+    <widget source="session.Event_Now" render="AglareRunningText" options="movetype=running,startpoint=0,direction=top,steptime=100,startdelay=4000,wrap,always=0" position="40,178" size="1840,224" halign="left" font="Regular; 34" transparent="1" backgroundColor="background" valign="top" zPosition="1" foregroundColor="white">
+        <convert type="EventName">ExtendedDescription</convert>
+    </widget>
+    <widget source="session.Event_Next" render="AglareRunningText" options="movetype=running,startpoint=0,direction=top,steptime=100,startdelay=4000,wrap,always=0" position="40,494" size="1840,224" halign="left" font="Regular; 34" transparent="1" backgroundColor="background" valign="top" zPosition="1" foregroundColor="white">
+        <convert type="EventName">ExtendedDescription</convert>
+    </widget>
+    <widget source="session.Event_Now" render="Label" position="1064,120" size="400,40" halign="center" font="Regular; 26" transparent="1" backgroundColor="background" valign="center" zPosition="1" noWrap="1">
+        <convert type="EventName">Genre</convert>
+    </widget>
+    <widget source="session.Event_Now" render="Label" position="1470,120" size="400,40" halign="center" font="Regular; 26" transparent="1" backgroundColor="background" valign="center" zPosition="1" noWrap="1">
+        <convert type="EventName">Rating</convert>
+    </widget>
+    <widget source="session.Event_Next" render="Label" position="1064,436" size="400,40" halign="center" font="Regular; 26" transparent="1" backgroundColor="background" valign="center" zPosition="1" noWrap="1">
+        <convert type="EventName">Genre</convert>
+    </widget>
+    <widget source="session.Event_Next" render="Label" position="1470,436" size="400,40" halign="center" font="Regular; 26" transparent="1" backgroundColor="background" valign="center" zPosition="1" noWrap="1">
+        <convert type="EventName">Rating</convert>
+    </widget>
+    <widget source="session.Event_Now" render="Label" position="65,123" size="112,34" backgroundColor="background" transparent="1" zPosition="10" font="Regular; 26" halign="center" valign="center">
+        <convert type="EventTime">StartTime</convert>
+        <convert type="ClockToText">Default</convert>
+    </widget>
+    <widget source="session.Event_Next" render="Label" position="65,439" size="112,34" backgroundColor="background" transparent="1" zPosition="10" font="Regular; 26" halign="center" valign="center">
+        <convert type="EventTime">StartTime</convert>
+        <convert type="ClockToText">Default</convert>
+    </widget>
+    <widget source="session.CurrentService" render="Label" position="760,739" size="400,40" font="Regular; 24" backgroundColor="background" transparent="1" halign="center" zPosition="99" valign="center" noWrap="1">
+        <convert type="AglareStreamInfo">StreamType</convert>
+        <convert type="AglareStreamInfo">StreamUrl</convert>
+        <convert type="ConverterRotator">3</convert>
+    </widget>
+    <widget source="session.CurrentService" render="Label" position="1208,739" size="692,40" font="Regular; 24" backgroundColor="background" transparent="1" halign="center" zPosition="99" valign="center" noWrap="1">
+        <convert type="AglareServName2">Reference</convert>
+    </widget>
+    <widget source="session.CurrentService" render="Label" position="30,739" size="558,40" font="Regular; 26" transparent="1" zPosition="5" foregroundColor="white" backgroundColor="background" halign="left" valign="center" noWrap="1" text="PidInfo">
+        <convert type="AglareBase">PidHexInfo</convert>
+    </widget>
+    <eLabel name="" position="25,123" size="38,34" font="icomoon; 36" text="" transparent="1" valign="center" halign="center" zPosition="99" foregroundColor="green" backgroundColor="black"/>
+    <eLabel name="" position="25,439" size="38,34" font="icomoon; 36" text="" transparent="1" valign="center" halign="center" zPosition="99" foregroundColor="red" backgroundColor="black"/>
+    <widget font="Bold; 30" halign="right" position="1615,52" render="Label" size="278,40" source="global.CurrentTime" transparent="1" zPosition="1">
+        <convert type="ClockToText">Format:%a %d.%m. | %H:%M</convert>
+    </widget>
+    <widget render="MSNWeatherPixmap" position="285,40" size="60,60" source="session.MSNWeather" alphatest="blend" transparent="1" zPosition="8">
+        <convert type="MSNWeather">weathericon,current,/usr/share/enigma2/Aglare-FHD-NSS/weather_icons/,png</convert>
+    </widget>
+    <widget noWrap="1" backgroundColor="background" font="Regular; 26" render="Label" position="333,72" size="180,28" source="session.MSNWeather" transparent="1" zPosition="8" halign="center">
+        <convert type="MSNWeather">temperature_current</convert>
+    </widget>
+    <widget backgroundColor="background" font="Regular; 26" render="Label" noWrap="1" position="22,40" size="195,60" source="session.MSNWeather" zPosition="2" halign="center" valign="center" transparent="1" foregroundColor="white">
+        <convert type="MSNWeather">city</convert>
+    </widget>
+    <widget backgroundColor="background" font="Regular; 24" foregroundColor="white" halign="center" position="333,40" render="Label" size="180,28" source="session.MSNWeather" transparent="1" valign="center" zPosition="3">
+        <convert type="MSNWeather">temperature_text,current</convert>
+    </widget>
+    <widget render="MSNWeatherPixmap" position="585,40" size="60,60" source="session.MSNWeather" alphatest="blend" transparent="1" zPosition="8">
+        <convert type="MSNWeather">weathericon,day1,/usr/share/enigma2/Aglare-FHD-NSS/weather_icons/,png</convert>
+    </widget>
+    <widget backgroundColor="background" font="Regular; 24" foregroundColor="white" halign="center" position="633,40" render="Label" size="180,28" source="session.MSNWeather" transparent="1" valign="center" zPosition="3">
+        <convert type="MSNWeather">temperature_text,day1</convert>
+    </widget>
+    <widget noWrap="1" backgroundColor="background" font="Regular; 26" render="Label" position="633,72" size="90,28" source="session.MSNWeather" transparent="1" zPosition="8" halign="center">
+        <convert type="MSNWeather">temperature_high,day1</convert>
+    </widget>
+    <widget render="MSNWeatherPixmap" position="885,40" size="60,60" source="session.MSNWeather" alphatest="blend" transparent="1" zPosition="8">
+        <convert type="MSNWeather">weathericon,day2,/usr/share/enigma2/Aglare-FHD-NSS/weather_icons/,png</convert>
+    </widget>
+    <widget backgroundColor="background" font="Regular; 24" foregroundColor="white" halign="center" position="933,40" render="Label" size="180,28" source="session.MSNWeather" transparent="1" valign="center" zPosition="3">
+        <convert type="MSNWeather">temperature_text,day2</convert>
+    </widget>
+    <widget noWrap="1" backgroundColor="background" font="Regular; 26" render="Label" position="933,72" size="90,28" source="session.MSNWeather" transparent="1" zPosition="8" halign="center">
+        <convert type="MSNWeather">temperature_high,day2</convert>
+    </widget>
+    <widget render="MSNWeatherPixmap" position="1185,40" size="60,60" source="session.MSNWeather" alphatest="blend" transparent="1" zPosition="8">
+        <convert type="MSNWeather">weathericon,day3,/usr/share/enigma2/Aglare-FHD-NSS/weather_icons/,png</convert>
+    </widget>
+    <widget backgroundColor="background" font="Regular; 24" foregroundColor="white" halign="center" position="1233,40" render="Label" size="180,28" source="session.MSNWeather" transparent="1" valign="center" zPosition="3">
+        <convert type="MSNWeather">temperature_text,day3</convert>
+    </widget>
+    <widget noWrap="1" backgroundColor="background" font="Regular; 26" render="Label" position="1233,72" size="90,28" source="session.MSNWeather" transparent="1" zPosition="8" halign="center">
+        <convert type="MSNWeather">temperature_high,day3</convert>
+    </widget>
+    <widget noWrap="1" backgroundColor="black" font="Regular; 22" render="Label" position="220,59" size="60,24" source="session.MSNWeather" zPosition="9" halign="center" transparent="1">
+        <convert type="MSNWeather">weekshortday,day1</convert>
+    </widget>
+    <eLabel name="" position="220,40" size="60,60" backgroundColor="wdcolor" transparent="0" cornerRadius="26" zPosition="1"/>
+    <eLabel name="" position="520,40" size="60,60" backgroundColor="wdcolor" transparent="0" cornerRadius="26" zPosition="1"/>
+    <widget noWrap="1" backgroundColor="black" font="Regular; 22" render="Label" position="520,59" size="60,24" source="session.MSNWeather" zPosition="9" halign="center" transparent="1">
+        <convert type="MSNWeather">weekshortday,day2</convert>
+    </widget>
+    <widget noWrap="1" backgroundColor="black" font="Regular; 22" render="Label" position="820,59" size="60,24" source="session.MSNWeather" zPosition="9" halign="center" transparent="1">
+        <convert type="MSNWeather">weekshortday,day3</convert>
+    </widget>
+    <widget noWrap="1" backgroundColor="black" font="Regular; 22" render="Label" position="1120,59" size="60,24" source="session.MSNWeather" zPosition="9" halign="center" transparent="1">
+        <convert type="MSNWeather">weekshortday,day4</convert>
+    </widget>
+    <eLabel name="" position="820,40" size="60,60" backgroundColor="wdcolor" transparent="0" cornerRadius="26" zPosition="1"/>
+    <eLabel name="" position="1120,40" size="60,60" backgroundColor="wdcolor" transparent="0" cornerRadius="26" zPosition="1"/>
+    <widget noWrap="1" backgroundColor="background" font="Regular; 26" render="Label" position="723,72" size="90,28" source="session.MSNWeather" transparent="1" zPosition="8" halign="center">
+        <convert type="MSNWeather">temperature_low,day1</convert>
+    </widget>
+    <widget noWrap="1" backgroundColor="background" font="Regular; 26" render="Label" position="1023,72" size="90,28" source="session.MSNWeather" transparent="1" zPosition="8" halign="center">
+        <convert type="MSNWeather">temperature_low,day2</convert>
+    </widget>
+    <widget noWrap="1" backgroundColor="background" font="Regular; 26" render="Label" position="1323,72" size="90,28" source="session.MSNWeather" transparent="1" zPosition="8" halign="center">
+        <convert type="MSNWeather">temperature_low,day3</convert>
+    </widget>
+    <eLabel name="" position="711,70" size="24,30" backgroundColor="background" halign="center" valign="center" transparent="1" font="FA; 22" text="" zPosition="88"/>
+    <eLabel name="" position="1011,70" size="24,30" backgroundColor="background" halign="center" valign="center" transparent="1" font="FA; 22" text="" zPosition="88"/>
+    <eLabel name="" position="1311,70" size="24,30" backgroundColor="background" halign="center" valign="center" transparent="1" font="FA; 22" text="" zPosition="88"/>
+</screen>
+  
+                                                
+           
+                                                                                                                                                                             
+                                                                                                                                                                                                                       
+                                                          
+           
+                                                                                                                                                                             
+                                                                                                                                                                                                                       
+                                                             
+           
+                                                                                                                                                                                            
+                                                             
+           
+                                                                                                                                                                                            
+                                                            
+           
+                                                                                                                                                                             
+                                                                                                                                                                                                                                   
+                                                    
+           
+         
