@@ -1,0 +1,43 @@
+<!-- Skin Manager 01/12/2023 -->
+<screen name="Manager" position="0,0" size="1920,1080" title="..::NSS Cam Manager" backgroundColor="#ff000000" flags="wfNoBorder">
+	<eLabel position="0,735" size="1920,347" backgroundColor="#20000000" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/logo.png" position="1744,805" size="150,60" alphatest="blend" scale="1" zPosition="5" />
+	<widget name="title" position="1076,743" size="820,51" font="Regular; 34" halign="right" valign="center" foregroundColor="redfont" backgroundColor="#20000000" transparent="1" zPosition="5" />
+	<eLabel position="0,800" size="1920,3" backgroundColor="#303030" zPosition="3" />
+	<eLabel position="0,1075" size="1920,3" backgroundColor="#303030" zPosition="3" />
+	<eLabel position="1593,811" size="3,245" backgroundColor="#202020" zPosition="3" />
+	<widget name="info" position="880,810" size="704,266" font="Regular; 20" halign="right" foregroundColor="yellow" backgroundColor="#20000000" transparent="1" zPosition="5" />
+	<widget name="description" position="26,745" size="700,50" font="Regular;30" halign="left" valign="center" foregroundColor="#b0b0b0" backgroundColor="#202020" transparent="1" zPosition="5" />
+		<widget source="list" render="Listbox" position="28,810" size="750,250" scrollbarMode="showOnDemand" foregroundColor="#00a0a0a0" backgroundColorSelected="#00000000" enableWrapAround="1" transparent="1" zPosition="5">
+			<convert type="TemplatedMultiContent">
+				{"template": [
+						MultiContentEntryPixmapAlphaTest(pos=(5, 0), size=(70, 40), png=1), # index 1 is the pixmap   
+						MultiContentEntryText(pos = (95, 0), size = (490, 45), flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER, text=0, color=0x72d000, color_sel=0xffffff, backcolor_sel=0x0066cc), # index 0 is the text name,
+						MultiContentEntryText(pos = (585, 0), size = (160, 45), flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER, text=2, color=0x72d000, color_sel=0xffffff, backcolor_sel=0x0066cc), # index 2 is the text name,
+					],
+				 "fonts": [gFont("Regular", 30)],
+				 "itemHeight": 50
+				}
+			</convert>
+		</widget>
+	<!-- Clock -->
+	<widget backgroundColor="#101010" font="Regular; 38" foregroundColor="#60cefe" halign="right" position="855,752" render="Label" size="200,40" source="global.CurrentTime" transparent="1" valign="center" zPosition="3">
+		<convert type="ClockToText">Format:%H:%M:%S</convert>
+	</widget>
+	<widget backgroundColor="#101010" font="Regular; 38" foregroundColor="#60cefe" halign="right" position="682,751" render="Label" size="200,40" source="global.CurrentTime" transparent="1" valign="center" zPosition="3">
+		<convert type="ClockToText">Format:%A</convert>
+	</widget>
+
+	<eLabel name="" position="1611,812" size="55,52" backgroundColor="#003e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU" />
+	<eLabel name="" position="1671,811" size="52,52" backgroundColor="#003e4b53" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO" />
+
+	<!-- Buttons Colors -->
+	<eLabel backgroundColor="#00ff0000" position="1601,1073" size="300,6" zPosition="12" />
+	<eLabel backgroundColor="#0000ff00" position="1601,1024" size="300,6" zPosition="12" />
+	<eLabel backgroundColor="#00ffff00" position="1604,969" size="300,6" zPosition="12" />
+	<eLabel backgroundColor="#000000ff" position="1608,917" size="300,6" zPosition="12" />
+	<widget name="key_red" render="Label" position="1601,1028" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+	<widget name="key_green" render="Label" position="1602,975" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+	<widget name="key_yellow" render="Label" position="1602,922" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+	<widget name="key_blue" render="Label" position="1602,869" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+</screen>

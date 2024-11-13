@@ -1,0 +1,34 @@
+<!-- Skin Manager 15/08/2020 -->
+<screen name="Manager" position="0,0" size="1280,720" title="..::NSS Panel Cam Manager::.." backgroundColor="#ff000000" flags="wfNoBorder">
+	<widget name="title" position="146,60" size="551,26" font="Regular;20" halign="left" valign="center" foregroundColor="#002a79b8" backgroundColor="black" transparent="1" zPosition="5" />
+	<widget name="description" position="146,98" size="553,33" font="Regular;20" halign="center" valign="center" foregroundColor="yellow" backgroundColor="#202020" transparent="0" zPosition="5" />
+	<widget name="info" position="146,348" size="553,266" font="Regular; 18" halign="left" foregroundColor="grey" backgroundColor="#20000000" transparent="1" zPosition="5" />	
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/main11.png" position="0,0" size="1280,720" zPosition="1" />
+    <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/logo.png" position="143,0" size="160,60" alphatest="blend" zPosition="5" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/sep.png" position="146,91" size="553,5" alphatest="blend" zPosition="5" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Manager/res/pics/sep.png" position="146,616" size="553,5" alphatest="blend" zPosition="5" />
+	<eLabel text="Menu" position="370,632" size="60,25" font="Regular; 20" foregroundColor="#b0b0b0" backgroundColor="#707070" halign="center" valign="center" cornerRadius="10" zPosition="5" />
+	<eLabel text="Info" position="371,666" size="60,25" font="Regular; 20" foregroundColor="#b0b0b0" backgroundColor="#707070" halign="center" valign="center" cornerRadius="10" zPosition="5" />
+	<!-- Menu List -->
+    <widget source="list" render="Listbox" position="144,136" size="600,200" scrollbarMode="showOnDemand" foregroundColor="#00a0a0a0" backgroundColorSelected="#00000000" enableWrapAround="1" transparent="1" zPosition="5">
+        <convert type="TemplatedMultiContent">
+            {"template": [
+                    MultiContentEntryPixmapAlphaTest(pos=(3, 2), size=(70, 40), png=1), # index 1 is the pixmap   
+                    MultiContentEntryText(pos=(80, 0), size=(350, 45), flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER, text=0, color=0x72d000, color_sel=0xffffff, backcolor_sel=0x0066cc), # index 0 is the text name,
+                    MultiContentEntryText(pos=(430, 0), size=(130, 45), flags=RT_HALIGN_LEFT | RT_VALIGN_CENTER, text=2, color=0x72d000, color_sel=0xffffff, backcolor_sel=0x0066cc), # index 2 is the text name,
+                ],
+             "fonts": [gFont("Regular", 28)],
+             "itemHeight": 45
+            }
+        </convert>
+    </widget>   
+	<!-- Colors 1220 -->
+	<eLabel backgroundColor="#00ff0000" position="147,631" size="200,6" zPosition="12" />
+	<eLabel backgroundColor="#0000ff00" position="147,675" size="200,6" zPosition="12" />
+	<eLabel backgroundColor="#00ffff00" position="502,631" size="200,6" zPosition="12" />
+	<eLabel backgroundColor="#000000ff" position="502,675" size="200,6" zPosition="12" />
+	<widget name="key_red" render="Label" position="147,635" size="200,40" zPosition="11" font="Regular; 20" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+	<widget name="key_green" render="Label" position="146,679" size="200,40" zPosition="11" font="Regular; 20" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+	<widget name="key_yellow" render="Label" position="501,636" size="200,40" zPosition="11" font="Regular; 20" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+	<widget name="key_blue" render="Label" position="501,682" size="200,40" zPosition="11" font="Regular; 20" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white" />
+</screen>
