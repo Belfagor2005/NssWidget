@@ -10,7 +10,8 @@ from enigma import (
 from Components.Console import Console
 from Components.Converter.Converter import Converter
 from Components.Element import cached
-from Components.AglareComponents import isImageType, isPY2
+from Components.AglareComponents import isImageType
+import six
 
 DBG = False
 if DBG:
@@ -136,7 +137,7 @@ class AglareBitrate(Converter, object):
     def dataAvail(self, conStr):
         if DBG:
             AGDEBUG("[AglareBitrate:dataAvail] >>> conStr '%s'\n\tself.remainingdata='%s'" % (conStr, self.remainingdata))
-        if isPY2():
+        if six.PY2:
             conStr = self.remainingdata + str(conStr)
         else:
             conStr = self.remainingdata + str(conStr, 'utf-8', 'ignore')
