@@ -1,14 +1,20 @@
 #!/bin/bash
 ## setup command=wget -q "--no-check-certificate" https://raw.githubusercontent.com/Belfagor2005/NssWidget/main/installer.sh -O - | /bin/sh
+exec > >(tee -a /tmp/NssWidget_debug.txt) 2>&1
+set -x
 
 ## Only This 2 lines to edit with new version ######
 version='1.0.1'
 changelog='\nVersion 34 init\n'
-
+# Identify the box type from the hostname file
+FILE="/etc/image-version"
+box_type=$(head -n 1 /etc/hostname)
+distro_value=$(grep '^distro=' "$FILE" | awk -F '=' '{print $2}')
+distro_version=$(grep '^version=' "$FILE" | awk -F '=' '{print $2}')
 ##############################################################
-
 TMPPATH=/tmp/NssWidget-main
 FILEPATH=/tmp/main.tar.gz
+##############################################################
 
 if [ ! -d /usr/lib64 ]; then
 	PLUGINPATH=/usr/lib/enigma2/python/Plugins/Extensions/Aglare
@@ -24,7 +30,7 @@ else
    STATUS=/var/lib/opkg/status
    OSTYPE=OE20
 fi
-echo ""
+
 if python --version 2>&1 | grep -q '^Python 3\.'; then
 	echo "You have Python3 image"
 	PYTHON=PY3
@@ -56,12 +62,11 @@ if [ $PYTHON = "PY3" ]; then
 		opkg update && opkg --force-reinstall --force-overwrite install python3-six
 	fi
 fi
-echo ""
+
 if grep -qs "Package: $Packagerequests" cat $STATUS ; then
 	echo ""
 else
 	echo "Need to install $Packagerequests"
-	echo ""
 	if [ $OSTYPE = "DreamOs" ]; then
 		apt-get update && apt-get install python-requests -y
 	 
@@ -73,7 +78,6 @@ else
 	
 	fi
 fi
-echo ""
 
 ## Remove tmp directory
 [ -r $TMPPATH ] && rm -f $TMPPATH > /dev/null 2>&1
@@ -91,10 +95,8 @@ cd $TMPPATH
 # set -e
 if [ $OSTYPE = "DreamOs" ]; then
    echo "# Your image is OE2.5/2.6 #"
-   echo ""
 else
    echo "# Your image is OE2.0 #"
-   echo ""
 fi
 
 # if [ $OSTYPE != "DreamOs" ]; then
@@ -121,32 +123,30 @@ if [ ! -d $PLUGINPATH ]; then
 	exit 1
 fi
 
-# Identify the box type from the hostname file
-FILE="/etc/image-version"
-box_type=$(head -n 1 /etc/hostname)
-distro_value=$(grep '^distro=' "$FILE" | awk -F '=' '{print $2}')
-distro_version=$(grep '^version=' "$FILE" | awk -F '=' '{print $2}')
-echo "^^^^^^^^^^Debug information:" > /tmp/NssWidget_debug.txt
-echo "BOX MODEL: $box_type" >> /tmp/NssWidget_debug.txt
-echo "OO SYSTEM: $OSTYPE" >> /tmp/NssWidget_debug.txt
-echo "PYTHON: $PYTHON" >> /tmp/NssWidget_debug.txt
-echo "PLUGINPATH: $PLUGINPATH" >> /tmp/NssWidget_debug.txt
-echo "IMAGE NAME: $distro_value" >> /tmp/NssWidget_debug.txt
-echo "IMAGE VERSION: $distro_version" >> /tmp/NssWidget_debug.txt
-echo "   "
+# # Identify the box type from the hostname file
+# FILE="/etc/image-version"
+# box_type=$(head -n 1 /etc/hostname)
+# distro_value=$(grep '^distro=' "$FILE" | awk -F '=' '{print $2}')
+# distro_version=$(grep '^version=' "$FILE" | awk -F '=' '{print $2}')
+
+echo "#########################################################
+#          NssWidget INSTALLED SUCCESSFULLY             #
+#                developed by LULULLA                   #
+#            https://www.nonsolosat.net/                #
+#               https://corvoboys.org                   #
+#########################################################
+#           your Device will RESTART Now                #
+#########################################################
+^^^^^^^^^^Debug information:
+BOX MODEL: $box_type
+OO SYSTEM: $OSTYPE
+PYTHON: $PYTHON
+PLUGINPATH: $PLUGINPATH
+IMAGE NAME: $distro_value
+IMAGE VERSION: $distro_version" >> /tmp/NssWidget_debug.txt
 
 rm -rf $TMPPATH > /dev/null 2>&1
 sync
-echo ""
-echo ""
-echo "#########################################################"
-echo "#          NssWidget INSTALLED SUCCESSFULLY             #"
-echo "#                developed by LULULLA                   #"
-echo "#            https://www.nonsolosat.net/                #"
-echo "#               https://corvoboys.org                   #"
-echo "#########################################################"
-echo "#           your Device will RESTART Now                #"
-echo "#########################################################"
 sleep 5
 reboot
 # killall -9 enigma2
