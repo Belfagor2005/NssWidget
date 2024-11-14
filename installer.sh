@@ -124,11 +124,11 @@ if [ ! -d $PLUGINPATH ]; then
 fi
 
 # # Identify the box type from the hostname file
-# FILE="/etc/image-version"
-# box_type=$(head -n 1 /etc/hostname)
-# distro_value=$(grep '^distro=' "$FILE" | awk -F '=' '{print $2}')
-# distro_version=$(grep '^version=' "$FILE" | awk -F '=' '{print $2}')
-
+FILE="/etc/image-version"
+box_type=$(head -n 1 /etc/hostname)
+distro_value=$(grep '^distro=' "$FILE" | awk -F '=' '{print $2}')
+distro_version=$(grep '^version=' "$FILE" | awk -F '=' '{print $2}')
+python_vers=$(python --version 2>&1)
 echo "#########################################################
 #          NssWidget INSTALLED SUCCESSFULLY             #
 #                developed by LULULLA                   #
@@ -140,8 +140,7 @@ echo "#########################################################
 ^^^^^^^^^^Debug information:
 BOX MODEL: $box_type
 OO SYSTEM: $OSTYPE
-PYTHON: $PYTHON
-PLUGINPATH: $PLUGINPATH
+PYTHON: $python_vers
 IMAGE NAME: $distro_value
 IMAGE VERSION: $distro_version" >> /tmp/NssWidget_debug.txt
 
