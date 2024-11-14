@@ -142,7 +142,7 @@ BOX MODEL: $box_type
 OO SYSTEM: $OSTYPE
 PYTHON: $python_vers
 IMAGE NAME: $distro_value
-IMAGE VERSION: $distro_version" >> /tmp/NssWidget_debug.txt
+IMAGE VERSION: $distro_version"
 
 rm -rf $TMPPATH > /dev/null 2>&1
 sync
