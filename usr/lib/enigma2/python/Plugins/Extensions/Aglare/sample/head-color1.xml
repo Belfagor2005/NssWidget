@@ -85,6 +85,7 @@
         <color name="backgroundtrans1" value="#95000000"/>
         <color name="backgroundtrans2" value="#95161414"/>
         <color name="black" value="#00000000"/>
+        <color name="black1" value="#00181818"/>
         <color name="blue" value="#000000ff"/>
         <color name="bpSide" value="#00ff6600"/>
         <color name="buttonsc" value="#003b3b3b"/>
@@ -106,6 +107,7 @@
         <color name="g2" value="#00481848"/>
         <color name="g3" value="#001c0e1c"/>
         <color name="gold" value="#00ffd700"/>
+        <color name="gold1" value="#20ffd700"/>
         <color name="grdd" value="#000f0910"/>
         <color name="grdd7" value="#00d7d7d7"/>
         <color name="grdl" value="#00c414c4"/>
@@ -152,6 +154,7 @@
         <color name="transpyellow" value="#33bab329"/>
         <color name="wdcolor" value="#002a2a2a"/>
         <color name="white" value="#00ffffff"/>
+        <color name="white1" value="#20ffffff"/>
         <color name="white2" value="#00dddddd"/>
         <color name="wplc" value="#001c1c1c"/>
         <color name="wpmc" value="#00131313"/>
@@ -204,10 +207,10 @@
         <parameter name="PluginBrowserDescColor" value="1017253"/>
         <parameter name="PluginBrowserDescr" value="170,36,40"/>
         <parameter name="PluginBrowserDownloadDescColor" value="1017253"/>
-        <parameter name="PluginBrowserDownloadDescr" value="120,40,40"/>
-        <parameter name="PluginBrowserDownloadIcon" value="20,0,100,70"/>
-        <parameter name="PluginBrowserDownloadName" value="120,10,60"/>
-        <parameter name="PluginBrowserIcon" value="20,0,120,70"/>
+        <parameter name="PluginBrowserDownloadDescr" value="134,36,40"/>
+        <parameter name="PluginBrowserDownloadIcon" value="20,10,100,50"/>
+        <parameter name="PluginBrowserDownloadName" value="130,4,40"/>
+        <parameter name="PluginBrowserIcon" value="20,5,120,60"/>
         <parameter name="PluginBrowserName" value="160,4,40"/>
         <parameter name="SelectionListDescr" value="45,0,1000,38"/>
         <parameter name="SelectionListLock" value="0,2,36,36"/>

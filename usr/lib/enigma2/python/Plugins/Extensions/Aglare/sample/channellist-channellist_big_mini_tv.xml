@@ -19,7 +19,7 @@
     <widget source="session.CurrentService" render="Label" position="954,70" size="932,32" font="Regular; 27" borderWidth="1" backgroundColor="background" transparent="1" halign="center" foregroundColor="white" zPosition="30" valign="center" noWrap="1">
         <convert type="ServiceName">Name</convert>
     </widget>
-    <widget source="ServiceEvent" render="Progress" pixmap="main/progfg93010.png" cornerRadius="5" position="956,630" size="930,10" zPosition="8">
+    <widget source="ServiceEvent" render="Progress" pixmap="main/progfg93010.png" cornerRadius="5" position="956,630" size="930,10" zPosition="99" backgroundColor="progbg">
         <convert type="EventTime">Progress</convert>
     </widget>
     <widget source="ServiceEvent" render="Label" position="956,648" size="787,50" font="Bold; 27" transparent="1" zPosition="8" valign="center" halign="left" noWrap="1">

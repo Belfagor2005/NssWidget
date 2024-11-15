@@ -2,6 +2,9 @@
     <panel name="ScreenTemplateAllColorButtons_menu"/>
     <panel name="timedate"/>
     <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
+    <widget source="ServiceEvent" render="AglareRunningText" options="movetype=running,startpoint=0,direction=top,steptime=100,startdelay=4000,wrap,always=0" position="830,441" size="525,269" halign="left" font="Regular; 28" transparent="1" valign="top" zPosition="99">
+        <convert type="EventName">FullDescription</convert>
+    </widget>
     <eLabel backgroundColor="mcolor3" cornerRadius="3" position="1386,468" size="500,3" zPosition="99"/>
     <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
     <widget source="Title" render="Label" position="36,32" size="780,52" font="Regular; 32" noWrap="1" transparent="1" valign="center" zPosition="1" halign="left"/>
@@ -12,17 +15,14 @@
     <widget source="session.CurrentService" render="Label" position="1386,90" size="500,32" font="Regular; 27" borderWidth="1" backgroundColor="background" transparent="1" halign="center" foregroundColor="white" zPosition="30" valign="center" noWrap="1">
         <convert type="ServiceName">Name</convert>
     </widget>
-    <widget source="ServiceEvent" render="Progress" pixmap="main/progfg50010.png" cornerRadius="10" position="1386,410" size="500,10" zPosition="8">
+    <widget source="ServiceEvent" render="Progress" pixmap="main/progfg50010.png" cornerRadius="5" position="1386,410" size="500,10" zPosition="5" backgroundColor="progbg">
         <convert type="EventTime">Progress</convert>
     </widget>
     <widget source="ServiceEvent" render="Label" position="1386,420" size="500,40" font="Bold; 27" transparent="1" zPosition="8" valign="center" halign="left" noWrap="1">
         <convert type="EventName">Name</convert>
     </widget>
-    <widget source="ServiceEvent" render="AglareEventListDisplay" position="1385,480" size="500,200" backgroundColor="buttonsc" column0="10,100,yellow,Regular,30,0,0" column1="110,370,white,Regular,30,1,1" primetimeoffset="0" rowHeight="40" transparent="1" zPosition="50">
+    <widget source="ServiceEvent" render="AglareEventListDisplay" position="1385,490" size="500,200" backgroundColor="buttonsc" column0="10,100,yellow,Regular,30,0,0" column1="110,370,white,Regular,30,1,1" primetimeoffset="0" rowHeight="40" transparent="1" zPosition="50">
         <convert type="AglareEventList">beginOnly=yes,primetime=yes,eventcount=5</convert>
-    </widget>
-    <widget source="ServiceEvent" render="AglareRunningText" options="movetype=running,startpoint=0,direction=top,steptime=100,startdelay=4000,wrap,always=0" position="828,268" size="525,415" halign="left" font="Regular; 28" transparent="1" valign="top" zPosition="99">
-        <convert type="EventName">FullDescription</convert>
     </widget>
     <widget source="session.VideoPicture" render="Pig" position="1386,120" zPosition="20" size="500,282" backgroundColor="transparent" transparent="0" cornerRadius="14"/>
     <widget source="ServiceEvent" render="Label" position="1086,118" zPosition="1" size="290,32" font="Regular; 24" halign="center" backgroundColor="background" transparent="1" valign="center" noWrap="1">
@@ -39,11 +39,12 @@
     <widget source="session.FrontendStatus" render="Label" position="1260,70" size="64,28" font="Regular; 22" backgroundColor="background" transparent="1" zPosition="23" valign="center" halign="left" foregroundColor="green">
         <convert type="FrontendInfo">AGC</convert>
     </widget>
-    <widget render="Progress" position="1152,81" size="100,6" source="session.FrontendStatus" pixmap="main/progfg2308.png" cornerRadius="8" zPosition="7">
+    <widget render="Progress" position="1152,81" size="100,6" source="session.FrontendStatus" pixmap="main/progfg2308.png" cornerRadius="8" zPosition="7" backgroundColor="progbg">
         <convert type="FrontendInfo">AGC</convert>
     </widget>
-    <widget render="Progress" position="1152,47" size="100,6" source="session.FrontendStatus" pixmap="main/progfg2308.png" cornerRadius="8" zPosition="7">
+    <widget render="Progress" position="1152,47" size="100,6" source="session.FrontendStatus" pixmap="main/progfg2308.png" cornerRadius="3" zPosition="99" backgroundColor="progbg">
         <convert type="FrontendInfo">SNR</convert>
+    </widget> type="FrontendInfo">SNR</convert>
     </widget>
     <eLabel name="" position="31,30" size="791,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
     <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
@@ -70,7 +71,6 @@
     <widget source="ServiceEvent" render="xtraNextEvents" nextEvent="4" usedImage="poster" position="1550,730" size="160,240" cornerRadius="20" zPosition="99"/>
     <widget source="ServiceEvent" render="xtraNextEvents" nextEvent="5" usedImage="poster" position="1730,730" size="160,240" cornerRadius="20" zPosition="99"/>
     -->
-
     <eLabel name="" position="826,720" size="1072,260" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
     <ePixmap name="" position="830,730" size="160,240" alphatest="on" pixmap="main/noposter.png" zPosition="90"/>
     <ePixmap name="" position="1010,730" size="160,240" alphatest="on" pixmap="main/noposter.png" zPosition="90"/>
@@ -84,12 +84,10 @@
     <widget source="ServiceEvent" render="AglarePosterX" nexts="3" position="1370,730" size="160,240" cornerRadius="20" zPosition="95"/>
     <widget source="ServiceEvent" render="AglarePosterX" nexts="4" position="1550,730" size="160,240" cornerRadius="20" zPosition="95"/>
     <widget source="ServiceEvent" render="AglarePosterX" nexts="5" position="1730,730" size="160,240" cornerRadius="20" zPosition="95"/>
-    
-    <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="0" font="Regular; 18" halign="Left" valign="Bottom" foregroundColor="white" backgroundColor="background" position="823,680" size="177,44" zPosition="5" transparent="1" />
-    <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="1" font="Regular; 18" halign="Left" valign="Bottom" foregroundColor="white" backgroundColor="background" position="1000,680" size="177,44" zPosition="5" transparent="1" />
-    <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="2" font="Regular; 18" halign="Left" valign="Bottom" foregroundColor="white" backgroundColor="background" position="1180,680" size="177,44" zPosition="5" transparent="1" />
-    <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="3" font="Regular; 18" halign="Left" valign="Bottom" foregroundColor="white" backgroundColor="background" position="1358,680" size="177,44" zPosition="5" transparent="1" />
-    <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="4" font="Regular; 18" halign="Left" valign="Bottom" foregroundColor="white" backgroundColor="background" position="1538,680" size="177,44" zPosition="5" transparent="1" />
-    <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="5" font="Regular; 18" halign="Left" valign="Bottom" foregroundColor="white" backgroundColor="background" position="1717,680" size="177,44" zPosition="5" transparent="1" />
-
+    <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="0" font="Regular; 18" halign="Left" valign="Bottom" foregroundColor="white" backgroundColor="background" position="823,680" size="177,44" zPosition="5" transparent="1"/>
+    <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="1" font="Regular; 18" halign="Left" valign="Bottom" foregroundColor="white" backgroundColor="background" position="1000,680" size="177,44" zPosition="5" transparent="1"/>
+    <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="2" font="Regular; 18" halign="Left" valign="Bottom" foregroundColor="white" backgroundColor="background" position="1180,680" size="177,44" zPosition="5" transparent="1"/>
+    <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="3" font="Regular; 18" halign="Left" valign="Bottom" foregroundColor="white" backgroundColor="background" position="1358,680" size="177,44" zPosition="5" transparent="1"/>
+    <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="4" font="Regular; 18" halign="Left" valign="Bottom" foregroundColor="white" backgroundColor="background" position="1538,680" size="177,44" zPosition="5" transparent="1"/>
+    <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="5" font="Regular; 18" halign="Left" valign="Bottom" foregroundColor="white" backgroundColor="background" position="1717,680" size="177,44" zPosition="5" transparent="1"/>
 </screen>

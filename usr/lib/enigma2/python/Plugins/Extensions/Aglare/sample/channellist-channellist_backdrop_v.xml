@@ -8,7 +8,7 @@
     <widget source="session.CurrentService" render="Label" position="1246,65" size="648,30" font="Regular; 27" borderWidth="1" backgroundColor="background" transparent="1" halign="center" foregroundColor="white" zPosition="30" valign="center" noWrap="1">
         <convert type="ServiceName">Name</convert>
     </widget>
-    <widget source="ServiceEvent" render="Progress" position="1246,469" size="648,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="33">
+    <widget source="ServiceEvent" render="Progress" position="1246,469" size="648,10" backgroundColor="progbg" pixmap="main/progfg64810.png" cornerRadius="5" zPosition="33">
         <convert type="EventTime">Progress</convert>
     </widget>
     <widget source="session.VideoPicture" render="Pig" position="1246,94" zPosition="1" size="648,364" backgroundColor="transparent" transparent="0" cornerRadius="14"/>

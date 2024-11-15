@@ -67,7 +67,7 @@ try:
             # "visual_api": "/etc/enigma2/VisualWeather/apikey.txt"
         }
         for key, path in skin_paths.items():
-            if os.path.exists(path):
+            if fileExists(path):
                 with open(path, "r") as f:
                     value = f.read().strip()
                     if key == "tmdb_api":
@@ -227,7 +227,7 @@ class AglareSetup(ConfigListScreen, Screen):
 
     def __layoutFinished(self):
         '''
-        # if str(cur_skin) != 'Aglare-FHD-NSS' and os.path.exists('/usr/share/enigma2/Aglare-FHD-NSS'):
+        # if str(cur_skin) != 'Aglare-FHD-NSS' and fileExists('/usr/share/enigma2/Aglare-FHD-NSS'):
             # text = _("ATTENTION!!\nThe Skin is already installed:\nto activate you must choose from:\nmenu-setup-system-skin\nand select it!\nNow you can only update the installation.")
             # self.session.openWithCallback(self.passs, MessageBox, text, MessageBox.TYPE_INFO, timeout=5)
         '''
@@ -263,7 +263,6 @@ class AglareSetup(ConfigListScreen, Screen):
                         t.write(fpage)
                     config.plugins.AglareNss.txtapi.setValue(fpage)
                     config.plugins.AglareNss.txtapi.save()
-                    self.createSetup()
                     self.session.open(MessageBox, _("TMDB ApiKey Imported & Stored!"), MessageBox.TYPE_INFO, timeout=4)
                 else:
                     self.session.open(MessageBox, _("TMDB ApiKey is empty!"), MessageBox.TYPE_INFO, timeout=4)
@@ -287,7 +286,6 @@ class AglareSetup(ConfigListScreen, Screen):
                         t.write(fpage)
                     config.plugins.AglareNss.txtapi2.setValue(fpage)
                     config.plugins.AglareNss.txtapi2.save()
-                    self.createSetup()
                     self.session.open(MessageBox, _("OMDB ApiKey Imported & Stored!"), MessageBox.TYPE_INFO, timeout=4)
                 else:
                     self.session.open(MessageBox, _("OMDB ApiKey is empty!"), MessageBox.TYPE_INFO, timeout=4)
@@ -443,7 +441,6 @@ class AglareSetup(ConfigListScreen, Screen):
             config.plugins.AglareNss.api2.save()
             self.keyApi2()
 
-        # self.ShowPicture()
 
     def keyRight(self):
         ConfigListScreen.keyRight(self)
@@ -558,7 +555,7 @@ class AglareSetup(ConfigListScreen, Screen):
             with open(destr, 'w') as f:
                 f.write(str(fp))  # .decode("utf-8"))
                 f.seek(0)
-            if os.path.exists(destr):
+            if fileExists(destr):
                 with open(destr, 'r') as cc:
                     s1 = cc.readline()  # .decode("utf-8")
                     vers = s1.split('#')[0]
@@ -642,7 +639,7 @@ class AglareUpdater(Screen):
 
     def downloadProgress(self, recvbytes, totalbytes):
         self['status'].setText(_('Download in progress...'))
-        self['progress'].value = int(100 * self.last_recvbytes / float(totalbytes))
+        self['progress'].value = int(100 * self.last_recvbytes // float(totalbytes))
         self['progresstext'].text = '%d of %d kBytes (%.2f%%)' % (self.last_recvbytes / 1024, totalbytes / 1024, 100 * self.last_recvbytes / float(totalbytes))
         self.last_recvbytes = recvbytes
 
