@@ -146,6 +146,6 @@ IMAGE VERSION: $distro_version"
 
 rm -rf $TMPPATH > /dev/null 2>&1
 sync
-sleep 5
+sleep 8
 killall -9 enigma2
 exit 0
