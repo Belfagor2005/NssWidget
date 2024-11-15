@@ -18,6 +18,7 @@
             Support="OpenPLI, Mod. by Lululla"
             Version="3.7"
             Release date="04/10/2024"
+
             supporturl="www.linuxsat-support.com"
         </abouth>
     </copyright>
@@ -567,10 +568,10 @@
         <widget source="session.FrontendStatus" render="Label" position="1280,292" size="64,28" font="Regular; 22" backgroundColor="background" transparent="1" zPosition="23" valign="center" halign="left">
             <convert type="FrontendInfo">AGC</convert>
         </widget>
-        <widget render="Progress" size="230,8" source="session.FrontendStatus" pixmap="main/progfg2308.png" cornerRadius="4" position="1044,300" zPosition="99" backgroundColor="progbg">
+        <widget render="Progress" size="230,8" source="session.FrontendStatus" pixmap="main/progfg2308.png" cornerRadius="8" position="1044,300" zPosition="7">
             <convert type="FrontendInfo">AGC</convert>
         </widget>
-        <widget render="Progress" size="230,8" source="session.FrontendStatus" pixmap="main/progfg2308.png" cornerRadius="4" position="1044,264" zPosition="99" backgroundColor="progbg">
+        <widget render="Progress" size="230,8" source="session.FrontendStatus" pixmap="main/progfg2308.png" cornerRadius="8" position="1044,264" zPosition="7">
             <convert type="FrontendInfo">SNR</convert>
         </widget>
         <eLabel name="" position="31,30" size="901,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
@@ -581,16 +582,16 @@
             <convert type="ClockToText">InMinutes</convert>
         </widget>
         <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
-        <eLabel name="" position="1658,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
+        <eLabel name="" position="1658,1018" size="55,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="MENU"/>
         <eLabel name="" position="1718,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EPG"/>
         <eLabel name="" position="1778,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="INFO"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
         <eLabel name="" position="1368,620" size="132,40" font="icomoon; 36" text="" transparent="1" valign="center" halign="center" zPosition="99"/>
-        <widget source="ServiceEvent" render="Label" position="1000,970" size="905,34" font="Bold; 28" backgroundColor="background" transparent="1" noWrap="1" zPosition="8" foregroundColor="gold" valign="top">
+        <widget source="ServiceEvent" render="Label" position="1000,976" size="905,34" font="Bold; 28" backgroundColor="background" transparent="1" noWrap="1" zPosition="8" foregroundColor="gold" valign="top">
             <convert type="AglareEventName2">PrimeTimeWithDuration</convert>
         </widget>
-        <eLabel name="" position="970,970" size="30,30" font="icomoon; 24" text="" transparent="1" valign="center" halign="center" zPosition="99" foregroundColor="gold"/>
-        <eLabel name="" position="950,332" size="40,40" font="icomoon; 30" text="" halign="center" zPosition="99" transparent="1"/>
+        <eLabel name="" position="970,976" size="30,30" font="icomoon; 24" text="" transparent="1" valign="center" halign="center" zPosition="99" foregroundColor="gold"/>
+        <eLabel name="" position="970,332" size="40,40" font="icomoon; 30" text="" halign="center" zPosition="99" transparent="1"/>
         <widget source="ServiceEvent" render="Label" position="970,376" zPosition="1" size="412,54" font="Regular; 28" noWrap="1" halign="left" backgroundColor="background" transparent="1" valign="center">
             <convert type="AglareServName2">Reference</convert>
         </widget>
@@ -612,7 +613,7 @@
             <convert type="EventTime">Remaining</convert>
             <convert type="RemainingToText">InMinutes</convert>
         </widget>
-        <widget source="Event" render="Progress" position="1376,444" size="500,10" pixmap="main/progfg50010.png" cornerRadius="5" zPosition="99" backgroundColor="progbg">
+        <widget source="Event" render="Progress" position="1376,444" size="500,10" pixmap="main/progfg2308.png" cornerRadius="10" zPosition="33">
             <convert type="EventTime">Progress</convert>
         </widget>
         <widget source="session.Event_Next" render="AglareRunningText" options="movetype=running,startpoint=0,direction=top,steptime=100,startdelay=4000,wrap,always=0" position="32,794" zPosition="2" size="1251,211" font="Regular; 30" halign="left" backgroundColor="background" transparent="1" valign="top">
@@ -813,32 +814,23 @@
         <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,679" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
             <convert type="AglareReceiverInfo">FlashInfo</convert>
         </widget>
-        <widget source="session.Event_Now" render="Progress" position="1058,707" size="400,10" backgroundColor="progbg" cornerRadius="10" zPosition="88">
+        <widget source="session.Event_Now" render="Progress" position="1058,707" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
             <convert type="AglareReceiverInfo">FlashInfo</convert>
         </widget>
         <eLabel name="" position="997,734" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 26" text="" zPosition="1"/>
         <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,738" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
             <convert type="AglareReceiverInfo">HddInfo</convert>
         </widget>
-        <widget source="session.Event_Now" render="Progress" position="1058,766" size="400,10" backgroundColor="progbg" cornerRadius="10" zPosition="88">
+        <widget source="session.Event_Now" render="Progress" position="1058,766" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
             <convert type="AglareReceiverInfo">HddInfo</convert>
         </widget>
         <eLabel name="" position="997,790" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 28" text="" zPosition="1"/>
         <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,797" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
             <convert type="AglareReceiverInfo">UsbInfo</convert>
         </widget>
-        <widget source="session.Event_Now" render="Progress" position="1058,825" size="400,10" backgroundColor="progbg" cornerRadius="10" zPosition="88">
+        <widget source="session.Event_Now" render="Progress" position="1058,825" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
             <convert type="AglareReceiverInfo">UsbInfo</convert>
         </widget>
-        <!--
-        <eLabel name="" position="997,792" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 28" text="" zPosition="1"/>
-        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,796" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
-            <convert type="AglareReceiverInfo">MmcInfo</convert>
-        </widget>
-        <widget source="session.Event_Now" render="Progress" position="1058,824" size="400,10" backgroundColor="progbg" cornerRadius="10" zPosition="88">
-            <convert type="AglareReceiverInfo">MmcInfo</convert>
-        </widget>
-        -->
         <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,859" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
             <convert type="AglareBoxInfo">Boxtype</convert>
         </widget>
@@ -855,7 +847,7 @@
             <convert type="AglareReceiverInfo">MemTotal</convert>
         </widget>
         <eLabel name="" position="997,621" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 30" text="" zPosition="1"/>
-        <widget source="session.Event_Now" render="Progress" position="1058,653" size="400,10" backgroundColor="progbg" cornerRadius="10" zPosition="88">
+        <widget source="session.Event_Now" render="Progress" position="1058,653" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
             <convert type="AglareReceiverInfo">MemTotal</convert>
         </widget>
         <panel name="bLogo"/>
@@ -1705,7 +1697,7 @@
         <widget name="Tuner" position="12,250" size="82,30" zPosition="2" font="Regular; 25" halign="left" transparent="1" backgroundColor="background"/>
         <widget name="tunerName" position="100,250" size="105,30" zPosition="2" font="Regular; 25" halign="left" transparent="1" backgroundColor="background"/>
         <widget name="turnSpeed" position="12,290" size="180,30" zPosition="2" font="Regular; 25" halign="left" transparent="1" backgroundColor="background"/>
-        <widget source="session.FrontendStatus" render="Progress" position="12,328" size="220,16" backgroundColor="progbg"  cornerRadius="10" zPosition="2">
+        <widget source="session.FrontendStatus" render="Progress" position="12,328" size="220,16" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="2">
             <convert type="FrontendInfo">SNR</convert>
         </widget>
     </screen>
@@ -1719,7 +1711,7 @@
         <widget name="Tuner" position="12,250" size="82,30" zPosition="2" font="Regular; 25" halign="left" transparent="1" backgroundColor="background"/>
         <widget name="tunerName" position="100,250" size="105,30" zPosition="2" font="Regular; 25" halign="left" transparent="1" backgroundColor="background"/>
         <widget name="turnSpeed" position="12,290" size="180,30" zPosition="2" font="Regular; 25" halign="left" transparent="1" backgroundColor="background"/>
-        <widget source="session.FrontendStatus" render="Progress" position="12,328" size="220,16" backgroundColor="progbg"  cornerRadius="10" zPosition="2">
+        <widget source="session.FrontendStatus" render="Progress" position="12,328" size="220,16" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="2">
             <convert type="FrontendInfo">SNR</convert>
         </widget>
     </screen>
@@ -6979,7 +6971,6 @@ MultiContentEntryPixmapAlphaTest(pos = (8, 87), size = (0, 0), png = 5), # index
     <screen name="Mac" position="center,center" size="700,300" title="MAC CHANGER BY ZIKO" backgroundColor="#31000000" flags="wfBorder">
         <widget name="config" position="0,0" size="700,300" zPosition="1" transparent="0" scrollbarMode="showOnDemand" itemHeight="100" valign="center" itemCornerRadius="10" font="Regular; 36"/>
     </screen>
-
     <screen name="SelectImage" position="0,0" size="1920,1080" title="Input" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
@@ -8480,6 +8471,6 @@ MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
     <screen name="vEditorScreen" position="0,0" size="1920,1080" flags="wfNoBorder" title="File-Explorer" backgroundColor="transparent">
         <panel name="menutemp3"/>
         <widget name="filedata" position="45,121" size="1830,810" itemHeight="45" font="Regular;30" textOffset="10,6" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" valign="center"/>
-    </screen>                                                                                                                                        
+    </screen>
 </skin>
 
