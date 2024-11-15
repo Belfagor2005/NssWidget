@@ -10,72 +10,12 @@ from enigma import (
 from Components.Console import Console
 from Components.Converter.Converter import Converter
 from Components.Element import cached
-# from Components.AglareComponents import isImageType
+from Components.AglareComponents import isImageType
 import six
-from datetime import datetime
-from os import path
-imageType = None
+
 DBG = False
-append2file = False
-
-
-def AGDEBUG(myText=None, Append=True, myDEBUG='/tmp/AglareComponents.log'):
-    global append2file
-    if myDEBUG is None or myText is None:
-        return
-    try:
-        if append2file is False or Append is False:
-            append2file = True
-            mode = 'w'
-        else:
-            mode = 'a'
-        with open(myDEBUG, mode) as f:
-            f.write('%s\t%s\n' % (str(datetime.now()), myText))
-        if path.getsize(myDEBUG) > 100000:
-            with open(myDEBUG, 'r+') as f:
-                lines = f.readlines()
-                f.seek(0)
-                f.writelines(lines[10:])
-                f.truncate()
-    except Exception as e:
-        with open(myDEBUG, 'a') as f:
-            f.write('Exception: %s\n' % str(e))
-    return
-
-
-def isImageType(imgName=''):
-    global imageType
-    if imageType is None:
-        if path.exists('/etc/opkg/all-feed.conf'):
-            with open('/etc/opkg/all-feed.conf', 'r') as file:
-                fileContent = file.read()
-                file.close()
-                fileContent = fileContent.lower()
-                if fileContent.find('VTi') > -1:
-                    imageType = 'vti'
-                elif fileContent.find('code.vuplus.com') > -1:
-                    imageType = 'vuplus'
-                elif fileContent.find('openpli-7') > -1:
-                    imageType = 'openpli7'
-                elif fileContent.find('openatv') > -1:
-                    imageType = 'openatv'
-                    if fileContent.find('/5.3/') > -1:
-                        imageType += '5.3'
-    if imageType is None:
-        if path.exists('/usr/lib/enigma2/python/Plugins/SystemPlugins/VTIPanel/'):
-            imageType = 'vti'
-        elif path.exists('/usr/lib/enigma2/python/Plugins/Extensions/Infopanel/'):
-            imageType = 'openatv'
-        elif path.exists('/usr/lib/enigma2/python/Blackhole'):
-            imageType = 'blackhole'
-        elif path.exists('/etc/init.d/start_pkt.sh'):
-            imageType = 'pkt'
-        else:
-            imageType = 'unknown'
-    if imgName.lower() == imageType.lower():
-        return True
-    else:
-        return False
+if DBG:
+    from Components.AglareComponents import AGDEBUG
 
 
 class AglareBitrate(Converter, object):
