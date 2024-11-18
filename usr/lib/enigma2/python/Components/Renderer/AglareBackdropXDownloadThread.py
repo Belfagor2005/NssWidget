@@ -268,8 +268,9 @@ class AglareBackdropXDownloadThread(threading.Thread):
                         if backdrop:
                             callInThread(self.savebackdrop, backdrop, self.dwn_backdrop)
                             # self.savebackdrop(self.dwn_backdrop, backdrop)
-                            if self.verifybackdrop(self.dwn_backdrop):
-                                self.resizebackdrop(self.dwn_backdrop)
+                            if os.path.exists(self.dwn_backdrop):
+                                if self.verifybackdrop(self.dwn_backdrop):
+                                    self.resizebackdrop(self.dwn_backdrop)
                             return True, "[SUCCESS poster: tmdb] title {} [poster{}-backdrop{}] => year{} => rating{} => showtitle{}".format(title, poster, backdrop, year, rating, show_title)
                     return False, "[SKIP : tmdb] Not found"
             except Exception as e:
@@ -298,6 +299,9 @@ class AglareBackdropXDownloadThread(threading.Thread):
             series_id = re.findall(r'<seriesid>(.*?)</seriesid>', url_read)
             series_name = re.findall(r'<SeriesName>(.*?)</SeriesName>', url_read)
             series_year = re.findall(r'<FirstAired>(19\d{2}|20\d{2})-\d{2}-\d{2}</FirstAired>', url_read)
+            series_banners = re.findall(r'<banner>(.*?)</banner>', url_read)
+            if series_banners:
+                series_banners = 'https://thetvdb.com' + series_banners
             i = 0
             for iseries_year in series_year:
                 if year == '':
@@ -325,11 +329,11 @@ class AglareBackdropXDownloadThread(threading.Thread):
                     if backdrop and backdrop[0]:
                         callInThread(self.savebackdrop, url_backdrop, dwn_backdrop)
                         # self.savebackdrop(dwn_backdrop, url_backdrop)
-                        if self.verifybackdrop(dwn_backdrop):
-                            self.resizebackdrop(dwn_backdrop)
-                return True, "[SUCCESS backdrop: tvdb] {} [{}-{}] => {} => {} => {}".format(title, chkType, year, url_tvdbg, url_tvdb, url_backdrop)
-            else:
-                return False, "[SKIP : tvdb] {} [{}-{}] => {} (Not found)".format(title, chkType, year, url_tvdbg)
+                        if os.path.exists(dwn_backdrop):
+                            if self.verifybackdrop(dwn_backdrop):
+                                self.resizebackdrop(dwn_backdrop)
+                            return True, "[SUCCESS backdrop: tvdb] {} [{}-{}] => {} => {} => {}".format(title, chkType, year, url_tvdbg, url_tvdb, url_backdrop)
+                    return False, "[SKIP : tvdb] {} [{}-{}] => {} (Not found)".format(title, chkType, year, url_tvdbg)
 
         except Exception as e:
             if os.path.exists(dwn_backdrop):
@@ -381,10 +385,10 @@ class AglareBackdropXDownloadThread(threading.Thread):
                 if url_backdrop and url_backdrop != 'null' or url_backdrop is not None or url_backdrop != '':
                     callInThread(self.savebackdrop, url_backdrop, dwn_backdrop)
                     # self.savebackdrop(dwn_backdrop, url_backdrop)
-                    if self.verifybackdrop(dwn_backdrop):
-                        self.resizebackdrop(dwn_backdrop)
-                    return True, "[SUCCESS backdrop: fanart] {} [{}-{}] => {} => {} => {}".format(self.title_safe, chkType, year, url_maze, url_fanart, url_backdrop)
-                else:
+                    if os.path.exists(dwn_backdrop):
+                        if self.verifybackdrop(dwn_backdrop):
+                            self.resizebackdrop(dwn_backdrop)
+                        return True, "[SUCCESS backdrop: fanart] {} [{}-{}] => {} => {} => {}".format(self.title_safe, chkType, year, url_maze, url_fanart, url_backdrop)
                     return False, "[SKIP : fanart] {} [{}-{}] => {} (Not found)".format(self.title_safe, chkType, year, url_maze)
             except Exception as e:
                 print(e)
@@ -476,11 +480,11 @@ class AglareBackdropXDownloadThread(threading.Thread):
 
             if url_backdrop and pfound:
                 callInThread(self.savebackdrop, url_backdrop, dwn_backdrop)
-                # self.savebackdrop(dwn_backdrop, url_backdrop)
-                if self.verifybackdrop(dwn_backdrop):
-                    self.resizebackdrop(dwn_backdrop)
-                return True, "[SUCCESS url_backdrop: imdb] {} [{}-{}] => {} [{}/{}] => {} => {}".format(self.title_safe, chkType, year, imsg, idx_imdb, len_imdb, url_mimdb, url_backdrop)
-            else:
+                if os.path.exists(dwn_backdrop):
+                    # self.savebackdrop(dwn_backdrop, url_backdrop)
+                    if self.verifybackdrop(dwn_backdrop):
+                        self.resizebackdrop(dwn_backdrop)
+                    return True, "[SUCCESS url_backdrop: imdb] {} [{}-{}] => {} [{}/{}] => {} => {}".format(self.title_safe, chkType, year, imsg, idx_imdb, len_imdb, url_mimdb, url_backdrop)
                 return False, "[SKIP : imdb] {} [{}-{}] => {} (No Entry found [{}])".format(self.title_safe, chkType, year, url_mimdb, len_imdb)
         except Exception as e:
             if os.path.exists(dwn_backdrop):
@@ -529,14 +533,11 @@ class AglareBackdropXDownloadThread(threading.Thread):
                         url_backdrop = re.sub(r'crop-from/top/', '', url_backdrop)
                         callInThread(self.savebackdrop, url_backdrop, dwn_backdrop)
                         # self.savebackdrop(dwn_backdrop, url_backdrop)
-                        if self.verifybackdrop(dwn_backdrop) and url_backdrop_size:
-                            self.resizebackdrop(dwn_backdrop)
+                        if os.path.exists(dwn_backdrop):
+                            if self.verifybackdrop(dwn_backdrop):
+                                self.resizebackdrop(dwn_backdrop)
                             return True, "[SUCCESS url_backdrop: programmetv-google] {} [{}] => Found title : '{}' => {} => {} (initial size: {}) [{}]".format(title, chkType, get_title, url_ptv, url_backdrop, url_backdrop_size, ptv_id)
-                        else:
-                            if os.path.exists(dwn_backdrop):
-                                os.remove(dwn_backdrop)
-
-            return False, "[SKIP : programmetv-google] {} [{}] => Not found [{}] => {}".format(self.title_safe, chkType, ptv_id, url_ptv)
+                return False, "[SKIP : programmetv-google] {} [{}] => Not found [{}] => {}".format(self.title_safe, chkType, ptv_id, url_ptv)
 
         except Exception as e:
             if os.path.exists(dwn_backdrop):
@@ -651,15 +652,12 @@ class AglareBackdropXDownloadThread(threading.Thread):
                 url_backdrop = re.sub(r'/\d+x\d+/', "/" + re.sub(r',', 'x', isz) + "/", backdrop)
                 callInThread(self.savebackdrop, url_backdrop, dwn_backdrop)
                 # self.savebackdrop(dwn_backdrop, url_backdrop)
-                if self.verifybackdrop(dwn_backdrop):
-                    self.resizebackdrop(dwn_backdrop)
+                if os.path.exists(dwn_backdrop):
+                    if self.verifybackdrop(dwn_backdrop):
+                        self.resizebackdrop(dwn_backdrop)
                     return True, "[SUCCESS url_backdrop: molotov-google] {} ({}) [{}] => {} => {} => {}".format(self.title_safe, channel, chkType, imsg, url_mgoo, url_backdrop)
-                else:
-                    if os.path.exists(dwn_backdrop):
-                        os.remove(dwn_backdrop)
-                    return False, "[SKIP : molotov-google] {} ({}) [{}] => {} => {} => {} (jpeg error)".format(self.title_safe, channel, chkType, imsg, url_mgoo, url_backdrop)
-            else:
-                return False, "[SKIP : molotov-google] {} ({}) [{}] => {} => {}".format(self.title_safe, channel, chkType, imsg, url_mgoo)
+                return False, "[SKIP : molotov-google] {} ({}) [{}] => {} => {} => {} (jpeg error)".format(self.title_safe, channel, chkType, imsg, url_mgoo, url_backdrop)
+            return False, "[SKIP : molotov-google] {} ({}) [{}] => {} => {}".format(self.title_safe, channel, chkType, imsg, url_mgoo)
         except Exception as e:
             if os.path.exists(dwn_backdrop):
                 os.remove(dwn_backdrop)
@@ -711,18 +709,16 @@ class AglareBackdropXDownloadThread(threading.Thread):
                 url_backdrop = "https://{}".format(pl)
                 url_backdrop = re.sub(r"\\u003d", "=", url_backdrop)
                 callInThread(self.savebackdrop, url_backdrop, dwn_backdrop)
-                # self.savebackdrop(dwn_backdrop, url_backdrop)
-                if self.verifybackdrop(dwn_backdrop):
-                    self.resizebackdrop(dwn_backdrop)
+                if os.path.exists(dwn_backdrop):
+                    # self.savebackdrop(dwn_backdrop, url_backdrop)
+                    if self.verifybackdrop(dwn_backdrop):
+                        self.resizebackdrop(dwn_backdrop)
                     backdrop = pl
                     break
 
             if backdrop:
                 return True, "[SUCCESS backdrop: google] {} [{}-{}] => {} => {}".format(self.title_safe, chkType, year, url_google, url_backdrop)
-            else:
-                if os.path.exists(dwn_backdrop):
-                    os.remove(dwn_backdrop)
-                return False, "[SKIP : google] {} [{}-{}] => {} => {} (Not found)".format(self.title_safe, chkType, year, url_google, url_backdrop)
+            return False, "[SKIP : google] {} [{}-{}] => {} => {} (Not found)".format(self.title_safe, chkType, year, url_google, url_backdrop)
 
         except Exception as e:
             if os.path.exists(dwn_backdrop):

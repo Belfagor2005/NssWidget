@@ -312,10 +312,11 @@ def sanitize_filename(filename):
 def convtext(text=''):
     text = text.lower()
     print('text lower init=', text)
+    text.lstrip()
     text = text.replace("\xe2\x80\x93", "").replace('\xc2\x86', '').replace('\xc2\x87', '')  # replace special
     text = text.replace('1^ visione rai', '').replace('1^ visione', ''.replace(' - prima tv', '')).replace(' - primatv', '')
     text = text.replace('prima visione', '').replace('1^tv', '').replace('1^ tv', '')
-    text = text.replace('((', '(').replace('))', ')')
+    text = text.replace('((', '(').replace('))', ')').replace('film -', '')
     # Inglese
     text = text.replace('first screening', '').replace('premiere:', '').replace('live:', '').replace('new:', '')
     # Francese
@@ -356,11 +357,9 @@ def convtext(text=''):
                'AC3MD', 'AC3', 'AC3D', 'TS', 'DVDSCR', 'COMPLETE', 'INTERNAL', 'DTSD', 'XViD', 'DIVX', 'DUBBED', 'LINE.DUBBED', 'DD51', 'DVDR9', 'DVDR5', 'h264', 'AVC',
                'WEBHDTVRiP', 'WEBHDRiP', 'WEBRiP', 'WEBHDTV', 'WebHD', 'HDTVRiP', 'HDRiP', 'HDTV', 'ITUNESHD', 'REPACK', 'SYNC']
     text = text.replace('.wmv', '').replace('.flv', '').replace('.ts', '').replace('.m2ts', '').replace('.mkv', '').replace('.avi', '').replace('.mpeg', '').replace('.mpg', '').replace('.iso', '').replace('.mp4', '')
-
     for word in cutlist:
         text = sub(r'(\_|\-|\.|\+)' + escape(word.lower()) + r'(\_|\-|\.|\+)', '+', text, flags=I)
     text = text.replace('.', ' ').replace('-', ' ').replace('_', ' ').replace('+', '').replace(" Director's Cut", "").replace(" director's cut", "").replace("[Uncut]", "").replace("Uncut", "")
-
     text_split = text.split()
     if text_split and text_split[0].lower() in ("new:", "live:"):
         text_split.pop(0)  # remove annoying prefixes
@@ -402,17 +401,38 @@ def convtext(text=''):
     # text = re.sub(r'[._\']', ' ', text)
 
     text = remove_accents(text)
-    print('remove_accents text: ', text)
+    print('remove_accents text:', text)
 
+    # Add 'FIN' at the end
     text = text + 'FIN'
-    text = re.sub(r'(odc.\s\d+)+.*?FIN', '', text)
-    text = re.sub(r'(odc.\d+)+.*?FIN', '', text)
-    text = re.sub(r'(\d+)+.*?FIN', '', text)
-    text = text.partition("(")[0] + 'FIN'
-    text = re.sub(r"\\s\d+", "", text)
-    text = re.sub('FIN', '', text)
-    text = sanitize_filename(text)
+    print("After adding FIN:", text)
 
+    # Remove patterns related to 'odc'
+    text = re.sub(r'\s*(odc|ep|parte|episode|episodio|saison|season|chapter|serie|daily)\s*\d+.*', '', text)
+    text = text.strip()  # Rimuove eventuali spazi in eccesso prima di aggiungere "FIN"
+    # text = re.sub(r'(odc.\s\d+)+.*?FIN', '', text)
+    print("After first re.sub:", text)
+
+    text = re.sub(r'(odc.\d+)+.*?FIN', '', text)
+    print("After second re.sub:", text)
+
+    # text = re.sub(r'(\d+)+.*?FIN', '', text)
+    # print("After third re.sub:", text)
+
+    # Partition and add FIN at the end
+    text = text.partition("(")[0]
+    print("After partition:", text)
+
+    # Remove any escaped space followed by a number
+    text = re.sub(r"\\s\d+", "", text)
+    print("After removing escaped spaces:", text)
+
+    # Finally, remove 'FIN'
+    text = re.sub('FIN', '', text)
+    print("After final FIN removal:", text)
+
+    text = sanitize_filename(text)
+    print('sanitize_filename text:', text)
     # forced
     text = text.replace('XXXXXX', '60')
     text = text.replace('brunobarbierix', 'bruno barbieri - 4 hotel')
@@ -433,6 +453,7 @@ def convtextPAUSED(text=''):
             print('original text: ', text)
             text = text.lower()
             print('lowercased text: ', text)
+            text.lstrip()
 
             text = text.partition("-")[0]
 
@@ -584,11 +605,9 @@ class BackdropDB(AglareBackdropXDownloadThread):
             canal = pdb.get()
             self.logDB("[QUEUE] : {} : {}-{} ({})".format(canal[0], canal[1], canal[2], canal[5]))
             self.pstcanal = convtext(canal[5])
-            if self.pstcanal != 'None' or self.pstcanal is not None:
+            if self.pstcanal is not None:
                 dwn_backdrop = path_folder + '/' + self.pstcanal + ".jpg"
             else:
-                # Gestisci il caso in cui self.pstcanal è None o non valido
-                # dwn_poster = path_folder + '/default.jpg'  # Esempio di fallback
                 print('none type xxxxxxxxxx- posterx')
                 return
             if os.path.exists(dwn_backdrop):
@@ -648,6 +667,9 @@ class BackdropAutoDB(AglareBackdropXDownloadThread):
             for service in apdb.values():
                 try:
                     events = epgcache.lookupEvent(['IBDCTESX', (service, 0, -1, 1440)])
+                    if not events:
+                        self.logAutoDB("[AutoDB] No events found for service: {}".format(service))
+                        continue
                     newfd = 0
                     newcn = None
                     for evt in events:
@@ -665,11 +687,8 @@ class BackdropAutoDB(AglareBackdropXDownloadThread):
                             canal[3] = evt[5]
                             canal[4] = evt[6]
                             canal[5] = canal[2]
-                            if canal[5] and canal[5] != 'None' or canal[5] is not None:
-                                self.pstcanal = convtext(canal[5])
-                            else:
-                                # Gestisci il caso in cui self.pstcanal è None o non valido
-                                # dwn_backdrop = path_folder + '/default.jpg'  # Esempio di fallback
+                            self.pstcanal = convtext(canal[5]) if canal[5] else None
+                            if not self.pstcanal:
                                 print('none type xxxxxxxxxx- posterx')
                                 return
                             dwn_backdrop = os.path.join(path_folder, self.pstcanal + ".jpg")
@@ -721,7 +740,7 @@ class BackdropAutoDB(AglareBackdropXDownloadThread):
                     emptyfd += 1
                 if diff_tm > 31536000:  # Detect old files > 365 days old
                     os.remove(path_folder + '/' + f)
-                    oldfd = oldfd + 1
+                    oldfd += 1
             self.logAutoDB("[AutoDB] {} old file(s) removed".format(oldfd))
             self.logAutoDB("[AutoDB] {} empty file(s) removed".format(emptyfd))
             self.logAutoDB("[AutoDB] *** Stopping ***")
@@ -879,9 +898,9 @@ class AglareBackdropX(Renderer):
             found = None
             self.logBackdrop("[LOOP: waitBackdrop] {}".format(self.pstcanal))
             while loop >= 0:
-                if self.pstcanal is not None and os.path.exists(self.pstcanal):
-                    loop = 0
-                    found = True
+                # if self.pstcanal is not None and os.path.exists(self.pstcanal):
+                loop = 0
+                found = True
                 time.sleep(0.5)
                 loop = loop - 1
             if found:

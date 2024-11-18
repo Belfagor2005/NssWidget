@@ -570,8 +570,10 @@ class AddonPackagesGroups(Screen):
     def msginstal(self):
         self.session.openWithCallback(self.selclicked, MessageBox, _('Do you install this plugin ?'), MessageBox.TYPE_YESNO)
 
-    def selclicked(self, result):
-        if result:
+    def selclicked(self, answer=False):
+        if not answer:
+            return
+        else:
             try:
                 selection_country = self['list'].getCurrent()
                 for plugins in self.xmlparse.getElementsByTagName('plugins'):
@@ -1913,32 +1915,37 @@ class NssIPK(Screen):
         showlistNss(self.names, self['list'])
         self.getfreespace()
 
-    def msgipkrmv(self, answer=False):
+    def msgipkrmv(self):
         if len(self.names) >= 0:
             idx = self['list'].getSelectionIndex()
             self.sel = self.names[idx]
             self.com = self.ipkpth + '/' + self.sel
-            if answer is False:
-                self.session.openWithCallback(self.msgipkrmv, MessageBox, (_('Do you really want to remove selected?\n') + self.sel), MessageBox.TYPE_YESNO)
+            self.session.openWithCallback(self.msgipkr, MessageBox, (_('Do you really want to remove selected?\n') + self.sel), MessageBox.TYPE_YESNO)
+
+    def msgipkr(self, answer=False):
+        # if len(self.names) >= 0:
+            # idx = self['list'].getSelectionIndex()
+            # self.sel = self.names[idx]
+            # self.com = self.ipkpth + '/' + self.sel
+            # self['info'].setText(_('... please wait'))
+            # self.com = self.ipkpth + '/' + self.sel
+        if answer:
+            if fileExists(self.com):
+                os.remove(self.com)
+                # i = len(self.list)
+                # del self.list[0:i]
+                self.list = []
+                self.names = []
+                for x in self.list:
+                    del self.list[0]
+                for x in self.names:
+                    del self.names[0]
+                del self.names[:]
+                del self.list[:]
+                self.session.open(MessageBox, (_("%s has been successfully deleted\nwait time to refresh the list...") % self.sel), MessageBox.TYPE_INFO, timeout=5)
             else:
-                self['info'].setText(_('... please wait'))
-                self.com = self.ipkpth + '/' + self.sel
-                if fileExists(self.com):
-                    os.remove(self.com)
-                    # i = len(self.list)
-                    # del self.list[0:i]
-                    self.list = []
-                    self.names = []
-                    for x in self.list:
-                        del self.list[0]
-                    for x in self.names:
-                        del self.names[0]
-                    del self.names[:]
-                    del self.list[:]
-                    self.session.open(MessageBox, (_("%s has been successfully deleted\nwait time to refresh the list...") % self.sel), MessageBox.TYPE_INFO, timeout=5)
-                else:
-                    self.session.open(MessageBox, (_("%s not exist!\nwait time to refresh the list...") % self.sel), MessageBox.TYPE_INFO, timeout=5)
-                self.close()
+                self.session.open(MessageBox, (_("%s not exist!\nwait time to refresh the list...") % self.sel), MessageBox.TYPE_INFO, timeout=5)
+            self.close()
 
     def getfreespace(self):
         try:
@@ -1950,79 +1957,80 @@ class NssIPK(Screen):
     def goConfig(self):
         self.session.open(nssConfig)
 
-    def ipkinst(self, answer=False):
+    def ipkinst(self):
         if len(self.names) >= 0:
             idx = self['list'].getSelectionIndex()
             self.sel = self.names[idx]
-            if answer is False:
-                self.session.openWithCallback(self.ipkinst, MessageBox, (_('Do you really want to install the selected Addon?\n') + self.sel), MessageBox.TYPE_YESNO)
-            else:
-                self['info'].setText(_('... please wait'))
-                self.dest = self.ipkpth + '/' + self.sel
-                try:
-                    if self.sel.endswith('.ipk'):
-                        cmd0 = 'echo "Sistem Update .... PLEASE WAIT ::.....";echo ":Install ' + self.dest + '";opkg --force-reinstall --force-overwrite install ' + self.dest + ' > /dev/null'
-                        self.session.open(tvConsole, title='IPK Local Installation', cmdlist=[cmd0, 'sleep 5'], closeOnSuccess=False)
-                    elif self.sel.endswith('.tar.gz'):
-                        cmd0 = 'tar -xvf ' + self.dest + ' -C /'
-                        self.session.open(tvConsole, title='TAR GZ Local Installation', cmdlist=[cmd0, 'sleep 5'], closeOnSuccess=False)
-                    elif self.sel.endswith('.deb'):
-                        if os.path.exists('/var/lib/dpkg/info'):
-                            # apt-get install -f -y
-                            cmd0 = 'echo "Sistem Update .... PLEASE WAIT ::.....";echo ":Install ' + self.dest + '";apt-get -f -y --force-yes install %s > /dev/null' % self.dest
-                            self.session.open(tvConsole, title='DEB Local Installation', cmdlist=[cmd0], closeOnSuccess=False)
-                        else:
-                            self.session.open(MessageBox, _('Unknow Image!'), MessageBox.TYPE_INFO, timeout=5)
-                    elif self.sel.endswith('.zip'):
-                        if 'picon' in self.sel.lower():
-                            self.timer = eTimer()
-                            self.timer.start(500, True)
-                            cmd = ['unzip -o -q %s -d %s' % (self.dest, str(mmkpicon))]
-                            self.session.open(tvConsole, _('Installing: %s') % self.dest, cmdlist=[cmd], closeOnSuccess=False)
-                        elif 'setting' in self.sel.lower():
-                            if not os.path.exists('/var/lib/dpkg/info'):
-                                global sets
-                                sets = 1
-                                terrestrial()
-                            if os.path.exists("/tmp/unzipped"):
-                                os.system('rm -rf /tmp/unzipped')
-                            os.makedirs('/tmp/unzipped')
-                            cmd = []
-                            cmd1 = 'unzip -o -q %s -d /tmp/unzipped' % self.dest
-                            cmd.append(cmd1)
-                            cmd2 = 'rm -rf /etc/enigma2/lamedb'
-                            cmd.append(cmd2)
-                            cmd3 = 'rm -rf /etc/enigma2/*.radio'
-                            cmd.append(cmd3)
-                            cmd4 = 'rm -rf /etc/enigma2/*.tv'
-                            cmd.append(cmd4)
-                            cmd5 = 'cp -rf /tmp/unzipped/*.tv /etc/enigma2'
-                            cmd.append(cmd5)
-                            cmd6 = 'cp -rf /tmp/unzipped/*.radio /etc/enigma2'
-                            cmd.append(cmd6)
-                            cmd7 = 'cp -rf /tmp/unzipped/lamedb /etc/enigma2'
-                            cmd.append(cmd7)
-                            if not os.path.exists("/etc/enigma2/blacklist"):
-                                cmd8 = 'cp -rf /tmp/unzipped/blacklist /etc/tuxbox/'
-                                cmd.append(cmd8)
-                            if not os.path.exists("/etc/enigma2/whitelist"):
-                                cmd9 = 'cp -rf /tmp/unzipped/whitelist /etc/tuxbox/'
-                                cmd.append(cmd9)
-                            cmd10 = 'cp -rf /tmp/unzipped/satellites.xml /etc/tuxbox/'
-                            cmd.append(cmd10)
-                            cmd11 = 'cp -rf /tmp/unzipped/terrestrial.xml /etc/tuxbox/'
-                            cmd.append(cmd11)
-                            self.timer = eTimer()
-                            terrestrial_rest()
-                            self.timer.start(500, True)
-                            self.session.open(tvConsole, _('SETTING - install: %s') % self.dest, cmdlist=[cmd], closeOnSuccess=False)
+            self.session.openWithCallback(self.ipkin, MessageBox, (_('Do you really want to install the selected Addon?\n') + self.sel), MessageBox.TYPE_YESNO)
+
+    def ipkin(self, answer=False):
+        if answer:
+            self['info'].setText(_('... please wait'))
+            self.dest = self.ipkpth + '/' + self.sel
+            try:
+                if self.sel.endswith('.ipk'):
+                    cmd0 = 'echo "Sistem Update .... PLEASE WAIT ::.....";echo ":Install ' + self.dest + '";opkg --force-reinstall --force-overwrite install ' + self.dest + ' > /dev/null'
+                    self.session.open(tvConsole, title='IPK Local Installation', cmdlist=[cmd0, 'sleep 5'], closeOnSuccess=False)
+                elif self.sel.endswith('.tar.gz'):
+                    cmd0 = 'tar -xvf ' + self.dest + ' -C /'
+                    self.session.open(tvConsole, title='TAR GZ Local Installation', cmdlist=[cmd0, 'sleep 5'], closeOnSuccess=False)
+                elif self.sel.endswith('.deb'):
+                    if os.path.exists('/var/lib/dpkg/info'):
+                        # apt-get install -f -y
+                        cmd0 = 'echo "Sistem Update .... PLEASE WAIT ::.....";echo ":Install ' + self.dest + '";apt-get -f -y --force-yes install %s > /dev/null' % self.dest
+                        self.session.open(tvConsole, title='DEB Local Installation', cmdlist=[cmd0], closeOnSuccess=False)
                     else:
-                        self.session.open(MessageBox, _('Unknow Error!'), MessageBox.TYPE_ERROR, timeout=10)
-                    self['info'].setText(_('Please install ...'))
-                except Exception as e:
-                    print('error: ', str(e))
-                    self.delFile(self.dest)
-                    self['info1'].text = _('File: %s\nInstallation failed!') % self.dest
+                        self.session.open(MessageBox, _('Unknow Image!'), MessageBox.TYPE_INFO, timeout=5)
+                elif self.sel.endswith('.zip'):
+                    if 'picon' in self.sel.lower():
+                        self.timer = eTimer()
+                        self.timer.start(500, True)
+                        cmd = ['unzip -o -q %s -d %s' % (self.dest, str(mmkpicon))]
+                        self.session.open(tvConsole, _('Installing: %s') % self.dest, cmdlist=[cmd], closeOnSuccess=False)
+                    elif 'setting' in self.sel.lower():
+                        if not os.path.exists('/var/lib/dpkg/info'):
+                            global sets
+                            sets = 1
+                            terrestrial()
+                        if os.path.exists("/tmp/unzipped"):
+                            os.system('rm -rf /tmp/unzipped')
+                        os.makedirs('/tmp/unzipped')
+                        cmd = []
+                        cmd1 = 'unzip -o -q %s -d /tmp/unzipped' % self.dest
+                        cmd.append(cmd1)
+                        cmd2 = 'rm -rf /etc/enigma2/lamedb'
+                        cmd.append(cmd2)
+                        cmd3 = 'rm -rf /etc/enigma2/*.radio'
+                        cmd.append(cmd3)
+                        cmd4 = 'rm -rf /etc/enigma2/*.tv'
+                        cmd.append(cmd4)
+                        cmd5 = 'cp -rf /tmp/unzipped/*.tv /etc/enigma2'
+                        cmd.append(cmd5)
+                        cmd6 = 'cp -rf /tmp/unzipped/*.radio /etc/enigma2'
+                        cmd.append(cmd6)
+                        cmd7 = 'cp -rf /tmp/unzipped/lamedb /etc/enigma2'
+                        cmd.append(cmd7)
+                        if not os.path.exists("/etc/enigma2/blacklist"):
+                            cmd8 = 'cp -rf /tmp/unzipped/blacklist /etc/tuxbox/'
+                            cmd.append(cmd8)
+                        if not os.path.exists("/etc/enigma2/whitelist"):
+                            cmd9 = 'cp -rf /tmp/unzipped/whitelist /etc/tuxbox/'
+                            cmd.append(cmd9)
+                        cmd10 = 'cp -rf /tmp/unzipped/satellites.xml /etc/tuxbox/'
+                        cmd.append(cmd10)
+                        cmd11 = 'cp -rf /tmp/unzipped/terrestrial.xml /etc/tuxbox/'
+                        cmd.append(cmd11)
+                        self.timer = eTimer()
+                        terrestrial_rest()
+                        self.timer.start(500, True)
+                        self.session.open(tvConsole, _('SETTING - install: %s') % self.dest, cmdlist=[cmd], closeOnSuccess=False)
+                else:
+                    self.session.open(MessageBox, _('Unknow Error!'), MessageBox.TYPE_ERROR, timeout=10)
+                self['info'].setText(_('Please install ...'))
+            except Exception as e:
+                print('error: ', str(e))
+                self.delFile(self.dest)
+                self['info1'].text = _('File: %s\nInstallation failed!') % self.dest
 
     def delFile(self, dest):
         if fileExists(dest):
@@ -2290,8 +2298,8 @@ class nssConfig(ConfigListScreen, Screen):
         else:
             self.close(True)
 
-    def cancelConfirm(self, result=False):
-        if result is False:
+    def cancelConfirm(self, answer=False):
+        if not answer:
             return
         for x in self['config'].list:
             x[1].cancel()
@@ -2678,9 +2686,11 @@ class MMarkPiconsf(Screen):
     def okRun(self):
         self.session.openWithCallback(self.okRun1, MessageBox, _("Do you want to install?"), MessageBox.TYPE_YESNO)
 
-    def okRun1(self, result):
+    def okRun1(self, answer=False):
         self['info'].setText(_('... please wait'))
-        if result:
+        if not answer:
+            return
+        else:
             if self.downloading is True:
                 idx = self["list"].getSelectionIndex()
                 self.name = self.names[idx]
