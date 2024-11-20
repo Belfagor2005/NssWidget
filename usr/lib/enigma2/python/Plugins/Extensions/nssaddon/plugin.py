@@ -21,15 +21,27 @@ from .Console import Console as tvConsole
 from .lib import Utils
 from .lib.Utils import RequestAgent
 from .lib.Downloader import downloadWithProgress
+# from .lib.Lcn import (
+    # LCN,
+    # LCNBuildHelper,
+    # terrestrial,
+    # terrestrial_rest,
+    # ReloadBouquets,
+    # keepiptv,
+    # copy_files_to_enigma2,
+# )
+
+from .lib.plugin import LCNScanner
 from .lib.Lcn import (
-    LCN,
-    LCNBuildHelper,
-    terrestrial,
+    # LCN,
+    # LCNBuildHelper,
     terrestrial_rest,
     ReloadBouquets,
-    keepiptv,
     copy_files_to_enigma2,
+    keepiptv,
+    terrestrial,
 )
+
 from Components.ActionMap import ActionMap
 from Components.Button import Button
 from Components.ConfigList import ConfigListScreen
@@ -666,7 +678,8 @@ class NssDailySetting(Screen):
         self['key_yellow'].hide()
         self['key_green'].hide()
         self.LcnOn = False
-        if os.path.exists('/etc/enigma2/lcndb'):
+        dbfile = '/var/etc/enigma2/lcndb'
+        if os.path.exists(dbfile):
             self['key_yellow'].show()
             self['key_yellow'] = Button('Lcn')
             self.LcnOn = True
@@ -694,31 +707,59 @@ class NssDailySetting(Screen):
         self.setTitle(name_plug)
         self['info'].setText(_('Please select ...'))
 
-    def Lcn(self):
-        '''
-        sets = 0
-        # if self.LcnOn:
-            # lcn = LCN()
-            # lcn.read()
-            # if len(lcn.lcnlist) >= 1:
-                # lcn.writeBouquet()
-                # ReloadBouquets(sets)
-                # self.session.open(MessageBox, _('Sorting Terrestrial channels with Lcn rules Completed'),
-                                  # MessageBox.TYPE_INFO,
-                                  # timeout=5)
-        '''
+    def Lcn(self, answer=None):
+        if answer is None:
+            self.session.openWithCallback(self.Lcn,
+                                          MessageBox, _("Do you want to Order LCN Bouquet?"),
+                                          MessageBox.TYPE_YESNO)
+        else:
+            print('Starting LCN scan...')
+            try:
+                lcn_scanner_instance = LCNScanner()
+                LCN = lcn_scanner_instance.lcnScan()
+                print("LCN Scanner returned:", LCN)
 
-        try:
-            lcn = LCNBuildHelper()
-            lcn.buildAfterScan()
-            self.session.open(MessageBox, _('Sorting Terrestrial Executed!'),
-                              MessageBox.TYPE_INFO,
-                              timeout=5)
-        except Exception as e:
-            print(e)
-            self.session.open(MessageBox, _('Sorting Terrestrial not Executed!'),
-                              MessageBox.TYPE_INFO,
-                              timeout=5)
+                if LCN:
+                    self.session.open(LCN)
+                else:
+                    print("Error: LCN scan did not return a valid screen.")
+            except Exception as e:
+                print("Exception during LCN scan:", e)
+
+            try:
+                self.session.open(MessageBox, _('[LCNScanner] LCN scan finished\nChannels Ordered!'),
+                                  MessageBox.TYPE_INFO, timeout=5)
+            except RuntimeError as re:
+                print("RuntimeError during MessageBox display:", re)
+
+    def _onLCNScanFinished(self, result=None):
+        pass
+
+    # def Lcn(self):
+        # '''
+        # sets = 0
+        # # if self.LcnOn:
+            # # lcn = LCN()
+            # # lcn.read()
+            # # if len(lcn.lcnlist) >= 1:
+                # # lcn.writeBouquet()
+                # # ReloadBouquets(sets)
+                # # self.session.open(MessageBox, _('Sorting Terrestrial channels with Lcn rules Completed'),
+                                  # # MessageBox.TYPE_INFO,
+                                  # # timeout=5)
+        # '''
+
+        # try:
+            # lcn = LCNBuildHelper()
+            # lcn.buildAfterScan()
+            # self.session.open(MessageBox, _('Sorting Terrestrial Executed!'),
+                              # MessageBox.TYPE_INFO,
+                              # timeout=5)
+        # except Exception as e:
+            # print(e)
+            # self.session.open(MessageBox, _('Sorting Terrestrial not Executed!'),
+                              # MessageBox.TYPE_INFO,
+                              # timeout=5)
 
     def closerm(self):
         self.close()
