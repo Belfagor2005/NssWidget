@@ -332,7 +332,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
                         if os.path.exists(dwn_backdrop):
                             if self.verifybackdrop(dwn_backdrop):
                                 self.resizebackdrop(dwn_backdrop)
-                            return True, "[SUCCESS backdrop: tvdb] {} [{}-{}] => {} => {} => {}".format(title, chkType, year, url_tvdbg, url_tvdb, url_backdrop)
+                        return True, "[SUCCESS backdrop: tvdb] {} [{}-{}] => {} => {} => {}".format(title, chkType, year, url_tvdbg, url_tvdb, url_backdrop)
                     return False, "[SKIP : tvdb] {} [{}-{}] => {} (Not found)".format(title, chkType, year, url_tvdbg)
 
         except Exception as e:

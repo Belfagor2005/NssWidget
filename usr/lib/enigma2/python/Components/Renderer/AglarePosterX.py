@@ -280,7 +280,6 @@ def cutName(eventName=""):
         eventName = eventName.replace('(18+)', '').replace('18+', '').replace('(16+)', '').replace('16+', '').replace('(12+)', '')
         eventName = eventName.replace('12+', '').replace('(7+)', '').replace('7+', '').replace('(6+)', '').replace('6+', '')
         eventName = eventName.replace('(0+)', '').replace('0+', '').replace('+', '')
-        eventName = eventName.replace('episode', '')
         eventName = eventName.replace('مسلسل', '')
         eventName = eventName.replace('فيلم وثائقى', '')
         eventName = eventName.replace('حفل', '')
@@ -313,20 +312,114 @@ def sanitize_filename(filename):
 
 
 def convtext(text=''):
+    try:
+        if text is None:
+            print('return None original text: ' + str(type(text)))
+            return
+        if text == '': 
+            print('text is an empty string')
+        else:
+            print('original text:' + text)
+            text = text.lower()
+            print('lowercased text:' + text)
+            text = text.lstrip()
+            
+            # text = cutName(text)
+            # text = getCleanTitle(text)
+
+            if text.endswith("the"):
+                text = "the " + text[:-4]
+            
+            # Modifiche personalizzate
+            if 'giochi olimpici parigi' in text:
+                text = 'olimpiadi di parigi'
+            if 'bruno barbieri' in text:
+                text = text.replace('bruno barbieri', 'brunobarbierix')
+            if "anni '60" in text:
+                text = "anni 60"
+            if 'tg regione' in text:
+                text = 'tg3'
+            if 'studio aperto' in text:
+                text = 'studio aperto'
+            if 'josephine ange gardien' in text:
+                text = 'josephine ange gardien'
+            if 'elementary' in text:
+                text = 'elementary'
+            if 'squadra speciale cobra 11' in text:
+                text = 'squadra speciale cobra 11'
+            if 'criminal minds' in text:
+                text = 'criminal minds'
+            if 'i delitti del barlume' in text:
+                text = 'i delitti del barlume'
+            if 'senza traccia' in text:
+                text = 'senza traccia'
+            if 'hudson e rex' in text:
+                text = 'hudson e rex'
+            if 'ben-hur' in text:
+                text = 'ben-hur'
+            if 'alessandro borghese - 4 ristoranti' in text:
+                text = 'alessandroborgheseristoranti'
+            if 'alessandro borghese: 4 ristoranti' in text:
+                text = 'alessandroborgheseristoranti' 
+
+            cutlist = ['x264', '720p', '1080p', '1080i', 'pal', 'german', 'english', 'ws', 'dvdrip', 'unrated',
+                       'retail', 'web-dl', 'dl', 'ld', 'mic', 'md', 'dvdr', 'bdrip', 'bluray', 'dts', 'uncut', 'anime',
+                       'ac3md', 'ac3', 'ac3d', 'ts', 'dvdscr', 'complete', 'internal', 'dtsd', 'xvid', 'divx', 'dubbed',
+                       'line.dubbed', 'dd51', 'dvdr9', 'dvdr5', 'h264', 'avc', 'webhdtvrip', 'webhdrip', 'webrip',
+                       'webhdtv', 'webhd', 'hdtvrip', 'hdrip', 'hdtv', 'ituneshd', 'repack', 'sync', '1^tv', '1^ tv',
+                       '1^ visione rai', '1^ visione', ' - prima tv', ' - primatv', 'prima visione',
+                       'film -', 'de filippi', 'first screening',
+                       'live:', 'new:', 'film:', 'première diffusion', 'nouveau:', 'en direct:', 
+                       'premiere:', 'estreno:', 'nueva emisión:', 'en vivo:'
+                       ]
+            for word in cutlist:
+                text = text.replace(word, '')
+            text = ' '.join(text.split())
+            print(text)
+
+            text = cutName(text)
+            text = getCleanTitle(text)
+
+            text = text.partition("-")[0]  # Mantieni solo il testo prima del primo "-"
+
+            # Pulizia finale
+            text = text.replace('.', ' ').replace('-', ' ').replace('_', ' ').replace('+', '')
+
+            # Rimozione pattern specifici
+            if search(r'[Ss][0-9]+[Ee][0-9]+', text):
+                text = sub(r'[Ss][0-9]+[Ee][0-9]+.*[a-zA-Z0-9_]+', '', text, flags=S | I)
+            text = sub(r'\(.*\)', '', text).rstrip()
+            text = text.partition("(")[0]
+            text = sub(r"\\s\d+", "", text)
+            text = text.partition(":")[0]
+            text = re.sub(r'(odc.\s\d+)+.*?FIN', '', text)
+            text = re.sub(r'(odc.\d+)+.*?FIN', '', text)
+            text = re.sub(r'(\d+)+.*?FIN', '', text)
+            text = re.sub('FIN', '', text)
+
+            # Rimuovi accenti e normalizza
+            text = remove_accents(text)
+            print('remove_accents text: ' + text)
+
+            # Forzature finali
+            text = text.replace('XXXXXX', '60')
+            text = text.replace('brunobarbierix', 'bruno barbieri - 4 hotel')
+            text = text.replace('alessandroborgheseristoranti', 'alessandro borghese - 4 ristoranti')
+            text = text.replace('il ritorno di colombo', 'colombo')
+
+            # text = sanitize_filename(text)
+            # print('sanitize_filename text: ' + text)
+            return text.capitalize()
+    except Exception as e:
+        print('convtext error: ' + str(e))
+        pass
+
+
+def convtextPAUSED(text=''):
     text = text.lower()
     print('text lower init=', text)
     text.lstrip()
     text = text.replace("\xe2\x80\x93", "").replace('\xc2\x86', '').replace('\xc2\x87', '')  # replace special
-    text = text.replace('1^ visione rai', '').replace('1^ visione', ''.replace(' - prima tv', '')).replace(' - primatv', '')
-    text = text.replace('prima visione', '').replace('1^tv', '').replace('1^ tv', '')
-    text = text.replace('((', '(').replace('))', ')').replace('film -', '')
-    # Inglese
-    text = text.replace('first screening', '').replace('premiere:', '').replace('live:', '').replace('new:', '')
-    # Francese
-    text = text.replace('première diffusion', '').replace('nouveau:', '').replace('en direct:', '')
-    # Spagnolo
-    text = text.replace('estreno:', '').replace('nueva emisión:', '').replace('en vivo:', '')
-
     if 'bruno barbieri' in text:
         text = text.replace('bruno barbieri', 'brunobarbierix')
     if "anni '60" in text:
@@ -355,14 +448,21 @@ def convtext(text=''):
         text = 'la7'
     if 'skytg24' in text:
         text = 'skytg24'
-
-    cutlist = ['x264', '720p', '1080p', '1080i', 'PAL', 'GERMAN', 'ENGLiSH', 'WS', 'DVDRiP', 'UNRATED', 'RETAIL', 'Web-DL', 'DL', 'LD', 'MiC', 'MD', 'DVDR', 'BDRiP', 'BLURAY', 'DTS', 'UNCUT', 'ANiME',
-               'AC3MD', 'AC3', 'AC3D', 'TS', 'DVDSCR', 'COMPLETE', 'INTERNAL', 'DTSD', 'XViD', 'DIVX', 'DUBBED', 'LINE.DUBBED', 'DD51', 'DVDR9', 'DVDR5', 'h264', 'AVC',
-               'WEBHDTVRiP', 'WEBHDRiP', 'WEBRiP', 'WEBHDTV', 'WebHD', 'HDTVRiP', 'HDRiP', 'HDTV', 'ITUNESHD', 'REPACK', 'SYNC']
+    cutlist = ['x264', '720p', '1080p', '1080i', 'pal', 'german', 'english', 'ws', 'dvdrip', 'unrated',
+               'retail', 'web-dl', 'dl', 'ld', 'mic', 'md', 'dvdr', 'bdrip', 'bluray', 'dts', 'uncut', 'anime',
+               'ac3md', 'ac3', 'ac3d', 'ts', 'dvdscr', 'complete', 'internal', 'dtsd', 'xvid', 'divx', 'dubbed',
+               'line.dubbed', 'dd51', 'dvdr9', 'dvdr5', 'h264', 'avc', 'webhdtvrip', 'webhdrip', 'webrip',
+               'webhdtv', 'webhd', 'hdtvrip', 'hdrip', 'hdtv', 'ituneshd', 'repack', 'sync', '1^tv', '1^ tv',
+               '1^ visione rai', '1^ visione', ' - prima tv', ' - primatv', 'prima visione',
+               'film -', 'de filippi', 'first screening', 'premiere:', 'live:', 'new:', 
+               'première diffusion', 'nouveau:', 'en direct:',
+               'estreno:', 'nueva emisión:', 'en vivo:']
     text = text.replace('.wmv', '').replace('.flv', '').replace('.ts', '').replace('.m2ts', '').replace('.mkv', '').replace('.avi', '').replace('.mpeg', '').replace('.mpg', '').replace('.iso', '').replace('.mp4', '')
+
     for word in cutlist:
         text = sub(r'(\_|\-|\.|\+)' + escape(word.lower()) + r'(\_|\-|\.|\+)', '+', text, flags=I)
     text = text.replace('.', ' ').replace('-', ' ').replace('_', ' ').replace('+', '').replace(" Director's Cut", "").replace(" director's cut", "").replace("[Uncut]", "").replace("Uncut", "")
+
     text_split = text.split()
     if text_split and text_split[0].lower() in ("new:", "live:"):
         text_split.pop(0)  # remove annoying prefixes
@@ -403,39 +503,22 @@ def convtext(text=''):
     # # Replace ".", "_", "'" with " "
     # text = re.sub(r'[._\']', ' ', text)
 
+    text = text.partition("-")[0]
+
     text = remove_accents(text)
     print('remove_accents text:', text)
 
-    # Add 'FIN' at the end
     text = text + 'FIN'
-    print("After adding FIN:", text)
-
-    # Remove patterns related to 'odc'
-    text = re.sub(r'\s*(odc|ep|parte|episode|episodio|saison|season|chapter|serie|daily)\s*\d+.*', '', text)
-    text = text.strip()  # Rimuove eventuali spazi in eccesso prima di aggiungere "FIN"
-    # text = re.sub(r'(odc.\s\d+)+.*?FIN', '', text)
-    print("After first re.sub:", text)
-
+    text = re.sub(r'(odc.\s\d+)+.*?FIN', '', text)
     text = re.sub(r'(odc.\d+)+.*?FIN', '', text)
-    print("After second re.sub:", text)
-
-    # text = re.sub(r'(\d+)+.*?FIN', '', text)
-    # print("After third re.sub:", text)
-
-    # Partition and add FIN at the end
+    text = re.sub(r'(\d+)+.*?FIN', '', text)
     text = text.partition("(")[0]
-    print("After partition:", text)
-
-    # Remove any escaped space followed by a number
     text = re.sub(r"\\s\d+", "", text)
-    print("After removing escaped spaces:", text)
-
-    # Finally, remove 'FIN'
     text = re.sub('FIN', '', text)
-    print("After final FIN removal:", text)
 
     text = sanitize_filename(text)
     print('sanitize_filename text:', text)
+
     # forced
     text = text.replace('XXXXXX', '60')
     text = text.replace('brunobarbierix', 'bruno barbieri - 4 hotel')
@@ -445,7 +528,7 @@ def convtext(text=''):
     return unquote(text).capitalize()
 
 
-def convtextPAUSED(text=''):
+def convtextxx(text=''):
     try:
         if text is None:
             print('return None original text: ', type(text))
@@ -457,11 +540,6 @@ def convtextPAUSED(text=''):
             text = text.lower()
             print('lowercased text: ', text)
             text.lstrip()
-
-            text = text.partition("-")[0]
-
-            text = remove_accents(text)
-            print('remove_accents text: ', text)
             # #
             text = cutName(text)
             text = getCleanTitle(text)
@@ -480,7 +558,6 @@ def convtextPAUSED(text=''):
             text = text.replace('1^ visione rai', '').replace('1^ visione', ''.replace(' - prima tv', '')).replace('primatv', '')
             text = text.replace('prima visione', '').replace('1^tv', '').replace('1^ tv', '')
             text = text.replace('live:', '').replace('new:', '').replace('((', '(').replace('))', ')')
-
             if 'giochi olimpici parigi' in text:
                 text = 'olimpiadi di parigi'
             if 'bruno barbieri' in text:
@@ -585,6 +662,10 @@ def convtextPAUSED(text=''):
             text = re.sub(r"[-,?!+/\.\":]", '', text)  # replace (- or , or ! or / or . or " or :) by space
             # recoded  end
             text = text.strip(' -')
+
+            text = remove_accents(text)
+            print('remove_accents text: ', text)
+
             # forced
             text = text.replace('XXXXXX', '60')
             text = text.replace('brunobarbierix', 'bruno barbieri - 4 hotel')
@@ -691,9 +772,7 @@ class PosterAutoDB(AglarePosterXDownloadThread):
                             canal[4] = evt[6]
                             canal[5] = canal[2]
                             self.pstcanal = convtext(canal[5]) if canal[5] else None
-                                 
                             if not self.pstcanal:
-                                                                                                  
                                 print('none type xxxxxxxxxx- posterx')
                                 return
 

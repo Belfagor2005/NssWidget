@@ -29,6 +29,12 @@ from Plugins.Extensions.Manager.plugin import Manager
 self.session.open(Manager)  
 </code>
         </item>
+        <item weight="11" level="0" text="NSS LCN" entryID="Terrestrial">
+            <code>
+from Screens.Terrestrial import PluginSetup
+self.session.open(PluginSetup)  
+</code>
+        </item>
         <item weight="11" level="0" text="NSS Vavoo Stream Live" entryID="vavoo">
             <code>
 from Screens.vavoo import MainVavoox

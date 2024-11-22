@@ -122,7 +122,7 @@ class LCN():
                     self.lcnlist[i][5] = signal
                     self.addLcnToList(znamespace, znid, ztsid, zsid, lcn + 16536, zsignal)
                 return
-            elif self.lcnlist[i][0] > lcn:
+            if self.lcnlist[i][0] > lcn:
                 self.lcnlist.insert(i, [lcn, namespace, nid, tsid, sid, signal])
                 return
         self.lcnlist.append([lcn, namespace, nid, tsid, sid, signal])

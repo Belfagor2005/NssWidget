@@ -639,7 +639,7 @@
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="menulistpli"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <!-- <panel name="ScreenTemplateAllColorButtons_menu"/> -->
         <panel name="menudesc"/>
         <panel name="menusep"/>
         <panel name="pigscreen885"/>
@@ -8310,5 +8310,17 @@ MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
         <panel name="menutemp3"/>
         <widget name="filedata" position="45,121" size="1830,810" itemHeight="45" font="Regular;30" textOffset="10,6" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" valign="center"/>
     </screen>
+
+    <screen name="M3UIPTVManagerConfig" position="0,0" size="1920,1080" flags="wfNoBorder" title="M3UIPTVManagerConfig" backgroundColor="transparent">
+        <panel name="SoftwareManagerInfo"/>
+    </screen>
+
+    <screen name="M3UIPTVVoDMovies" position="0,0" size="1920,1080" flags="wfNoBorder" title="M3UIPTVVoDMovies" backgroundColor="transparent">
+        <panel name="SoftwareManagerInfo"/>
+    </screen>
+    <screen name="M3UIPTVVoDSeries" position="0,0" size="1920,1080" flags="wfNoBorder" title="M3UIPTVVoDSeries" backgroundColor="transparent">
+        <panel name="SoftwareManagerInfo"/>
+    </screen>
+
 </skin>
 

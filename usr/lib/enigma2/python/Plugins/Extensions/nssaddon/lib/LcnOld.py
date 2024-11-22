@@ -268,16 +268,11 @@ def terrestrial():
 def SearchIPTV():
     iptv_list = []
     for iptv_file in sorted(glob.glob("/etc/enigma2/userbouquet.*.tv")):
-        usbq = open(iptv_file, "r").read()
-        usbq_lines = usbq.strip().lower()
-        if "http" in usbq_lines:
-            iptv_list.append(os.path.basename(iptv_file))
-
-    if not iptv_list:
-        return False
-    else:
-        return iptv_list
-
+        with open(iptv_file, "r") as file:
+            usbq_lines = file.read().strip().lower()
+            if "http" in usbq_lines:
+                iptv_list.append(os.path.basename(iptv_file))
+    return iptv_list if iptv_list else False
 
 def keepiptv():
     iptv_to_save = SearchIPTV()
@@ -353,23 +348,24 @@ def StartSavingTerrestrialChannels():
 
     def ForceSearchBouquetTerrestrial():
         for file in sorted(glob.glob("/etc/enigma2/*.tv")):
-            f = open(file, "r").read()
-            x = f.strip().lower()
-            if x.find('eeee') != -1:
-                return file
-                break
+            with open(file, "r") as f:
+                content = f.read().strip().lower()
+                if 'eeee' in content:
+                    return file
+                     
         return
 
     def ResearchBouquetTerrestrial(search):
+        search_lower = search.lower()
         for file in sorted(glob.glob("/etc/enigma2/*.tv")):
-            f = open(file, "r").read()
-            x = f.strip().lower()
-            x1 = f.strip()
-            if x1.find("#NAME") != -1:
-                if x.lower().find(search.lower()) != -1:
-                    if x.find('eeee') != -1:
-                        return file
-                        break
+            with open(file, "r") as f:
+                content = f.read().strip()
+                content_lower = content.lower()
+                if "#NAME" in content:
+                    if search_lower in content_lower:
+                        if 'eeee' in content_lower:
+                            return file
+                             
         return
 
     def SaveTrasponderService():
