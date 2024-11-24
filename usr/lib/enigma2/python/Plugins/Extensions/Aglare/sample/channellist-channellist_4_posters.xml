@@ -61,12 +61,6 @@
     </widget>
     <eLabel name="" position="970,976" size="30,30" font="icomoon; 24" text="" transparent="1" valign="center" halign="center" zPosition="99" foregroundColor="gold"/>
     <eLabel name="" position="950,332" size="40,40" font="icomoon; 30" text="" halign="center" zPosition="99" transparent="1"/>
-    <!--		
-    <widget source="ServiceEvent" render="xtraNextEvents" nextEvent="0" usedImage="poster" position="972,672" size="200,300" cornerRadius="20" zPosition="99"/>
-    <widget source="ServiceEvent" render="xtraNextEvents" nextEvent="1" usedImage="poster" position="1202,672" size="200,300" cornerRadius="20" zPosition="99"/>
-    <widget source="ServiceEvent" render="xtraNextEvents" nextEvent="2" usedImage="poster" position="1686,672" size="200,300" cornerRadius="20" zPosition="99"/>
-    <widget source="ServiceEvent" render="xtraNextEvents" nextEvent="3" usedImage="poster" position="1686,672" size="200,300" cornerRadius="20" zPosition="99"/>
-    -->
     <widget source="ServiceEvent" render="AglarePosterX" position="972,672" size="200,300" cornerRadius="20" zPosition="95"/>
     <widget source="ServiceEvent" render="AglarePosterX" nexts="1" position="1202,672" size="200,300" cornerRadius="20" zPosition="95"/>
     <widget source="ServiceEvent" render="AglarePosterX" nexts="2" position="1456,672" size="200,300" cornerRadius="20" zPosition="95"/>

@@ -5,11 +5,22 @@ from enigma import eDVBDB
 from Components.config import config, ConfigSubsection, ConfigYesNo, ConfigSelection
 from Plugins.Plugin import PluginDescriptor
 from Screens.MessageBox import MessageBox
-from Screens.ChannelSelection import MODE_TV, MODE_RADIO
+# from Screens.ChannelSelection import MODE_TV, MODE_RADIO
 from Screens.Setup import Setup
 from Tools.BoundFunction import boundFunction
 from ServiceReference import ServiceReference
-# from .providers import providers
+try:
+	from Screens.ChannelSelection import MODE_TV, MODE_RADIO
+except ImportError:
+	MODE_TV = "1:7:1:0:0:0:0:0:0:0:(type == 1) || (type == 17) || (type == 22) || (type == 25) || (type == 134) || (type == 195)"
+	MODE_RADIO = "1:7:2:0:0:0:0:0:0:0:(type == 2) || (type == 10)"
+
+
+# MODES = {
+	# "TV": (1, 17, 22, 25, 134, 195),
+	# "Radio": (2, 10)
+# }
+
 
 providers = {
 	"other": {},
@@ -35,7 +46,9 @@ providers = {
 			601: _("Regional Broadcasters"),
 			710: _("Regional Radio"),
 			801: _("Duplicates"),
-			1000: _("LCN Duplicates"), }},
+			1000: _("LCN Duplicates"),
+
+		}},
 	"uk": {
 		"name": _("UK"),
 		"bouquetname": "FreeView",
@@ -144,9 +157,18 @@ class TerrestrialBouquet:
 				highestLCN = max(list(lcnindex.keys()))
 			bouquet_name = providers[self.config.providers.value].get("bouquetname", self.bouquetName)
 			bouquet_list = []
-			for number in range(1, (highestLCN) // 1000 * 1000 + 1001):   # ceil bouquet length to nearest 1000, range needs + 1
-				if mode == MODE_TV and number in active_sections:
-					bouquet_list.append("1:64:0:0:0:0:0:0:0:0:%s" % sections[number])
+			# for number in range(1, (highestLCN) // 1000 * 1000 + 1001):   # ceil bouquet length to nearest 1000, range needs + 1
+				# if mode == MODE_TV and number in active_sections:
+					# bouquet_list.append("1:64:0:0:0:0:0:0:0:0:%s" % sections[number])
+
+			for number in range(1, (highestLCN) // 1000 * 1000 + 1001):  # ceil bouquet length to nearest 1000, range needs + 1
+				# Aggiungi un marker per le categorie (sezioni)
+				if mode == MODE_TV and number in sections:
+					section_name = sections[number]
+					bouquet_list.append("1:64:0:0:0:0:0:0:0:0:%s" % section_name)  # Marker per la categoria
+					# Aggiungere opzionalmente una descrizione
+					# bouquet_list.append("#DESCRIPTION %s" % section_name)
+
 				if number in lcnindex:
 					service = self.services[lcnindex[number]]
 					bouquet_list.append("1:0:%x:%x:%x:%x:%x:0:0:0:" % (service["type"], service["sid"], service["tsid"], service["onid"], service["namespace"]))
