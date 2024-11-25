@@ -36,7 +36,7 @@ from Tools.Downloader import downloadWithProgress
 
 import os
 import sys
-# import time
+import glob
 
 PY3 = sys.version_info.major >= 3
 if PY3:
@@ -83,6 +83,65 @@ except Exception as e:
     print("Errore nel caricamento delle API:", str(e))
     my_cur_skin = False
 
+
+def isMountedInRW(path):
+    testfile = path + '/tmp-rw-test'
+    os.system('touch ' + testfile)
+    if os.path.exists(testfile):
+        os.system('rm -f ' + testfile)
+        return True
+    return False
+
+
+path_poster = "/tmp/poster"
+patch_backdrop = "/tmp/backdrop"
+if os.path.exists("/media/hdd") and isMountedInRW("/media/hdd"):
+    path_poster = "/media/hdd/poster"
+    patch_backdrop = "/media/hdd/backdrop"
+
+elif os.path.exists("/media/usb") and isMountedInRW("/media/usb"):
+    path_poster = "/media/usb/poster"
+    patch_backdrop = "/media/usb/backdrop"
+
+elif os.path.exists("/media/mmc") and isMountedInRW("/media/mmc"):
+    path_poster = "/media/mmc/poster"
+    patch_backdrop = "/media/mmc/backdrop"
+
+
+def removePng():
+    print('Rimuovo file PNG e JPG...')
+    if os.path.exists(path_poster):
+        png_files = glob.glob(os.path.join(path_poster, "*.png"))
+        jpg_files = glob.glob(os.path.join(path_poster, "*.jpg"))
+        files_to_remove = png_files + jpg_files
+        if not files_to_remove:
+            print("Nessun file PNG o JPG trovato nella cartella " + path_poster)
+        for file in files_to_remove:
+            try:
+                os.remove(file)
+                print("Rimosso: " + file)
+            except Exception as e:
+                print("Errore durante la rimozione di " + file + ": " + str(e))
+    else:
+        print("La cartella " + path_poster + " non esiste.")
+
+    if os.path.exists(patch_backdrop):
+        png_files_backdrop = glob.glob(os.path.join(patch_backdrop, "*.png"))
+        jpg_files_backdrop = glob.glob(os.path.join(patch_backdrop, "*.jpg"))
+        files_to_remove_backdrop = png_files_backdrop + jpg_files_backdrop
+        if not files_to_remove_backdrop:
+            print("Nessun file PNG o JPG trovato nella cartella " + patch_backdrop)
+        else:
+            for file in files_to_remove_backdrop:
+                try:
+                    os.remove(file)
+                    print("Rimosso: " + file)
+                except Exception as e:
+                    print("Errore durante la rimozione di " + file + ": " + str(e))
+    else:
+        print("La cartella " + patch_backdrop + " non esiste.")
+
+
 config.plugins.AglareNss = ConfigSubsection()
 config.plugins.AglareNss.actapi = NoSave(ConfigOnOff(default=False))
 config.plugins.AglareNss.data = NoSave(ConfigOnOff(default=False))
@@ -91,6 +150,7 @@ config.plugins.AglareNss.txtapi = ConfigText(default=tmdb_api, visible_width=50,
 config.plugins.AglareNss.data2 = NoSave(ConfigOnOff(default=False))
 config.plugins.AglareNss.api2 = NoSave(ConfigYesNo(default=False))  # NoSave(ConfigSelection(['-> Ok']))
 config.plugins.AglareNss.txtapi2 = ConfigText(default=omdb_api, visible_width=50, fixed_size=False)
+config.plugins.AglareNss.png = NoSave(ConfigYesNo(default=False))  # NoSave(ConfigSelection(['-> Ok']))
 config.plugins.AglareNss.colorSelector = ConfigSelection(default='head', choices=[
     ('head', _('Default')),
     ('color1', _('Black')),
@@ -159,7 +219,6 @@ def remove_exif(image_path):
 
 def convert_image(image):
     path = image
-    # remove_exif(path)
     img = Image.open(path)
     img.save(path, "PNG")
     return image
@@ -185,7 +244,6 @@ class AglareSetup(ConfigListScreen, Screen):
         self.previewFiles = '/usr/lib/enigma2/python/Plugins/Extensions/Aglare/sample/'
         self['Preview'] = Pixmap()
         self.setup_title = ('Aglare-FHD-NSS')
-
         list = []
         section = '--------------------------( SKIN GENERAL SETUP )-----------------------'
         list.append(getConfigListEntry(section))
@@ -196,41 +254,31 @@ class AglareSetup(ConfigListScreen, Screen):
         self.createSetup()
         self['actions'] = ActionMap(['OkCancelActions',
                                      'DirectionActions',
-                                     'InputActions',
+                                     'InputBoxActions',
+                                     'HotkeyActions'
                                      'VirtualKeyboardActions',
-                                     'MenuActions',
-                                     'ColorActions'], {'showVirtualKeyboard': self.KeyText,
-                                                       'left': self.keyLeft,
-                                                       'right': self.keyRight,
-                                                       'down': self.keyDown,
-                                                       'up': self.keyUp,
-                                                       'red': self.keyExit,
-                                                       'green': self.keySave,
-                                                       'menu': self.Checkskin,
-                                                       'yellow': self.checkforUpdate,
-                                                       'blue': self.info,
-                                                       'info': self.info,
-                                                       '5': self.Checkskin,
-                                                       'cancel': self.keyExit,
-                                                       'ok': self.run}, -1)
-        '''
-        self.PicLoad = ePicLoad()
-        self.Scale = AVSwitch().getFramebufferScale()
-        try:
-            self.PicLoad.PictureData.get().append(self.DecodePicture)
-        except:
-            self.PicLoad_conn = self.PicLoad.PictureData.connect(self.DecodePicture)
-        '''
+                                     'NumberActions',
+                                     'ColorActions',
+                                     'InfoActions'], {'showVirtualKeyboard': self.KeyText,
+                                                      'left': self.keyLeft,
+                                                      'right': self.keyRight,
+                                                      # 'rightUp': self.keyRight,
+                                                      # 'leftUp': self.keyLeft,
+                                                      'down': self.keyDown,
+                                                      'up': self.keyUp,
+                                                      'red': self.keyExit,
+                                                      'green': self.keySave,
+                                                      'menu': self.Checkskin,
+                                                      'yellow': self.checkforUpdate,
+                                                      'blue': self.info,
+                                                      'info': self.info,
+                                                      '5': self.Checkskin,
+                                                      'cancel': self.keyExit,
+                                                      'ok': self.run}, -1)
         self.onLayoutFinish.append(self.ShowPicture)
-
         self.onLayoutFinish.append(self.__layoutFinished)
 
     def __layoutFinished(self):
-        '''
-        # if str(cur_skin) != 'Aglare-FHD-NSS' and fileExists('/usr/share/enigma2/Aglare-FHD-NSS'):
-            # text = _("ATTENTION!!\nThe Skin is already installed:\nto activate you must choose from:\nmenu-setup-system-skin\nand select it!\nNow you can only update the installation.")
-            # self.session.openWithCallback(self.passs, MessageBox, text, MessageBox.TYPE_INFO, timeout=5)
-        '''
         self.setTitle(self.setup_title)
 
     def passs(self, foo):
@@ -238,6 +286,10 @@ class AglareSetup(ConfigListScreen, Screen):
 
     def run(self):
         sel = self["config"].getCurrent()[1]
+        if sel and sel == config.plugins.AglareNss.png:
+            self.removPng()
+            config.plugins.AglareNss.png.setValue(0)
+            config.plugins.AglareNss.png.save()
         if sel and sel == config.plugins.AglareNss.api:
             self.keyApi()
         if sel and sel == config.plugins.AglareNss.txtapi:
@@ -319,6 +371,7 @@ class AglareSetup(ConfigListScreen, Screen):
             list.append(getConfigListEntry(_('ChannelSelection Style:'), config.plugins.AglareNss.ChannSelector))
             list.append(getConfigListEntry(_('EventView Style:'), config.plugins.AglareNss.EventView))
             list.append(getConfigListEntry(_('VolumeBar Style:'), config.plugins.AglareNss.VolumeBar))
+            list.append(getConfigListEntry(_('Remove all png (OK)'), config.plugins.AglareNss.png))
             section = '--------------------------( SKIN APIKEY SETUP )-----------------------'
             list.append(getConfigListEntry(section))
             list.append(getConfigListEntry("API KEY SETUP:", config.plugins.AglareNss.actapi))
@@ -410,10 +463,6 @@ class AglareSetup(ConfigListScreen, Screen):
 
     def DecodePicture(self, PicInfo=None):
         print('PicInfo=', PicInfo)
-        '''
-        if PicInfo is None:
-            PicInfo = '/usr/share/enigma2/xDreamy/screens/default.png'
-        '''
         ptr = self.PicLoad.getData()
         if ptr is not None:
             self["Preview"].instance.setPixmap(ptr)
@@ -427,11 +476,21 @@ class AglareSetup(ConfigListScreen, Screen):
         aboutbox = self.session.open(MessageBox, _('Setup Plugin for Aglare-FHD-NSS v.%s\n mod by Lululla') % version, MessageBox.TYPE_INFO)
         aboutbox.setTitle(_('Info...'))
 
+    def removPng(self):
+        print('from remove png......')
+        removePng()
+        print('png are removed')
+        aboutbox = self.session.open(MessageBox, _('All png are removed from folder!'), MessageBox.TYPE_INFO)
+        aboutbox.setTitle(_('Info...'))
+
     def keyLeft(self):
         ConfigListScreen.keyLeft(self)
         self.createSetup()
-
         sel = self["config"].getCurrent()[1]
+        if sel and sel == config.plugins.AglareNss.png:
+            config.plugins.AglareNss.png.setValue(0)
+            config.plugins.AglareNss.png.save()
+            self.removPng()
         if sel and sel == config.plugins.AglareNss.api:
             config.plugins.AglareNss.api.setValue(0)
             config.plugins.AglareNss.api.save()
@@ -440,13 +499,16 @@ class AglareSetup(ConfigListScreen, Screen):
             config.plugins.AglareNss.api2.setValue(0)
             config.plugins.AglareNss.api2.save()
             self.keyApi2()
-
+        # self.ShowPicture()
 
     def keyRight(self):
         ConfigListScreen.keyRight(self)
         self.createSetup()
-
         sel = self["config"].getCurrent()[1]
+        if sel and sel == config.plugins.AglareNss.png:
+            config.plugins.AglareNss.png.setValue(0)
+            config.plugins.AglareNss.png.save()
+            self.removPng()
         if sel and sel == config.plugins.AglareNss.api:
             config.plugins.AglareNss.api.setValue(0)
             config.plugins.AglareNss.api.save()
@@ -455,7 +517,6 @@ class AglareSetup(ConfigListScreen, Screen):
             config.plugins.AglareNss.api2.setValue(0)
             config.plugins.AglareNss.api2.save()
             self.keyApi2()
-
         # self.ShowPicture()
 
     def keyDown(self):
@@ -509,7 +570,7 @@ class AglareSetup(ConfigListScreen, Screen):
             if len(x) > 1:  # Check if x has at least two elements
                 x[1].save()
             config.plugins.AglareNss.save()
-            configfile.save()
+        configfile.save()
         try:
             skin_lines = []
 
