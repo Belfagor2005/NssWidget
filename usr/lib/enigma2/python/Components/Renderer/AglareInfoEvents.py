@@ -22,7 +22,6 @@ from time import gmtime
 import json
 import os
 import re
-
 import socket
 import sys
 import NavigationInstance
@@ -40,8 +39,6 @@ if sys.version_info[0] >= 3:
     from urllib.error import HTTPError, URLError
     import html
     html_parser = html
-
-
 else:
     from urllib import quote_plus
     from urllib2 import urlopen
@@ -109,7 +106,7 @@ if not os.path.exists(path_folder):
 try:
     if my_cur_skin is False:
         skin_paths = {
-            "tmdb_api": "/usr/share/enigma2/{}/apikey".format(cur_skin),
+            "tmdb_api": "/usr/share/enigma2/{}/tmdbkey".format(cur_skin),
             "omdb_api": "/usr/share/enigma2/{}/omdbkey".format(cur_skin),
             "thetvdbkey": "/usr/share/enigma2/{}/thetvdbkey".format(cur_skin)
         }
@@ -254,20 +251,20 @@ def convtext(text=''):
         if text is None:
             print('return None original text: ' + str(type(text)))
             return
-        if text == '': 
+        if text == '':
             print('text is an empty string')
         else:
             print('original text:' + text)
             text = text.lower()
             print('lowercased text:' + text)
             text = text.lstrip()
-            
+
             # text = cutName(text)
             # text = getCleanTitle(text)
 
             if text.endswith("the"):
                 text = "the " + text[:-4]
-            
+
             # Modifiche personalizzate
             if 'giochi olimpici parigi' in text:
                 text = 'olimpiadi di parigi'
@@ -298,7 +295,7 @@ def convtext(text=''):
             if 'alessandro borghese - 4 ristoranti' in text:
                 text = 'alessandroborgheseristoranti'
             if 'alessandro borghese: 4 ristoranti' in text:
-                text = 'alessandroborgheseristoranti' 
+                text = 'alessandroborgheseristoranti'
 
             cutlist = ['x264', '720p', '1080p', '1080i', 'pal', 'german', 'english', 'ws', 'dvdrip', 'unrated',
                        'retail', 'web-dl', 'dl', 'ld', 'mic', 'md', 'dvdr', 'bdrip', 'bluray', 'dts', 'uncut', 'anime',
@@ -307,7 +304,7 @@ def convtext(text=''):
                        'webhdtv', 'webhd', 'hdtvrip', 'hdrip', 'hdtv', 'ituneshd', 'repack', 'sync', '1^tv', '1^ tv',
                        '1^ visione rai', '1^ visione', ' - prima tv', ' - primatv', 'prima visione',
                        'film -', 'de filippi', 'first screening',
-                       'live:', 'new:', 'film:', 'première diffusion', 'nouveau:', 'en direct:', 
+                       'live:', 'new:', 'film:', 'première diffusion', 'nouveau:', 'en direct:',
                        'premiere:', 'estreno:', 'nueva emisión:', 'en vivo:'
                        ]
             for word in cutlist:
@@ -356,7 +353,7 @@ def convtext(text=''):
 def convtextPAUSED(text=''):
     text = text.lower()
     print('text lower init=', text)
-    text.lstrip()
+    text = text.lstrip()
     text = text.replace("\xe2\x80\x93", "").replace('\xc2\x86', '').replace('\xc2\x87', '')  # replace special
     if 'bruno barbieri' in text:
         text = text.replace('bruno barbieri', 'brunobarbierix')
@@ -392,7 +389,7 @@ def convtextPAUSED(text=''):
                'line.dubbed', 'dd51', 'dvdr9', 'dvdr5', 'h264', 'avc', 'webhdtvrip', 'webhdrip', 'webrip',
                'webhdtv', 'webhd', 'hdtvrip', 'hdrip', 'hdtv', 'ituneshd', 'repack', 'sync', '1^tv', '1^ tv',
                '1^ visione rai', '1^ visione', ' - prima tv', ' - primatv', 'prima visione',
-               'film -', 'de filippi', 'first screening', 'premiere:', 'live:', 'new:', 
+               'film -', 'de filippi', 'first screening', 'premiere:', 'live:', 'new:',
                'première diffusion', 'nouveau:', 'en direct:',
                'estreno:', 'nueva emisión:', 'en vivo:']
     text = text.replace('.wmv', '').replace('.flv', '').replace('.ts', '').replace('.m2ts', '').replace('.mkv', '').replace('.avi', '').replace('.mpeg', '').replace('.mpg', '').replace('.iso', '').replace('.mp4', '')
@@ -477,7 +474,7 @@ def convtextxx(text=''):
             print('original text: ', text)
             text = text.lower()
             print('lowercased text: ', text)
-            text.lstrip()
+            text = text.lstrip()
             # #
             text = cutName(text)
             text = getCleanTitle(text)

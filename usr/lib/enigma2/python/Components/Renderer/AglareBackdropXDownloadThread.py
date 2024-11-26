@@ -19,7 +19,7 @@ import json
 from random import choice
 from requests import get, exceptions
 from twisted.internet.reactor import callInThread
-# from Tools.BoundFunction import boundFunction
+
 try:
     from http.client import HTTPConnection
     HTTPConnection.debuglevel = 0
@@ -95,7 +95,7 @@ def clean_recursive(regexStr="", replaceStr="", eventTitle=""):
 try:
     if my_cur_skin is False:
         skin_paths = {
-            "tmdb_api": "/usr/share/enigma2/{}/apikey".format(cur_skin),
+            "tmdb_api": "/usr/share/enigma2/{}/tmdbkey".format(cur_skin),
             "omdb_api": "/usr/share/enigma2/{}/omdbkey".format(cur_skin),
             "thetvdbkey": "/usr/share/enigma2/{}/thetvdbkey".format(cur_skin)
         }
@@ -268,9 +268,8 @@ class AglareBackdropXDownloadThread(threading.Thread):
                         if backdrop:
                             callInThread(self.savebackdrop, backdrop, self.dwn_backdrop)
                             # self.savebackdrop(self.dwn_backdrop, backdrop)
-                            if os.path.exists(self.dwn_backdrop):
-                                if self.verifybackdrop(self.dwn_backdrop):
-                                    self.resizebackdrop(self.dwn_backdrop)
+                            if self.verifybackdrop(self.dwn_backdrop):
+                                self.resizebackdrop(self.dwn_backdrop)
                             return True, "[SUCCESS poster: tmdb] title {} [poster{}-backdrop{}] => year{} => rating{} => showtitle{}".format(title, poster, backdrop, year, rating, show_title)
                     return False, "[SKIP : tmdb] Not found"
             except Exception as e:
@@ -326,7 +325,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
                     url_read = requests.get(url_tvdb).text
                     backdrop = re.findall(r'<backdrop>(.*?)</backdrop>', url_read)
                     url_backdrop = "https://artworks.thetvdb.com/banners/{}".format(backdrop[0])
-                    if backdrop and backdrop[0]:
+                    if backdrop is not None and backdrop[0]:
                         callInThread(self.savebackdrop, url_backdrop, dwn_backdrop)
                         # self.savebackdrop(dwn_backdrop, url_backdrop)
                         if os.path.exists(dwn_backdrop):
@@ -648,7 +647,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
                 backdrop = plst
             else:
                 imsg = "Not found '{}' [{}%-{}%-{}]".format(pltc, molotov_table[0], molotov_table[1], len_plst)
-            if backdrop:
+            if backdrop is not None:
                 url_backdrop = re.sub(r'/\d+x\d+/', "/" + re.sub(r',', 'x', isz) + "/", backdrop)
                 callInThread(self.savebackdrop, url_backdrop, dwn_backdrop)
                 # self.savebackdrop(dwn_backdrop, url_backdrop)
@@ -716,7 +715,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
                     backdrop = pl
                     break
 
-            if backdrop:
+            if backdrop is not None:
                 return True, "[SUCCESS backdrop: google] {} [{}-{}] => {} => {}".format(self.title_safe, chkType, year, url_google, url_backdrop)
             return False, "[SKIP : google] {} [{}-{}] => {} => {} (Not found)".format(self.title_safe, chkType, year, url_google, url_backdrop)
 
@@ -725,18 +724,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
                 os.remove(dwn_backdrop)
             return False, "[ERROR : google] {} [{}-{}] => {} => {} ({})".format(self.title_safe, chkType, year, url_google, url_backdrop, str(e))
 
-    # def savebackdrop(self, dwn_backdrop, url_backdrop):
-        # print('savebackdrop url_poster=', url_backdrop)
-        # if not os.path.exists(dwn_backdrop):
-            # data = urlopen(url_backdrop)
-            # with open(dwn_backdrop, "wb") as local_file:
-                # local_file.write(data.read())
-        # if os.path.exists(dwn_backdrop):
-            # if os.path.getsize(dwn_backdrop) == 0:
-                # os.remove(dwn_backdrop)
-        # return
-
-    def savePoster(self, url, callback):
+    def savebackdrop(self, url, callback):
         print('000000000URLLLLL=', url)
         print('000000000CALLBACK=', callback)
         AGENTS = ["Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
@@ -755,12 +743,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
 
         except exceptions.RequestException as error:
             print("ERROR in module 'download': %s" % (str(error)))
-        else:
-            if os.path.exists(callback):
-                if os.path.getsize(callback) == 0:
-                    os.remove(callback)
-            return callback
-            # callback(response.content)
+        return callback
 
     def resizebackdrop(self, dwn_backdrop):
         try:
