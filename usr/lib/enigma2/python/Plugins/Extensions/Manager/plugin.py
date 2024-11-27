@@ -99,7 +99,7 @@ elif screenwidth.width() == 1920:
     skin_path = res_plugin_path + '/skins/fhd/'
 else:
     skin_path = res_plugin_path + '/skins/hd/'
-if os.path.exists("/var/lib/dpkg/status"):
+if os.path.exists("/usr/bin/apt-get"):
     skin_path = skin_path + 'dreamOs/'
 
 if not os.path.exists('/etc/clist.list'):

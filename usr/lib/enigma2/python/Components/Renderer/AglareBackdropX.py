@@ -277,7 +277,9 @@ def cutName(eventName=""):
         eventName = eventName.replace('(18+)', '').replace('18+', '').replace('(16+)', '').replace('16+', '').replace('(12+)', '')
         eventName = eventName.replace('12+', '').replace('(7+)', '').replace('7+', '').replace('(6+)', '').replace('6+', '')
         eventName = eventName.replace('(0+)', '').replace('0+', '').replace('+', '')
+        eventName = eventName.replace('المسلسل العربي', '')
         eventName = eventName.replace('مسلسل', '')
+        eventName = eventName.replace('برنامج', '')
         eventName = eventName.replace('فيلم وثائقى', '')
         eventName = eventName.replace('حفل', '')
         return eventName
@@ -393,6 +395,12 @@ def convtext(text=''):
             text = re.sub(r'(odc.\d+)+.*?FIN', '', text)
             text = re.sub(r'(\d+)+.*?FIN', '', text)
             text = re.sub('FIN', '', text)
+            # remove episode number in arabic series
+            text = re.sub(r'\sح\s*\d+', '', text)
+            # remove season number in arabic series
+            text = re.sub(r'\sج\s*\d+', '', text)
+            # remove season number in arabic series
+            text = re.sub(r'\sم\s*\d+', '', text)
 
             # Rimuovi accenti e normalizza
             text = remove_accents(text)
@@ -601,11 +609,11 @@ def convtextxx(text=''):
             # remove all content between and including [] multiple times
             text = re.sub(r'\[\[.*?\]\]|\[.*?\]', '', text)
             # remove episode number in arabic series
-            text = re.sub(r' +ح', '', text)
+            text = re.sub(r'\sح\s*\d+', '', text)
             # remove season number in arabic series
-            text = re.sub(r' +ج', '', text)
+            text = re.sub(r'\sج\s*\d+', '', text)
             # remove season number in arabic series
-            text = re.sub(r' +م', '', text)
+            text = re.sub(r'\sم\s*\d+', '', text)
             # List of bad strings to remove
             bad_strings = [
                 "ae|", "al|", "ar|", "at|", "ba|", "be|", "bg|", "br|", "cg|", "ch|", "cz|", "da|", "de|", "dk|",
@@ -695,11 +703,11 @@ class BackdropDB(AglareBackdropXDownloadThread):
                 os.utime(dwn_backdrop, (time.time(), time.time()))
             '''
             # if lng == "fr":
-                # if not os.path.exists(dwn_poster):
-                    # val, log = self.search_molotov_google(dwn_poster, canal[5], canal[4], canal[3], canal[0])
+                # if not os.path.exists(dwn_backdrop):
+                    # val, log = self.search_molotov_google(dwn_backdrop, canal[5], canal[4], canal[3], canal[0])
                     # self.logDB(log)
-                # if not os.path.exists(dwn_poster):
-                    # val, log = self.search_programmetv_google(dwn_poster, canal[5], canal[4], canal[3], canal[0])
+                # if not os.path.exists(dwn_backdrop):
+                    # val, log = self.search_programmetv_google(dwn_backdrop, canal[5], canal[4], canal[3], canal[0])
                     # self.logDB(log)
             '''
             if not os.path.exists(dwn_backdrop):
