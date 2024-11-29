@@ -20,12 +20,13 @@ from Components.Sources.EventInfo import EventInfo
 from Components.Sources.Event import Event
 from Components.Renderer.AglarePosterXDownloadThread import AglarePosterXDownloadThread
 from six import text_type
+
 import os
-import re
-import socket
 import sys
+import re
 import time
-from re import search, sub, I, S
+import socket
+from re import search, sub, I, S, escape
 
 PY3 = False
 if sys.version_info[0] >= 3:
@@ -47,6 +48,12 @@ else:
     html_parser = HTMLParser()
 
 
+try:
+    from urllib import unquote, quote
+except ImportError:
+    from urllib.parse import unquote, quote
+
+
 epgcache = eEPGCache.getInstance()
 try:
     from Components.config import config
@@ -56,12 +63,21 @@ except:
     pass
 
 
-def isMountedInRW(path):
-    testfile = path + '/tmp-rw-test'
-    os.system('touch ' + testfile)
-    if os.path.exists(testfile):
-        os.system('rm -f ' + testfile)
-        return True
+# def isMountedInRW(path):
+    # testfile = path + '/tmp-rw-test'
+    # os.system('touch ' + testfile)
+    # if os.path.exists(testfile):
+        # os.system('rm -f ' + testfile)
+        # return True
+    # return False
+
+
+def isMountedInRW(mount_point):
+    with open("/proc/mounts", "r") as f:
+        for line in f:
+            parts = line.split()
+            if len(parts) > 1 and parts[1] == mount_point:
+                return True
     return False
 
 
@@ -290,7 +306,7 @@ def convtext(text=''):
             # remove season number in arabic series
             text = sub(r' +م', '', text)
 
-            # Rimuovi accenti e normalizza
+            # # Rimuovi accenti e normalizza
             text = remove_accents(text)
             print('remove_accents text: ' + text)
 
@@ -433,8 +449,7 @@ class AglarePosterXEMC(Renderer):
                     if not self.canal[2]:
                         self.canal[2] = cn[0][1].strip()
                 self.logPoster("Service : {} - {} => {}".format(self.canal[0], self.canal[2], self.canal[5]))
-
-                if os.path.exists(self.canal[5]):
+                if self.canal[5]:                             
                     self.timer.start(100, True)
                 elif self.canal[0] and self.canal[2]:
                     self.logPoster("Downloading poster...")
@@ -460,12 +475,13 @@ class AglarePosterXEMC(Renderer):
             self.pstcanal = convtext(self.canal[5])
             self.pstrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
             self.pstcanal = str(self.pstrNm)
-            # if self.pstcanal is not None and os.path.exists(self.pstcanal):
-            print('showPoster----')
-            self.logPoster("[LOAD : showPoster] {}".format(self.pstcanal))
-            self.instance.setPixmap(loadJPG(self.pstcanal))
-            self.instance.setScale(1)
-            self.instance.show()
+            if self.pstrNm and os.path.exists(self.pstrNm):
+                # if os.path.exists(self.pstrNm):
+                print('showPoster----')
+                self.logPoster("[LOAD : showPoster] {}".format(self.pstcanal))
+                self.instance.setPixmap(loadJPG(self.pstcanal))
+                self.instance.setScale(1)
+                self.instance.show()
 
     def waitPoster(self):
         if self.instance:
@@ -479,13 +495,14 @@ class AglarePosterXEMC(Renderer):
             found = None
             self.logPoster("[LOOP: waitPoster] {}".format(self.pstcanal))
             while loop >= 0:
-                # if self.pstcanal is not None and os.path.exists(self.pstcanal):
-                loop = 0
-                found = True
-                time.sleep(0.5)
-                loop = loop - 1
+                if self.pstrNm and os.path.exists(self.pstrNm):
+                    # if os.path.exists(self.pstrNm):
+                    loop = 0
+                    found = True
+                    time.sleep(0.5)
+                    loop -= 1
             if found:
-                self.timer.start(20, True)
+                self.timer.start(50, True)
 
     def logPoster(self, logmsg):
         import traceback

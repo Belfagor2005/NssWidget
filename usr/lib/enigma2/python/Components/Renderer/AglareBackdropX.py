@@ -42,12 +42,12 @@ from enigma import (
 import NavigationInstance
 import os
 import re
-# import shutil
+import shutil
 import socket
 import sys
 import time
 
-from re import search, sub, I, S
+from re import search, sub, I, S, escape
 
 PY3 = False
 if sys.version_info[0] >= 3:
@@ -67,6 +67,12 @@ else:
     from urllib import quote_plus
     from HTMLParser import HTMLParser
     html_parser = HTMLParser()
+
+
+try:
+    from urllib import unquote, quote
+except ImportError:
+    from urllib.parse import unquote, quote
 
 
 epgcache = eEPGCache.getInstance()
@@ -92,12 +98,21 @@ def isMountReadonly(mnt):
     return "mount: '%s' doesn't exist" % mnt
 
 
-def isMountedInRW(path):
-    testfile = path + '/tmp-rw-test'
-    os.system('touch ' + testfile)
-    if os.path.exists(testfile):
-        os.system('rm -f ' + testfile)
-        return True
+# def isMountedInRW(path):
+    # testfile = path + '/tmp-rw-test'
+    # os.system('touch ' + testfile)
+    # if os.path.exists(testfile):
+        # os.system('rm -f ' + testfile)
+        # return True
+    # return False
+
+
+def isMountedInRW(mount_point):
+    with open("/proc/mounts", "r") as f:
+        for line in f:
+            parts = line.split()
+            if len(parts) > 1 and parts[1] == mount_point:
+                return True
     return False
 
 
@@ -316,13 +331,13 @@ def convtext(text=''):
             text = text.lower()
             print('lowercased text:' + text)
             text = text.lstrip()
-            
+
             # text = cutName(text)
             # text = getCleanTitle(text)
 
             if text.endswith("the"):
                 text = "the " + text[:-4]
-            
+
             # Modifiche personalizzate
             if 'giochi olimpici parigi' in text:
                 text = 'olimpiadi di parigi'
@@ -396,7 +411,7 @@ def convtext(text=''):
             # remove season number in arabic series
             text = sub(r' +م', '', text)
 
-            # Rimuovi accenti e normalizza
+            # # Rimuovi accenti e normalizza
             text = remove_accents(text)
             print('remove_accents text: ' + text)
 
@@ -680,7 +695,7 @@ class AglareBackdropX(Renderer):
                 if self.pstcanal is not None:
                     self.backrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
                     self.pstcanal = str(self.backrNm)
-                if os.path.exists(self.pstcanal):
+                if os.path.exists(self.backrNm):
                     self.timer.start(10, True)
                 else:
                     canal = self.canal[:]
@@ -700,12 +715,13 @@ class AglareBackdropX(Renderer):
             self.pstcanal = convtext(self.canal[5])
             self.backrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
             self.pstcanal = str(self.backrNm)
-            # if self.pstcanal is not None and os.path.exists(self.pstcanal):
-            print('showBackdrop----')
-            self.logBackdrop("[LOAD : showBackdrop] {}".format(self.pstcanal))
-            self.instance.setPixmap(loadJPG(self.pstcanal))
-            self.instance.setScale(1)
-            self.instance.show()
+            if self.backrNm and os.path.exists(self.backrNm):
+                # if os.path.exists(self.backrNm):
+                print('showBackdrop----')
+                self.logBackdrop("[LOAD : showBackdrop] {}".format(self.pstcanal))
+                self.instance.setPixmap(loadJPG(self.backrNm))
+                self.instance.setScale(1)
+                self.instance.show()
 
     def waitBackdrop(self):
         if self.instance:
@@ -719,11 +735,12 @@ class AglareBackdropX(Renderer):
             found = None
             self.logBackdrop("[LOOP: waitBackdrop] {}".format(self.pstcanal))
             while loop >= 0:
-                # if self.pstcanal is not None and os.path.exists(self.pstcanal):
-                loop = 0
-                found = True
-                time.sleep(0.5)
-                loop = loop - 1
+                if self.backrNm and os.path.exists(self.backrNm):
+                    # if os.path.exists(self.backrNm):
+                    loop = 0
+                    found = True
+                    time.sleep(0.5)
+                    loop -- 1
             if found:
                 self.timer.start(20, True)
 

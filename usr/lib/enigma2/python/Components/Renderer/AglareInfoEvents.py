@@ -15,6 +15,7 @@ from Components.config import config
 from six import text_type
 from enigma import (
     eLabel,
+            
     eEPGCache,
     eTimer,
 )
@@ -22,10 +23,11 @@ from time import gmtime
 import json
 import os
 import re
+             
 import socket
 import sys
 import NavigationInstance
-from re import search, sub, I, S
+from re import search, sub, I, S, escape
 
 global my_cur_skin, path_folder
 
@@ -41,6 +43,7 @@ if sys.version_info[0] >= 3:
     html_parser = html
 
 
+                                       
 else:
     from urllib import quote_plus
     from urllib2 import urlopen
@@ -48,6 +51,12 @@ else:
     from urllib2 import HTTPError, URLError
     from HTMLParser import HTMLParser
     html_parser = HTMLParser()
+
+
+try:
+    from urllib import unquote, quote
+except ImportError:
+    from urllib.parse import unquote, quote
 
 
 tmdb_api = "3c3efcf47c3577558812bb9d64019d65"
@@ -75,15 +84,26 @@ def isMountReadonly(mnt):
     return "mount: '%s' doesn't exist" % mnt
 
 
-def isMountedInRW(path):
-    testfile = path + '/tmp-rw-test'
-    os.system('touch ' + testfile)
-    if os.path.exists(testfile):
-        os.system('rm -f ' + testfile)
-        return True
+# def isMountedInRW(path):
+    # testfile = path + '/tmp-rw-test'
+    # os.system('touch ' + testfile)
+    # if os.path.exists(testfile):
+        # os.system('rm -f ' + testfile)
+        # return True
+    # return False
+
+
+def isMountedInRW(mount_point):
+    with open("/proc/mounts", "r") as f:
+        for line in f:
+            parts = line.split()
+            if len(parts) > 1 and parts[1] == mount_point:
+                return True
     return False
 
 
+                                                                  
+                                                               
 path_folder = "/tmp/poster"
 if os.path.exists("/media/hdd"):
     if isMountedInRW("/media/hdd"):
@@ -99,10 +119,14 @@ if not os.path.exists(path_folder):
     os.makedirs(path_folder)
 
 
+                                  
+             
+
+
 try:
     if my_cur_skin is False:
         skin_paths = {
-            "tmdb_api": "/usr/share/enigma2/{}/apikey".format(cur_skin),
+            "tmdb_api": "/usr/share/enigma2/{}/tmdbkey".format(cur_skin),
             "omdb_api": "/usr/share/enigma2/{}/omdbkey".format(cur_skin),
             "thetvdbkey": "/usr/share/enigma2/{}/thetvdbkey".format(cur_skin)
         }
@@ -335,7 +359,8 @@ def convtext(text=''):
             text = sub(r' +ج', '', text)
             # remove season number in arabic series
             text = sub(r' +م', '', text)
-            # Rimuovi accenti e normalizza
+
+            # # Rimuovi accenti e normalizza
             text = remove_accents(text)
             print('remove_accents text: ' + text)
 
@@ -356,16 +381,34 @@ def convtext(text=''):
 class AglareInfoEvents(Renderer, VariableText):
 
     def __init__(self):
+                                                                                                                    
+                                                                                                                   
+                                                    
         Renderer.__init__(self)
         VariableText.__init__(self)
         adsl = intCheck()
         if not adsl:
             return
         self.text = ""
+                                                       
+                                    
+
+                                         
+                    
+                                                    
+                                 
+                                      
+                                
+                                      
+                                           
+                                     
+                                                        
 
     GUI_WIDGET = eLabel
 
     def changed(self, what):
+                             
+                  
         if what[0] == self.CHANGED_CLEAR:
             return self.text
         if what[0] != self.CHANGED_CLEAR:
