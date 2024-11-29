@@ -44,12 +44,12 @@ from enigma import (
 import NavigationInstance
 import os
 import re
-import shutil
+# import shutil
 import socket
 import sys
 import time
 
-from re import search, sub, I, S, escape
+from re import search, sub, I, S
 
 PY3 = False
 if sys.version_info[0] >= 3:
@@ -69,12 +69,6 @@ else:
     from urllib import quote_plus
     from HTMLParser import HTMLParser
     html_parser = HTMLParser()
-
-
-try:
-    from urllib import unquote, quote
-except ImportError:
-    from urllib.parse import unquote, quote
 
 
 epgcache = eEPGCache.getInstance()
@@ -249,12 +243,12 @@ def intCheck():
 def remove_accents(string):
     if not isinstance(string, text_type):
         string = text_type(string, 'utf-8')
-    string = re.sub(u"[àáâãäå]", 'a', string)
-    string = re.sub(u"[èéêë]", 'e', string)
-    string = re.sub(u"[ìíîï]", 'i', string)
-    string = re.sub(u"[òóôõö]", 'o', string)
-    string = re.sub(u"[ùúûü]", 'u', string)
-    string = re.sub(u"[ýÿ]", 'y', string)
+    string = sub(u"[àáâãäå]", 'a', string)
+    string = sub(u"[èéêë]", 'e', string)
+    string = sub(u"[ìíîï]", 'i', string)
+    string = sub(u"[òóôõö]", 'o', string)
+    string = sub(u"[ùúûü]", 'u', string)
+    string = sub(u"[ýÿ]", 'y', string)
     return string
 
 
@@ -290,9 +284,9 @@ def cutName(eventName=""):
 
 
 def getCleanTitle(eventitle=""):
-    # save_name = re.sub('\\(\d+\)$', '', eventitle)
-    # save_name = re.sub('\\(\d+\/\d+\)$', '', save_name)  # remove episode-number " (xx/xx)" at the end
-    # # save_name = re.sub('\ |\?|\.|\,|\!|\/|\;|\:|\@|\&|\'|\-|\"|\%|\(|\)|\[|\]\#|\+', '', save_name)
+    # save_name = sub('\\(\d+\)$', '', eventitle)
+    # save_name = sub('\\(\d+\/\d+\)$', '', save_name)  # remove episode-number " (xx/xx)" at the end
+    # # save_name = sub('\ |\?|\.|\,|\!|\/|\;|\:|\@|\&|\'|\-|\"|\%|\(|\)|\[|\]\#|\+', '', save_name)
     save_name = eventitle.replace(' ^`^s', '').replace(' ^`^y', '')
     return save_name
 
@@ -307,7 +301,7 @@ def dataenc(data):
 
 def sanitize_filename(filename):
     # Replace spaces with underscores and remove invalid characters (like ':')
-    sanitized = re.sub(r'[^\w\s-]', '', filename)  # Remove invalid characters
+    sanitized = sub(r'[^\w\s-]', '', filename)  # Remove invalid characters
     # sanitized = sanitized.replace(' ', '_')      # Replace spaces with underscores
     # sanitized = sanitized.replace('-', '_')      # Replace dashes with underscores
     return sanitized.strip()
@@ -394,16 +388,16 @@ def convtext(text=''):
             text = text.partition("(")[0]
             text = sub(r"\\s\d+", "", text)
             text = text.partition(":")[0]
-            text = re.sub(r'(odc.\s\d+)+.*?FIN', '', text)
-            text = re.sub(r'(odc.\d+)+.*?FIN', '', text)
-            text = re.sub(r'(\d+)+.*?FIN', '', text)
-            text = re.sub('FIN', '', text)
+            text = sub(r'(odc.\s\d+)+.*?FIN', '', text)
+            text = sub(r'(odc.\d+)+.*?FIN', '', text)
+            text = sub(r'(\d+)+.*?FIN', '', text)
+            text = sub('FIN', '', text)
             # remove episode number in arabic series
-            text = re.sub(r'\sح\s*\d+', '', text)
+            text = sub(r' +ح', '', text)
             # remove season number in arabic series
-            text = re.sub(r'\sج\s*\d+', '', text)
+            text = sub(r' +ج', '', text)
             # remove season number in arabic series
-            text = re.sub(r'\sم\s*\d+', '', text)
+            text = sub(r' +م', '', text)
 
             # Rimuovi accenti e normalizza
             text = remove_accents(text)
@@ -420,268 +414,6 @@ def convtext(text=''):
             return text.capitalize()
     except Exception as e:
         print('convtext error: ' + str(e))
-        pass
-
-
-def convtextPAUSED(text=''):
-    text = text.lower()
-    print('text lower init=', text)
-    text = text.lstrip()
-    text = text.replace("\xe2\x80\x93", "").replace('\xc2\x86', '').replace('\xc2\x87', '')  # replace special
-    if 'bruno barbieri' in text:
-        text = text.replace('bruno barbieri', 'brunobarbierix')
-    if "anni '60" in text:
-        text = "anni 60"
-    if 'tg regione' in text:
-        text = 'tg3'
-    if 'studio aperto' in text:
-        text = 'studio aperto'
-    if 'josephine ange gardien' in text:
-        text = 'josephine ange gardien'
-    if 'elementary' in text:
-        text = 'elementary'
-    if 'squadra speciale cobra 11' in text:
-        text = 'squadra speciale cobra 11'
-    if 'criminal minds' in text:
-        text = 'criminal minds'
-    if 'i delitti del barlume' in text:
-        text = 'i delitti del barlume'
-    if 'senza traccia' in text:
-        text = 'senza traccia'
-    if 'hudson e rex' in text:
-        text = 'hudson e rex'
-    if 'ben-hur' in text:
-        text = 'ben-hur'
-    if 'la7 ' in text:
-        text = 'la7'
-    if 'skytg24' in text:
-        text = 'skytg24'
-    cutlist = ['x264', '720p', '1080p', '1080i', 'pal', 'german', 'english', 'ws', 'dvdrip', 'unrated',
-               'retail', 'web-dl', 'dl', 'ld', 'mic', 'md', 'dvdr', 'bdrip', 'bluray', 'dts', 'uncut', 'anime',
-               'ac3md', 'ac3', 'ac3d', 'ts', 'dvdscr', 'complete', 'internal', 'dtsd', 'xvid', 'divx', 'dubbed',
-               'line.dubbed', 'dd51', 'dvdr9', 'dvdr5', 'h264', 'avc', 'webhdtvrip', 'webhdrip', 'webrip',
-               'webhdtv', 'webhd', 'hdtvrip', 'hdrip', 'hdtv', 'ituneshd', 'repack', 'sync', '1^tv', '1^ tv',
-               '1^ visione rai', '1^ visione', ' - prima tv', ' - primatv', 'prima visione',
-               'film -', 'de filippi', 'first screening', 'premiere:', 'live:', 'new:',
-               'première diffusion', 'nouveau:', 'en direct:',
-               'estreno:', 'nueva emisión:', 'en vivo:']
-    text = text.replace('.wmv', '').replace('.flv', '').replace('.ts', '').replace('.m2ts', '').replace('.mkv', '').replace('.avi', '').replace('.mpeg', '').replace('.mpg', '').replace('.iso', '').replace('.mp4', '')
-
-    for word in cutlist:
-        text = sub(r'(\_|\-|\.|\+)' + escape(word.lower()) + r'(\_|\-|\.|\+)', '+', text, flags=I)
-    text = text.replace('.', ' ').replace('-', ' ').replace('_', ' ').replace('+', '').replace(" Director's Cut", "").replace(" director's cut", "").replace("[Uncut]", "").replace("Uncut", "")
-
-    text_split = text.split()
-    if text_split and text_split[0].lower() in ("new:", "live:"):
-        text_split.pop(0)  # remove annoying prefixes
-    text = " ".join(text_split)
-
-    if search(r'[Ss][0-9]+[Ee][0-9]+', text):
-        text = sub(r'[Ss][0-9]+[Ee][0-9]+.*[a-zA-Z0-9_]+', '', text, flags=S | I)
-    text = sub(r'\(.*\)', '', text).rstrip()  # remove episode number from series, like "series name (234)"
-
-    # # List of bad strings to remove
-    # bad_strings = [
-        # "ae|", "al|", "ar|", "at|", "ba|", "be|", "bg|", "br|", "cg|", "ch|", "cz|", "da|", "de|", "dk|",
-        # "ee|", "en|", "es|", "eu|", "ex-yu|", "fi|", "fr|", "gr|", "hr|", "hu|", "in|", "ir|", "it|", "lt|",
-        # "mk|", "mx|", "nl|", "no|", "pl|", "pt|", "ro|", "rs|", "ru|", "se|", "si|", "sk|", "sp|", "tr|",
-        # "uk|", "us|", "yu|",
-        # "1080p-dual-lat-cine-calidad.com", "1080p-dual-lat-cine-calidad.com-1",
-        # "1080p-dual-lat-cinecalidad.mx", "1080p-lat-cine-calidad.com", "1080p-lat-cine-calidad.com-1",
-        # "1080p-lat-cinecalidad.mx", "1080p.dual.lat.cine-calidad.com", "3d", "'", "#", "[]",  # "/", "(", ")", "-",
-        # "4k", "aac", "blueray", "ex-yu:", "fhd", "hd", "hdrip", "hindi", "imdb", "multi:", "multi-audio",
-        # "multi-sub", "multi-subs", "multisub", "ozlem", "sd", "top250", "u-", "uhd", "vod", "x264"
-    # ]
-
-    # # Remove numbers from 1900 to 2030
-    # bad_strings.extend(map(str, range(1900, 2030)))
-    # # Construct a regex pattern to match any of the bad strings
-    # bad_strings_pattern = re.compile('|'.join(map(re.escape, bad_strings)))
-    # # Remove bad strings using regex pattern
-    # text = bad_strings_pattern.sub('', text)
-    # # List of bad suffixes to remove
-    # bad_suffix = [
-        # " al", " ar", " ba", " da", " de", " en", " es", " eu", " ex-yu", " fi", " fr", " gr", " hr", " mk",
-        # " nl", " no", " pl", " pt", " ro", " rs", " ru", " si", " swe", " sw", " tr", " uk", " yu"
-    # ]
-    # # Construct a regex pattern to match any of the bad suffixes at the end of the string
-    # bad_suffix_pattern = re.compile(r'(' + '|'.join(map(re.escape, bad_suffix)) + r')$')
-    # # Remove bad suffixes using regex pattern
-    # text = bad_suffix_pattern.sub('', text)
-    # # Replace ".", "_", "'" with " "
-    # text = re.sub(r'[._\']', ' ', text)
-
-    text = text.partition("-")[0]
-
-    text = remove_accents(text)
-    print('remove_accents text:', text)
-
-    text = text + 'FIN'
-    text = re.sub(r'(odc.\s\d+)+.*?FIN', '', text)
-    text = re.sub(r'(odc.\d+)+.*?FIN', '', text)
-    text = re.sub(r'(\d+)+.*?FIN', '', text)
-    text = text.partition("(")[0]
-    text = re.sub(r"\\s\d+", "", text)
-    text = re.sub('FIN', '', text)
-
-    text = sanitize_filename(text)
-    print('sanitize_filename text:', text)
-
-    # forced
-    text = text.replace('XXXXXX', '60')
-    text = text.replace('brunobarbierix', 'bruno barbieri - 4 hotel')
-
-    text = quote(text, safe="")
-    print('text final:', text)
-    return unquote(text).capitalize()
-
-
-def convtextxx(text=''):
-    try:
-        if text is None:
-            print('return None original text: ', type(text))
-            return  # Esci dalla funzione se text è None
-        if text == '':
-            print('text is an empty string')
-        else:
-            print('original text: ', text)
-            text = text.lower()
-            print('lowercased text: ', text)
-            text = text.lstrip()
-            # #
-            text = cutName(text)
-            text = getCleanTitle(text)
-            # #
-            if text.endswith("the"):
-                text = "the " + text[:-4]
-
-            # text = re.sub(r'^\w{4}:', '', text)
-
-            text_split = text.split()
-            if text_split and text_split[0].lower() in ("new:", "live:"):
-                text_split.pop(0)  # remove annoying prefixes
-            text = " ".join(text_split)
-
-            text = text.replace("\xe2\x80\x93", "").replace('\xc2\x86', '').replace('\xc2\x87', '')  # replace special
-            text = text.replace('1^ visione rai', '').replace('1^ visione', ''.replace(' - prima tv', '')).replace('primatv', '')
-            text = text.replace('prima visione', '').replace('1^tv', '').replace('1^ tv', '')
-            text = text.replace('live:', '').replace('new:', '').replace('((', '(').replace('))', ')')
-            if 'giochi olimpici parigi' in text:
-                text = 'olimpiadi di parigi'
-            if 'bruno barbieri' in text:
-                text = text.replace('bruno barbieri', 'brunobarbierix')
-            if "anni '60" in text:
-                text = "anni 60"
-            if 'tg regione' in text:
-                text = 'tg3'
-            if 'studio aperto' in text:
-                text = 'studio aperto'
-            if 'josephine ange gardien' in text:
-                text = 'josephine ange gardien'
-            if 'elementary' in text:
-                text = 'elementary'
-            if 'squadra speciale cobra 11' in text:
-                text = 'squadra speciale cobra 11'
-            if 'criminal minds' in text:
-                text = 'criminal minds'
-            if 'i delitti del barlume' in text:
-                text = 'i delitti del barlume'
-            if 'senza traccia' in text:
-                text = 'senza traccia'
-            if 'hudson e rex' in text:
-                text = 'hudson e rex'
-            if 'ben-hur' in text:
-                text = 'ben-hur'
-            if 'la7 ' in text:
-                text = 'la7'
-            if 'skytg24' in text:
-                text = 'skytg24'
-            # remove xx: at start
-            text = re.sub(r'^\w{2}:', '', text)
-            # remove xx|xx at start
-            text = re.sub(r'^\w{2}\|\w{2}\s', '', text)
-            # remove xx - at start
-            text = re.sub(r'^.{2}\+? ?- ?', '', text)
-            # remove all leading content between and including ||
-            text = re.sub(r'^\|\|.*?\|\|', '', text)
-            text = re.sub(r'^\|.*?\|', '', text)
-            # remove everything left between pipes.
-            text = re.sub(r'\|.*?\|', '', text)
-            # remove all content between and including () multiple times
-            text = re.sub(r'\(\(.*?\)\)|\(.*?\)', '', text)
-            # remove all content between and including [] multiple times
-            text = re.sub(r'\[\[.*?\]\]|\[.*?\]', '', text)
-            # remove episode number in arabic series
-            text = re.sub(r'\sح\s*\d+', '', text)
-            # remove season number in arabic series
-            text = re.sub(r'\sج\s*\d+', '', text)
-            # remove season number in arabic series
-            text = re.sub(r'\sم\s*\d+', '', text)
-            # List of bad strings to remove
-            bad_strings = [
-                "ae|", "al|", "ar|", "at|", "ba|", "be|", "bg|", "br|", "cg|", "ch|", "cz|", "da|", "de|", "dk|",
-                "ee|", "en|", "es|", "eu|", "ex-yu|", "fi|", "fr|", "gr|", "hr|", "hu|", "in|", "ir|", "it|", "lt|",
-                "mk|", "mx|", "nl|", "no|", "pl|", "pt|", "ro|", "rs|", "ru|", "se|", "si|", "sk|", "sp|", "tr|",
-                "uk|", "us|", "yu|",
-                "1080p", "1080p-dual-lat-cine-calidad.com", "1080p-dual-lat-cine-calidad.com-1",
-                "1080p-dual-lat-cinecalidad.mx", "1080p-lat-cine-calidad.com", "1080p-lat-cine-calidad.com-1",
-                "1080p-lat-cinecalidad.mx", "1080p.dual.lat.cine-calidad.com", "3d", "'", "#", "[]",  # "/", "(", ")", "-",
-                "4k", "720p", "aac", "blueray", "ex-yu:", "fhd", "hd", "hdrip", "hindi", "imdb", "multi:", "multi-audio",
-                "multi-sub", "multi-subs", "multisub", "ozlem", "sd", "top250", "u-", "uhd", "vod", "x264"
-            ]
-
-            # Remove numbers from 1900 to 2030
-            bad_strings.extend(map(str, range(1900, 2030)))
-            # Construct a regex pattern to match any of the bad strings
-            bad_strings_pattern = re.compile('|'.join(map(re.escape, bad_strings)))
-            # Remove bad strings using regex pattern
-            text = bad_strings_pattern.sub('', text)
-            # List of bad suffixes to remove
-            bad_suffix = [
-                " al", " ar", " ba", " da", " de", " en", " es", " eu", " ex-yu", " fi", " fr", " gr", " hr", " mk",
-                " nl", " no", " pl", " pt", " ro", " rs", " ru", " si", " swe", " sw", " tr", " uk", " yu"
-            ]
-            # Construct a regex pattern to match any of the bad suffixes at the end of the string
-            bad_suffix_pattern = re.compile(r'(' + '|'.join(map(re.escape, bad_suffix)) + r')$')
-            # Remove bad suffixes using regex pattern
-            text = bad_suffix_pattern.sub('', text)
-            # Replace ".", "_", "'" with " "
-            text = re.sub(r'[._\']', ' ', text)
-            # recoded lulu
-            text = text + 'FIN'
-            '''
-            if re.search(r'[Ss][0-9][Ee][0-9]+.*?FIN', text):
-                text = re.sub(r'[Ss][0-9][Ee][0-9]+.*?FIN', '', text)
-            if re.search(r'[Ss][0-9] [Ee][0-9]+.*?FIN', text):
-                text = re.sub(r'[Ss][0-9] [Ee][0-9]+.*?FIN', '', text)
-            '''
-            text = re.sub(r'(odc.\s\d+)+.*?FIN', '', text)
-            text = re.sub(r'(odc.\d+)+.*?FIN', '', text)
-            text = re.sub(r'(\d+)+.*?FIN', '', text)
-            text = text.partition("(")[0] + 'FIN'
-            text = re.sub(r"\\s\d+", "", text)
-            text = text.partition("(")[0]
-            # text = text.partition(":")[0]  # not work on csi: new york (only-->  csi)
-            text = text.partition(" -")[0]
-            text = re.sub(' - +.+?FIN', '', text)  # all episodes and series ????
-            text = re.sub('FIN', '', text)
-            text = re.sub(r"[\<\>\:\"\/\\\|\?\*!]", "_", str(text))
-            # text = re.sub(r'^\|[\w\-\|]*\|', '', text)
-            text = re.sub(r"[-,?!+/\.\":]", '', text)  # replace (- or , or ! or / or . or " or :) by space
-            # recoded  end
-            text = text.strip(' -')
-
-            text = remove_accents(text)
-            print('remove_accents text: ', text)
-
-            # forced
-            text = text.replace('XXXXXX', '60')
-            text = text.replace('brunobarbierix', 'bruno barbieri - 4 hotel')
-            text = quote(text, safe="")
-            print('text safe: ', text)
-        return unquote(text).capitalize()
-    except Exception as e:
-        print('convtext error: ', e)
         pass
 
 
@@ -854,10 +586,10 @@ threadAutoDB.start()
 
 class AglarePosterX(Renderer):
     def __init__(self):
+        Renderer.__init__(self)
         adsl = intCheck()
         if not adsl:
             return
-        Renderer.__init__(self)
         self.nxts = 0
         self.path = path_folder  # + '/'
         self.canal = [None, None, None, None, None, None]
@@ -968,25 +700,25 @@ class AglarePosterX(Renderer):
         if self.instance:
             self.instance.hide()
         if self.canal[5]:
-            if self.pstcanal is not None and not os.path.exists(self.pstcanal):
-                self.pstcanal = convtext(self.canal[5])
-                self.pstrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
-                self.pstcanal = str(self.pstrNm)
-            if self.pstcanal is not None and os.path.exists(self.pstcanal):
-                print('showPoster----')
-                self.logPoster("[LOAD : showPoster] {}".format(self.pstcanal))
-                self.instance.setPixmap(loadJPG(self.pstcanal))
-                self.instance.setScale(1)
-                self.instance.show()
+            # if self.pstcanal is not None and not os.path.exists(self.pstcanal):
+            self.pstcanal = convtext(self.canal[5])
+            self.pstrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
+            self.pstcanal = str(self.pstrNm)
+            # if self.pstcanal is not None and os.path.exists(self.pstcanal):
+            print('showPoster----')
+            self.logPoster("[LOAD : showPoster] {}".format(self.pstcanal))
+            self.instance.setPixmap(loadJPG(self.pstcanal))
+            self.instance.setScale(1)
+            self.instance.show()
 
     def waitPoster(self):
         if self.instance:
             self.instance.hide()
         if self.canal[5]:
-            if self.pstcanal is not None and not os.path.exists(self.pstcanal):
-                self.pstcanal = convtext(self.canal[5])
-                self.pstrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
-                self.pstcanal = str(self.pstrNm)
+            # if self.pstcanal is not None and not os.path.exists(self.pstcanal):
+            self.pstcanal = convtext(self.canal[5])
+            self.pstrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
+            self.pstcanal = str(self.pstrNm)
             loop = 180
             found = None
             self.logPoster("[LOOP: waitPoster] {}".format(self.pstcanal))

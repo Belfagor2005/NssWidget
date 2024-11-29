@@ -8,7 +8,7 @@ from Components.config import config
 from PIL import Image
 from enigma import getDesktop
 import os
-import re
+# import re
 import requests
 import socket
 import sys
@@ -26,7 +26,7 @@ except ImportError:
     from httplib import HTTPConnection
     HTTPConnection.debuglevel = 0
 from requests.adapters import HTTPAdapter, Retry
-
+from re import sub, findall, compile, DOTALL, search
 global my_cur_skin, srch
 
 PY3 = False
@@ -84,7 +84,7 @@ cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
 
 def clean_recursive(regexStr="", replaceStr="", eventTitle=""):
     while True:
-        clean_name = re.sub(regexStr, replaceStr, eventTitle)
+        clean_name = sub(regexStr, replaceStr, eventTitle)
         if clean_name == eventTitle:
             break
         eventTitle = clean_name
@@ -94,7 +94,7 @@ def clean_recursive(regexStr="", replaceStr="", eventTitle=""):
 try:
     if my_cur_skin is False:
         skin_paths = {
-            "tmdb_api": "/usr/share/enigma2/{}/tmdbkey".format(cur_skin),
+            "tmdb_api": "/usr/share/enigma2/{}/apikey".format(cur_skin),
             "omdb_api": "/usr/share/enigma2/{}/omdbkey".format(cur_skin),
             "thetvdbkey": "/usr/share/enigma2/{}/thetvdbkey".format(cur_skin)
         }
@@ -183,7 +183,7 @@ def dataenc(data):
 
 def sanitize_filename(filename):
     # Replace spaces with underscores and remove invalid characters (like ':')
-    sanitized = re.sub(r'[^\w\s-]', '', filename)  # Remove invalid characters
+    sanitized = sub(r'[^\w\s-]', '', filename)  # Remove invalid characters
     # sanitized = sanitized.replace(' ', '_')      # Replace spaces with underscores
     # sanitized = sanitized.replace('-', '_')      # Replace dashes with underscores
     return sanitized.strip()
@@ -191,10 +191,10 @@ def sanitize_filename(filename):
 
 class AglarePosterXDownloadThread(threading.Thread):
     def __init__(self):
+        threading.Thread.__init__(self)
         adsl = intCheck()
         if not adsl:
             return
-        threading.Thread.__init__(self)
         self.checkMovie = ["film", "movie", "фильм", "кино", "ταινία",
                            "película", "cinéma", "cine", "cinema",
                            "filma"]
@@ -311,18 +311,18 @@ class AglarePosterXDownloadThread(threading.Thread):
             self.title_safe = title_safe.replace('+', ' ')
             # Sanitize the filename before saving
             self.title_safe = sanitize_filename(self.title_safe)
-            year = re.findall(r'19\d{2}|20\d{2}', fd)
+            year = findall(r'19\d{2}|20\d{2}', fd)
             if len(year) > 0:
                 year = year[0]
             else:
                 year = ''
             url_tvdbg = "https://thetvdb.com/api/GetSeries.php?seriesname={}".format(self.title_safe)
             url_read = requests.get(url_tvdbg).text
-            series_id = re.findall(r'<seriesid>(.*?)</seriesid>', url_read)
-            series_name = re.findall(r'<SeriesName>(.*?)</SeriesName>', url_read)
-            series_year = re.findall(r'<FirstAired>(19\d{2}|20\d{2})-\d{2}-\d{2}</FirstAired>', url_read)
+            series_id = findall(r'<seriesid>(.*?)</seriesid>', url_read)
+            series_name = findall(r'<SeriesName>(.*?)</SeriesName>', url_read)
+            series_year = findall(r'<FirstAired>(19\d{2}|20\d{2})-\d{2}-\d{2}</FirstAired>', url_read)
             '''
-            # series_banners = re.findall(r'<banner>(.*?)</banner>', url_read)
+            # series_banners = findall(r'<banner>(.*?)</banner>', url_read)
             # if series_banners:
                 # series_banners = 'https://thetvdb.com' + series_banners
             '''
@@ -349,9 +349,9 @@ class AglarePosterXDownloadThread(threading.Thread):
                     else:
                         url_tvdb += "/en"
                     url_read = requests.get(url_tvdb).text
-                    poster = re.findall(r'<poster>(.*?)</poster>', url_read)
+                    poster = findall(r'<poster>(.*?)</poster>', url_read)
                     url_poster = "https://artworks.thetvdb.com/banners/{}".format(poster[0])
-                    backdrop = re.findall(r'<backdrop>(.*?)</backdrop>', url_read)
+                    backdrop = findall(r'<backdrop>(.*?)</backdrop>', url_read)
                     url_backdrop = "https://artworks.thetvdb.com/banners/{}".format(backdrop[0])
                     if poster is not None and poster[0]:
                         callInThread(self.savePoster, url_poster, self.dwn_poster)
@@ -395,10 +395,10 @@ class AglarePosterXDownloadThread(threading.Thread):
             self.title_safe = sanitize_filename(self.title_safe)
             chkType, fd = self.checkType(shortdesc, fulldesc)
             try:
-                if re.findall(r'19\d{2}|20\d{2}', self.title_safe):
-                    year = re.findall(r'19\d{2}|20\d{2}', fd)[1]
+                if findall(r'19\d{2}|20\d{2}', self.title_safe):
+                    year = findall(r'19\d{2}|20\d{2}', fd)[1]
                 else:
-                    year = re.findall(r'19\d{2}|20\d{2}', fd)[0]
+                    year = findall(r'19\d{2}|20\d{2}', fd)[0]
             except:
                 year = ''
                 pass
@@ -466,7 +466,7 @@ class AglarePosterXDownloadThread(threading.Thread):
             self.title_safe = title_safe.replace('+', ' ')
             # Sanitize the filename before saving
             self.title_safe = sanitize_filename(self.title_safe)
-            aka = re.findall(r'\((.*?)\)', fd)
+            aka = findall(r'\((.*?)\)', fd)
             if len(aka) > 1 and not aka[1].isdigit():
                 aka = aka[1]
             elif len(aka) > 0 and not aka[0].isdigit():
@@ -477,7 +477,7 @@ class AglarePosterXDownloadThread(threading.Thread):
                 paka = self.UNAC(aka)
             else:
                 paka = ''
-            year = re.findall(r'19\d{2}|20\d{2}', fd)
+            year = findall(r'19\d{2}|20\d{2}', fd)
             if len(year) > 0:
                 year = year[0]
             else:
@@ -491,13 +491,13 @@ class AglarePosterXDownloadThread(threading.Thread):
             else:
                 url_mimdb = "https://m.imdb.com/find?q={}".format(self.title_safe)
             url_read = requests.get(url_mimdb).text
-            rc = re.compile(r'<img src="(.*?)".*?<span class="h3">\n(.*?)\n</span>.*?\((\d+)\)(\s\(.*?\))?(.*?)</a>', re.DOTALL)
+            rc = compile(r'<img src="(.*?)".*?<span class="h3">\n(.*?)\n</span>.*?\((\d+)\)(\s\(.*?\))?(.*?)</a>', DOTALL)
             url_imdb = rc.findall(url_read)
 
             if len(url_imdb) == 0 and aka:
                 url_mimdb = "https://m.imdb.com/find?q={}".format(self.title_safe)
                 url_read = requests.get(url_mimdb).text
-                rc = re.compile(r'<img src="(.*?)".*?<span class="h3">\n(.*?)\n</span>.*?\((\d+)\)(\s\(.*?\))?(.*?)</a>', re.DOTALL)
+                rc = compile(r'<img src="(.*?)".*?<span class="h3">\n(.*?)\n</span>.*?\((\d+)\)(\s\(.*?\))?(.*?)</a>', DOTALL)
                 url_imdb = rc.findall(url_read)
             len_imdb = len(url_imdb)
             idx_imdb = 0
@@ -506,13 +506,13 @@ class AglarePosterXDownloadThread(threading.Thread):
             for imdb in url_imdb:
                 imdb = list(imdb)
                 imdb[1] = self.UNAC(imdb[1])
-                tmp = re.findall(r'aka <i>"(.*?)"</i>', imdb[4])
+                tmp = findall(r'aka <i>"(.*?)"</i>', imdb[4])
                 if tmp:
                     imdb[4] = tmp[0]
                 else:
                     imdb[4] = ''
                 imdb[4] = self.UNAC(imdb[4])
-                imdb_poster = re.search(r"(.*?)._V1_.*?.jpg", imdb[0])
+                imdb_poster = search(r"(.*?)._V1_.*?.jpg", imdb[0])
                 if imdb_poster:
                     if imdb[3] == '':
                         if year and year != '':
@@ -582,25 +582,25 @@ class AglarePosterXDownloadThread(threading.Thread):
             if not PY3:
                 ff = ff.encode('utf-8')
             ptv_id = 0
-            plst = re.findall(r'\],\["https://www.programme-tv.net(.*?)",\d+,\d+]', ff)
+            plst = findall(r'\],\["https://www.programme-tv.net(.*?)",\d+,\d+]', ff)
             for posterlst in plst:
                 self.sizeb = False
                 ptv_id += 1
                 url_poster = "https://www.programme-tv.net{}".format(posterlst)
-                url_poster = re.sub(r"\\u003d", "=", url_poster)
-                url_poster_size = re.findall(r'([\d]+)x([\d]+).*?([\w\.-]+).jpg', url_poster)
+                url_poster = sub(r"\\u003d", "=", url_poster)
+                url_poster_size = findall(r'([\d]+)x([\d]+).*?([\w\.-]+).jpg', url_poster)
                 if url_poster_size and url_poster_size[0]:
                     get_title = self.UNAC(url_poster_size[0][2].replace('-', ''))
                     if self.title_safe == get_title:
                         h_ori = float(url_poster_size[0][1])
-                        h_tar = float(re.findall(r'(\d+)', isz)[1])
+                        h_tar = float(findall(r'(\d+)', isz)[1])
                         ratio = h_ori / h_tar
                         w_ori = float(url_poster_size[0][0])
                         w_tar = w_ori / ratio
                         w_tar = int(w_tar)
                         h_tar = int(h_tar)
-                        url_poster = re.sub(r'/\d+x\d+/', "/" + str(w_tar) + "x" + str(h_tar) + "/", url_poster)
-                        url_poster = re.sub(r'crop-from/top/', '', url_poster)
+                        url_poster = sub(r'/\d+x\d+/', "/" + str(w_tar) + "x" + str(h_tar) + "/", url_poster)
+                        url_poster = sub(r'crop-from/top/', '', url_poster)
                         callInThread(self.savePoster, url_poster, self.dwn_poster)
                         # self.savePoster(dwn_poster, url_poster)
                         if os.path.exists(dwn_poster):
@@ -647,7 +647,7 @@ class AglarePosterXDownloadThread(threading.Thread):
             ff = requests.get(url_mgoo, stream=True, headers=headers, cookies={'CONSENT': 'YES+'}).text
             if not PY3:
                 ff = ff.encode('utf-8')
-            plst = re.findall(r'https://www.molotov.tv/(.*?)"(?:.*?)?"(.*?)"', ff)
+            plst = findall(r'https://www.molotov.tv/(.*?)"(?:.*?)?"(.*?)"', ff)
             len_plst = len(plst)
             molotov_id = 0
             molotov_table = [0, 0, None, None, 0]
@@ -656,16 +656,16 @@ class AglarePosterXDownloadThread(threading.Thread):
             for pl in plst:
                 get_path = "https://www.molotov.tv/" + pl[0]
                 get_name = self.UNAC(pl[1])
-                get_title = re.findall(r'(.*?)[ ]+en[ ]+streaming', get_name)
+                get_title = findall(r'(.*?)[ ]+en[ ]+streaming', get_name)
                 if get_title:
                     get_title = get_title[0]
                 else:
                     get_title = None
-                get_channel = re.findall(r'(?:streaming|replay)?[ ]+sur[ ]+(.*?)[ ]+molotov.tv', get_name)
+                get_channel = findall(r'(?:streaming|replay)?[ ]+sur[ ]+(.*?)[ ]+molotov.tv', get_name)
                 if get_channel:
                     get_channel = self.UNAC(get_channel[0]).replace(' ', '')
                 else:
-                    get_channel = re.findall(r'regarder[ ]+(.*?)[ ]+en', get_name)
+                    get_channel = findall(r'regarder[ ]+(.*?)[ ]+en', get_name)
                     if get_channel:
                         get_channel = self.UNAC(get_channel[0]).replace(' ', '')
                     else:
@@ -682,20 +682,20 @@ class AglarePosterXDownloadThread(threading.Thread):
                 ffm = requests.get(molotov_table[3], stream=True, headers=headers).text
                 if not PY3:
                     ffm = ffm.encode('utf-8')
-                pltt = re.findall(r'"https://fusion.molotov.tv/(.*?)/jpg" alt="(.*?)"', ffm)
+                pltt = findall(r'"https://fusion.molotov.tv/(.*?)/jpg" alt="(.*?)"', ffm)
                 if len(pltt) > 0:
                     pltc = self.UNAC(pltt[0][1])
                     plst = "https://fusion.molotov.tv/" + pltt[0][0] + "/jpg"
                     imsg = "Found title ({}%) & channel ({}%) : '{}' + '{}' [{}/{}]".format(molotov_table[0], molotov_table[1], molotov_table[2], pltc, molotov_table[4], len_plst)
             else:
-                plst = re.findall(r'\],\["https://(.*?)",\d+,\d+].*?"https://.*?","(.*?)"', ff)
+                plst = findall(r'\],\["https://(.*?)",\d+,\d+].*?"https://.*?","(.*?)"', ff)
                 len_plst = len(plst)
                 if len_plst > 0:
                     for pl in plst:
                         if pl[1].startswith("Regarder"):
                             pltc = self.UNAC(pl[1])
                             partialtitle = self.PMATCH(self.title_safe, pltc)
-                            get_channel = re.findall(r'regarder[ ]+(.*?)[ ]+en', pltc)
+                            get_channel = findall(r'regarder[ ]+(.*?)[ ]+en', pltc)
                             if get_channel:
                                 get_channel = self.UNAC(get_channel[0]).replace(' ', '')
                             else:
@@ -728,7 +728,7 @@ class AglarePosterXDownloadThread(threading.Thread):
                 imsg = "Not found '{}' [{}%-{}%-{}]".format(pltc, molotov_table[0], molotov_table[1], len_plst)
             if poster:
                 self.sizeb = False
-                url_poster = re.sub(r'/\d+x\d+/', "/" + re.sub(r', ', 'x', isz) + "/", poster)
+                url_poster = sub(r'/\d+x\d+/', "/" + sub(r', ', 'x', isz) + "/", poster)
                 callInThread(self.savePoster, poster, dwn_poster)
                 # self.savePoster(dwn_poster, url_poster)
                 if os.path.exists(dwn_poster):
@@ -737,7 +737,7 @@ class AglarePosterXDownloadThread(threading.Thread):
                     # backdrop
                     self.pstrNm = path_folder + '/' + self.title_safe + ".jpg"
                     dwn_poster = str(self.pstrNm)
-                    url_poster = re.sub(r'/\d+x\d+/', "/" + re.sub(r', ', 'x', bisz) + "/", poster)
+                    url_poster = sub(r'/\d+x\d+/', "/" + sub(r', ', 'x', bisz) + "/", poster)
                     callInThread(self.savePoster, poster, dwn_poster)
                     # self.savePoster(dwn_poster, url_poster)
                     if os.path.exists(dwn_poster):
@@ -766,7 +766,7 @@ class AglarePosterXDownloadThread(threading.Thread):
             self.title_safe = title_safe.replace('+', ' ')
             # Sanitize the filename before saving
             self.title_safe = sanitize_filename(self.title_safe)
-            year = re.findall(r'19\d{2}|20\d{2}', fd)
+            year = findall(r'19\d{2}|20\d{2}', fd)
             if len(year) > 0:
                 year = year[0]
             else:
@@ -787,17 +787,17 @@ class AglarePosterXDownloadThread(threading.Thread):
             # url_google += "+{}".format(poster)
             ff = requests.get(url_google, stream=True, headers=headers, cookies={'CONSENT': 'YES+'}).text
 
-            posterlst = re.findall(r'\],\["https://(.*?)",\d+,\d+]', ff)
+            posterlst = findall(r'\],\["https://(.*?)",\d+,\d+]', ff)
             if len(posterlst) == 0:
                 url_google = self.title_safe
                 url_google = "https://www.google.com/search?q={}&tbm=isch&tbs=ift:jpg%2Cisz:m".format(url_google)
                 ff = requests.get(url_google, stream=True, headers=headers).text
-                posterlst = re.findall(r'\],\["https://(.*?)",\d+,\d+]', ff)
+                posterlst = findall(r'\],\["https://(.*?)",\d+,\d+]', ff)
 
             for pl in posterlst:
                 self.sizeb = False
                 url_poster = "https://{}".format(pl)
-                url_poster = re.sub(r"\\u003d", " = ", url_poster)
+                url_poster = sub(r"\\u003d", " = ", url_poster)
                 callInThread(self.savePoster, url_poster, dwn_poster)
                 # self.savePoster(dwn_poster, url_poster)
                 if os.path.exists(dwn_poster):
@@ -808,7 +808,7 @@ class AglarePosterXDownloadThread(threading.Thread):
                 # backdrop
                 self.pstrNm = path_folder + '/' + self.title_safe + ".jpg"
                 # url_backdrop = str(self.pstrNm)
-                url_backdrop = re.sub(r'/\d+x\d+/', "/" + re.sub(r', ', 'x', bisz) + "/", poster)
+                url_backdrop = sub(r'/\d+x\d+/', "/" + sub(r', ', 'x', bisz) + "/", poster)
                 callInThread(self.savePoster, url_backdrop, self.pstrNm)
                 # self.savePoster(dwn_poster, url_poster)
                 self.sizeb = True
@@ -911,14 +911,14 @@ class AglarePosterXDownloadThread(threading.Thread):
     def UNAC(self, string):
         string = html.unescape(string)
         string = unicodedata.normalize('NFD', string)
-        string = re.sub(r"u0026", "&", string)
-        string = re.sub(r"u003d", "=", string)
-        string = re.sub(r'[\u0300-\u036f]', '', string)
-        string = re.sub(r"[,!?\.\"]", ' ', string)
-        # string = re.sub(r"[-/:']", '', string)
-        # string = re.sub(r"[^a-zA-Z0-9 ]", "", string)
+        string = sub(r"u0026", "&", string)
+        string = sub(r"u003d", "=", string)
+        string = sub(r'[\u0300-\u036f]', '', string)
+        string = sub(r"[,!?\.\"]", ' ', string)
+        # string = sub(r"[-/:']", '', string)
+        # string = sub(r"[^a-zA-Z0-9 ]", "", string)
         # string = string.lower()
-        string = re.sub(r'\s+', ' ', string)
+        string = sub(r'\s+', ' ', string)
         string = string.strip()
         return string
 

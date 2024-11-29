@@ -53,7 +53,7 @@ cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
 OAWeather = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('OAWeather'))
 weatherz = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('WeatherPlugin'))
 mvi = '/usr/share/'
-tmdb_skin = "%senigma2/%s/tmdbkey" % (mvi, cur_skin)
+tmdb_skin = "%senigma2/%s/apikey" % (mvi, cur_skin)
 tmdb_api = "3c3efcf47c3577558812bb9d64019d65"
 omdb_skin = "%senigma2/%s/omdbkey" % (mvi, cur_skin)
 omdb_api = "cb1d9f55"
@@ -61,7 +61,7 @@ omdb_api = "cb1d9f55"
 try:
     if my_cur_skin is False:
         skin_paths = {
-            "tmdb_api": "/usr/share/enigma2/{}/tmdbkey".format(cur_skin),
+            "tmdb_api": "/usr/share/enigma2/{}/apikey".format(cur_skin),
             "omdb_api": "/usr/share/enigma2/{}/omdbkey".format(cur_skin),
             # "thetvdbkey": "/usr/share/enigma2/{}/thetvdbkey".format(cur_skin)
             # "visual_api": "/etc/enigma2/VisualWeather/apikey.txt"
@@ -300,10 +300,10 @@ class AglareSetup(ConfigListScreen, Screen):
             self.KeyText()
 
     def keyApi(self, answer=None):
-        api = "/tmp/tmdbkey.txt"
+        api = "/tmp/apikey.txt"
         if answer is None:
             if fileExists(api) and os.stat(api).st_size > 0:
-                self.session.openWithCallback(self.keyApi, MessageBox, _("Import Api Key TMDB from /tmp/tmdbkey.txt?"))
+                self.session.openWithCallback(self.keyApi, MessageBox, _("Import Api Key TMDB from /tmp/apikey.txt?"))
             else:
                 self.session.open(MessageBox, (_("Missing %s !") % api), MessageBox.TYPE_INFO, timeout=4)
         elif answer:

@@ -234,7 +234,7 @@ def Plugins(**kwargs):
 
 		def __newfunc(self, *args, **kwargs):
 			if self["scan"].isDone() and "Terrestrial" in str(self.scanList):
-				from Plugins.SystemPlugins.TerrestrialBouquet.plugin import TerrestrialBouquet
+				from Screens.Terrestrial import TerrestrialBouquet
 				print("[TerrestrialBouquet] rebuilding terrestrial bouquet -", TerrestrialBouquet().rebuild() or "was successful")
 			__origfunc(self, *args, **kwargs)  # now run ServiceScan.ok
 		ServiceScan.ok = __newfunc
