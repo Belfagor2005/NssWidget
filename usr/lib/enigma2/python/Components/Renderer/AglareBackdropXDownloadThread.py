@@ -151,8 +151,7 @@ def intCheck():
         return False
     except socket.timeout:
         return False
-    else:
-        return True
+    return True
 
 
 def quoteEventName(eventName):
@@ -214,7 +213,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
             # title_safe = quoteEventName(title_safe)
             self.title_safe = title_safe.replace('+', ' ')
             # Sanitize the filename before saving
-            self.title_safe = sanitize_filename(self.title_safe)
+            # self.title_safe = sanitize_filename(self.title_safe)
             url = f"https://api.themoviedb.org/3/search/multi?api_key={tmdb_api}&language={lng}&query={self.title_safe}"
             print('backdrop search_tmdb url title safe', url)
             data = None
@@ -288,7 +287,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
             # title_safe = quoteEventName(title_safe)
             self.title_safe = title_safe.replace('+', ' ')
             # Sanitize the filename before saving
-            self.title_safe = sanitize_filename(self.title_safe)
+            # self.title_safe = sanitize_filename(self.title_safe)
             year = re.findall(r'19\d{2}|20\d{2}', fd)
             if len(year) > 0:
                 year = year[0]
@@ -335,7 +334,8 @@ class AglareBackdropXDownloadThread(threading.Thread):
                             if self.verifybackdrop(dwn_backdrop):
                                 self.resizebackdrop(dwn_backdrop)
                         return True, "[SUCCESS backdrop: tvdb] {} [{}-{}] => {} => {} => {}".format(title, chkType, year, url_tvdbg, url_tvdb, url_backdrop)
-                    return False, "[SKIP : tvdb] {} [{}-{}] => {} (Not found)".format(title, chkType, year, url_tvdbg)
+            else:
+                return False, "[SKIP : tvdb] {} [{}-{}] => {} (Not found)".format(self.title_safe, chkType, year, url_tvdbg)
 
         except Exception as e:
             if os.path.exists(dwn_backdrop):
@@ -355,7 +355,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
             # title_safe = quoteEventName(title_safe)
             self.title_safe = title_safe.replace('+', ' ')
             # Sanitize the filename before saving
-            self.title_safe = sanitize_filename(self.title_safe)
+            # self.title_safe = sanitize_filename(self.title_safe)
             chkType, fd = self.checkType(shortdesc, fulldesc)
             try:
                 if re.findall(r'19\d{2}|20\d{2}', self.title_safe):
@@ -409,7 +409,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
             # title_safe = quoteEventName(title_safe)
             self.title_safe = title_safe.replace('+', ' ')
             # Sanitize the filename before saving
-            self.title_safe = sanitize_filename(self.title_safe)
+            # self.title_safe = sanitize_filename(self.title_safe)
             aka = re.findall(r'\((.*?)\)', fd)
             if len(aka) > 1 and not aka[1].isdigit():
                 aka = aka[1]
@@ -486,7 +486,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
                     # self.savebackdrop(dwn_backdrop, url_backdrop)
                     if self.verifybackdrop(dwn_backdrop):
                         self.resizebackdrop(dwn_backdrop)
-                                                          
+
                     return True, "[SUCCESS url_backdrop: imdb] {} [{}-{}] => {} [{}/{}] => {} => {}".format(self.title_safe, chkType, year, imsg, idx_imdb, len_imdb, url_mimdb, url_backdrop)
                 return False, "[SKIP : imdb] {} [{}-{}] => {} (No Entry found [{}])".format(self.title_safe, chkType, year, url_mimdb, len_imdb)
         except Exception as e:
@@ -507,7 +507,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
             # title_safe = quoteEventName(title_safe)
             self.title_safe = title_safe.replace('+', ' ')
             # Sanitize the filename before saving
-            self.title_safe = sanitize_filename(self.title_safe)
+            # self.title_safe = sanitize_filename(self.title_safe)
             url_ptv = "site:programme-tv.net+" + self.title_safe
             if channel and self.title_safe.find(channel.split()[0]) < 0:
                 url_ptv += "+" + quoteEventName(channel)
@@ -557,7 +557,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
             # title_safe = quoteEventName(title_safe)
             self.title_safe = title_safe.replace('+', ' ')
             # Sanitize the filename before saving
-            self.title_safe = sanitize_filename(self.title_safe)
+            # self.title_safe = sanitize_filename(self.title_safe)
             if channel:
                 pchannel = self.UNAC(channel).replace(' ', '')
             else:
@@ -679,7 +679,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
             # title_safe = quoteEventName(title_safe)
             self.title_safe = title_safe.replace('+', ' ')
             # Sanitize the filename before saving
-            self.title_safe = sanitize_filename(self.title_safe)
+            # self.title_safe = sanitize_filename(self.title_safe)
             year = re.findall(r'19\d{2}|20\d{2}', fd)
             if len(year) > 0:
                 year = year[0]

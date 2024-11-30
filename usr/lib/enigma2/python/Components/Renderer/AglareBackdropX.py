@@ -32,7 +32,7 @@ from Components.Sources.EventInfo import EventInfo
 from Components.Sources.ServiceEvent import ServiceEvent
 from Components.config import config
 from ServiceReference import ServiceReference
-from six import text_type
+# from six import text_type
 from enigma import (
     ePixmap,
     loadJPG,
@@ -41,13 +41,13 @@ from enigma import (
 )
 import NavigationInstance
 import os
-import re
-import shutil
+# import re
+# import shutil
 import socket
 import sys
 import time
-
-from re import search, sub, I, S, escape
+# from re import search, sub, I, S, escape
+from .Converlibr import convtext
 
 PY3 = False
 if sys.version_info[0] >= 3:
@@ -58,21 +58,21 @@ if sys.version_info[0] >= 3:
     from _thread import start_new_thread
     from urllib.error import HTTPError, URLError
     from urllib.request import urlopen
-    from urllib.parse import quote_plus
+    # from urllib.parse import quote_plus
 else:
     import Queue
     from thread import start_new_thread
     from urllib2 import HTTPError, URLError
     from urllib2 import urlopen
-    from urllib import quote_plus
+    # from urllib import quote_plus
     from HTMLParser import HTMLParser
     html_parser = HTMLParser()
 
 
-try:
-    from urllib import unquote, quote
-except ImportError:
-    from urllib.parse import unquote, quote
+# try:
+    # from urllib import unquote, quote
+# except ImportError:
+    # from urllib.parse import unquote, quote
 
 
 epgcache = eEPGCache.getInstance()
@@ -96,15 +96,6 @@ def isMountReadonly(mnt):
             if mount_point == mnt:
                 return 'ro' in flags
     return "mount: '%s' doesn't exist" % mnt
-
-
-# def isMountedInRW(path):
-    # testfile = path + '/tmp-rw-test'
-    # os.system('touch ' + testfile)
-    # if os.path.exists(testfile):
-        # os.system('rm -f ' + testfile)
-        # return True
-    # return False
 
 
 def isMountedInRW(mount_point):
@@ -188,15 +179,6 @@ else:
                     apdb[i] = service
 
 
-# try:
-    # folder_size = sum([sum(map(lambda fname: os.path.getsize(os.path.join(path_folder, fname)), files)) for folder_p, folders, files in os.walk(path_folder)])
-    # agbackdrop = "%0.f" % (folder_size / (1024 * 1024.0))
-    # if agbackdrop >= "5":
-        # shutil.rmtree(path_folder)
-# except:
-    # pass
-
-
 def OnclearMem():
     try:
         os.system('sync')
@@ -205,38 +187,6 @@ def OnclearMem():
         os.system('echo 3 > /proc/sys/vm/drop_caches')
     except:
         pass
-
-
-def quoteEventName(eventName):
-    try:
-        text = eventName.decode('utf8').replace(u'\x86', u'').replace(u'\x87', u'').encode('utf8')
-    except:
-        text = eventName
-    return quote_plus(text, safe="+")
-
-
-REGEX = re.compile(
-    r'[\(\[].*?[\)\]]|'                    # Parentesi tonde o quadre
-    r':?\s?odc\.\d+|'                      # odc. con o senza numero prima
-    r'\d+\s?:?\s?odc\.\d+|'                # numero con odc.
-    r'[:!]|'                               # due punti o punto esclamativo
-    r'\s-\s.*|'                            # trattino con testo successivo
-    r',|'                                  # virgola
-    r'/.*|'                                # tutto dopo uno slash
-    r'\|\s?\d+\+|'                         # | seguito da numero e +
-    r'\d+\+|'                              # numero seguito da +
-    r'\s\*\d{4}\Z|'                        # * seguito da un anno a 4 cifre
-    r'[\(\[\|].*?[\)\]\|]|'                # Parentesi tonde, quadre o pipe
-    r'(?:\"[\.|\,]?\s.*|\"|'               # Testo tra virgolette
-    r'\.\s.+)|'                            # Punto seguito da testo
-    r'Премьера\.\s|'                       # Specifico per il russo
-    r'[хмтдХМТД]/[фс]\s|'                  # Pattern per il russo con /ф o /с
-    r'\s[сС](?:езон|ерия|-н|-я)\s.*|'      # Stagione o episodio in russo
-    r'\s\d{1,3}\s[чсЧС]\.?\s.*|'           # numero di parte/episodio in russo
-    r'\.\s\d{1,3}\s[чсЧС]\.?\s.*|'         # numero di parte/episodio in russo con punto
-    r'\s[чсЧС]\.?\s\d{1,3}.*|'             # Parte/Episodio in russo
-    r'\d{1,3}-(?:я|й)\s?с-н.*',            # Finale con numero e suffisso russo
-    re.DOTALL)
 
 
 def intCheck():
@@ -250,183 +200,6 @@ def intCheck():
     except socket.timeout:
         return False
     return True
-
-
-def remove_accents(string):
-    if not isinstance(string, text_type):
-        string = text_type(string, 'utf-8')
-    string = sub(u"[àáâãäå]", 'a', string)
-    string = sub(u"[èéêë]", 'e', string)
-    string = sub(u"[ìíîï]", 'i', string)
-    string = sub(u"[òóôõö]", 'o', string)
-    string = sub(u"[ùúûü]", 'u', string)
-    string = sub(u"[ýÿ]", 'y', string)
-    return string
-
-
-def unicodify(s, encoding='utf-8', norm=None):
-    if not isinstance(s, text_type):
-        s = text_type(s, encoding)
-    if norm:
-        from unicodedata import normalize
-        s = normalize(norm, s)
-    return s
-
-
-def str_encode(text, encoding="utf8"):
-    if not PY3:
-        if isinstance(text, text_type):
-            return text.encode(encoding)
-    return text
-
-
-def cutName(eventName=""):
-    if eventName:
-        eventName = eventName.replace('"', '').replace('.', '').replace(' | ', '')  # .replace('Х/Ф', '').replace('М/Ф', '').replace('Х/ф', '')
-        eventName = eventName.replace('(18+)', '').replace('18+', '').replace('(16+)', '').replace('16+', '').replace('(12+)', '')
-        eventName = eventName.replace('12+', '').replace('(7+)', '').replace('7+', '').replace('(6+)', '').replace('6+', '')
-        eventName = eventName.replace('(0+)', '').replace('0+', '').replace('+', '')
-        eventName = eventName.replace('المسلسل العربي', '')
-        eventName = eventName.replace('مسلسل', '')
-        eventName = eventName.replace('برنامج', '')
-        eventName = eventName.replace('فيلم وثائقى', '')
-        eventName = eventName.replace('حفل', '')
-        return eventName
-    return ""
-
-
-def getCleanTitle(eventitle=""):
-    # save_name = sub('\\(\d+\)$', '', eventitle)
-    # save_name = sub('\\(\d+\/\d+\)$', '', save_name)  # remove episode-number " (xx/xx)" at the end
-    # # save_name = sub('\ |\?|\.|\,|\!|\/|\;|\:|\@|\&|\'|\-|\"|\%|\(|\)|\[|\]\#|\+', '', save_name)
-    save_name = eventitle.replace(' ^`^s', '').replace(' ^`^y', '')
-    return save_name
-
-
-def dataenc(data):
-    if PY3:
-        data = data.decode("utf-8")
-    else:
-        data = data.encode("utf-8")
-    return data
-
-
-def sanitize_filename(filename):
-    # Replace spaces with underscores and remove invalid characters (like ':')
-    sanitized = sub(r'[^\w\s-]', '', filename)  # Remove invalid characters
-    # sanitized = sanitized.replace(' ', '_')      # Replace spaces with underscores
-    # sanitized = sanitized.replace('-', '_')      # Replace dashes with underscores
-    return sanitized.strip()
-
-
-def convtext(text=''):
-    try:
-        if text is None:
-            print('return None original text: ' + str(type(text)))
-            return
-        if text == '':
-            print('text is an empty string')
-        else:
-            print('original text:' + text)
-            text = text.lower()
-            print('lowercased text:' + text)
-            text = text.lstrip()
-
-            # text = cutName(text)
-            # text = getCleanTitle(text)
-
-            if text.endswith("the"):
-                text = "the " + text[:-4]
-
-            # Modifiche personalizzate
-            if 'giochi olimpici parigi' in text:
-                text = 'olimpiadi di parigi'
-            if 'bruno barbieri' in text:
-                text = text.replace('bruno barbieri', 'brunobarbierix')
-            if "anni '60" in text:
-                text = "anni 60"
-            if 'tg regione' in text:
-                text = 'tg3'
-            if 'studio aperto' in text:
-                text = 'studio aperto'
-            if 'josephine ange gardien' in text:
-                text = 'josephine ange gardien'
-            if 'elementary' in text:
-                text = 'elementary'
-            if 'squadra speciale cobra 11' in text:
-                text = 'squadra speciale cobra 11'
-            if 'criminal minds' in text:
-                text = 'criminal minds'
-            if 'i delitti del barlume' in text:
-                text = 'i delitti del barlume'
-            if 'senza traccia' in text:
-                text = 'senza traccia'
-            if 'hudson e rex' in text:
-                text = 'hudson e rex'
-            if 'ben-hur' in text:
-                text = 'ben-hur'
-            if 'alessandro borghese - 4 ristoranti' in text:
-                text = 'alessandroborgheseristoranti'
-            if 'alessandro borghese: 4 ristoranti' in text:
-                text = 'alessandroborgheseristoranti'
-
-            cutlist = ['x264', '720p', '1080p', '1080i', 'pal', 'german', 'english', 'ws', 'dvdrip', 'unrated',
-                       'retail', 'web-dl', 'dl', 'ld', 'mic', 'md', 'dvdr', 'bdrip', 'bluray', 'dts', 'uncut', 'anime',
-                       'ac3md', 'ac3', 'ac3d', 'ts', 'dvdscr', 'complete', 'internal', 'dtsd', 'xvid', 'divx', 'dubbed',
-                       'line.dubbed', 'dd51', 'dvdr9', 'dvdr5', 'h264', 'avc', 'webhdtvrip', 'webhdrip', 'webrip',
-                       'webhdtv', 'webhd', 'hdtvrip', 'hdrip', 'hdtv', 'ituneshd', 'repack', 'sync', '1^tv', '1^ tv',
-                       '1^ visione rai', '1^ visione', ' - prima tv', ' - primatv', 'prima visione',
-                       'film -', 'de filippi', 'first screening',
-                       'live:', 'new:', 'film:', 'première diffusion', 'nouveau:', 'en direct:',
-                       'premiere:', 'estreno:', 'nueva emisión:', 'en vivo:'
-                       ]
-            for word in cutlist:
-                text = text.replace(word, '')
-            text = ' '.join(text.split())
-            print(text)
-
-            text = cutName(text)
-            text = getCleanTitle(text)
-
-            text = text.partition("-")[0]  # Mantieni solo il testo prima del primo "-"
-
-            # Pulizia finale
-            text = text.replace('.', ' ').replace('-', ' ').replace('_', ' ').replace('+', '')
-
-            # Rimozione pattern specifici
-            if search(r'[Ss][0-9]+[Ee][0-9]+', text):
-                text = sub(r'[Ss][0-9]+[Ee][0-9]+.*[a-zA-Z0-9_]+', '', text, flags=S | I)
-            text = sub(r'\(.*\)', '', text).rstrip()
-            text = text.partition("(")[0]
-            text = sub(r"\\s\d+", "", text)
-            text = text.partition(":")[0]
-            text = sub(r'(odc.\s\d+)+.*?FIN', '', text)
-            text = sub(r'(odc.\d+)+.*?FIN', '', text)
-            text = sub(r'(\d+)+.*?FIN', '', text)
-            text = sub('FIN', '', text)
-            # remove episode number in arabic series
-            text = sub(r' +ح', '', text)
-            # remove season number in arabic series
-            text = sub(r' +ج', '', text)
-            # remove season number in arabic series
-            text = sub(r' +م', '', text)
-
-            # # Rimuovi accenti e normalizza
-            text = remove_accents(text)
-            print('remove_accents text: ' + text)
-
-            # Forzature finali
-            text = text.replace('XXXXXX', '60')
-            text = text.replace('brunobarbierix', 'bruno barbieri - 4 hotel')
-            text = text.replace('alessandroborgheseristoranti', 'alessandro borghese - 4 ristoranti')
-            text = text.replace('il ritorno di colombo', 'colombo')
-
-            # text = sanitize_filename(text)
-            # print('sanitize_filename text: ' + text)
-            return text.capitalize()
-    except Exception as e:
-        print('convtext error: ' + str(e))
-        pass
 
 
 class BackdropDB(AglareBackdropXDownloadThread):
@@ -503,9 +276,11 @@ class BackdropAutoDB(AglareBackdropXDownloadThread):
             for service in apdb.values():
                 try:
                     events = epgcache.lookupEvent(['IBDCTESX', (service, 0, -1, 1440)])
-                    if not events:
-                        self.logAutoDB("[AutoDB] No events found for service: {}".format(service))
-                        continue
+                    '''
+                    # if not events:
+                        # self.logAutoDB("[AutoDB] No events found for service: {}".format(service))
+                        # continue
+                    '''
                     newfd = 0
                     newcn = None
                     for evt in events:
@@ -676,12 +451,13 @@ class AglareBackdropX(Renderer):
                         if self.canal[0] not in apdb:
                             apdb[self.canal[0]] = service.toString()
             except Exception as e:
-                self.logBackdrop("Error (service) : " + str(e))
+                print(e)
+                # self.logBackdrop("Error (service) : " + str(e))
                 if self.instance:
                     self.instance.hide()
                 return
             if not servicetype or servicetype is None:
-                self.logBackdrop("Error service type undefined")
+                # self.logBackdrop("Error service type undefined")
                 if self.instance:
                     self.instance.hide()
                 return
@@ -702,7 +478,8 @@ class AglareBackdropX(Renderer):
                     pdb.put(canal)
                     start_new_thread(self.waitBackdrop, ())
             except Exception as e:
-                self.logBackdrop("Error (eFile): " + str(e))
+                print(e)
+                # self.logBackdrop("Error (eFile): " + str(e))
                 if self.instance:
                     self.instance.hide()
                 return
@@ -711,14 +488,11 @@ class AglareBackdropX(Renderer):
         if self.instance:
             self.instance.hide()
         if self.canal[5]:
-            # if self.pstcanal is not None and not os.path.exists(self.pstcanal):
             self.pstcanal = convtext(self.canal[5])
             self.backrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
-            self.pstcanal = str(self.backrNm)
-            if self.backrNm and os.path.exists(self.backrNm):
-                # if os.path.exists(self.backrNm):
+            if os.path.exists(self.backrNm):
                 print('showBackdrop----')
-                self.logBackdrop("[LOAD : showBackdrop] {}".format(self.pstcanal))
+                self.logBackdrop("[LOAD : showBackdrop] {}".format(self.backrNm))
                 self.instance.setPixmap(loadJPG(self.backrNm))
                 self.instance.setScale(1)
                 self.instance.show()
@@ -727,22 +501,18 @@ class AglareBackdropX(Renderer):
         if self.instance:
             self.instance.hide()
         if self.canal[5]:
-            # if self.pstcanal is not None and not os.path.exists(self.pstcanal):
             self.pstcanal = convtext(self.canal[5])
             self.backrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
-            self.pstcanal = str(self.backrNm)
             loop = 180
             found = None
-            self.logBackdrop("[LOOP: waitBackdrop] {}".format(self.pstcanal))
+            self.logBackdrop("[LOOP: waitBackdrop] {}".format(self.backrNm))
             while loop >= 0:
-                if self.backrNm and os.path.exists(self.backrNm):
-                    # if os.path.exists(self.backrNm):
-                    loop = 0
-                    found = True
-                    time.sleep(0.5)
-                    loop -- 1
+                loop = 0
+                found = True
+                time.sleep(0.5)
+                loop = loop - 1
             if found:
-                self.timer.start(20, True)
+                self.timer.start(10, True)
 
     def logBackdrop(self, logmsg):
         import traceback
