@@ -495,7 +495,7 @@
     <screen name="vavoox" position="0,0" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
         <panel name="MainVavoox"/>
     </screen>
-    <screen name="vavoo_configx" position="0,0" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="transparent" flags="wfNoBorder">
+    <screen name="vavoo_configx" position="0,0" size="1920,1080" title="Vavoo Stream Live by Lululla" backgroundColor="#ff000000" flags="wfNoBorder">
         <ePixmap position="0,0" size="1920,1080" pixmap="vavoo/main.png" alphatest="blend" zPosition="-1"/>
         <eLabel position="0,0" size="1920,1080" backgroundColor="#30000000" transparent="0" zPosition="-9" foregroundColor="#00ffffff"/>
         <!-- <eLabel backgroundColor="#00ffffff" position="0,975" size="1920,3" zPosition="12" /> -->

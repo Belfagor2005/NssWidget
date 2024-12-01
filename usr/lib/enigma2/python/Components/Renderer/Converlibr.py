@@ -169,7 +169,7 @@ def convtext(text=''):
             if 'alessandro borghese: 4 ristoranti' in text:
                 text = 'alessandroborgheseristoranti'
             if 'amici di maria' in text:
-                text = 'amicidimariadefilippi'
+                text = 'amicimaria'
             if 'csi: scena del crimine' in text:
                 text = 'csi scena del crimine'
             if 'csi: miami' in text:
@@ -200,6 +200,7 @@ def convtext(text=''):
                 text = 'stuart little'
             if 'grande fratello' in text:
                 text = 'grande fratello'
+
             text = text.replace('1/2', 'mezzo')
 
             # Sostituisci caratteri speciali con stringhe vuote
@@ -273,10 +274,10 @@ def convtext(text=''):
             text = text.strip(' -')
             # Forzature finali
             text = text.replace('XXXXXX', '60')
-            text = text.replace('brunobarbierix', 'bruno barbieri - 4 hotel')
+            text = text.replace('amicimaria', 'amici di maria de filippi')
             text = text.replace('alessandroborgheseristoranti', 'alessandro borghese - 4 ristoranti')
+            text = text.replace('brunobarbierix', 'bruno barbieri - 4 hotel')
             text = text.replace('il ritorno di colombo', 'colombo')
-            text = text.replace('amicidimariadefilippi', 'amici di maria')
             # text = quote(text, safe="")
             # text = unquote(text)
             print('text safe:', text)
