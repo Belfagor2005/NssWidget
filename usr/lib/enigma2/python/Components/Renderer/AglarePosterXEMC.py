@@ -13,27 +13,20 @@
 
 from Components.Renderer.Renderer import Renderer
 from enigma import ePixmap, eTimer, loadJPG, eEPGCache
-from ServiceReference import ServiceReference
 from Components.Sources.ServiceEvent import ServiceEvent
 from Components.Sources.CurrentService import CurrentService
-from Components.Sources.EventInfo import EventInfo
-from Components.Sources.Event import Event
 from Components.Renderer.AglarePosterXDownloadThread import AglarePosterXDownloadThread
-# from six import text_type
 import os
 import sys
 import re
 import time
 import socket
-# from re import search, sub, I, S, escape
 from .Converlibr import convtext
 
 PY3 = False
 if sys.version_info[0] >= 3:
     PY3 = True
     import queue
-    import html
-    html_parser = html
     from _thread import start_new_thread
     from urllib.error import HTTPError, URLError
     from urllib.request import urlopen
@@ -42,11 +35,14 @@ else:
     from thread import start_new_thread
     from urllib2 import HTTPError, URLError
     from urllib2 import urlopen
-    from HTMLParser import HTMLParser
-    html_parser = HTMLParser()
 
 
 epgcache = eEPGCache.getInstance()
+if PY3:
+    pdbemc = queue.LifoQueue()
+else:
+    pdbemc = Queue.LifoQueue()
+
 try:
     from Components.config import config
     lng = config.osd.language.value
@@ -79,12 +75,6 @@ if not os.path.exists(path_folder):
     os.makedirs(path_folder)
 
 
-if PY3:
-    pdbemc = queue.LifoQueue()
-else:
-    pdbemc = Queue.LifoQueue()
-
-
 def intCheck():
     try:
         response = urlopen("http://google.com", None, 5)
@@ -110,7 +100,7 @@ class PosterDBEMC(AglarePosterXDownloadThread):
             canal = pdbemc.get()
             self.logDB("[QUEUE] : {} : {}-{} ({})".format(canal[0], canal[1], canal[2], canal[5]))
             self.pstcanal = convtext(canal[5])
-            if self.pstcanal != 'None' or self.pstcanal is not None:
+            if self.pstcanal is not None:
                 dwn_poster = path_folder + '/' + self.pstcanal + ".jpg"
             else:
                 print('none type xxxxxxxxxx- posterx')
@@ -194,7 +184,10 @@ class AglarePosterXEMC(Renderer):
                 if isinstance(self.source, ServiceEvent):  # source="Service"
                     self.canal[0] = None
                     self.canal[1] = self.source.event.getBeginTime()
-                    self.canal[2] = self.source.event.getEventName()
+                    if PY3:
+                        self.canal[2] = self.source.event.getEventName().replace('\xc2\x86', '').replace('\xc2\x87', '')
+                    else:
+                        self.canal[2] = self.source.event.getEventName().replace('\xc2\x86', '').replace('\xc2\x87', '').encode('utf-8')
                     self.canal[3] = self.source.event.getExtendedDescription()
                     self.canal[4] = self.source.event.getShortDescription()
                     self.canal[5] = self.source.service.getPath().split(".ts")[0] + ".jpg"

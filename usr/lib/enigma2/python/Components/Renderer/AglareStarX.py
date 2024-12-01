@@ -16,20 +16,16 @@
 
 from __future__ import print_function
 from Components.Renderer.Renderer import Renderer
-from Components.Sources.Event import Event
-from Components.Sources.EventInfo import EventInfo
-from Components.Sources.ServiceEvent import ServiceEvent
+# from Components.Sources.Event import Event
+# from Components.Sources.EventInfo import EventInfo
+# from Components.Sources.ServiceEvent import ServiceEvent
 from Components.VariableValue import VariableValue
 from Components.config import config
-# from six import text_type
 from enigma import eSlider
 import json
 import os
-# import re
 import socket
 import sys
-
-# from re import search, sub, I, S
 from .Converlibr import convtext, quoteEventName
 
 global cur_skin, my_cur_skin, tmdb_api
@@ -59,22 +55,6 @@ thetvdbkey = 'D19315B88B2DE21F'
 # thetvdbkey = "a99d487bb3426e5f3a60dea6d3d3c7ef"
 
 
-def isMountReadonly(mnt):
-    mount_point = ''
-    with open('/proc/mounts') as f:
-        for line in f:
-            line = line.split(',')[0]
-            line = line.split()
-            print('line ', line)
-            try:
-                device, mount_point, filesystem, flags = line
-            except Exception as err:
-                print("Error: %s" % err)
-            if mount_point == mnt:
-                return 'ro' in flags
-    return "mount: '%s' doesn't exist" % mnt
-
-
 def isMountedInRW(mount_point):
     with open("/proc/mounts", "r") as f:
         for line in f:
@@ -86,6 +66,7 @@ def isMountedInRW(mount_point):
 
 my_cur_skin = False
 cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
+
 path_folder = "/tmp/poster"
 if os.path.exists("/media/hdd"):
     if isMountedInRW("/media/hdd"):
@@ -122,16 +103,6 @@ try:
 except Exception as e:
     print("Errore nel caricamento delle API:", str(e))
     my_cur_skin = False
-
-
-def OnclearMem():
-    try:
-        os.system('sync')
-        os.system('echo 1 > /proc/sys/vm/drop_caches')
-        os.system('echo 2 > /proc/sys/vm/drop_caches')
-        os.system('echo 3 > /proc/sys/vm/drop_caches')
-    except:
-        pass
 
 
 def intCheck():
@@ -176,8 +147,15 @@ class AglareStarX(VariableValue, Renderer):
             self.event = self.source.event
             if not self.event:
                 return
-            self.evntNm = convtext(self.event.getEventName().replace('\xc2\x86', '').replace('\xc2\x87', ''))
-            dwn_infos = "%s/%s" % (path_folder, self.evntNm)
+            if PY3:
+                self.evntNm = self.event.getEventName().replace('\xc2\x86', '').replace('\xc2\x87', '')
+            else:
+                self.evntNm = self.event.getEventName().replace('\xc2\x86', '').replace('\xc2\x87', '').encode('utf-8')
+            self.pstcanal = convtext(self.evntNm) if self.evntNm else None
+            if not self.pstcanal:
+                print('Evento non trovato per la visualizzazione del poster')
+                return
+            dwn_infos = "%s/%s" % (path_folder, self.pstcanal)
             if not os.path.exists(dwn_infos):
                 self.download_and_save_info(dwn_infos)
             else:

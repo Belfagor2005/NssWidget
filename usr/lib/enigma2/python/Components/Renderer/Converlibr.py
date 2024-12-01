@@ -136,6 +136,8 @@ def convtext(text=''):
                 text = "the " + text[:-4]
 
             # Modifiche personalizzate
+            if 'c.s.i.' in text:
+                text = 'csi'
             if 'giochi olimpici parigi' in text:
                 text = 'olimpiadi di parigi'
             if 'bruno barbieri' in text:
@@ -168,7 +170,36 @@ def convtext(text=''):
                 text = 'alessandroborgheseristoranti'
             if 'amici di maria' in text:
                 text = 'amicidimariadefilippi'
-
+            if 'csi: scena del crimine' in text:
+                text = 'csi scena del crimine'
+            if 'csi: miami' in text:
+                text = 'csi miami'
+            if 'csi: new york' in text:
+                text = 'csi new york'
+            if 'csi: vegas' in text:
+                text = 'csi vegas'
+            if 'csi: cyber' in text:
+                text = 'csi cyber'
+            if 'csi: immortality' in text:
+                text = 'csi immortality'
+            if 'csi: crime scene talks' in text:
+                text = 'csi crime scene talks'
+            if 'alexa: vita da detective' in text:
+                text = 'alexa vita da detective'
+            if 'delitti in paradiso' in text:
+                text = 'delitti in paradiso'
+            if 'modern family' in text:
+                text = 'modern family'
+            if 'shaun: vita da pecora' in text:
+                text = 'shaun'
+            if 'calimero' in text:
+                text = 'calimero'
+            if 'i puffi' in text:
+                text = 'i puffi'
+            if 'stuart little' in text:
+                text = 'stuart little'
+            if 'grande fratello' in text:
+                text = 'grande fratello'
             text = text.replace('1/2', 'mezzo')
 
             # Sostituisci caratteri speciali con stringhe vuote
@@ -177,27 +208,20 @@ def convtext(text=''):
             text = text.replace('prima visione', '').replace('1^ tv', '').replace('((', '(').replace('))', ')')
             text = text.replace('live:', '').replace(' - prima tv', '')
 
-            # # Gestione casi specifici
-            # replacements = {
-                # 'giochi olimpici parigi': 'olimpiadi di parigi',
-                # 'bruno barbieri': 'brunobarbierix',
-                # "anni '60": 'anni 60',
-                # 'tg regione': 'tg3',
-                # 'studio aperto': 'studio aperto',
-                # 'josephine ange gardien': 'josephine ange gardien',
-                # 'elementary': 'elementary',
-                # 'squadra speciale cobra 11': 'squadra speciale cobra 11',
-                # 'criminal minds': 'criminal minds',
-                # 'i delitti del barlume': 'i delitti del barlume',
-                # 'senza traccia': 'senza traccia',
-                # 'hudson e rex': 'hudson e rex',
-                # 'ben-hur': 'ben-hur',
-                # 'la7': 'la7',
-                # 'skytg24': 'skytg24'
-            # }
-            # for key, value in replacements.items():
-                # if key in text:
-                    # text = text.replace(key, value)
+            cutlist = ['x264', '720p', '1080p', '1080i', 'pal', 'german', 'english', 'ws', 'dvdrip', 'unrated',
+                       'retail', 'web-dl', 'dl', 'ld', 'mic', 'md', 'dvdr', 'bdrip', 'bluray', 'dts', 'uncut', 'anime',
+                       'ac3md', 'ac3', 'ac3d', 'ts', 'dvdscr', 'complete', 'internal', 'dtsd', 'xvid', 'divx', 'dubbed',
+                       'line.dubbed', 'dd51', 'dvdr9', 'dvdr5', 'h264', 'avc', 'webhdtvrip', 'webhdrip', 'webrip',
+                       'webhdtv', 'webhd', 'hdtvrip', 'hdrip', 'hdtv', 'ituneshd', 'repack', 'sync', '1^tv', '1^ tv',
+                       '1^ visione rai', '1^ visione', ' - prima tv', ' - primatv', 'prima visione',
+                       'film -', 'first screening', 'live:', 'new:', 'film:', 'première diffusion',
+                       'premiere:', 'estreno:', 'nueva emisión:', 'en vivo:', 'nouveau:', 'en direct:',
+                       ]
+            for word in cutlist:
+                text = text.replace(word, '')
+            # text = ' '.join(text.split())
+            print(text)
+
             # Rimozione pattern specifici
             text = re.sub(r'^\w{2}:', '', text)  # Rimuove "xx:" all'inizio
             text = re.sub(r'^\w{2}\|\w{2}\s', '', text)  # Rimuove "xx|xx" all'inizio

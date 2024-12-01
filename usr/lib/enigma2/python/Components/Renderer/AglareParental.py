@@ -9,40 +9,12 @@ from enigma import ePixmap, eTimer, loadPNG
 import json
 import os
 import re
-import socket
 import sys
-# from six import text_type
-# from re import sub, I, S, escape
 from .Converlibr import convtext
 
 PY3 = False
 if sys.version_info[0] >= 3:
     PY3 = True
-    import html
-    html_parser = html
-    from urllib.error import HTTPError, URLError
-    from urllib.request import urlopen
-else:
-    from urllib2 import HTTPError, URLError
-    from urllib2 import urlopen
-    from HTMLParser import HTMLParser
-    html_parser = HTMLParser()
-
-
-def isMountReadonly(mnt):
-    mount_point = ''
-    with open('/proc/mounts') as f:
-        for line in f:
-            line = line.split(',')[0]
-            line = line.split()
-            print('line ', line)
-            try:
-                device, mount_point, filesystem, flags = line
-            except Exception as err:
-                print("Error: %s" % err)
-            if mount_point == mnt:
-                return 'ro' in flags
-    return "mount: '%s' doesn't exist" % mnt
 
 
 def isMountedInRW(mount_point):
@@ -71,29 +43,6 @@ if not os.path.exists(path_folder):
     os.makedirs(path_folder)
 
 
-def OnclearMem():
-    try:
-        os.system('sync')
-        os.system('echo 1 > /proc/sys/vm/drop_caches')
-        os.system('echo 2 > /proc/sys/vm/drop_caches')
-        os.system('echo 3 > /proc/sys/vm/drop_caches')
-    except:
-        pass
-
-
-def intCheck():
-    try:
-        response = urlopen("http://google.com", None, 5)
-        response.close()
-    except HTTPError:
-        return False
-    except URLError:
-        return False
-    except socket.timeout:
-        return False
-    return True
-
-
 class AglareParental(Renderer):
 
     def __init__(self):
@@ -102,15 +51,12 @@ class AglareParental(Renderer):
     GUI_WIDGET = ePixmap
 
     def changed(self, what):
-        try:
-            if not self.instance:
-                return
-            if what[0] == self.CHANGED_CLEAR:
-                self.instance.hide()
-            if what[0] != self.CHANGED_CLEAR:
-                self.delay()
-        except:
-            pass
+        if not self.instance:
+            return
+        if what[0] == self.CHANGED_CLEAR:
+            self.instance.hide()
+        if what[0] != self.CHANGED_CLEAR:
+            self.delay()
 
     def showParental(self):
         self.event = self.source.event
@@ -136,7 +82,7 @@ class AglareParental(Renderer):
 
                     self.pstcanal = convtext(eventNm) if eventNm else None
                     if not self.pstcanal:
-                        print('Evento non trovato per la visualizzazione del poster')
+                        print('Event non trovato per la visualizzazione del poster')
                         return
 
                     infos_file = "%s%s.json" % (path_folder, self.pstcanal)
@@ -158,7 +104,7 @@ class AglareParental(Renderer):
             else:
                 self.instance.hide()
         except Exception as e:
-            print("Errore in showParental:", e)
+            print("Error in showParental:", e)
             self.instance.hide()
 
     def delay(self):

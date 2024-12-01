@@ -19,6 +19,8 @@ import json
 from random import choice
 from requests import get, exceptions
 from twisted.internet.reactor import callInThread
+from .Converlibr import quoteEventName
+
 
 try:
     from http.client import HTTPConnection
@@ -43,11 +45,9 @@ else:
 try:
     from urllib.error import URLError, HTTPError
     from urllib.request import urlopen
-    from urllib.parse import quote_plus
 except:
     from urllib2 import URLError, HTTPError
     from urllib2 import urlopen
-    from urllib import quote_plus
 
 
 try:
@@ -81,15 +81,6 @@ thetvdbkey = "a99d487bb3426e5f3a60dea6d3d3c7ef"
 fanart_api = "6d231536dea4318a88cb2520ce89473b"
 my_cur_skin = False
 cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
-
-
-def clean_recursive(regexStr="", replaceStr="", eventTitle=""):
-    while True:
-        clean_name = re.sub(regexStr, replaceStr, eventTitle)
-        if clean_name == eventTitle:
-            break
-        eventTitle = clean_name
-    return clean_name
 
 
 try:
@@ -152,30 +143,6 @@ def intCheck():
     except socket.timeout:
         return False
     return True
-
-
-def quoteEventName(eventName):
-    try:
-        text = eventName.decode('utf8').replace(u'\x86', u'').replace(u'\x87', u'').encode('utf8')
-    except:
-        text = eventName
-    return quote_plus(text, safe="+")
-
-
-def dataenc(data):
-    if PY3:
-        data = data.decode("utf-8")
-    else:
-        data = data.encode("utf-8")
-    return data
-
-
-def sanitize_filename(filename):
-    # Replace spaces with underscores and remove invalid characters (like ':')
-    sanitized = re.sub(r'[^\w\s-]', '', filename)  # Remove invalid characters
-    # sanitized = sanitized.replace(' ', '_')      # Replace spaces with underscores
-    # sanitized = sanitized.replace('-', '_')      # Replace dashes with underscores
-    return sanitized.strip()
 
 
 class AglareBackdropXDownloadThread(threading.Thread):
@@ -803,9 +770,6 @@ class AglareBackdropXDownloadThread(threading.Thread):
         string = re.sub(r"u003d", "=", string)
         string = re.sub(r'[\u0300-\u036f]', '', string)
         string = re.sub(r"[,!?\.\"]", ' ', string)
-        # string = re.sub(r"[-/:']", '', string)
-        # string = re.sub(r"[^a-zA-Z0-9 ]", "", string)
-        # string = string.lower()
         string = re.sub(r'\s+', ' ', string)
         string = string.strip()
         return string

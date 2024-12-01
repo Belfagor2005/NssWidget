@@ -12,7 +12,6 @@ from __future__ import absolute_import
 from Components.Renderer.Renderer import Renderer
 from Components.VariableText import VariableText
 from Components.config import config
-# from six import text_type
 from enigma import (
     eLabel,
     eEPGCache,
@@ -25,27 +24,20 @@ import re
 import socket
 import sys
 import NavigationInstance
-# from re import sub, I, S, escape
 from .Converlibr import convtext, quoteEventName
 global my_cur_skin, path_folder
 
-
+my_cur_skin = False
 PY3 = False
 if sys.version_info[0] >= 3:
     PY3 = True
-    from urllib.request import urlopen
     from _thread import start_new_thread
     from urllib.error import HTTPError, URLError
-    import html
-    html_parser = html
-
-
+    from urllib.request import urlopen
 else:
-    from urllib2 import urlopen
     from thread import start_new_thread
     from urllib2 import HTTPError, URLError
-    from HTMLParser import HTMLParser
-    html_parser = HTMLParser()
+    from urllib2 import urlopen
 
 
 tmdb_api = "3c3efcf47c3577558812bb9d64019d65"
@@ -53,24 +45,6 @@ omdb_api = "cb1d9f55"
 thetvdbkey = 'D19315B88B2DE21F'
 # thetvdbkey = "a99d487bb3426e5f3a60dea6d3d3c7ef"
 epgcache = eEPGCache.getInstance()
-my_cur_skin = False
-cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
-
-
-def isMountReadonly(mnt):
-    mount_point = ''
-    with open('/proc/mounts') as f:
-        for line in f:
-            line = line.split(',')[0]
-            line = line.split()
-            print('line ', line)
-            try:
-                device, mount_point, filesystem, flags = line
-            except Exception as err:
-                print("Error: %s" % err)
-            if mount_point == mnt:
-                return 'ro' in flags
-    return "mount: '%s' doesn't exist" % mnt
 
 
 def isMountedInRW(mount_point):
@@ -82,6 +56,7 @@ def isMountedInRW(mount_point):
     return False
 
 
+cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
 path_folder = "/tmp/poster"
 if os.path.exists("/media/hdd"):
     if isMountedInRW("/media/hdd"):
@@ -118,16 +93,6 @@ try:
 except Exception as e:
     print("Errore nel caricamento delle API:", str(e))
     my_cur_skin = False
-
-
-def OnclearMem():
-    try:
-        os.system('sync')
-        os.system('echo 1 > /proc/sys/vm/drop_caches')
-        os.system('echo 2 > /proc/sys/vm/drop_caches')
-        os.system('echo 3 > /proc/sys/vm/drop_caches')
-    except:
-        pass
 
 
 def intCheck():

@@ -32,7 +32,6 @@ from Components.Sources.EventInfo import EventInfo
 from Components.Sources.ServiceEvent import ServiceEvent
 from Components.config import config
 from ServiceReference import ServiceReference
-# from six import text_type
 from enigma import (
     ePixmap,
     loadJPG,
@@ -41,38 +40,23 @@ from enigma import (
 )
 import NavigationInstance
 import os
-# import re
-# import shutil
 import socket
 import sys
 import time
-# from re import search, sub, I, S, escape
 from .Converlibr import convtext
 
 PY3 = False
 if sys.version_info[0] >= 3:
     PY3 = True
     import queue
-    import html
-    html_parser = html
     from _thread import start_new_thread
     from urllib.error import HTTPError, URLError
     from urllib.request import urlopen
-    # from urllib.parse import quote_plus
 else:
     import Queue
     from thread import start_new_thread
     from urllib2 import HTTPError, URLError
     from urllib2 import urlopen
-    # from urllib import quote_plus
-    from HTMLParser import HTMLParser
-    html_parser = HTMLParser()
-
-
-# try:
-    # from urllib import unquote, quote
-# except ImportError:
-    # from urllib.parse import unquote, quote
 
 
 epgcache = eEPGCache.getInstance()
@@ -80,22 +64,6 @@ if PY3:
     pdb = queue.LifoQueue()
 else:
     pdb = Queue.LifoQueue()
-
-
-def isMountReadonly(mnt):
-    mount_point = ''
-    with open('/proc/mounts') as f:
-        for line in f:
-            line = line.split(',')[0]
-            line = line.split()
-            print('line ', line)
-            try:
-                device, mount_point, filesystem, flags = line
-            except Exception as err:
-                print("Error: %s" % err)
-            if mount_point == mnt:
-                return 'ro' in flags
-    return "mount: '%s' doesn't exist" % mnt
 
 
 def isMountedInRW(mount_point):
@@ -119,6 +87,7 @@ elif os.path.exists("/media/usb"):
 elif os.path.exists("/media/mmc"):
     if isMountedInRW("/media/mmc"):
         path_folder = "/media/mmc/backdrop"
+
 if not os.path.exists(path_folder):
     os.makedirs(path_folder)
 
@@ -154,39 +123,40 @@ def SearchBouquetTerrestrial():
                     break
 
 
-if SearchBouquetTerrestrial():
-    autobouquet_file = SearchBouquetTerrestrial()
-else:
-    autobouquet_file = '/etc/enigma2/userbouquet.favourites.tv'
-# print('autobouquet_file = ', autobouquet_file)
-autobouquet_count = 70
-# Short script for Automatic poster generation on your preferred bouquet
-if not os.path.exists(autobouquet_file):
-    autobouquet_file = None
-    autobouquet_count = 0
-else:
-    with open(autobouquet_file, 'r') as f:
-        lines = f.readlines()
-    if autobouquet_count > len(lines):
-        autobouquet_count = len(lines)
-    for i in range(autobouquet_count):
-        if '#SERVICE' in lines[i]:
-            line = lines[i][9:].strip().split(':')
-            if len(line) == 11:
-                value = ':'.join((line[3], line[4], line[5], line[6]))
-                if value != '0:0:0:0':
-                    service = ':'.join((line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10]))
-                    apdb[i] = service
+autobouquet_file = None
 
 
-def OnclearMem():
+def process_autobouquet():
+    global autobouquet_file
+    autobouquet_file = SearchBouquetTerrestrial() or '/etc/enigma2/userbouquet.favourites.tv'
+    autobouquet_count = 70
+    apdb = {}
+
+    if not os.path.exists(autobouquet_file):
+        print("File non trovato:", autobouquet_file)
+        return {}
+
     try:
-        os.system('sync')
-        os.system('echo 1 > /proc/sys/vm/drop_caches')
-        os.system('echo 2 > /proc/sys/vm/drop_caches')
-        os.system('echo 3 > /proc/sys/vm/drop_caches')
-    except:
-        pass
+        with open(autobouquet_file, 'r') as f:
+            lines = f.readlines()
+    except (IOError, OSError) as e:
+        print("Errore nella lettura del file:", e)
+        return {}
+
+    autobouquet_count = min(autobouquet_count, len(lines))
+
+    for i, line in enumerate(lines[:autobouquet_count]):
+        if line.startswith('#SERVICE'):
+            parts = line[9:].strip().split(':')
+            if len(parts) == 11 and ':'.join(parts[3:7]) != '0:0:0:0':
+                apdb[i] = ':'.join(parts)
+
+    print("Trovati", len(apdb), "servizi validi.")
+    return apdb
+
+
+# Esecuzione della funzione
+apdb = process_autobouquet()
 
 
 def intCheck():
@@ -302,6 +272,7 @@ class BackdropAutoDB(AglareBackdropXDownloadThread):
                             if not self.pstcanal:
                                 print('none type xxxxxxxxxx- posterx')
                                 return
+
                             dwn_backdrop = os.path.join(path_folder, self.pstcanal + ".jpg")
                             if os.path.exists(dwn_backdrop):
                                 os.utime(dwn_backdrop, (time.time(), time.time()))
@@ -387,7 +358,6 @@ class AglareBackdropX(Renderer):
             self.timer_conn = self.timer.timeout.connect(self.showBackdrop)
         except:
             self.timer.callback.append(self.showBackdrop)
-        # self.timer.start(10, True)
 
     def applySkin(self, desktop, parent):
         attribs = []

@@ -10,9 +10,7 @@
 # recode from lululla 2023
 from __future__ import print_function
 from Components.Renderer.Renderer import Renderer
-from Components.Sources.ServiceEvent import ServiceEvent
 from Components.config import config
-# from six import text_type
 from enigma import (
     ePixmap,
     loadPNG,
@@ -21,34 +19,11 @@ import re
 import json
 import os
 import sys
-import socket
-# from re import sub, I, S, escape
 from .Converlibr import convtext
 
 PY3 = False
 if sys.version_info[0] >= 3:
     PY3 = True
-    from urllib.request import urlopen
-    from urllib.error import HTTPError, URLError
-else:
-    from urllib2 import urlopen
-    from urllib2 import HTTPError, URLError
-
-
-def isMountReadonly(mnt):
-    mount_point = ''
-    with open('/proc/mounts') as f:
-        for line in f:
-            line = line.split(',')[0]
-            line = line.split()
-            print('line ', line)
-            try:
-                device, mount_point, filesystem, flags = line
-            except Exception as err:
-                print("Error: %s" % err)
-            if mount_point == mnt:
-                return 'ro' in flags
-    return "mount: '%s' doesn't exist" % mnt
 
 
 def isMountedInRW(mount_point):
@@ -78,29 +53,6 @@ if not os.path.exists(path_folder):
     os.makedirs(path_folder)
 
 
-def OnclearMem():
-    try:
-        os.system('sync')
-        os.system('echo 1 > /proc/sys/vm/drop_caches')
-        os.system('echo 2 > /proc/sys/vm/drop_caches')
-        os.system('echo 3 > /proc/sys/vm/drop_caches')
-    except:
-        pass
-
-
-def intCheck():
-    try:
-        response = urlopen("http://google.com", None, 5)
-        response.close()
-    except HTTPError:
-        return False
-    except URLError:
-        return False
-    except socket.timeout:
-        return False
-    return True
-
-
 class AglarerGenre(Renderer):
 
     def __init__(self):
@@ -123,12 +75,14 @@ class AglarerGenre(Renderer):
         self.event = self.source.event
         if not self.event:
             return
+
         if self.event and self.event != 'None' or self.event is not None:
             try:
                 if PY3:
                     self.evnt = self.event.getEventName().replace('\xc2\x86', '').replace('\xc2\x87', '')  # .encode('utf-8')
                 else:
                     self.evnt = self.event.getEventName().replace('\xc2\x86', '').replace('\xc2\x87', '').encode('utf-8')
+
                 self.evntNm = convtext(self.evnt)
                 infos_file = "{}/{}".format(path_folder, self.evntNm)
                 if os.path.exists(infos_file):
@@ -136,9 +90,9 @@ class AglarerGenre(Renderer):
                         genreTxt = json.load(f)['Genre']
                         genreTxt = genreTxt.split(",")[0]
                         print('genreTxt name: ', genreTxt)
+
                 if genreTxt is not None:
                     try:
-
                         gData = self.event.getGenreData()
                         if gData:
                             genreTxt = {
@@ -191,6 +145,7 @@ class AglarerGenre(Renderer):
                     self.instance.setPixmap(loadPNG(png))
                     self.instance.setScale(1)
                     self.instance.show()
+
                 if not found:
                     try:
                         print('No Found Genre : ', found)
