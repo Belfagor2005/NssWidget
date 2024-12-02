@@ -5,6 +5,8 @@ import re
 from re import search, sub, I, S, escape
 from six import text_type
 import sys
+import unicodedata
+
 
 PY3 = False
 if sys.version_info[0] >= 3:
@@ -50,16 +52,24 @@ REGEX = re.compile(
     re.DOTALL)
 
 
+# def remove_accents(string):
+    # if not isinstance(string, text_type):
+        # string = text_type(string, 'utf-8')
+    # string = sub(u"[àáâãäå]", 'a', string)
+    # string = sub(u"[èéêë]", 'e', string)
+    # string = sub(u"[ìíîï]", 'i', string)
+    # string = sub(u"[òóôõö]", 'o', string)
+    # string = sub(u"[ùúûü]", 'u', string)
+    # string = sub(u"[ýÿ]", 'y', string)
+    # return string
+
+
 def remove_accents(string):
-    if not isinstance(string, text_type):
-        string = text_type(string, 'utf-8')
-    string = sub(u"[àáâãäå]", 'a', string)
-    string = sub(u"[èéêë]", 'e', string)
-    string = sub(u"[ìíîï]", 'i', string)
-    string = sub(u"[òóôõö]", 'o', string)
-    string = sub(u"[ùúûü]", 'u', string)
-    string = sub(u"[ýÿ]", 'y', string)
-    return string
+    # Normalizza la stringa in forma NFD (separa i caratteri dai loro segni diacritici)
+    normalized = unicodedata.normalize('NFD', string)
+    # Rimuove tutti i segni diacritici utilizzando una regex
+    without_accents = re.sub(r'[\u0300-\u036f]', '', normalized)
+    return without_accents
 
 
 def unicodify(s, encoding='utf-8', norm=None):
@@ -138,17 +148,27 @@ def convtext(text=''):
             # Modifiche personalizzate
             if 'c.s.i.' in text:
                 text = 'csi'
+            if 'lingo: parole' in text:
+                text = 'lingo'
+            if 'io & marilyn' in text:
+                text = 'io e marilyn'
             if 'giochi olimpici parigi' in text:
                 text = 'olimpiadi di parigi'
             if 'bruno barbieri' in text:
                 text = text.replace('bruno barbieri', 'brunobarbierix')
             if "anni '60" in text:
                 text = "anni 60"
+            if "cortesie per gli ospiti" in text:
+                text = "cortesieospiti"
             if 'tg regione' in text:
                 text = 'tg3'
+            if 'planet earth' in text:
+                text = 'planet earth'
             if 'studio aperto' in text:
                 text = 'studio aperto'
             if 'josephine ange gardien' in text:
+                text = 'josephine ange gardien'
+            if 'josephine angelo' in text:
                 text = 'josephine ange gardien'
             if 'elementary' in text:
                 text = 'elementary'
@@ -172,6 +192,8 @@ def convtext(text=''):
                 text = 'amicimaria'
             if 'csi: scena del crimine' in text:
                 text = 'csi scena del crimine'
+            if 'csi miami' in text:
+                text = 'csi miami'                
             if 'csi: miami' in text:
                 text = 'csi miami'
             if 'csi: new york' in text:
@@ -200,6 +222,15 @@ def convtext(text=''):
                 text = 'stuart little'
             if 'grande fratello' in text:
                 text = 'grande fratello'
+            if 'castle' in text:
+                text = 'castle'
+            if 'seal team' in text:
+                text = 'seal team'
+            if 'fast forward' in text:
+                text = 'fast forward'
+            if 'un posto al sole' in text:
+                text = 'un posto al sole'
+
 
             text = text.replace('1/2', 'mezzo')
 
@@ -278,6 +309,7 @@ def convtext(text=''):
             text = text.replace('alessandroborgheseristoranti', 'alessandro borghese - 4 ristoranti')
             text = text.replace('brunobarbierix', 'bruno barbieri - 4 hotel')
             text = text.replace('il ritorno di colombo', 'colombo')
+            text = text.replace('cortesieospiti', 'cortesie per gli ospiti')
             # text = quote(text, safe="")
             # text = unquote(text)
             print('text safe:', text)

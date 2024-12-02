@@ -156,6 +156,7 @@ class AglarePosterXEMC(Renderer):
         self.canal = [None, None, None, None, None, None]
         self.logdbg = None
         self.pstcanal = None
+        self.path = path_folder
 
         self.timer = eTimer()
         try:
