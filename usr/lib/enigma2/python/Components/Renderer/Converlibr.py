@@ -137,6 +137,19 @@ def convtext(text=''):
 
             text = text.lstrip()
 
+            # Modifiche personalizzate
+            if 'c.s.i.' in text:
+                text = 'csi'
+            if 'csi miami' in text:
+                text = 'csi miami'
+            if 'walker, texas ranger' in text:
+                text = 'walker texas ranger'
+            if 'superman & lois' in text:
+                text = 'superman e lois'
+            if 'lois & clark' in text:
+                text = 'superman e lois'
+            if 'e.r.' in text:
+                text = 'ermediciinprimalinea'
             # Applica le funzioni di taglio e pulizia del titolo
             text = cutName(text)
             text = getCleanTitle(text)
@@ -146,10 +159,10 @@ def convtext(text=''):
                 text = "the " + text[:-4]
 
             # Modifiche personalizzate
-            if 'c.s.i.' in text:
-                text = 'csi'
             if 'lingo: parole' in text:
                 text = 'lingo'
+            if 'heartland' in text:
+                text = 'heartland'
             if 'io & marilyn' in text:
                 text = 'io e marilyn'
             if 'giochi olimpici parigi' in text:
@@ -190,12 +203,10 @@ def convtext(text=''):
                 text = 'alessandroborgheseristoranti'
             if 'amici di maria' in text:
                 text = 'amicimaria'
-            if 'csi: scena del crimine' in text:
-                text = 'csi scena del crimine'
-            if 'csi miami' in text:
-                text = 'csi miami'                
             if 'csi: miami' in text:
                 text = 'csi miami'
+            if 'csi: scena del crimine' in text:
+                text = 'csi scena del crimine'
             if 'csi: new york' in text:
                 text = 'csi new york'
             if 'csi: vegas' in text:
@@ -230,7 +241,6 @@ def convtext(text=''):
                 text = 'fast forward'
             if 'un posto al sole' in text:
                 text = 'un posto al sole'
-
 
             text = text.replace('1/2', 'mezzo')
 
@@ -310,6 +320,7 @@ def convtext(text=''):
             text = text.replace('brunobarbierix', 'bruno barbieri - 4 hotel')
             text = text.replace('il ritorno di colombo', 'colombo')
             text = text.replace('cortesieospiti', 'cortesie per gli ospiti')
+            text = text.replace('ermediciinprimalinea', 'er medici in prima linea')
             # text = quote(text, safe="")
             # text = unquote(text)
             print('text safe:', text)
