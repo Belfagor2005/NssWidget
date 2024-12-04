@@ -16,11 +16,15 @@ from enigma import ePixmap, eTimer, loadJPG, eEPGCache
 from Components.Sources.ServiceEvent import ServiceEvent
 from Components.Sources.CurrentService import CurrentService
 from Components.Renderer.AglarePosterXDownloadThread import AglarePosterXDownloadThread
+from Components.config import config
 import os
+import socket
 import sys
 import re
 import time
-import socket
+import traceback
+# import datetime
+
 from .Converlibr import convtext
 
 PY3 = False
@@ -42,13 +46,6 @@ if PY3:
     pdbemc = queue.LifoQueue()
 else:
     pdbemc = Queue.LifoQueue()
-
-try:
-    from Components.config import config
-    lng = config.osd.language.value
-except:
-    lng = None
-    pass
 
 
 def isMountedInRW(mount_point):
@@ -73,6 +70,13 @@ elif os.path.exists("/media/mmc"):
 
 if not os.path.exists(path_folder):
     os.makedirs(path_folder)
+
+try:
+    lng = config.osd.language.value
+    lng = lng[:-3]
+except:
+    lng = 'en'
+    pass
 
 
 def intCheck():
@@ -103,8 +107,9 @@ class PosterDBEMC(AglarePosterXDownloadThread):
             if self.pstcanal is not None:
                 dwn_poster = path_folder + '/' + self.pstcanal + ".jpg"
             else:
-                print('none type xxxxxxxxxx- posterx')
-                return
+                print("None type detected - poster not found")
+                pdbemc.task_done()  # Per evitare il blocco del thread
+                continue
             if os.path.exists(dwn_poster):
                 os.utime(dwn_poster, (time.time(), time.time()))
             '''
@@ -134,7 +139,6 @@ class PosterDBEMC(AglarePosterXDownloadThread):
             pdbemc.task_done()
 
     def logDB(self, logmsg):
-        import traceback
         try:
             with open("/tmp/AglarePosterXEMC.log", "a") as w:
                 w.write("%s\n" % logmsg)
@@ -218,6 +222,7 @@ class AglarePosterXEMC(Renderer):
                     if not self.canal[2]:
                         self.canal[2] = cn[0][1].strip()
                 self.logPoster("Service : {} - {} => {}".format(self.canal[0], self.canal[2], self.canal[5]))
+
                 if self.canal[5]:
                     self.timer.start(10, True)
                 elif self.canal[0] and self.canal[2]:
@@ -270,7 +275,7 @@ class AglarePosterXEMC(Renderer):
     def logPoster(self, logmsg):
         import traceback
         try:
-            with open("/tmp/AglarePosterXEMC.log", "a") as w:
+            with open("/tmp/PosterXEMC.log", "a") as w:
                 w.write("%s\n" % logmsg)
         except Exception as e:
             print('logPoster error:', str(e))

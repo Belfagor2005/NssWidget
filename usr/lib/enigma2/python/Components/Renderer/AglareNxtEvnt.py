@@ -1,3 +1,13 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+# by digiteng...05.2020, 07.2020, 11.2021
+# for channellist,
+# <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="1" font="Regular;20" position="933,705" size="240,80" zPosition="5" backgroundColor="yellow" transparent="1" />
+# <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="2" font="Regular;20" position="1178,705" size="240,80" zPosition="5" backgroundColor="yellow" transparent="1" />
+# <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="3" font="Regular;20" position="1422,705" size="240,80" zPosition="5" backgroundColor="yellow" transparent="1" />
+# <widget source="ServiceEvent" render="AglareNxtEvnt" nxtEvents="" snglEvent="4" font="Regular;20" position="1666,705" size="240,80" zPosition="5" backgroundColor="yellow" transparent="1" />
+# nxtEvents or snglEvent must be empty...
 from __future__ import absolute_import
 from Components.Renderer.Renderer import Renderer
 from enigma import eLabel, eEPGCache
@@ -17,6 +27,7 @@ class AglareNxtEvnt(Renderer, VariableText):
     def __init__(self):
         Renderer.__init__(self)
         VariableText.__init__(self)
+        self.nxEvnt = 0
         self.snglEvnt = 0
         self.epgcache = eEPGCache.getInstance()
 

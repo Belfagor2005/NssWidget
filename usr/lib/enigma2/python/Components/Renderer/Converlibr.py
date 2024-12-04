@@ -2,11 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import re
-from re import search, sub, I, S, escape
+from re import sub
 from six import text_type
 import sys
-import unicodedata
-
+from unicodedata import normalize
 
 PY3 = False
 if sys.version_info[0] >= 3:
@@ -52,21 +51,23 @@ REGEX = re.compile(
     re.DOTALL)
 
 
-# def remove_accents(string):
-    # if not isinstance(string, text_type):
-        # string = text_type(string, 'utf-8')
-    # string = sub(u"[àáâãäå]", 'a', string)
-    # string = sub(u"[èéêë]", 'e', string)
-    # string = sub(u"[ìíîï]", 'i', string)
-    # string = sub(u"[òóôõö]", 'o', string)
-    # string = sub(u"[ùúûü]", 'u', string)
-    # string = sub(u"[ýÿ]", 'y', string)
-    # return string
+'''
+def remove_accents(string):
+    if not isinstance(string, text_type):
+        string = text_type(string, 'utf-8')
+    string = sub(u"[àáâãäå]", 'a', string)
+    string = sub(u"[èéêë]", 'e', string)
+    string = sub(u"[ìíîï]", 'i', string)
+    string = sub(u"[òóôõö]", 'o', string)
+    string = sub(u"[ùúûü]", 'u', string)
+    string = sub(u"[ýÿ]", 'y', string)
+    return string
+'''
 
 
 def remove_accents(string):
     # Normalizza la stringa in forma NFD (separa i caratteri dai loro segni diacritici)
-    normalized = unicodedata.normalize('NFD', string)
+    normalized = normalize('NFD', string)
     # Rimuove tutti i segni diacritici utilizzando una regex
     without_accents = re.sub(r'[\u0300-\u036f]', '', normalized)
     return without_accents
@@ -76,7 +77,6 @@ def unicodify(s, encoding='utf-8', norm=None):
     if not isinstance(s, text_type):
         s = text_type(s, encoding)
     if norm:
-        from unicodedata import normalize
         s = normalize(norm, s)
     return s
 
@@ -137,19 +137,86 @@ def convtext(text=''):
 
             text = text.lstrip()
 
-            # Modifiche personalizzate
-            if 'c.s.i.' in text:
-                text = 'csi'
-            if 'csi miami' in text:
-                text = 'csi miami'
-            if 'walker, texas ranger' in text:
-                text = 'walker texas ranger'
-            if 'superman & lois' in text:
-                text = 'superman e lois'
-            if 'lois & clark' in text:
-                text = 'superman e lois'
-            if 'e.r.' in text:
-                text = 'ermediciinprimalinea'
+            # Mappatura sostituzioni con azione specifica
+            sostituzioni = [
+                ('superman & lois', 'superman e lois', 'set'),
+                ('lois & clark', 'superman e lois', 'set'),
+
+                ('1/2', 'mezzo', 'replace'),
+                ('tg1', 'tguno', 'replace'),
+                ('c.s.i.', 'csi', 'replace'),
+                ('c.s.i:', 'csi', 'replace'),
+                ('ritorno al futuro:', 'ritorno al futuro', 'replace'),
+
+                ('lingo: parole', 'lingo', 'set'),
+                ('heartland', 'heartland', 'set'),
+                ('io & marilyn', 'io e marilyn', 'set'),
+                ('giochi olimpici parigi', 'olimpiadi di parigi', 'set'),
+                ('bruno barbieri', 'brunobarbierix', 'set'),
+                ("anni '60", 'anni 60', 'set'),
+                ('cortesie per gli ospiti', 'cortesieospiti', 'set'),
+                ('tg regione', 'tg3', 'set'),
+
+                ('planet earth', 'planet earth', 'set'),
+                ('studio aperto', 'studio aperto', 'set'),
+                ('josephine ange gardien', 'josephine ange gardien', 'set'),
+                ('josephine angelo', 'josephine ange gardien', 'set'),
+                ('elementary', 'elementary', 'set'),
+                ('squadra speciale cobra 11', 'squadra speciale cobra 11', 'set'),
+                ('criminal minds', 'criminal minds', 'set'),
+                ('i delitti del barlume', 'i delitti del barlume', 'set'),
+                ('senza traccia', 'senza traccia', 'set'),
+                ('hudson e rex', 'hudson e rex', 'set'),
+                ('ben-hur', 'ben-hur', 'set'),
+                ('alessandro borghese - 4 ristoranti', 'alessandroborgheseristoranti', 'set'),
+                ('alessandro borghese: 4 ristoranti', 'alessandroborgheseristoranti', 'set'),
+                ('amici di maria', 'amicimaria', 'set'),
+
+
+                ('csi miami', 'csi miami', 'set'),
+                ('csi: miami', 'csi miami', 'set'),
+                ('csi: scena del crimine', 'csi scena del crimine', 'set'),
+                ('csi: new york', 'csi new york', 'set'),
+                ('csi: vegas', 'csi vegas', 'set'),
+                ('csi: cyber', 'csi cyber', 'set'),
+                ('csi: immortality', 'csi immortality', 'set'),
+                ('csi: crime scene talks', 'csi crime scene talks', 'set'),
+
+                ('ncis:', 'ncis', 'set'),
+                ('ncis unità anticrimine', 'ncis unità anticrimine', 'set'),
+                ('ncis los angeles', 'ncis new orleans', 'set'),
+                ('ncis origins', 'ncis origins', 'set'),
+                ('ncis hawai', 'ncis hawai', 'set'),
+                ('ncis sydney', 'ncis sydney', 'set'),
+
+                ('ritorno al futuro - parte iii', 'ritornoalfuturoparteiii', 'set'),
+                ('ritorno al futuro - parte ii', 'ritornoalfuturoparteii', 'set'),
+                ('walker, texas ranger', 'walker texas ranger', 'set'),
+                ('e.r.', 'ermediciinprimalinea', 'set'),
+                ('alexa: vita da detective', 'alexa vita da detective', 'set'),
+                ('delitti in paradiso', 'delitti in paradiso', 'set'),
+                ('modern family', 'modern family', 'set'),
+                ('shaun: vita da pecora', 'shaun', 'set'),
+                ('calimero', 'calimero', 'set'),
+                ('i puffi', 'i puffi', 'set'),
+                ('stuart little', 'stuart little', 'set'),
+                ('gf daily', 'grande fratello', 'set'),
+                ('grande fratello', 'grande fratello', 'set'),
+                ('castle', 'castle', 'set'),
+                ('seal team', 'seal team', 'set'),
+                ('fast forward', 'fast forward', 'set'),
+                ('un posto al sole', 'un posto al sole', 'set'),
+            ]
+
+            # Applicazione delle sostituzioni
+            for parola, sostituto, metodo in sostituzioni:
+                if parola in text:
+                    if metodo == 'set':
+                        text = sostituto
+                        break
+                    elif metodo == 'replace':
+                        text = text.replace(parola, sostituto)
+
             # Applica le funzioni di taglio e pulizia del titolo
             text = cutName(text)
             text = getCleanTitle(text)
@@ -158,112 +225,24 @@ def convtext(text=''):
             if text.endswith("the"):
                 text = "the " + text[:-4]
 
-            # Modifiche personalizzate
-            if 'lingo: parole' in text:
-                text = 'lingo'
-            if 'heartland' in text:
-                text = 'heartland'
-            if 'io & marilyn' in text:
-                text = 'io e marilyn'
-            if 'giochi olimpici parigi' in text:
-                text = 'olimpiadi di parigi'
-            if 'bruno barbieri' in text:
-                text = text.replace('bruno barbieri', 'brunobarbierix')
-            if "anni '60" in text:
-                text = "anni 60"
-            if "cortesie per gli ospiti" in text:
-                text = "cortesieospiti"
-            if 'tg regione' in text:
-                text = 'tg3'
-            if 'planet earth' in text:
-                text = 'planet earth'
-            if 'studio aperto' in text:
-                text = 'studio aperto'
-            if 'josephine ange gardien' in text:
-                text = 'josephine ange gardien'
-            if 'josephine angelo' in text:
-                text = 'josephine ange gardien'
-            if 'elementary' in text:
-                text = 'elementary'
-            if 'squadra speciale cobra 11' in text:
-                text = 'squadra speciale cobra 11'
-            if 'criminal minds' in text:
-                text = 'criminal minds'
-            if 'i delitti del barlume' in text:
-                text = 'i delitti del barlume'
-            if 'senza traccia' in text:
-                text = 'senza traccia'
-            if 'hudson e rex' in text:
-                text = 'hudson e rex'
-            if 'ben-hur' in text:
-                text = 'ben-hur'
-            if 'alessandro borghese - 4 ristoranti' in text:
-                text = 'alessandroborgheseristoranti'
-            if 'alessandro borghese: 4 ristoranti' in text:
-                text = 'alessandroborgheseristoranti'
-            if 'amici di maria' in text:
-                text = 'amicimaria'
-            if 'csi: miami' in text:
-                text = 'csi miami'
-            if 'csi: scena del crimine' in text:
-                text = 'csi scena del crimine'
-            if 'csi: new york' in text:
-                text = 'csi new york'
-            if 'csi: vegas' in text:
-                text = 'csi vegas'
-            if 'csi: cyber' in text:
-                text = 'csi cyber'
-            if 'csi: immortality' in text:
-                text = 'csi immortality'
-            if 'csi: crime scene talks' in text:
-                text = 'csi crime scene talks'
-            if 'alexa: vita da detective' in text:
-                text = 'alexa vita da detective'
-            if 'delitti in paradiso' in text:
-                text = 'delitti in paradiso'
-            if 'modern family' in text:
-                text = 'modern family'
-            if 'shaun: vita da pecora' in text:
-                text = 'shaun'
-            if 'calimero' in text:
-                text = 'calimero'
-            if 'i puffi' in text:
-                text = 'i puffi'
-            if 'stuart little' in text:
-                text = 'stuart little'
-            if 'grande fratello' in text:
-                text = 'grande fratello'
-            if 'castle' in text:
-                text = 'castle'
-            if 'seal team' in text:
-                text = 'seal team'
-            if 'fast forward' in text:
-                text = 'fast forward'
-            if 'un posto al sole' in text:
-                text = 'un posto al sole'
-
-            text = text.replace('1/2', 'mezzo')
-
             # Sostituisci caratteri speciali con stringhe vuote
-            text = text.replace("\xe2\x80\x93", "").replace('\xc2\x86', '').replace('\xc2\x87', '')
-            text = text.replace('1^ visione rai', '').replace('1^ visione', '').replace('primatv', '').replace('1^tv', '')
-            text = text.replace('prima visione', '').replace('1^ tv', '').replace('((', '(').replace('))', ')')
-            text = text.replace('live:', '').replace(' - prima tv', '')
+            text = text.replace("\xe2\x80\x93", "").replace('\xc2\x86', '').replace('\xc2\x87', '').replace('webhdtv', '')
+            text = text.replace('1080i', '').replace('dvdr5', '').replace('((', '(').replace('))', ')') .replace('hdtvrip', '')
+            text = text.replace('german', '').replace('english', '').replace('ws', '').replace('ituneshd', '').replace('hdtv', '')
+            text = text.replace('dvdrip', '').replace('unrated', '').replace('retail', '').replace('web-dl', '').replace('divx', '')
+            text = text.replace('bdrip', '').replace('uncut', '').replace('avc', '').replace('ac3d', '').replace('ts', '')
+            text = text.replace('ac3md', '').replace('ac3', '').replace('webhdtvrip', '').replace('xvid', '').replace('bluray', '')
+            text = text.replace('complete', '').replace('internal', '').replace('dtsd', '').replace('h264', '').replace('dvdscr', '')
+            text = text.replace('dubbed', '').replace('line.dubbed', '').replace('dd51', '').replace('dvdr9', '').replace('sync', '')
+            text = text.replace('webhdrip', '').replace('webrip', '').replace('repack', '').replace('dts', '').replace('webhd', '')
 
-            cutlist = ['x264', '720p', '1080p', '1080i', 'pal', 'german', 'english', 'ws', 'dvdrip', 'unrated',
-                       'retail', 'web-dl', 'dl', 'ld', 'mic', 'md', 'dvdr', 'bdrip', 'bluray', 'dts', 'uncut', 'anime',
-                       'ac3md', 'ac3', 'ac3d', 'ts', 'dvdscr', 'complete', 'internal', 'dtsd', 'xvid', 'divx', 'dubbed',
-                       'line.dubbed', 'dd51', 'dvdr9', 'dvdr5', 'h264', 'avc', 'webhdtvrip', 'webhdrip', 'webrip',
-                       'webhdtv', 'webhd', 'hdtvrip', 'hdrip', 'hdtv', 'ituneshd', 'repack', 'sync', '1^tv', '1^ tv',
-                       '1^ visione rai', '1^ visione', ' - prima tv', ' - primatv', 'prima visione',
-                       'film -', 'first screening', 'live:', 'new:', 'film:', 'première diffusion',
-                       'premiere:', 'estreno:', 'nueva emisión:', 'en vivo:', 'nouveau:', 'en direct:',
-                       ]
-            for word in cutlist:
-                text = text.replace(word, '')
-            # text = ' '.join(text.split())
-            print(text)
+            text = text.replace('1^tv', '').replace('1^ tv', '').replace(' - prima tv', '').replace(' - primatv', '')
+            text = text.replace('primatv', '').replace('en direct:', '').replace('first screening', '').replace('live:', '')
+            text = text.replace('1^ visione rai', '').replace('1^ visione', '').replace('premiere:', '').replace('nouveau:', '')
+            text = text.replace('prima visione', '').replace('film -', '').replace('en vivo:', '').replace('nueva emisión:', '')
+            text = text.replace('new:', '').replace('film:', '').replace('première diffusion', '').replace('estreno:', '')
 
+            print('cutlist:', text)
             # Rimozione pattern specifici
             text = re.sub(r'^\w{2}:', '', text)  # Rimuove "xx:" all'inizio
             text = re.sub(r'^\w{2}\|\w{2}\s', '', text)  # Rimuove "xx|xx" all'inizio
@@ -273,6 +252,7 @@ def convtext(text=''):
             text = re.sub(r'\|.*?\|', '', text)  # Rimuove qualsiasi altro contenuto tra "|"
             text = re.sub(r'\(\(.*?\)\)|\(.*?\)', '', text)  # Rimuove contenuti tra "()"
             text = re.sub(r'\[\[.*?\]\]|\[.*?\]', '', text)  # Rimuove contenuti tra "[]"
+
             text = re.sub(r' +ح| +ج| +م', '', text)  # Rimuove numeri di episodi/serie in arabo
             # Rimozione di stringhe non valide
             bad_strings = [
@@ -305,22 +285,25 @@ def convtext(text=''):
             # text = sub(r'(odc.\d+)+.*?FIN', '', text)
             # text = sub(r'(\d+)+.*?FIN', '', text)
             # text = sub('FIN', '', text)
-            # remove episode number in arabic series
-            text = sub(r' +ح', '', text)
-            # remove season number in arabic series
-            text = sub(r' +ج', '', text)
-            # remove season number in arabic series
-            text = sub(r' +م', '', text)
+            # # remove episode number in arabic series
+            # text = sub(r' +ح', '', text)
+            # # remove season number in arabic series
+            # text = sub(r' +ج', '', text)
+            # # remove season number in arabic series
+            # text = sub(r' +م', '', text)
             text = text.partition(" -")[0]  # Rimuove contenuti dopo "-"
             text = text.strip(' -')
             # Forzature finali
             text = text.replace('XXXXXX', '60')
-            text = text.replace('amicimaria', 'amici di maria de filippi')
+            text = text.replace('amicimaria', 'amici di maria')
             text = text.replace('alessandroborgheseristoranti', 'alessandro borghese - 4 ristoranti')
             text = text.replace('brunobarbierix', 'bruno barbieri - 4 hotel')
             text = text.replace('il ritorno di colombo', 'colombo')
             text = text.replace('cortesieospiti', 'cortesie per gli ospiti')
             text = text.replace('ermediciinprimalinea', 'er medici in prima linea')
+            text = text.replace('ritornoalfuturoparteiii', 'ritorno al futuro parte iii')
+            text = text.replace('ritornoalfuturoparteii', 'ritorno al futuro parte ii')
+            text = text.replace('tguno', 'tg1')
             # text = quote(text, safe="")
             # text = unquote(text)
             print('text safe:', text)

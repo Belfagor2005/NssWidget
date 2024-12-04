@@ -43,6 +43,8 @@ import os
 import socket
 import sys
 import time
+import traceback
+import datetime
 from .Converlibr import convtext
 
 PY3 = False
@@ -184,21 +186,25 @@ class BackdropDB(AglareBackdropXDownloadThread):
             canal = pdb.get()
             self.logDB("[QUEUE] : {} : {}-{} ({})".format(canal[0], canal[1], canal[2], canal[5]))
             self.pstcanal = convtext(canal[5])
+
             if self.pstcanal is not None:
-                dwn_backdrop = path_folder + '/' + self.pstcanal + ".jpg"
+                dwn_backdrop = os.path.join(path_folder, self.pstcanal + ".jpg")
             else:
-                print('none type xxxxxxxxxx- posterx')
-                return
+                print("None type detected - poster not found")
+                pdb.task_done()  # Per evitare il blocco del thread
+                continue
+
             if os.path.exists(dwn_backdrop):
                 os.utime(dwn_backdrop, (time.time(), time.time()))
+
             '''
-            # if lng == "fr":
-                # if not os.path.exists(dwn_backdrop):
-                    # val, log = self.search_molotov_google(dwn_backdrop, canal[5], canal[4], canal[3], canal[0])
-                    # self.logDB(log)
-                # if not os.path.exists(dwn_backdrop):
-                    # val, log = self.search_programmetv_google(dwn_backdrop, canal[5], canal[4], canal[3], canal[0])
-                    # self.logDB(log)
+            if lng == "fr":
+                if not os.path.exists(dwn_backdrop):
+                    val, log = self.search_molotov_google(dwn_backdrop, canal[5], canal[4], canal[3], canal[0])
+                    self.logDB(log)
+                if not os.path.exists(dwn_backdrop):
+                    val, log = self.search_programmetv_google(dwn_backdrop, canal[5], canal[4], canal[3], canal[0])
+                    self.logDB(log)
             '''
             if not os.path.exists(dwn_backdrop):
                 val, log = self.search_tmdb(dwn_backdrop, self.pstcanal, canal[4], canal[3])
@@ -211,14 +217,41 @@ class BackdropDB(AglareBackdropXDownloadThread):
                 self.logDB(log)
             elif not os.path.exists(dwn_backdrop):
                 val, log = self.search_imdb(dwn_backdrop, self.pstcanal, canal[4], canal[3])
+
                 self.logDB(log)
             elif not os.path.exists(dwn_backdrop):
                 val, log = self.search_google(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
                 self.logDB(log)
+            '''
+            search_methods = [
+                self.search_tmdb,
+                self.search_tvdb,
+                self.search_fanart,
+                self.search_imdb,
+                self.search_google
+            ]
+
+            for search_method in search_methods:
+                if not os.path.exists(dwn_backdrop):
+                    result = search_method(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
+
+                    if result is None:
+                        self.logDB("[ERROR] Search method '{}' returned None".format(search_method.__name__))
+                        continue
+
+                    try:
+                        val, log = result
+                    except ValueError:
+                        self.logDB("[ERROR] Unexpected result from '{}': {}".format(search_method.__name__, result))
+                        continue
+
+                    self.logDB(log)
+                    if "SUCCESS" in log:
+                        break
+            '''
             pdb.task_done()
 
     def logDB(self, logmsg):
-        import traceback
         try:
             with open("/tmp/BackdropDB.log", "a") as w:
                 w.write("%s\n" % logmsg)
@@ -235,9 +268,10 @@ class BackdropAutoDB(AglareBackdropXDownloadThread):
     def __init__(self):
         AglareBackdropXDownloadThread.__init__(self)
         self.logdbg = None
+        self.pstcanal = None
 
     def run(self):
-        self.logAutoDB("[AutoDB] *** Initialized")
+        self.logAutoDB("[AutoDB] *** Initialized ***")
         while True:
             time.sleep(7200)  # 7200 - Start every 2 hours
             self.logAutoDB("[AutoDB] *** Running ***")
@@ -254,38 +288,40 @@ class BackdropAutoDB(AglareBackdropXDownloadThread):
                     newfd = 0
                     newcn = None
                     for evt in events:
-                        self.logAutoDB("[AutoDB] evt {} events ({})".format(evt, events))
-                        canal = [None, None, None, None, None, None]
+                        self.logAutoDB("[AutoDB] evt {} events ({})".format(evt, len(events)))
+                        canal = [None] * 6
                         if PY3:
                             canal[0] = ServiceReference(service).getServiceName().replace('\xc2\x86', '').replace('\xc2\x87', '')
                         else:
                             canal[0] = ServiceReference(service).getServiceName().replace('\xc2\x86', '').replace('\xc2\x87', '').encode('utf-8')
                         if evt[1] is None or evt[4] is None or evt[5] is None or evt[6] is None:
-                            self.logAutoDB("[AutoDB] *** missing epg for {}".format(canal[0]))
+                            self.logAutoDB("[AutoDB] *** Missing EPG for {}".format(canal[0]))
                         else:
-                            canal[1] = evt[1]
-                            canal[2] = evt[4]
-                            canal[3] = evt[5]
-                            canal[4] = evt[6]
-                            canal[5] = canal[2]
+                            canal[1:6] = [evt[1], evt[4], evt[5], evt[6], evt[4]]
                             self.pstcanal = convtext(canal[5]) if canal[5] else None
-                            if not self.pstcanal:
-                                print('none type xxxxxxxxxx- posterx')
-                                return
 
-                            dwn_backdrop = os.path.join(path_folder, self.pstcanal + ".jpg")
+                            if self.pstcanal is not None:
+                                dwn_backdrop = os.path.join(path_folder, self.pstcanal + ".jpg")
+                            else:
+                                print("None type detected - poster not found")
+                                continue
+
+                            # if not self.pstcanal:
+                                # self.logAutoDB("None type - poster not found")
+                                # continue
+
                             if os.path.exists(dwn_backdrop):
                                 os.utime(dwn_backdrop, (time.time(), time.time()))
                             '''
-                            # if lng == "fr":
-                                # if not os.path.exists(dwn_backdrop):
-                                    # val, log = self.search_molotov_google(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
-                                    # if val and log.find("SUCCESS"):
-                                        # newfd += 1
-                                # if not os.path.exists(dwn_backdrop):
-                                    # val, log = self.search_programmetv_google(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
-                                    # if val and log.find("SUCCESS"):
-                                        # newfd += 1
+                            if lng == "fr":
+                                if not os.path.exists(dwn_backdrop):
+                                    val, log = self.search_molotov_google(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
+                                    if val and log.find("SUCCESS"):
+                                        newfd += 1
+                                if not os.path.exists(dwn_backdrop):
+                                    val, log = self.search_programmetv_google(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
+                                    if val and log.find("SUCCESS"):
+                                        newfd += 1
                             '''
                             if not os.path.exists(dwn_backdrop):
                                 val, log = self.search_tmdb(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
@@ -307,33 +343,64 @@ class BackdropAutoDB(AglareBackdropXDownloadThread):
                                 val, log = self.search_google(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
                                 if val and log.find("SUCCESS"):
                                     newfd += 1
+                            '''
+                            search_methods = [
+                                self.search_tmdb,
+                                self.search_tvdb,
+                                self.search_fanart,
+                                self.search_imdb,
+                                self.search_google
+                            ]
+
+                            for search_method in search_methods:
+                                if not os.path.exists(dwn_backdrop):
+                                    result = search_method(dwn_backdrop, self.pstcanal, canal[4], canal[3], canal[0])
+
+                                    if result is None:
+                                        self.logAutoDB("[ERROR] Search method '{}' returned None".format(search_method.__name__))
+                                        continue
+
+                                    try:
+                                        val, log = result
+                                    except ValueError:
+                                        self.logAutoDB("[ERROR] Unexpected result from '{}': {}".format(search_method.__name__, result))
+                                        continue
+
+                                    self.logAutoDB(log)
+                                    if val and "SUCCESS" in log:
+                                        newfd += 1
+                                        break
+                            '''
                             newcn = canal[0]
+
                         self.logAutoDB("[AutoDB] {} new file(s) added ({})".format(newfd, newcn))
                 except Exception as e:
-                    self.logAutoDB("[AutoDB] *** service error ({})".format(e))
+                    self.logAutoDB("[AutoDB] *** Service error: {}".format(e))
+                    traceback.print_exc()
             # AUTO REMOVE OLD FILES
             now_tm = time.time()
             emptyfd = 0
             oldfd = 0
             for f in os.listdir(path_folder):
-                diff_tm = now_tm - os.path.getmtime(path_folder + '/' + f)
-                if diff_tm > 120 and os.path.getsize(path_folder + '/' + f) == 0:  # Detect empty files > 2 minutes
-                    os.remove(path_folder + '/' + f)
+                file_path = os.path.join(path_folder, f)
+                diff_tm = now_tm - os.path.getmtime(file_path)
+                if diff_tm > 120 and os.path.getsize(file_path) == 0:
+                    os.remove(file_path)
                     emptyfd += 1
-                if diff_tm > 31536000:  # Detect old files > 365 days old
-                    os.remove(path_folder + '/' + f)
+                elif diff_tm > 31536000:
+                    os.remove(file_path)
                     oldfd += 1
             self.logAutoDB("[AutoDB] {} old file(s) removed".format(oldfd))
             self.logAutoDB("[AutoDB] {} empty file(s) removed".format(emptyfd))
             self.logAutoDB("[AutoDB] *** Stopping ***")
 
     def logAutoDB(self, logmsg):
-        import traceback
         try:
+            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             with open("/tmp/BackdropAutoDb.log", "a") as w:
-                w.write("%s\n" % logmsg)
+                w.write("[{}] {}\n".format(timestamp, logmsg))
         except Exception as e:
-            print('logBackdrop error', str(e))
+            print("logBackdrop error: {}".format(e))
             traceback.print_exc()
 
 

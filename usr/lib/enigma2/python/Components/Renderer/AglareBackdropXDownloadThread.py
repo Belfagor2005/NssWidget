@@ -294,7 +294,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
                     url_read = requests.get(url_tvdb).text
                     backdrop = re.findall(r'<backdrop>(.*?)</backdrop>', url_read)
                     url_backdrop = "https://artworks.thetvdb.com/banners/{}".format(backdrop[0])
-                    if backdrop is not None and backdrop[0]:
+                    if backdrop and backdrop[0]:
                         callInThread(self.savebackdrop, url_backdrop, dwn_backdrop)
                         # self.savebackdrop(dwn_backdrop, url_backdrop)
                         if os.path.exists(dwn_backdrop):
@@ -618,7 +618,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
                 backdrop = plst
             else:
                 imsg = "Not found '{}' [{}%-{}%-{}]".format(pltc, molotov_table[0], molotov_table[1], len_plst)
-            if backdrop is not None:
+            if backdrop:
                 url_backdrop = re.sub(r'/\d+x\d+/', "/" + re.sub(r',', 'x', isz) + "/", backdrop)
                 callInThread(self.savebackdrop, url_backdrop, dwn_backdrop)
                 # self.savebackdrop(dwn_backdrop, url_backdrop)
