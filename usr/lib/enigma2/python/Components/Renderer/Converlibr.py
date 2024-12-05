@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import re
-from re import sub
+from re import sub, S, I, search
 from six import text_type
 import sys
 from unicodedata import normalize
@@ -69,7 +69,7 @@ def remove_accents(string):
     # Normalizza la stringa in forma NFD (separa i caratteri dai loro segni diacritici)
     normalized = normalize('NFD', string)
     # Rimuove tutti i segni diacritici utilizzando una regex
-    without_accents = re.sub(r'[\u0300-\u036f]', '', normalized)
+    without_accents = sub(r'[\u0300-\u036f]', '', normalized)
     return without_accents
 
 
@@ -104,9 +104,9 @@ def cutName(eventName=""):
 
 
 def getCleanTitle(eventitle=""):
-    # save_name = re.sub('\\(\d+\)$', '', eventitle)
-    # save_name = re.sub('\\(\d+\/\d+\)$', '', save_name)  # remove episode-number " (xx/xx)" at the end
-    # # save_name = re.sub('\ |\?|\.|\,|\!|\/|\;|\:|\@|\&|\'|\-|\"|\%|\(|\)|\[|\]\#|\+', '', save_name)
+    # save_name = sub('\\(\d+\)$', '', eventitle)
+    # save_name = sub('\\(\d+\/\d+\)$', '', save_name)  # remove episode-number " (xx/xx)" at the end
+    # # save_name = sub('\ |\?|\.|\,|\!|\/|\;|\:|\@|\&|\'|\-|\"|\%|\(|\)|\[|\]\#|\+', '', save_name)
     save_name = eventitle.replace(' ^`^s', '').replace(' ^`^y', '')
     return save_name
 
@@ -137,6 +137,16 @@ def convtext(text=''):
 
             text = text.lstrip()
 
+            # remove episode number from series, like "series"
+            regex = re.compile(r'^(.*?)([ ._-]*(ep|episodio|st|stag|odc|parte|pt!series|serie||s[0-9]{1,2}e[0-9]{1,2}|[0-9]{1,2}x[0-9]{1,2})[ ._-]*[.]?[ ._-]*[0-9]+.*)$')
+            text = sub(regex, r'\1', text).strip()
+            print("titolo_pulito:", text)
+            # Force and remove episode number from series, like "series"
+            if search(r'[Ss][0-9]+[Ee][0-9]+', text):
+                text = sub(r'[Ss][0-9]+[Ee][0-9]+.*[a-zA-Z0-9_]+', '', text, flags=S | I)
+            text = sub(r'\(.*\)', '', text).rstrip()  # remove episode number from series, like "series"
+            
+
             # Mappatura sostituzioni con azione specifica
             sostituzioni = [
                 ('superman & lois', 'superman e lois', 'set'),
@@ -146,6 +156,7 @@ def convtext(text=''):
                 ('tg1', 'tguno', 'replace'),
                 ('c.s.i.', 'csi', 'replace'),
                 ('c.s.i:', 'csi', 'replace'),
+                ('ncis:', 'ncis', 'replace'),
                 ('ritorno al futuro:', 'ritorno al futuro', 'replace'),
 
                 ('lingo: parole', 'lingo', 'set'),
@@ -182,9 +193,10 @@ def convtext(text=''):
                 ('csi: immortality', 'csi immortality', 'set'),
                 ('csi: crime scene talks', 'csi crime scene talks', 'set'),
 
-                ('ncis:', 'ncis', 'set'),
                 ('ncis unità anticrimine', 'ncis unità anticrimine', 'set'),
-                ('ncis los angeles', 'ncis new orleans', 'set'),
+                ('ncis unita anticrimine', 'ncis unita anticrimine', 'set'),
+                ('ncis new orleans', 'ncis new orleans', 'set'),
+                ('ncis los angeles', 'ncis los angeles', 'set'),
                 ('ncis origins', 'ncis origins', 'set'),
                 ('ncis hawai', 'ncis hawai', 'set'),
                 ('ncis sydney', 'ncis sydney', 'set'),
@@ -244,16 +256,18 @@ def convtext(text=''):
 
             print('cutlist:', text)
             # Rimozione pattern specifici
-            text = re.sub(r'^\w{2}:', '', text)  # Rimuove "xx:" all'inizio
-            text = re.sub(r'^\w{2}\|\w{2}\s', '', text)  # Rimuove "xx|xx" all'inizio
-            text = re.sub(r'^.{2}\+? ?- ?', '', text)  # Rimuove "xx -" all'inizio
-            text = re.sub(r'^\|\|.*?\|\|', '', text)  # Rimuove contenuti tra "||"
-            text = re.sub(r'^\|.*?\|', '', text)  # Rimuove contenuti tra "|"
-            text = re.sub(r'\|.*?\|', '', text)  # Rimuove qualsiasi altro contenuto tra "|"
-            text = re.sub(r'\(\(.*?\)\)|\(.*?\)', '', text)  # Rimuove contenuti tra "()"
-            text = re.sub(r'\[\[.*?\]\]|\[.*?\]', '', text)  # Rimuove contenuti tra "[]"
+            text = sub(r'^\w{2}:', '', text)  # Rimuove "xx:" all'inizio
+            text = sub(r'^\w{2}\|\w{2}\s', '', text)  # Rimuove "xx|xx" all'inizio
+            text = sub(r'^.{2}\+? ?- ?', '', text)  # Rimuove "xx -" all'inizio
+            text = sub(r'^\|\|.*?\|\|', '', text)  # Rimuove contenuti tra "||"
+            text = sub(r'^\|.*?\|', '', text)  # Rimuove contenuti tra "|"
+            text = sub(r'\|.*?\|', '', text)  # Rimuove qualsiasi altro contenuto tra "|"
+            text = sub(r'\(\(.*?\)\)|\(.*?\)', '', text)  # Rimuove contenuti tra "()"
+            text = sub(r'\[\[.*?\]\]|\[.*?\]', '', text)  # Rimuove contenuti tra "[]"
+            
+            text = sub(r'[^\w\s]+$', '', text)
 
-            text = re.sub(r' +ح| +ج| +م', '', text)  # Rimuove numeri di episodi/serie in arabo
+            text = sub(r' +ح| +ج| +م', '', text)  # Rimuove numeri di episodi/serie in arabo
             # Rimozione di stringhe non valide
             bad_strings = [
                 "ae|", "al|", "ar|", "at|", "ba|", "be|", "bg|", "br|", "cg|", "ch|", "cz|", "da|", "de|", "dk|",
@@ -274,9 +288,9 @@ def convtext(text=''):
             bad_suffix_pattern = re.compile(r'(' + '|'.join(map(re.escape, bad_suffix)) + r')$')
             text = bad_suffix_pattern.sub('', text)
             # Rimuovi "." "_" "'" e sostituiscili con spazi
-            text = re.sub(r'[._\']', ' ', text)
+            text = sub(r'[._\']', ' ', text)
             # Rimuove tutto dopo i ":" (incluso ":")
-            text = re.sub(r':.*$', '', text)
+            text = sub(r':.*$', '', text)
             # Pulizia finale
             text = text.partition("(")[0]  # Rimuove contenuti dopo "("
             # text = text.partition(":")[0]
