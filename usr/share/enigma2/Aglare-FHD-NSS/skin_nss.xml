@@ -440,12 +440,14 @@
     <screen name="piconPath" position="0,0" size="1920,1080" title="Select path for Picons" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="SetPiconPath"/>
     </screen>
+    <!--
     <screen name="AglareSetup" position="0,0" size="1920,1080" title="Aglare-FHD Skin Controler" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
-        <panel name="configlist45"/>
-        <panel name="pigscreen885"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <panel name="pigscreen885"/>
+        <panel name="bLogo"/>
+        <panel name="configlist45"/>
         <eLabel text="Cancel" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" foregroundColor="white" backgroundColor="background" transparent="1"/>
         <eLabel text="Save" position="342,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
         <eLabel text="Update" position="652,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
@@ -453,4 +455,5 @@
         <widget name="Preview" position="997,690" size="498, 280" zPosition="9"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/aglarelogo.png" transparent="1" alphatest="on"/>
     </screen>
+    -->
 </skin>
