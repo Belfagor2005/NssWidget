@@ -18,8 +18,8 @@
         <panel name="ScreenTemplateAllColorButtons_menu"/>
         <panel name="menutemp"/>
         <panel name="pigscreen885"/>
+        <widget name="menu" position="36,94" size="890,900" zPosition="3" itemHeight="50" font="Regular; 30" textOffset="15,10" enableWrapAround="1" transparent="1" itemCornerRadius="8" scrollbarSliderForegroundColor="mcolor5" scrollbarMode="showOnDemand"/>
         <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/sort.png" transparent="1" alphatest="on"/>
-        <widget name="menu" position="36,94" size="890,900" zPosition="3" itemHeight="50" font="Regular; 30" valign="center" enableWrapAround="1" transparent="1" itemCornerRadius="8" scrollbarSliderForegroundColor="mcolor5" scrollbarMode="showOnDemand"/>
     </screen>
     <screen name="ChannelContextMenu" position="0,0" size="1920,1080" title="Channellist menu" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="titletemp"/>
@@ -143,6 +143,13 @@
         <widget source="session.Event_Now" render="Progress" position="1058,825" size="400,10" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10" zPosition="88">
             <convert type="AglareReceiverInfo">UsbInfo</convert>
         </widget>
+        <!--         <eLabel name="" position="997,792" size="50,50" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="icomoon; 28" text="" zPosition="1"/>
+        <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,796" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
+            <convert type="AglareReceiverInfo">MmcInfo</convert>
+        </widget>
+        <widget source="session.Event_Now" render="Progress" position="1058,824" size="400,10" pixmap="main/progfg40010.png" backgroundColor="progbg" zPosition="99" cornerRadius="5">
+            <convert type="AglareReceiverInfo">MmcInfo</convert>
+        </widget> -->
         <widget source="session.CurrentService" render="Label" zPosition="6" position="1058,859" size="500,26" halign="left" valign="center" font="Regular; 24" transparent="1" backgroundColor="background" foregroundColor="white">
             <convert type="AglareBoxInfo">Boxtype</convert>
         </widget>
@@ -2049,171 +2056,6 @@
         <eLabel name="" position="1704,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
         <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
     </screen>
-    <!--
-     <screen name="DefaultWizard" position="0,0" size="1920,1080" title="Welcome..." backgroundColor="transparent" flags="wfNoBorder">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <widget name="rc" pixmaps="skin_default/rc.png,skin_default/rcold.png" position="1539,338" zPosition="10" size="124,500" alphatest="on" transparent="1" font="Regular; 24"/>
-        <widget name="arrowdown" position="-100,-100" size="56,105" pixmap="skin_default/arrowdown.png" zPosition="11" alphatest="blend"/>
-        <widget name="arrowdown2" position="-100,-100" size="56,105" pixmap="skin_default/arrowdown.png" zPosition="11" alphatest="blend"/>
-        <widget name="arrowup" position="-100,-100" size="56,105" pixmap="skin_default/arrowup.png" zPosition="11" alphatest="blend"/>
-        <widget name="arrowup2" position="-100,-100" size="56,105" pixmap="skin_default/arrowup.png" zPosition="11" alphatest="blend"/>
-        <widget name="wizard" pixmap="Aglare-FHD-NSS/skin_default/wizard.png" position="250,230" zPosition="10" size="240,240" alphatest="blend" transparent="1"/>
-        <widget name="languagetext" position="306,960" size="250,45" zPosition="11" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <widget name="text" position="987,230" size="477,450" font="Regular; 30" transparent="1" backgroundColor="background" valign="top"/>
-        <widget source="list" render="Listbox" position="250,570" size="600,350" transparent="1" itemHeight="50">
-            <convert type="TemplatedMultiContent">
-                            {"template": [ MultiContentEntryText(pos = (0,0),size = (860,42), font = 0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER,text = 0) ],
-                             "fonts": [gFont("Regular",36)],
-                             "itemHeight": 50
-                            }
-            </convert>
-        </widget>
-        <widget name="config" position="250,570" size="600,350" transparent="1" itemHeight="50"/>
-        <ePixmap name="" position="256,960" size="46,46" zPosition="99" pixmap="buttons/red.png" alphatest="on"/>
-    </screen>
-    <screen name="LanguageWizard" position="0,0" size="1920,1080" title="Welcome..." backgroundColor="transparent" flags="wfNoBorder">
-        <panel name="titletemp"/>
-        <panel name="timedate"/>
-        <panel name="ScreenTemplateAllColorButtons_menu"/>
-        <eLabel backgroundColor="wpmc" cornerRadius="20" position="0,0" size="1920,1080" zPosition="-99"/>
-        <eLabel backgroundColor="buttonsc" cornerRadius="30" position="20,1014" size="1880,60" zPosition="-80"/>
-        <eLabel name="" position="31,30" size="1157,977" zPosition="-90" cornerRadius="18" backgroundColor="mcolor2" foregroundColor="mcolor2"/>
-        <panel name="bLogo"/>
-        <widget name="wizard" pixmap="skin_default/wizard.png" position="250,230" zPosition="10" size="240,240" alphatest="blend" transparent="1"/>
-        <widget name="text" position="1218,640" size="651,305" font="Regular; 32" transparent="1" backgroundColor="background" valign="top"/>
-        <widget name="languagetext" position="32,1016" size="300,45" zPosition="11" font="Regular; 32" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <widget source="languages" render="Listbox" position="36,552" size="1140,400" transparent="1" itemHeight="80">
-            <convert type="TemplatedMultiContent">
-                {"template": [
-                MultiContentEntryText(pos = (150, 0), size = (800, 90), font = 0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 1), # index 1 is the language name,
-                MultiContentEntryPixmap(pos = (30, 20), size = (90, 60), png = 2), # index 2 is the pixmap
-                ],
-                "fonts": [gFont("Regular",32)],
-                "itemHeight": 100
-                }
-            </convert>
-        </widget>
-        <widget name="config" position="36,552" size="1140,400" itemHeight="100" font="Regular;32" valign="center" zPosition="14" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="1" itemCornerRadius="8" textOffset="15,4"/>
-        <eLabel name="" position="1758,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
-        <eLabel name="" position="1704,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="OK"/>
-        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
-    </screen>
-    <screen name="StartWizard" position="0,0" size="1920,1080" title="Welcome..." backgroundColor="transparent" flags="wfNoBorder">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <widget name="rc" pixmaps="skin_default/rc.png,skin_default/rcold.png" position="1728,292" zPosition="10" size="124,500" alphatest="on" transparent="1" font="Regular; 24"/>
-        <widget name="arrowdown" position="-100,-100" size="56,105" pixmap="skin_default/arrowdown.png" zPosition="11" alphatest="blend"/>
-        <widget name="arrowdown2" position="-100,-100" size="56,105" pixmap="skin_default/arrowdown.png" zPosition="11" alphatest="blend"/>
-        <widget name="arrowup" position="-100,-100" size="56,105" pixmap="skin_default/arrowup.png" zPosition="11" alphatest="blend"/>
-        <widget name="arrowup2" position="-100,-100" size="56,105" pixmap="skin_default/arrowup.png" zPosition="11" alphatest="blend"/>
-        <widget name="wizard" pixmap="skin_default/wizard.png" position="322,117" zPosition="10" size="240,240" alphatest="blend" transparent="1"/>
-        <widget name="languagetext" position="27,1016" size="310,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <widget name="text" position="978,125" size="707,857" font="Regular; 30" transparent="1" backgroundColor="background" valign="top"/>
-        <widget source="list" render="Listbox" position="36,400" size="890,600" transparent="1" itemHeight="50" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10">
-            <convert type="TemplatedMultiContent">
-                  {"template": [ MultiContentEntryText(pos = (0,0),size = (870,42), font = 0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER,text = 0) ],
-                   "fonts": [gFont("Regular",32)],
-                   "itemHeight": 50
-                  }
-            </convert>
-        </widget>
-        <widget name="config" position="36,400" size="890,600" transparent="1" itemHeight="50" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
-        <eLabel backgroundColor="red" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
-    </screen>
-    <screen name="VideoWizard" position="0,0" size="1920,1080" title="Welcome..." backgroundColor="transparent" flags="wfNoBorder">
-        <widget name="portpic" position="730,147" size="192,192" zPosition="10" transparent="1" alphatest="blend"/>
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <widget name="rc" pixmaps="skin_default/rc.png,skin_default/rcold.png" position="1728,292" zPosition="10" size="124,500" alphatest="on" transparent="1" font="Regular; 24"/>
-        <widget name="arrowdown" position="-100,-100" size="56,105" pixmap="skin_default/arrowdown.png" zPosition="11" alphatest="blend"/>
-        <widget name="arrowdown2" position="-100,-100" size="56,105" pixmap="skin_default/arrowdown.png" zPosition="11" alphatest="blend"/>
-        <widget name="arrowup" position="-100,-100" size="56,105" pixmap="skin_default/arrowup.png" zPosition="11" alphatest="blend"/>
-        <widget name="arrowup2" position="-100,-100" size="56,105" pixmap="skin_default/arrowup.png" zPosition="11" alphatest="blend"/>
-        <widget name="wizard" pixmap="skin_default/wizard.png" position="322,117" zPosition="10" size="240,240" alphatest="blend" transparent="1"/>
-        <widget name="languagetext" position="27,1016" size="310,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <widget name="text" position="978,125" size="707,857" font="Regular; 30" transparent="1" backgroundColor="background" valign="top"/>
-        <widget source="list" render="Listbox" position="36,400" size="890,600" transparent="1" itemHeight="50" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10">
-            <convert type="TemplatedMultiContent">
-            {"template": [ MultiContentEntryText(pos = (0,0),size = (660,42),flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER,text = 0) ],
-    "fonts": [gFont("Regular",30)],
-    "itemHeight": 50
-  }
-        </convert>
-        </widget>
-        <widget name="config" position="36,400" size="890,600" transparent="1" itemHeight="50" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10"/>
-        <eLabel backgroundColor="red" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
-    </screen>
-    <screen name="AutoTimerWizard" position="0,0" size="1920,1080" title="Welcome..." backgroundColor="transparent" flags="wfNoBorder">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <widget name="text" position="997,607" size="885,180" font="Regular; 24" halign="left" valign="top" backgroundColor="background" transparent="1" zPosition="55"/>
-        <widget source="list" render="Listbox" position="36,582" size="890,400" transparent="1" itemHeight="50">
-            <convert type="TemplatedMultiContent">
-                {"template": [ MultiContentEntryText(pos = (0,0),size = (850,42), font = 0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER,text = 0) ],
-                 "fonts": [gFont("Regular",32)],
-                 "itemHeight": 50
-                }
-            </convert>
-        </widget>
-        <widget name="config" position="36,582" size="890,400" transparent="1" itemHeight="50"/>
-        <ePixmap pixmap="buttons/key_red.png" position="34,120" zPosition="0" size="54,34" transparent="1" alphatest="on"/>
-        <ePixmap pixmap="buttons/key_blue.png" position="36,160" zPosition="0" size="54,34" transparent="1" alphatest="on"/>
-        <widget name="languagetext" position="110,120" size="388,34" font="Regular; 26" transparent="1" backgroundColor="background"/>
-        <widget name="wizard" pixmap="skin_default/wizard.png" position="683,254" zPosition="10" size="240,240" alphatest="blend" transparent="1"/>
-        <widget name="rc" pixmaps="skin_default/rc.png,skin_default/rcold.png" position="1750,97" zPosition="10" size="124,500" alphatest="on" transparent="1" font="Regular; 24"/>
-        <widget name="arrowdown" pixmap="skin_default/arrowdown.png" position="-100,-100" zPosition="11" size="56,105" alphatest="on"/>
-        <widget name="arrowdown2" pixmap="skin_default/arrowdown.png" position="-100,-100" zPosition="11" size="56,105" alphatest="on"/>
-        <widget name="arrowup" pixmap="skin_default/arrowup.png" position="-100,-100" zPosition="11" size="56,105" alphatest="on"/>
-        <widget name="arrowup2" pixmap="skin_default/arrowup.png" position="-100,-100" zPosition="11" size="56,105" alphatest="on"/>
-        <widget source="VKeyIcon" render="Pixmap" pixmap="buttons/key_text.png" position="36,200" zPosition="0" size="54,34" transparent="1" alphatest="on">
-            <convert type="ConditionalShowHide"/>
-        </widget>
-        <eLabel name="" position="1598,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="HELP"/>
-        <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
-    </screen>
-    <screen name="NetworkWizard" position="0,0" size="1920,1080" title="Welcome..." flags="wfNoBorder" backgroundColor="background">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <panel name="pigscreen885"/>
-        <widget name="text" position="36,100" size="890,300" font="Regular;30" valign="top" transparent="1" backgroundColor="background" foregroundColor="yellow"/>
-        <widget source="list" render="Listbox" position="36,500" size="890,315" itemHeight="45" zPosition="13" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="1" valign="center" itemCornerRadius="8">
-            <convert type="TemplatedMultiContent">
-                {"template": [ MultiContentEntryText(pos = (8, 0), size = (850, 45), flags = RT_HALIGN_LEFT, text = 0) ],
-                "fonts": [gFont("Regular",30)],
-                "itemHeight": 45
-                }
-            </convert>
-        </widget>
-        <widget name="config" position="36,500" size="890,315" itemHeight="45" font="Regular;30" valign="center" zPosition="14" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="1" itemCornerRadius="8" textOffset="15,4"/>
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
-        <widget name="languagetext" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-
-        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
-        <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
-    </screen>
-    <screen name="ImageWizard" title="Image Wizard..." position="0,0" size="1920,1080" backgroundColor="transparent" flags="wfNoBorder">
-        <panel name="titletemp"/>
-        <panel name="menutemp"/>
-        <panel name="pigscreen885"/>
-        <widget name="rc" pixmaps="skin_default/rc.png,skin_default/rcold.png" position="802,307" zPosition="10" size="124,500" alphatest="on" transparent="1" font="Regular; 24"/>
-        <widget name="wizard" pixmap="skin_default/wizard.png" position="350,125" zPosition="10" size="240,240" alphatest="blend" transparent="1"/>
-        <widget name="languagetext" position="32,1016" size="300,45" zPosition="11" font="Regular; 30" valign="center" halign="center" backgroundColor="background" transparent="1" foregroundColor="white"/>
-        <widget name="text" position="997,607" size="885,180" font="Regular; 24" halign="left" valign="top" backgroundColor="background" transparent="1" zPosition="55"/>
-        <widget source="list" render="Listbox" position="36,420" size="760,350" transparent="1" itemHeight="50" itemCornerRadius="8">
-            <convert type="TemplatedMultiContent">
-                    {"template": [ MultiContentEntryText(pos = (0,0),size = (700,50),flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER,text = 0) ],
-            "fonts": [gFont("Regular",30)],
-            "itemHeight": 50
-          }
-                </convert>
-        </widget>
-        <widget name="config" position="36,420" size="760,350" transparent="1" itemHeight="50" itemCornerRadius="8" valign="center"/>
-        <eLabel backgroundColor="#fe0000" cornerRadius="3" position="32,1064" size="300,6" zPosition="-11"/>
-        <ePixmap name="" position="1660,788" size="180,180" zPosition="1" pixmap="main/ico/audio.png" transparent="1" alphatest="on"/>
-
-    </screen>
-    -->
     <screen name="UpgradeStatus" position="0,0" size="1920,1080" title="FPGA Upgrade" backgroundColor="transparent" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
@@ -5977,6 +5819,7 @@ MultiContentEntryPixmapAlphaTest(pos = (5, 1), size = (24, 24), png = 1),
         <panel name="configlist45"/>
         <panel name="pigscreen885"/>
         <panel name="bLogo"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
         <widget name="footer" position="997,948" size="510,50" font="Regular; 32" halign="left" backgroundColor="background" transparent="1" zPosition="5" valign="center"/>
         <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
     </screen>
@@ -7786,5 +7629,30 @@ MultiContentEntryPixmapAlphaTest(pos = (738, 5), size = (40, 40), png = 1),
         <panel name="menutemp3"/>
         <widget name="filedata" position="45,121" size="1830,810" itemHeight="45" font="Regular;30" textOffset="10,6" transparent="1" scrollbarMode="showOnDemand" scrollbarSliderForegroundColor="mcolor5" scrollbarSliderBorderColor="mcolor2" scrollbarWidth="10" scrollbarSliderBorderWidth="1" itemCornerRadius="10" valign="center"/>
     </screen>
+    <screen name="M3UIPTVManagerConfig" position="fill" flags="wfNoBorder" backgroundColor="background">
+        <panel name="titletemp"/>
+        <panel name="menutemp"/>
+        <panel name="pigscreen885"/>
+        <panel name="ScreenTemplateAllColorButtons_menu"/>
+        <widget source="list" render="Listbox" position="36,98" size="890,850" scrollbarMode="showNever" itemCornerRadius="6" itemHeight="50">
+            <convert type="TemplatedMultiContent">
+	{"template": [
+		MultiContentEntryText(pos = (10,5), size = (1650,45), flags = RT_HALIGN_LEFT, text = 1), # index 0 is the MenuText,
+					],
+				"fonts": [gFont("Regular",30)],
+				"itemHeight":50
+		}
+	</convert>
+        </widget>
+        <widget source="description" render="Label" objectTypes="description,StaticText" position="1018,598" size="840,94" font="Regular;28" valign="top" halign="left" transparent="1"/>
+        <widget source="progress" render="Progress" position="36,973" size="890,14" zPosition="8" backgroundColor="progbg" foregroundColor="fgcolor" cornerRadius="10"/>
+        <eLabel name="" position="1838,1018" size="52,52" backgroundColor="mcolor4" halign="center" valign="center" transparent="0" cornerRadius="26" font="Regular; 17" zPosition="1" text="EXIT"/>
+        <eLabel name="" position="1660,826" size="180,180" font="icomoon; 100" text="" halign="center" zPosition="99" transparent="1"/>
+    </screen>
+    <screen name="M3UIPTVVoDMovies" position="0,0" size="1920,1080" flags="wfNoBorder" title="M3UIPTVVoDMovies" backgroundColor="transparent">
+        <panel name="SoftwareManagerInfo"/>
+    </screen>
+    <screen name="M3UIPTVVoDSeries" position="0,0" size="1920,1080" flags="wfNoBorder" title="M3UIPTVVoDSeries" backgroundColor="transparent">
+        <panel name="SoftwareManagerInfo"/>
+    </screen>
 </skin>
-
