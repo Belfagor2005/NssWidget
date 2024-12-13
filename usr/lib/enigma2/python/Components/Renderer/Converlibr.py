@@ -7,6 +7,13 @@ from six import text_type
 import sys
 from unicodedata import normalize
 
+
+try:
+    unicode
+except NameError:
+    unicode = str
+
+
 PY3 = False
 if sys.version_info[0] >= 3:
     PY3 = True
@@ -51,7 +58,7 @@ REGEX = re.compile(
     re.DOTALL)
 
 
-'''
+
 def remove_accents(string):
     if not isinstance(string, text_type):
         string = text_type(string, 'utf-8')
@@ -62,15 +69,33 @@ def remove_accents(string):
     string = sub(u"[ùúûü]", 'u', string)
     string = sub(u"[ýÿ]", 'y', string)
     return string
-'''
 
 
-def remove_accents(string):
-    # Normalizza la stringa in forma NFD (separa i caratteri dai loro segni diacritici)
-    normalized = normalize('NFD', string)
-    # Rimuove tutti i segni diacritici utilizzando una regex
-    without_accents = sub(r'[\u0300-\u036f]', '', normalized)
-    return without_accents
+
+# def remove_accents(string):
+    # # Normalizza la stringa in forma NFD (separa i caratteri dai loro segni diacritici)
+    # normalized = normalize('NFD', string)
+    # # Rimuove tutti i segni diacritici utilizzando una regex
+    # without_accents = sub(r'[\u0300-\u036f]', '', normalized)
+    # return without_accents
+
+
+# # Compatibilità per Python 2 e 3
+# def remove_accents(string):
+    # print("remove_accents received:", repr(string))
+    # # Assicurati che `string` sia Unicode in Python 2
+    # if sys.version_info[0] < 3 and isinstance(string, str):
+        # string = unicode(string, 'utf-8')  # Converti in Unicode
+    # elif not isinstance(string, str):
+        # raise TypeError("Expected a string, got " + type(string).__name__)
+    
+    # # Normalizza la stringa in forma NFD
+    # normalized = normalize('NFD', string)
+    # # Rimuove tutti i segni diacritici utilizzando una regex
+    # without_accents = re.sub(r'[\u0300-\u036f]', '', normalized)
+    # print("remove_accents result:", repr(without_accents))
+    # return without_accents
+
 
 
 def unicodify(s, encoding='utf-8', norm=None):
@@ -127,15 +152,17 @@ def convtext(text=''):
         if text == '':
             print('text is an empty string')
         else:
+            # if isinstance(text, unicode):  # Se è una stringa Unicode in Python 2
+            text= str(text)  # Converti in una stringa di byte (str in Python 2)
             # print('original text:', text)
             # Converti tutto in minuscolo
-            text = text.lower()
+            text = text.lower().rstrip()
             # print('lowercased text:', text)
             # Rimuovi accenti
             text = remove_accents(text)
             # print('remove_accents text:', text)
 
-            text = text.lstrip()
+            # text = text.lstrip()
 
             # remove episode number from series, like "series"
             regex = re.compile(r'^(.*?)([ ._-]*(ep|episodio|st|stag|odc|parte|pt!series|serie||s[0-9]{1,2}e[0-9]{1,2}|[0-9]{1,2}x[0-9]{1,2})[ ._-]*[.]?[ ._-]*[0-9]+.*)$')
@@ -145,20 +172,22 @@ def convtext(text=''):
             if search(r'[Ss][0-9]+[Ee][0-9]+', text):
                 text = sub(r'[Ss][0-9]+[Ee][0-9]+.*[a-zA-Z0-9_]+', '', text, flags=S | I)
             text = sub(r'\(.*\)', '', text).rstrip()  # remove episode number from series, like "series"
-            
 
             # Mappatura sostituzioni con azione specifica
             sostituzioni = [
+                # set
                 ('superman & lois', 'superman e lois', 'set'),
                 ('lois & clark', 'superman e lois', 'set'),
 
+                # replace
                 ('1/2', 'mezzo', 'replace'),
-                ('tg1', 'tguno', 'replace'),
                 ('c.s.i.', 'csi', 'replace'),
                 ('c.s.i:', 'csi', 'replace'),
                 ('ncis:', 'ncis', 'replace'),
                 ('ritorno al futuro:', 'ritorno al futuro', 'replace'),
-
+                
+                # set
+                ('il ritorno di colombo', 'colombo', 'set'),
                 ('lingo: parole', 'lingo', 'set'),
                 ('heartland', 'heartland', 'set'),
                 ('io & marilyn', 'io e marilyn', 'set'),
@@ -167,7 +196,7 @@ def convtext(text=''):
                 ("anni '60", 'anni 60', 'set'),
                 ('cortesie per gli ospiti', 'cortesieospiti', 'set'),
                 ('tg regione', 'tg3', 'set'),
-
+                ('tg1', 'tguno', 'set'),
                 ('planet earth', 'planet earth', 'set'),
                 ('studio aperto', 'studio aperto', 'set'),
                 ('josephine ange gardien', 'josephine ange gardien', 'set'),
@@ -182,7 +211,6 @@ def convtext(text=''):
                 ('alessandro borghese - 4 ristoranti', 'alessandroborgheseristoranti', 'set'),
                 ('alessandro borghese: 4 ristoranti', 'alessandroborgheseristoranti', 'set'),
                 ('amici di maria', 'amicimaria', 'set'),
-
 
                 ('csi miami', 'csi miami', 'set'),
                 ('csi: miami', 'csi miami', 'set'),
@@ -247,7 +275,7 @@ def convtext(text=''):
             text = text.replace('complete', '').replace('internal', '').replace('dtsd', '').replace('h264', '').replace('dvdscr', '')
             text = text.replace('dubbed', '').replace('line.dubbed', '').replace('dd51', '').replace('dvdr9', '').replace('sync', '')
             text = text.replace('webhdrip', '').replace('webrip', '').replace('repack', '').replace('dts', '').replace('webhd', '')
-
+            # set add
             text = text.replace('1^tv', '').replace('1^ tv', '').replace(' - prima tv', '').replace(' - primatv', '')
             text = text.replace('primatv', '').replace('en direct:', '').replace('first screening', '').replace('live:', '')
             text = text.replace('1^ visione rai', '').replace('1^ visione', '').replace('premiere:', '').replace('nouveau:', '')
@@ -264,7 +292,7 @@ def convtext(text=''):
             text = sub(r'\|.*?\|', '', text)  # Rimuove qualsiasi altro contenuto tra "|"
             text = sub(r'\(\(.*?\)\)|\(.*?\)', '', text)  # Rimuove contenuti tra "()"
             text = sub(r'\[\[.*?\]\]|\[.*?\]', '', text)  # Rimuove contenuti tra "[]"
-            
+
             text = sub(r'[^\w\s]+$', '', text)
 
             text = sub(r' +ح| +ج| +م', '', text)  # Rimuove numeri di episodi/serie in arabo
@@ -299,12 +327,7 @@ def convtext(text=''):
             # text = sub(r'(odc.\d+)+.*?FIN', '', text)
             # text = sub(r'(\d+)+.*?FIN', '', text)
             # text = sub('FIN', '', text)
-            # # remove episode number in arabic series
-            # text = sub(r' +ح', '', text)
-            # # remove season number in arabic series
-            # text = sub(r' +ج', '', text)
-            # # remove season number in arabic series
-            # text = sub(r' +م', '', text)
+
             text = text.partition(" -")[0]  # Rimuove contenuti dopo "-"
             text = text.strip(' -')
             # Forzature finali

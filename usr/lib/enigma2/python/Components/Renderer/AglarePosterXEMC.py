@@ -105,7 +105,7 @@ class PosterDBEMC(AglarePosterXDownloadThread):
             self.logDB("[QUEUE] : {} : {}-{} ({})".format(canal[0], canal[1], canal[2], canal[5]))
             self.pstcanal = convtext(canal[5])
             if self.pstcanal is not None:
-                dwn_poster = path_folder + '/' + self.pstcanal + ".jpg"
+                dwn_poster = os.path.join(path_folder, self.pstcanal + ".jpg")
             else:
                 print("None type detected - poster not found")
                 pdbemc.task_done()  # Per evitare il blocco del thread
@@ -154,9 +154,12 @@ threadDBemc.start()
 class AglarePosterXEMC(Renderer):
     def __init__(self):
         Renderer.__init__(self)
-        adsl = intCheck()
-        if not adsl:
+        self.adsl = intCheck()
+        if not self.adsl:
+            print("Connessione assente, modalità offline.")
             return
+        else:
+            print("Connessione rilevata.")
         self.canal = [None, None, None, None, None, None]
         self.logdbg = None
         self.pstcanal = None
@@ -181,94 +184,89 @@ class AglarePosterXEMC(Renderer):
         if not self.instance:
             return
         if what[0] == self.CHANGED_CLEAR:
+            self.instance.hide()
+            return
+        self.canal = [None, None, None, None, None, None]
+        try:
+            if isinstance(self.source, ServiceEvent):  # source="Service"
+                self.canal[0] = None
+                self.canal[1] = self.source.event.getBeginTime()
+                event_name = self.source.event.getEventName().replace('\xc2\x86', '').replace('\xc2\x87', '')
+                if not PY3:
+                    event_name = event_name.encode('utf-8')
+                self.canal[2] = event_name
+                self.canal[3] = self.source.event.getExtendedDescription()
+                self.canal[4] = self.source.event.getShortDescription()
+                self.canal[5] = self.source.service.getPath().split(".ts")[0] + ".jpg"
+            elif isinstance(self.source, CurrentService):  # source="session.CurrentService"
+                self.canal[5] = self.source.getCurrentServiceReference().getPath().split(".ts")[0] + ".jpg"
+            else:
+                if self.instance:
+                    self.instance.hide()
+                return
+
+        except Exception as e:
+            print("Error (service processing):", str(e))
             if self.instance:
                 self.instance.hide()
             return
-        if what[0] != self.CHANGED_CLEAR:
-            try:
-                if isinstance(self.source, ServiceEvent):  # source="Service"
-                    self.canal[0] = None
-                    self.canal[1] = self.source.event.getBeginTime()
-                    if PY3:
-                        self.canal[2] = self.source.event.getEventName().replace('\xc2\x86', '').replace('\xc2\x87', '')
-                    else:
-                        self.canal[2] = self.source.event.getEventName().replace('\xc2\x86', '').replace('\xc2\x87', '').encode('utf-8')
-                    self.canal[3] = self.source.event.getExtendedDescription()
-                    self.canal[4] = self.source.event.getShortDescription()
-                    self.canal[5] = self.source.service.getPath().split(".ts")[0] + ".jpg"
-                elif isinstance(self.source, CurrentService):  # source="session.CurrentService"
-                    self.canal[0] = None
-                    self.canal[1] = None
-                    self.canal[2] = None
-                    self.canal[3] = None
-                    self.canal[4] = None
-                    self.canal[5] = self.source.getCurrentServiceReference().getPath().split(".ts")[0] + ".jpg"
-                else:
-                    # self.logPoster("Service : Others")
-                    self.canal = [None, None, None, None, None, None]
-                    if self.instance:
-                        self.instance.hide()
-                    return
-            except Exception as e:
-                print(e)
-                # self.logPoster("Error (service) : " + str(e))
+        try:
+            match = re.findall(r".*? - (.*?) - (.*?).jpg", self.canal[5])
+            if match and len(match[0]) > 1:
+                self.canal[0] = match[0][0].strip()
+                if not self.canal[2]:
+                    self.canal[2] = match[0][1].strip()
+            self.logPoster("Service: {} - {} => {}".format(self.canal[0], self.canal[2], self.canal[5]))
+            if self.canal[5]:
+                self.timer.start(10, True)
+            elif self.canal[0] and self.canal[2]:
+                canal_copy = self.canal[:]
+                pdbemc.put(canal_copy)
+                start_new_thread(self.waitPoster, ())
+            else:
+                self.logPoster("Not detected...")
                 if self.instance:
                     self.instance.hide()
-                return
-            try:
-                cn = re.findall(".*? - (.*?) - (.*?).jpg", self.canal[5])
-                if cn and len(cn) > 0 and len(cn[0]) > 1:
-                    self.canal[0] = cn[0][0].strip()
-                    if not self.canal[2]:
-                        self.canal[2] = cn[0][1].strip()
-                self.logPoster("Service : {} - {} => {}".format(self.canal[0], self.canal[2], self.canal[5]))
+        except Exception as e:
+            print("Error (file processing):", str(e))
+            if self.instance:
+                self.instance.hide()
 
-                if self.canal[5]:
-                    self.timer.start(10, True)
-                elif self.canal[0] and self.canal[2]:
-                    # self.logPoster("Downloading poster...")
-                    canal = self.canal[:]
-                    pdbemc.put(canal)
-                    start_new_thread(self.waitPoster, ())
-                else:
-                    self.logPoster("Not detected...")
-                    if self.instance:
-                        self.instance.hide()
-                    return
-            except Exception as e:
-                print(e)
-                # self.logPoster("Error (reading file) : " + str(e))
-                if self.instance:
-                    self.instance.hide()
-                return
+    def generatePosterPath(self):
+        """Genera il percorso completo per il poster."""
+        if self.canal[5]:
+            pstcanal = convtext(self.canal[5])
+            return os.path.join(self.path, str(pstcanal) + ".jpg")
+        return None
 
     def showPoster(self):
         if self.instance:
             self.instance.hide()
-        if self.canal[5]:
-            self.pstcanal = convtext(self.canal[5])
-            self.pstrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
-            if os.path.exists(self.pstrNm):
-                print('showPoster----')
-                self.logPoster("[LOAD : showPoster] {}".format(self.pstrNm))
-                self.instance.setPixmap(loadJPG(self.pstrNm))
-                self.instance.setScale(1)
-                self.instance.show()
+        self.pstrNm = self.generatePosterPath()
+        if self.pstrNm and os.path.exists(self.pstrNm):
+            print('showPosterXEMC----')
+            self.logPoster("[LOAD : showPoster] " + self.pstrNm)
+            self.instance.setPixmap(loadJPG(self.pstrNm))
+            self.instance.setScale(1)
+            self.instance.show()
 
     def waitPoster(self):
         if self.instance:
             self.instance.hide()
-        if self.canal[5]:
-            self.pstcanal = convtext(self.canal[5])
-            self.pstrNm = self.path + '/' + str(self.pstcanal) + ".jpg"
+
+        self.pstrNm = self.generatePosterPath()
+        if self.pstrNm:
             loop = 180
-            found = None
-            self.logPoster("[LOOP: waitPoster] {}".format(self.pstrNm))
-            while loop >= 0:
-                loop = 0
-                found = True
+            found = False
+            self.logPoster("[LOOP: waitPosterXEMC] " + self.pstrNm)
+
+            while loop > 0:
+                if os.path.exists(self.pstrNm):
+                    found = True
+                    break
                 time.sleep(0.5)
-                loop = loop - 1
+                loop -= 1
+
             if found:
                 self.timer.start(10, True)
 
