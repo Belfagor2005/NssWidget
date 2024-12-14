@@ -237,6 +237,7 @@ try:
     mmkpicon = config.usage.picon_dir.value.strip()
 except Exception as e:
     mmkpicon = '/picon/'
+    print(e)
 currversion = '1.0.1'
 title_plug = 'NSS Addon V. %s' % currversion
 name_plug = 'NSS Addon'
@@ -703,6 +704,7 @@ class NssDailySetting(Screen):
         self.setTitle(name_plug)
         self['info'].setText(_('Please select ...'))
 
+    '''
     # def Lcn(self, answer=None):
         # if answer is None:
             # self.session.openWithCallback(self.Lcn,
@@ -731,6 +733,7 @@ class NssDailySetting(Screen):
                                   # MessageBox.TYPE_INFO, timeout=5)
             # except RuntimeError as re:
                 # print("RuntimeError during MessageBox display:", re)
+    '''
 
     def _onLCNScanFinished(self, result=None):
         pass
