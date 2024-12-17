@@ -1,24 +1,23 @@
 
-        <screen name="InfoBar" position="0,0" size="1920,1080" title="InfoBar" flags="wfNoBorder" backgroundColor="transparent">
-            <!--posters-->
-            <widget source="session.Event_Now" render="AglarePosterX" position="40,440" size="240,360" cornerRadius="14" zPosition="1" borderWidth="1" borderColor="igsd" />
-            <widget source="session.Event_Now" render="AglarePosterX" nexts="1" position="1640,440" size="240,360" cornerRadius="14" zPosition="1" borderWidth="1" borderColor="igsd" />
-            <panel name="infobartemp" />
-            <widget font="Bold; 30" halign="right" position="1620,20" render="Label" size="278,40" source="global.CurrentTime" transparent="1" zPosition="1">
-              <convert type="ClockToText">Format:%a %d.%m. | %H:%M</convert>
-            </widget>
-            <eLabel backgroundColor="igsdt" cornerRadius="30" position="0,0" size="1920,80" zPosition="-1" />
-            <!-- <widget name="" position="0,0" size="1920,78" zPosition="-1" alphatest="off" pixmap="menu/background-top.png" /> -->
-
-            <!--  weather  -->
-            <eLabel backgroundGradient="igsdt,igsd,horizontal" cornerRadius="60" position="1591,175" size="540,120" />
-            <widget render="OAWeatherPixmap" position="1600,185" size="100,100" source="session.OAWeather" alphatest="blend" transparent="1" zPosition="8" scale="1" >
-              <convert type="OAWeather">weathericon,current</convert>
-            </widget>
-            <widget backgroundColor="background" font="Regular; 26" foregroundColor="white" halign="center" position="1707,180" render="Label" size="215,70" source="session.OAWeather" transparent="1" valign="center" zPosition="3">
-              <convert type="OAWeather">temperature_text,current</convert>
-            </widget>
-            <widget noWrap="1" backgroundColor="background" font="Regular; 40" foregroundColor="yellow" render="Label" position="1707,244" size="215,49" source="session.OAWeather" transparent="1" zPosition="8" halign="center" valign="top">
-              <convert type="OAWeather">temperature_current</convert>
-            </widget>
-        </screen>
+<screen name="InfoBar" position="0,0" size="1920,1080" title="InfoBar" flags="wfNoBorder" backgroundColor="transparent">
+    <!--posters-->
+    <widget source="session.Event_Now" render="AglarePosterX" position="40,440" size="240,360" cornerRadius="14" zPosition="1" borderWidth="1" borderColor="igsd"/>
+    <widget source="session.Event_Now" render="AglarePosterX" nexts="1" position="1640,440" size="240,360" cornerRadius="14" zPosition="1" borderWidth="1" borderColor="igsd"/>
+    <panel name="infobartemp"/>
+    <widget font="Bold; 30" halign="right" position="1620,20" render="Label" size="278,40" source="global.CurrentTime" transparent="1" zPosition="1">
+        <convert type="ClockToText">Format:%a %d.%m. | %H:%M</convert>
+    </widget>
+    <eLabel backgroundColor="igsdt" cornerRadius="30" position="0,0" size="1920,80" zPosition="-1"/>
+    <!-- <widget name="" position="0,0" size="1920,78" zPosition="-1" alphatest="off" pixmap="menu/background-top.png" /> -->
+    <!--  weather  -->
+    <eLabel backgroundColor="igsd" cornerRadius="60" position="1591,175" size="540,120"/>
+    <widget render="OAWeatherPixmap" position="1600,185" size="100,100" source="session.OAWeather" alphatest="blend" transparent="1" zPosition="8" scale="1">
+        <convert type="OAWeather">weathericon,current</convert>
+    </widget>
+    <widget backgroundColor="background" font="Regular; 26" foregroundColor="white" halign="center" position="1707,180" render="Label" size="215,70" source="session.OAWeather" transparent="1" valign="center" zPosition="3">
+        <convert type="OAWeather">temperature_text,current</convert>
+    </widget>
+    <widget noWrap="1" backgroundColor="background" font="Regular; 40" foregroundColor="yellow" render="Label" position="1707,244" size="215,49" source="session.OAWeather" transparent="1" zPosition="8" halign="center" valign="top">
+        <convert type="OAWeather">temperature_current</convert>
+    </widget>
+</screen>

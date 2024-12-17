@@ -23,7 +23,7 @@ from .lib.Utils import RequestAgent
 from .lib.Downloader import downloadWithProgress
 
 from .lib.Lcn import (
-    LCN,
+    # LCN,
     LCNBuildHelper,
     terrestrial_rest,
     ReloadBouquets,
@@ -627,24 +627,39 @@ class AddonPackagesGroups(Screen):
                 self['info'].setText('Error')
                 return
 
+    def retfile(self, dest):
+        import requests
+        response = requests.get(self.com)
+        if response.status_code == 200:
+            with open(dest, 'wb') as f:
+                f.write(response.content)
+            print("File downloaded successfully.")
+            return True
+        else:
+            print("Error downloading the file.")
+        return False
+
     def prombt(self):
+        dest = "/tmp"
+        if not os.path.exists(dest):
+            os.system('ln -sf  /var/volatile/tmp /tmp')
         self.plug = self.com.split("/")[-1]
-        self.folddest = '/tmp/' + self.plug
-        if ".deb" in self.plug:
-            cmd2 = "dpkg -i '/tmp/" + self.plug + "'"
-        if ".ipk" in self.plug:
-            cmd2 = "opkg install --force-reinstall --force-overwrite '/tmp/" + self.plug + "'"
-        elif ".zip" in self.plug:
-            cmd2 = "unzip -o -q '/tmp/" + self.plug + "' -d /"
-        elif ".tar" in self.plug and "gz" in self.plug:
-            cmd2 = "tar -xvf '/tmp/" + self.plug + "' -C /"
-        elif ".bz2" in self.plug and "gz" in self.plug:
-            cmd2 = "tar -xjvf '/tmp/" + self.plug + "' -C /"
-        cmd3 = "rm '/tmp/" + self.plug + "'"
-        cmd = cmd2 + " && " + cmd3
-        cmd00 = "wget --no-check-certificate -U '%s' -c '%s' -O '%s';%s > /dev/null" % (AgentRequest, str(self.com), self.folddest, cmd)
-        title = (_("Installing %s\nPlease Wait...") % self.dom)
-        self.session.open(tvConsole, _(title), [cmd00], closeOnSuccess=False)
+        folddest = '/tmp/' + self.plug
+        if self.retfile(folddest):
+            cmd2 = ''
+            if ".deb" in self.plug:
+                cmd2 = "dpkg -i /tmp/" + self.plug
+            if ".ipk" in self.plug:
+                cmd2 = "opkg install --force-reinstall --force-overwrite '/tmp/" + self.plug + "'"
+            elif ".zip" in self.plug:
+                cmd2 = "unzip -o -q '/tmp/" + self.plug + "' -d /"
+            elif ".tar" in self.plug and "gz" in self.plug:
+                cmd2 = "tar -xvf '/tmp/" + self.plug + "' -C /"
+            elif ".bz2" in self.plug and "gz" in self.plug:
+                cmd2 = "tar -xjvf '/tmp/" + self.plug + "' -C /"
+            # print('cmd:', cmd)
+            title = (_("Installing %s\nPlease Wait...") % self.dom)
+            self.session.open(tvConsole, _(title), cmdlist=[cmd2], closeOnSuccess=False)
 
 
 class NssDailySetting(Screen):
@@ -1967,12 +1982,6 @@ class NssIPK(Screen):
             self.session.openWithCallback(self.msgipkr, MessageBox, (_('Do you really want to remove selected?\n') + self.sel), MessageBox.TYPE_YESNO)
 
     def msgipkr(self, answer=False):
-        # if len(self.names) >= 0:
-            # idx = self['list'].getSelectionIndex()
-            # self.sel = self.names[idx]
-            # self.com = self.ipkpth + '/' + self.sel
-            # self['info'].setText(_('... please wait'))
-            # self.com = self.ipkpth + '/' + self.sel
         if answer:
             if fileExists(self.com):
                 os.remove(self.com)

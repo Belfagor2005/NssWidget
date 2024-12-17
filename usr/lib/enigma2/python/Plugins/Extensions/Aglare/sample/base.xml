@@ -6947,7 +6947,7 @@ MultiContentEntryText(pos = (20, 0), size = (840, 50), flags = RT_HALIGN_LEFT|RT
         <panel name="pigscreen885"/>
         <widget name="myMenu" position="36,100" size="890,900" scrollbarMode="showOnDemand" halign="left" valign="center" itemHeight="50" font="Regular;30" itemCornerRadius="8"/>
     </screen>
-        <screen name="AglareSetup" position="0,0" size="1920,1080" title="Aglare-FHD Skin Controler" flags="wfNoBorder">
+    <screen name="AglareSetup" position="0,0" size="1920,1080" title="Aglare-FHD Skin Controler" flags="wfNoBorder">
         <panel name="titletemp"/>
         <panel name="menutemp"/>
         <panel name="ScreenTemplateAllColorButtons_menu"/>
