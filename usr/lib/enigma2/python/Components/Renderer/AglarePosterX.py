@@ -422,6 +422,7 @@ class AglarePosterX(Renderer):
         self.path = path_folder  # + '/'
         self.canal = [None, None, None, None, None, None]
         self.oldCanal = None
+        self.pstrNm = None
         self.logdbg = None
         self.pstcanal = None
         self.timer = eTimer()
@@ -532,7 +533,7 @@ class AglarePosterX(Renderer):
 
     def generatePosterPath(self):
         """Genera il percorso completo per il poster."""
-        if self.canal[5]:
+        if self.canal and len(self.canal) > 5 and self.canal[5]:
             pstcanal = convtext(self.canal[5])
             return os.path.join(self.path, str(pstcanal) + ".jpg")
         return None
@@ -553,20 +554,20 @@ class AglarePosterX(Renderer):
             self.instance.hide()
 
         self.pstrNm = self.generatePosterPath()
-        if self.pstrNm:
-            loop = 180  # Numero massimo di tentativi
-            found = False
-            self.logPoster("[LOOP: waitPoster] " + self.pstrNm)
-
-            while loop > 0:
-                if os.path.exists(self.pstrNm):
-                    found = True
-                    break
-                time.sleep(0.5)
-                loop -= 1
-
-            if found:
-                self.timer.start(10, True)
+        if not self.pstrNm:
+            self.logPoster("[ERROR: waitPoster] Poster path is None")
+            return
+        loop = 180  # Numero massimo di tentativi
+        found = False
+        self.logPoster("[LOOP: waitPoster] " + self.pstrNm)
+        while loop > 0:
+            if os.path.exists(self.pstrNm):
+                found = True
+                break
+            time.sleep(0.5)
+            loop -= 1
+        if found:
+            self.timer.start(10, True)
 
     def logPoster(self, logmsg):
         import traceback
