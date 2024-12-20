@@ -23,7 +23,6 @@ import sys
 import re
 import time
 import traceback
-# import datetime
 
 from .Converlibr import convtext
 
@@ -113,13 +112,13 @@ class PosterDBEMC(AglarePosterXDownloadThread):
             if os.path.exists(dwn_poster):
                 os.utime(dwn_poster, (time.time(), time.time()))
             '''
-            # if lng == "fr":
-                # if not os.path.exists(dwn_poster):
-                    # val, log = self.search_molotov_google(dwn_poster, canal[5], canal[4], canal[3], canal[0])
-                    # self.logDB(log)
-                # if not os.path.exists(dwn_poster):
-                    # val, log = self.search_programmetv_google(dwn_poster, canal[5], canal[4], canal[3], canal[0])
-                    # self.logDB(log)
+            if lng == "fr":
+                if not os.path.exists(dwn_poster):
+                    val, log = self.search_molotov_google(dwn_poster, canal[5], canal[4], canal[3], canal[0])
+                    self.logDB(log)
+                if not os.path.exists(dwn_poster):
+                    val, log = self.search_programmetv_google(dwn_poster, canal[5], canal[4], canal[3], canal[0])
+                    self.logDB(log)
             '''
             if not os.path.exists(dwn_poster):
                 val, log = self.search_tmdb(dwn_poster, self.pstcanal, canal[4], canal[3])
@@ -162,6 +161,7 @@ class AglarePosterXEMC(Renderer):
             print("Connessione rilevata.")
         self.canal = [None, None, None, None, None, None]
         self.logdbg = None
+        self.pstrNm = None
         self.pstcanal = None
         self.path = path_folder
 

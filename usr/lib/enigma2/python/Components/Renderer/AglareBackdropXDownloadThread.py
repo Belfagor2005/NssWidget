@@ -453,7 +453,7 @@ class AglareBackdropXDownloadThread(threading.Thread):
             if url_backdrop and pfound:
                 callInThread(self.savebackdrop, url_backdrop, dwn_backdrop)
                 if os.path.exists(dwn_backdrop):
-                    # self.savebackdrop(dwn_backdrop, url_backdrop)
+                    # # self.savebackdrop(dwn_backdrop, url_backdrop)
                     # if self.verifybackdrop(dwn_backdrop):
                         # self.resizebackdrop(dwn_backdrop)
                                                             

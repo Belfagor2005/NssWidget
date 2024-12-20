@@ -250,7 +250,7 @@ class AglarePosterXDownloadThread(threading.Thread):
                         if poster:
                             callInThread(self.savePoster, poster, self.dwn_poster)
                             print('callinThread=Poster')
-                            # self.savePoster(self.dwn_poster, poster)
+                            # # self.savePoster(self.dwn_poster, poster)
                             # if self.verifyPoster(self.dwn_poster):
                                 # self.resizePoster(self.dwn_poster)
                             # if backdrop:
