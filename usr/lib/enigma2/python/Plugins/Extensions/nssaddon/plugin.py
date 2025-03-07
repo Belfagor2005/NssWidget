@@ -17,7 +17,7 @@ from . import (
     ptmov,
     data_xml,
 )
-from .Console import Console as tvConsole
+from .lib.Console import Console as nssConsole
 from .lib import Utils
 from .lib.Utils import RequestAgent
 from .lib.Downloader import downloadWithProgress
@@ -48,7 +48,6 @@ from Components.MenuList import MenuList
 from Components.MultiContent import (MultiContentEntryText, MultiContentEntryPixmapAlphaTest)
 from Components.Pixmap import Pixmap
 from Components.ProgressBar import ProgressBar
-# from Components.ScrollLabel import ScrollLabel
 from Components.Sources.Progress import Progress
 from Components.Sources.List import List
 from Components.Sources.StaticText import StaticText
@@ -56,7 +55,6 @@ from Plugins.Plugin import PluginDescriptor
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from Screens.Standby import TryQuitMainloop
-# from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Tools.Directories import (SCOPE_PLUGINS, fileExists, resolveFilename)
 from enigma import (
     RT_HALIGN_LEFT,
@@ -84,7 +82,6 @@ from xml.dom import minidom
 lcnscanners = LCNScanner()
 
 global skin_path, sets, category
-# mmkpicon = config.usage.picon_dir.value()
 PY3 = sys.version_info.major >= 3
 if PY3:
     from urllib.error import URLError
@@ -231,13 +228,14 @@ global sets
 config.plugins.nssaddon = ConfigSubsection()
 config.plugins.nssaddon.strtext = ConfigYesNo(default=True)
 config.plugins.nssaddon.strtmain = ConfigYesNo(default=False)
-# config.plugins.nssaddon.mmkpicon = ConfigDirectory(default='/picon/')
-# config.plugins.nssaddon.ipkpth = ConfigSelection(default="/tmp", choices=mountipkpth())
+
+
 try:
     mmkpicon = config.usage.picon_dir.value.strip()
 except Exception as e:
     mmkpicon = '/picon/'
     print(e)
+
 currversion = '1.0.1'
 title_plug = 'NSS Addon V. %s' % currversion
 name_plug = 'NSS Addon'
@@ -487,7 +485,7 @@ class HomeNss(Screen):
         if dependencies is False:
             chmod("/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/dependencies.sh", 0o0755)
             cmd1 = "/usr/lib/enigma2/python/Plugins/Extensions/nssaddon/dependencies.sh"
-            self.session.openWithCallback(self.starts, tvConsole, title="Checking Python Dependencies", cmdlist=[cmd1], closeOnSuccess=False)
+            self.session.openWithCallback(self.starts, nssConsole, title="Checking Python Dependencies", cmdlist=[cmd1], closeOnSuccess=False)
         else:
             self.starts()
 
@@ -659,7 +657,7 @@ class AddonPackagesGroups(Screen):
                 cmd2 = "tar -xjvf '/tmp/" + self.plug + "' -C /"
             # print('cmd:', cmd)
             title = (_("Installing %s\nPlease Wait...") % self.dom)
-            self.session.open(tvConsole, _(title), cmdlist=[cmd2], closeOnSuccess=False)
+            self.session.open(nssConsole, _(title), cmdlist=[cmd2], closeOnSuccess=False)
 
 
 class NssDailySetting(Screen):
@@ -754,19 +752,6 @@ class NssDailySetting(Screen):
         pass
 
     def Lcn(self):
-        '''
-        sets = 0
-        # if self.LcnOn:
-            # lcn = LCN()
-            # lcn.read()
-            # if len(lcn.lcnlist) >= 1:
-                # lcn.writeBouquet()
-                # ReloadBouquets(sets)
-                # self.session.open(MessageBox, _('Sorting Terrestrial channels with Lcn rules Completed'),
-                                  # MessageBox.TYPE_INFO,
-                                  # timeout=5)
-        '''
-
         try:
             lcn = LCNBuildHelper()
             lcn.buildAfterScan()
@@ -1001,7 +986,7 @@ class SettingCiefpz(Screen):
                     os.system('rm -rf /etc/enigma2/*.del')
                     os.system("cp -rf  '/tmp/unzipped/" + str(self.namel) + "/'* " + fdest2)
                     title = _("Installation Settings")
-                    self.session.openWithCallback(self.yes, tvConsole, title=_(title), cmdlist=["wget -qO - http://127.0.0.1/web/servicelistreload?mode=0 > /tmp/inst.txt 2>&1 &"], closeOnSuccess=False)
+                    self.session.openWithCallback(self.yes, nssConsole, title=_(title), cmdlist=["wget -qO - http://127.0.0.1/web/servicelistreload?mode=0 > /tmp/inst.txt 2>&1 &"], closeOnSuccess=False)
                     self['info'].setText(_('Settings Installed ...'))
                 else:
                     self['info'].setText(_('Settings Not Installed (dest)...'))
@@ -1133,7 +1118,7 @@ class SettingManutekz(Screen):
                     os.system('rm -rf /etc/enigma2/*.del')
                     os.system("cp -rf  '/tmp/unzipped/" + str(self.namel) + "/'* " + fdest2)
                     title = _("Installation Settings")
-                    self.session.openWithCallback(self.yes, tvConsole, title=_(title), cmdlist=["wget -qO - http://127.0.0.1/web/servicelistreload?mode=0 > /tmp/inst.txt 2>&1 &"], closeOnSuccess=False)
+                    self.session.openWithCallback(self.yes, nssConsole, title=_(title), cmdlist=["wget -qO - http://127.0.0.1/web/servicelistreload?mode=0 > /tmp/inst.txt 2>&1 &"], closeOnSuccess=False)
                     self['info'].setText(_('Settings Installed ...'))
                 else:
                     self['info'].setText(_('Settings Not Installed (dest)...'))
@@ -1271,7 +1256,7 @@ class SettingMorpheusz(Screen):
                     os.system('rm -rf /etc/enigma2/*.del')
                     os.system("cp -rf  '/tmp/unzipped/" + str(self.namel) + "/'* " + fdest2)
                     title = _("Installation Settings")
-                    self.session.openWithCallback(self.yes, tvConsole, title=_(title), cmdlist=["wget -qO - http://127.0.0.1/web/servicelistreload?mode=0 > /tmp/inst.txt 2>&1 &"], closeOnSuccess=False)
+                    self.session.openWithCallback(self.yes, nssConsole, title=_(title), cmdlist=["wget -qO - http://127.0.0.1/web/servicelistreload?mode=0 > /tmp/inst.txt 2>&1 &"], closeOnSuccess=False)
                     self['info'].setText(_('Settings Installed ...'))
                 else:
                     self['info'].setText(_('Settings Not Installed (dest)...'))
@@ -1401,7 +1386,7 @@ class SettingVhan11(Screen):
                     os.system('rm -rf /etc/enigma2/*.del')
                     os.system("cp -rf  '/tmp/unzipped/" + str(self.namel) + "/'* " + fdest2)
                     title = _("Installation Settings")
-                    self.session.openWithCallback(self.yes, tvConsole, title=_(title), cmdlist=["wget -qO - http://127.0.0.1/web/servicelistreload?mode=0 > /tmp/inst.txt 2>&1 &"], closeOnSuccess=False)
+                    self.session.openWithCallback(self.yes, nssConsole, title=_(title), cmdlist=["wget -qO - http://127.0.0.1/web/servicelistreload?mode=0 > /tmp/inst.txt 2>&1 &"], closeOnSuccess=False)
                     self['info'].setText(_('Settings Installed ...'))
                 else:
                     self['info'].setText(_('Settings Not Installed (dest)...'))
@@ -1545,7 +1530,7 @@ class SettingVhan22(Screen):
                 os.system('rm -rf /etc/enigma2/*.del')
                 os.system("cp -rf  '/tmp/unzipped/" + str(self.namel) + "/'* " + fdest2)
                 title = _("Installation Settings")
-                self.session.openWithCallback(self.yes, tvConsole, title=_(title), cmdlist=["wget -qO - http://127.0.0.1/web/servicelistreload?mode=0 > /tmp/inst.txt 2>&1 &"], closeOnSuccess=False)
+                self.session.openWithCallback(self.yes, nssConsole, title=_(title), cmdlist=["wget -qO - http://127.0.0.1/web/servicelistreload?mode=0 > /tmp/inst.txt 2>&1 &"], closeOnSuccess=False)
                 self['info'].setText(_('Settings Installed ...'))
             else:
                 self['info'].setText(_('Settings Not Installed ...'))
@@ -1663,7 +1648,7 @@ class NssInstall(Screen):
                 if "https" in str(self.com):
                     cmd = "wget --no-check-certificate --no-cache --no-dns-cache -U '%s' -c '%s' -O '%s' --post-data='action=purge';%s > /dev/null" % (AgentRequest, str(self.com), down, self.command[0])
 
-                self.session.open(tvConsole, title='Installation %s' % self.dom, cmdlist=[cmd, 'sleep 5'])  # , finishedCallback=self.msgipkinst)
+                self.session.open(nssConsole, title='Installation %s' % self.dom, cmdlist=[cmd, 'sleep 5'])  # , finishedCallback=self.msgipkinst)
                 self['info'].setText(_('Installation done !!!'))
 
             elif extension == "deb":
@@ -1674,7 +1659,7 @@ class NssInstall(Screen):
                     cmd = "wget -U '%s' -c '%s' -O '%s';dpkg -i %s > /dev/null" % (AgentRequest, str(self.com), self.dest, self.dest)
                     if "https" in str(self.com):
                         cmd = "wget --no-check-certificate -U '%s' -c '%s' -O '%s';dpkg -i %s > /dev/null" % (AgentRequest, str(self.com), self.dest, self.dest)
-                    self.session.open(tvConsole, _('Downloading-installing: %s') % self.dom, [cmd], closeOnSuccess=False)
+                    self.session.open(nssConsole, _('Downloading-installing: %s') % self.dom, [cmd], closeOnSuccess=False)
                     self['info'].setText(_('Installation done !!!'))
 
             elif extension == "ipk":
@@ -1685,7 +1670,7 @@ class NssInstall(Screen):
                     cmd = "wget -U '%s' -c '%s' -O '%s';opkg --force-reinstall --force-overwrite install %s > /dev/null" % (AgentRequest, str(self.com), self.dest, self.dest)
                     if "https" in str(self.com):
                         cmd = "wget --no-check-certificate -U '%s' -c '%s' -O '%s';opkg --force-reinstall --force-overwrite install %s > /dev/null" % (AgentRequest, str(self.com), self.dest, self.dest)
-                    self.session.open(tvConsole, _('Downloading-installing: %s') % self.dom, [cmd], closeOnSuccess=False)
+                    self.session.open(nssConsole, _('Downloading-installing: %s') % self.dom, [cmd], closeOnSuccess=False)
                     self['info'].setText(_('Installation done !!!'))
             elif self.com.endswith('.zip'):
                 if 'setting' in self.dom.lower():
@@ -1721,16 +1706,16 @@ class NssInstall(Screen):
                     cmd11 = 'cp -rf /tmp/unzipped/terrestrial.xml /etc/tuxbox/'
                     cmd.append(cmd11)
                     terrestrial_rest()
-                    self.session.open(tvConsole, _('SETTING - install: %s') % self.dom, [cmd], closeOnSuccess=False)
+                    self.session.open(nssConsole, _('SETTING - install: %s') % self.dom, [cmd], closeOnSuccess=False)
                     self['info'].setText(_('Installation done !!!'))
                 elif 'picon' in self.dom.lower():
                     cmd = ["unzip -o -q %s -d %s > /dev/null" % (down, str(mmkpicon))]
-                    self.session.open(tvConsole, _('Downloading-installing: %s') % self.dom, [cmd], closeOnSuccess=False)
+                    self.session.open(nssConsole, _('Downloading-installing: %s') % self.dom, [cmd], closeOnSuccess=False)
                     self['info'].setText(_('Installation done !!!'))
                 else:
                     self['info'].setText(_('Downloading the selected file in /tmp') + self.dom + _('... please wait'))
                     cmd = ["wget --no-cache --no-dns-cache -U '%s' -c '%s' -O '%s --post-data='action=purge' > /dev/null' " % (RequestAgent(), str(self.com), down)]
-                    self.session.open(tvConsole, _('Downloading: %s') % self.dom, cmd, closeOnSuccess=False)
+                    self.session.open(nssConsole, _('Downloading: %s') % self.dom, cmd, closeOnSuccess=False)
                     self['info'].setText(_('Download done !!!'))
                     self.session.open(MessageBox, _('Download file in /tmp successful!'), MessageBox.TYPE_INFO, timeout=5)
                     self['info'].setText(_('Download file in /tmp successful!!'))
@@ -1794,7 +1779,7 @@ class NssInstall(Screen):
                     self.timer.start(1000, True)
                     cmd = "wget --no-cache --no-dns-cache -q -O '%s' '%s' --post-data='action=purge';" + self.command[0] % (self.dest, str(self.com))
                     print('command:', cmd)
-                    self.session.open(tvConsole, _('Downloading-installing: %s') % self.dom, [cmd], closeOnSuccess=False)
+                    self.session.open(nssConsole, _('Downloading-installing: %s') % self.dom, [cmd], closeOnSuccess=False)
                     self['info'].setText(_('Installation done !!!'))
                     return
 
@@ -2023,15 +2008,15 @@ class NssIPK(Screen):
             try:
                 if self.sel.endswith('.ipk'):
                     cmd0 = 'echo "Sistem Update .... PLEASE WAIT ::.....";echo ":Install ' + self.dest + '";opkg --force-reinstall --force-overwrite install ' + self.dest + ' > /dev/null'
-                    self.session.open(tvConsole, title='IPK Local Installation', cmdlist=[cmd0, 'sleep 5'], closeOnSuccess=False)
+                    self.session.open(nssConsole, title='IPK Local Installation', cmdlist=[cmd0, 'sleep 5'], closeOnSuccess=False)
                 elif self.sel.endswith('.tar.gz'):
                     cmd0 = 'tar -xvf ' + self.dest + ' -C /'
-                    self.session.open(tvConsole, title='TAR GZ Local Installation', cmdlist=[cmd0, 'sleep 5'], closeOnSuccess=False)
+                    self.session.open(nssConsole, title='TAR GZ Local Installation', cmdlist=[cmd0, 'sleep 5'], closeOnSuccess=False)
                 elif self.sel.endswith('.deb'):
                     if os.path.exists("/usr/bin/apt-get"):
                         # apt-get install -f -y
                         cmd0 = 'echo "Sistem Update .... PLEASE WAIT ::.....";echo ":Install ' + self.dest + '";apt-get -f -y --force-yes install %s > /dev/null' % self.dest
-                        self.session.open(tvConsole, title='DEB Local Installation', cmdlist=[cmd0], closeOnSuccess=False)
+                        self.session.open(nssConsole, title='DEB Local Installation', cmdlist=[cmd0], closeOnSuccess=False)
                     else:
                         self.session.open(MessageBox, _('Unknow Image!'), MessageBox.TYPE_INFO, timeout=5)
                 elif self.sel.endswith('.zip'):
@@ -2039,7 +2024,7 @@ class NssIPK(Screen):
                         self.timer = eTimer()
                         self.timer.start(500, True)
                         cmd = ['unzip -o -q %s -d %s' % (self.dest, str(mmkpicon))]
-                        self.session.open(tvConsole, _('Installing: %s') % self.dest, cmdlist=[cmd], closeOnSuccess=False)
+                        self.session.open(nssConsole, _('Installing: %s') % self.dest, cmdlist=[cmd], closeOnSuccess=False)
                     elif 'setting' in self.sel.lower():
                         if not os.path.exists("/usr/bin/apt-get"):
                             global sets
@@ -2076,7 +2061,7 @@ class NssIPK(Screen):
                         self.timer = eTimer()
                         terrestrial_rest()
                         self.timer.start(500, True)
-                        self.session.open(tvConsole, _('SETTING - install: %s') % self.dest, cmdlist=[cmd], closeOnSuccess=False)
+                        self.session.open(nssConsole, _('SETTING - install: %s') % self.dest, cmdlist=[cmd], closeOnSuccess=False)
                 else:
                     self.session.open(MessageBox, _('Unknow Error!'), MessageBox.TYPE_ERROR, timeout=10)
                 self['info'].setText(_('Please install ...'))
@@ -2209,15 +2194,15 @@ class NssRemove(Screen):
             if os.path.exists("/usr/bin/apt-get"):
                 try:
                     cmd = 'echo "Sistem Update .... PLEASE WAIT ::.....";echo ":Remove %s";dpkg -P %s' % (com, com)
-                    self.session.open(tvConsole, title='DEB Local Remove', cmdlist=[cmd], closeOnSuccess=False)
+                    self.session.open(nssConsole, title='DEB Local Remove', cmdlist=[cmd], closeOnSuccess=False)
                 except:
                     cmd = 'echo "Sistem Update .... PLEASE WAIT ::.....";echo ":Remove %s";apt-get purge %s' % (com, com)
-                    self.session.open(tvConsole, title='DEB Local Remove', cmdlist=[cmd], closeOnSuccess=False)
+                    self.session.open(nssConsole, title='DEB Local Remove', cmdlist=[cmd], closeOnSuccess=False)
             else:
                 try:
-                    self.session.open(tvConsole, _('Removing: %s') % dom, ['opkg remove %s' % com], closeOnSuccess=True)
+                    self.session.open(nssConsole, _('Removing: %s') % dom, ['opkg remove %s' % com], closeOnSuccess=True)
                 except:
-                    self.session.open(tvConsole, _('Removing: %s') % dom, ['opkg remove --force-removal-of-dependent-packages %s' % com], closeOnSuccess=True)
+                    self.session.open(nssConsole, _('Removing: %s') % dom, ['opkg remove --force-removal-of-dependent-packages %s' % com], closeOnSuccess=True)
             self.close()
 
     def getfreespace(self):
@@ -2445,7 +2430,7 @@ class ScriptExecuter(Screen):
                 mysel2 = '/usr/script/' + mysel + '.sh'
                 chmod(mysel2, 0o0777)
                 mytitle = 'NonSoloSat Script: ' + mysel
-                self.session.open(tvConsole, title=mytitle, cmdlist=[mysel2])
+                self.session.open(nssConsole, title=mytitle, cmdlist=[mysel2])
 
 
 class SelectPiconz(Screen):

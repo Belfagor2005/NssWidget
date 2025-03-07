@@ -3,7 +3,7 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
-from .. import _
+# from .. import _
 from enigma import (eServiceReference, eServiceCenter)
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox

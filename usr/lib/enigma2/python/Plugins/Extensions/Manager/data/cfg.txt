@@ -1,5 +1,5 @@
 Please Plugin Support on Forum
->>>>>>nonsolosat<<<<<<<
+>>>>>>CORVOBOYS.ORG<<<<<<<
 >Path folder for config cam:
 CCcam
 /etc/cccam.cfg

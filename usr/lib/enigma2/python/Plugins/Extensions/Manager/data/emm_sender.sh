@@ -8,7 +8,7 @@ set -e
 set -x
 ## Funzione di cleanup
 cleanup() {
-    rm -f /tmp/*.tmp /tmp/*.html /tmp/emm.txt
+    rm -f /tmp/*.tmp /tmp/*.html
 }
 
 trap cleanup EXIT
@@ -124,8 +124,7 @@ while IFS= read -r label; do
     rm -f "/tmp/${label}_entitlements.html"  # Pulizia del file temporaneo
 done < /tmp/active_readers.tmp
 
-## Pulizia finale
-cleanup
+# cleanup
 
 echo "Aggiornamento EMM completato."
 exit 0
