@@ -452,8 +452,8 @@ class AglarePosterX(Renderer):
             return
 
         servicetype = None
+        service = None
         try:
-            service = None
             source_type = type(self.source)
             if source_type is ServiceEvent:  # source="ServiceEvent"
                 service = self.source.getCurrentService()
@@ -465,6 +465,7 @@ class AglarePosterX(Renderer):
                 service = NavigationInstance.instance.getCurrentlyPlayingServiceReference()
                 servicetype = "EventInfo"
             elif source_type is Event:  # source="Event"
+                servicetype = "Event"
                 if self.nxts:
                     service = NavigationInstance.instance.getCurrentlyPlayingServiceReference()
                 else:
@@ -477,7 +478,6 @@ class AglarePosterX(Renderer):
                     self.canal[3] = self.source.event.getExtendedDescription()
                     self.canal[4] = self.source.event.getShortDescription()
                     self.canal[5] = event_name
-                servicetype = "Event"
             if service is not None:
                 service_str = service.toString()
                 events = epgcache.lookupEvent(['IBDCTESX', (service_str, 0, -1, -1)])
