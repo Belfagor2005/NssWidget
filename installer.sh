@@ -18,7 +18,7 @@ else
     OSTYPE=OE20
 fi
 
-if ! command -v wget >/dev/null; then
+if ! command -v wget >/dev/null 2>&1; then
     if [ "$OSTYPE" = "DreamOs" ]; then
         apt-get update && apt-get install -y wget || { echo "Failed to install wget"; exit 1; }
     else
@@ -71,7 +71,7 @@ distro_version=$(grep '^version=' "/etc/image-version" 2>/dev/null | awk -F '=' 
 python_vers=$(python --version 2>&1)
 
 echo "#########################################################
-#       NssWidget $version INSTALLED SUCCESSFULLY      #
+#       NssWidget $version INSTALLED SUCCESSFULLY         #
 #########################################################
 BOX MODEL: $box_type
 PYTHON: $python_vers
@@ -80,5 +80,5 @@ IMAGE: ${distro_value:-Unknown} ${distro_version:-Unknown}"
 rm -rf "$TMPPATH" "$FILEPATH" /tmp/NssWidget-main
 sync
 
-[ -f /usr/bin/enigma2 ] && killall -9 enigma2 || init 4 && sleep 2 && init 3
+[ -f /usr/bin/enigma2 ] && killall -9 enigma2 || (init 4 && sleep 2 && init 3)
 exit 0
