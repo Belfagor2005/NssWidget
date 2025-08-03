@@ -1,15 +1,9 @@
 from Components.Converter.Converter import Converter
 from Components.Element import cached
 from Components.Converter.Poll import Poll
-from os import popen, statvfs
+from os import popen, statvfs, listdir, path
 
-SIZE_UNITS = ['B',
-              'KB',
-              'MB',
-              'GB',
-              'TB',
-              'PB',
-              'EB']
+SIZE_UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB']
 
 
 class AglareReceiverInfo(Poll, Converter):
@@ -22,6 +16,7 @@ class AglareReceiverInfo(Poll, Converter):
     USBINFO = 6
     HDDINFO = 7
     FLASHINFO = 8
+    MMCINFO = 9
 
     def __init__(self, type):
         Converter.__init__(self, type)
@@ -29,89 +24,77 @@ class AglareReceiverInfo(Poll, Converter):
         type = type.split(',')
         self.shortFormat = 'Short' in type
         self.fullFormat = 'Full' in type
-        if 'HddTemp' in type:
-            self.type = self.HDDTEMP
-        elif 'LoadAvg' in type:
-            self.type = self.LOADAVG
-        elif 'MemTotal' in type:
-            self.type = self.MEMTOTAL
-        elif 'MemFree' in type:
-            self.type = self.MEMFREE
-        elif 'SwapTotal' in type:
-            self.type = self.SWAPTOTAL
-        elif 'SwapFree' in type:
-            self.type = self.SWAPFREE
-        elif 'UsbInfo' in type:
-            self.type = self.USBINFO
-        elif 'HddInfo' in type:
-            self.type = self.HDDINFO
-        else:
-            self.type = self.FLASHINFO
-        if self.type in (self.FLASHINFO, self.HDDINFO, self.USBINFO):
-            self.poll_interval = 5000
-        else:
-            self.poll_interval = 1000
+        self.type = self.get_type_from_string(type)
+        self.poll_interval = 5000 if self.type in (
+            self.FLASHINFO, self.HDDINFO, self.MMCINFO, self.USBINFO) else 1000
         self.poll_enabled = True
 
-    def doSuspend(self, suspended):
-        if suspended:
-            self.poll_enabled = False
-        else:
-            self.downstream_elements.changed((self.CHANGED_POLL,))
-            self.poll_enabled = True
+    def get_type_from_string(self, type_list):
+        type_mapping = {
+            'HddTemp': self.HDDTEMP,
+            'LoadAvg': self.LOADAVG,
+            'MemTotal': self.MEMTOTAL,
+            'MemFree': self.MEMFREE,
+            'SwapTotal': self.SWAPTOTAL,
+            'SwapFree': self.SWAPFREE,
+            'UsbInfo': self.USBINFO,
+            'HddInfo': self.HDDINFO,
+            'MmcInfo': self.MMCINFO,
+        }
+        return next((v for k, v in type_mapping.items() if k in type_list), self.FLASHINFO)
 
     @cached
     def getText(self):
-        text = 'N/A'
         if self.type == self.HDDTEMP:
-            text = self.getHddTemp()
-        elif self.type == self.LOADAVG:
-            text = self.getLoadAvg()
-        else:
-            entry = {self.MEMTOTAL: ('Mem', 'Ram'),
-                     self.MEMFREE: ('Mem', 'Ram'),
-                     self.SWAPTOTAL: ('Swap', 'Swap'),
-                     self.SWAPFREE: ('Swap', 'Swap'),
-                     self.USBINFO: ('/media/usb', 'USB'),
-                     self.HDDINFO: ('/media/hdd', 'HDD'),
-                     self.FLASHINFO: ('/', 'Flash')}[self.type]
-            if self.type in (self.USBINFO, self.HDDINFO, self.FLASHINFO):
-                list = self.getDiskInfo(entry[0])
-            else:
-                list = self.getMemInfo(entry[0])
-            if list[0] == 0:
-                text = '%s: Not Available' % entry[1]
-            elif self.shortFormat:
-                text = '%s: %s, in use: %s%%' % (entry[1], self.getSizeStr(list[0]), list[3])
-            elif self.fullFormat:
-                text = '%s: %s Free:%s used:%s (%s%%)' % (entry[1],
-                                                          self.getSizeStr(list[0]),
-                                                          self.getSizeStr(list[2]),
-                                                          self.getSizeStr(list[1]),
-                                                          list[3])
-            else:
-                text = '%s: %s used:%s Free:%s' % (entry[1],
-                                                   self.getSizeStr(list[0]),
-                                                   self.getSizeStr(list[1]),
-                                                   self.getSizeStr(list[2]))
-        return text
+            return self.getHddTemp()
+        if self.type == self.LOADAVG:
+            return self.getLoadAvg()
+
+        entry = self.get_info_entry()
+        info = self.get_disk_or_mem_info(entry[0])
+        return self.format_text(entry[1], info)
+
+    def get_info_entry(self):
+        return {
+            self.MEMTOTAL: ('Mem', 'Ram'),
+            self.MEMFREE: ('Mem', 'Ram'),
+            self.SWAPTOTAL: ('Swap', 'Swap'),
+            self.SWAPFREE: ('Swap', 'Swap'),
+            self.USBINFO: ('/media/usb', 'USB'),
+            self.MMCINFO: ('/media/mmc', 'MMC'),
+            self.HDDINFO: ('/media/hdd', 'HDD'),
+            self.FLASHINFO: ('/', 'Flash')
+        }.get(self.type, ('/', 'Unknown'))
+
+    def get_disk_or_mem_info(self, paths):
+        if self.type in (self.USBINFO, self.MMCINFO, self.HDDINFO, self.FLASHINFO):
+            return self.getDiskInfo(paths)
+        return self.getMemInfo(paths)
+
+    def format_text(self, label, info):
+        if info[0] == 0:
+            return f'{label}: Not Available'
+        if self.shortFormat:
+            return f'{label}: {self.getSizeStr(info[0])}, in use: {info[3]}%'
+        if self.fullFormat:
+            return f'{label}: {self.getSizeStr(info[0])} Free:{self.getSizeStr(info[2])} used:{self.getSizeStr(info[1])} ({info[3]}%)'
+        return f'{label}: {self.getSizeStr(info[0])} used:{self.getSizeStr(info[1])} Free:{self.getSizeStr(info[2])}'
 
     @cached
     def getValue(self):
         result = 0
-        if self.type in (self.MEMTOTAL,
-                         self.MEMFREE,
-                         self.SWAPTOTAL,
-                         self.SWAPFREE):
-            entry = {self.MEMTOTAL: 'Mem',
-                     self.MEMFREE: 'Mem',
-                     self.SWAPTOTAL: 'Swap',
-                     self.SWAPFREE: 'Swap'}[self.type]
+        if self.type in (self.MEMTOTAL, self.MEMFREE, self.SWAPTOTAL, self.SWAPFREE):
+            entry = {
+                self.MEMTOTAL: 'Mem', self.MEMFREE: 'Mem',
+                self.SWAPTOTAL: 'Swap', self.SWAPFREE: 'Swap'
+            }[self.type]
             result = self.getMemInfo(entry)[3]
-        elif self.type in (self.USBINFO, self.HDDINFO, self.FLASHINFO):
-            path = {self.USBINFO: '/media/usb',
-                    self.HDDINFO: '/media/hdd',
-                    self.FLASHINFO: '/'}[self.type]
+
+        elif self.type in (self.USBINFO, self.MMCINFO, self.HDDINFO, self.FLASHINFO):
+            path = {
+                self.USBINFO: '/media/usb', self.HDDINFO: '/media/hdd',
+                self.MMCINFO: '/media/mmc', self.FLASHINFO: '/'
+            }[self.type]
             result = self.getDiskInfo(path)[3]
         return result
 
@@ -119,108 +102,90 @@ class AglareReceiverInfo(Poll, Converter):
     value = property(getValue)
     range = 100
 
-    def getHddTemp(self):
-        textvalue = 'No info'
-        info = '0'
+    def is_mmc_device(self, mount_point):
         try:
-            out_line = popen('hddtemp -n -q /dev/sda').readline()
-            info = 'Hdd C:' + out_line[:4]
-            textvalue = info
+            # 1. Controlla se il percorso contiene parole chiave MMC
+            mp_lower = mount_point.lower()
+            if any(kw in mp_lower for kw in ['mmc', 'sd', 'card', 'emmc']):
+                return True
+
+            # 2. Analizza i dispositivi in /sys/block
+            for device in listdir('/sys/block'):
+                if device.startswith('mmcblk') and path.ismount(mount_point):
+                    device_path = path.join('/dev', device)
+                    with open('/proc/mounts') as f:
+                        if any(device_path in line and mount_point in line for line in f):
+                            return True
         except:
             pass
+        return False
 
-        return textvalue
+    def getHddTemp(self):
+        try:
+            return popen('hddtemp -n -q /dev/sda 2>/dev/null').readline().strip() + "°C"
+        except:
+            return "N/A"
 
     def getLoadAvg(self):
-        textvalue = 'No info'
-        info = '0'
         try:
-            out_line = popen('cat /proc/loadavg').readline()
-            info = 'loadavg:' + out_line[:15]
-            textvalue = info
+            with open('/proc/loadavg', 'r') as f:
+                return f.read(15).strip()
         except:
-            pass
-
-        return textvalue
+            return "N/A"
 
     def getMemInfo(self, value):
-        result = [0,
-                  0,
-                  0,
-                  0]
+        result = [0, 0, 0, 0]
         try:
-            check = 0
-            fd = open('/proc/meminfo')
-            for line in fd:
-                if value + 'Total' in line:
-                    check += 1
-                    result[0] = int(line.split()[1]) * 1024
-                elif value + 'Free' in line:
-                    check += 1
-                    result[2] = int(line.split()[1]) * 1024
-                if check > 1:
-                    if result[0] > 0:
-                        result[1] = result[0] - result[2]
-                        result[3] = result[1] * 100 / result[0]
-                    break
+            with open('/proc/meminfo', 'r') as fd:
+                mem_data = fd.read()
 
-            fd.close()
+            total = int(mem_data.split(f'{value}Total:')[1].split()[0]) * 1024
+            free = int(mem_data.split(f'{value}Free:')[1].split()[0]) * 1024
+
+            if total > 0:
+                used = total - free
+                percent = (used * 100) / total
+                result = [total, used, free, percent]
         except:
             pass
-
         return result
 
     def getDiskInfo(self, path):
-
-        def isMountPoint():
-            try:
-                fd = open('/proc/mounts', 'r')
-                for line in fd:
-                    l = line.split()
-                    if len(l) > 1 and l[1] == path:
-                        return True
-
-                fd.close()
-            except:
-                return None
-
-            return False
-
-        result = [0,
-                  0,
-                  0,
-                  0]
-        if isMountPoint():
+        result = [0, 0, 0, 0]
+        if self.is_mount_point(path):
             try:
                 st = statvfs(path)
+                if st and 0 not in (st.f_bsize, st.f_blocks):
+                    result[0] = st.f_bsize * st.f_blocks
+                    result[2] = st.f_bsize * st.f_bavail
+                    result[1] = result[0] - result[2]
+                    result[3] = (result[1] * 100) / result[0]
             except:
-                st = None
-
-            if st is not None and 0 not in (st.f_bsize, st.f_blocks):
-                result[0] = st.f_bsize * st.f_blocks
-                result[2] = st.f_bsize * st.f_bavail
-                result[1] = result[0] - result[2]
-                result[3] = result[1] * 100 / result[0]
+                pass
         return result
 
+    def is_mount_point(self, path):
+        try:
+            with open('/proc/mounts', 'r') as fd:
+                for line in fd:
+                    parts = line.split()
+                    if len(parts) > 1 and parts[1] == path:
+                        return True
+        except:
+            pass
+        return False
+
     def getSizeStr(self, value, u=0):
-        fractal = 0
-        if value >= 1024:
-            fmt = '%(size)u.%(frac)d %(unit)s'
-            while value >= 1024 and u < len(SIZE_UNITS):
-                value, mod = divmod(value, 1024)
-                fractal = mod * 10 / 1024
-                u += 1
+        if value <= 0:
+            return "0 B"
 
-        else:
-            fmt = '%(size)u %(unit)s'
-        return fmt % {'size': value,
-                      'frac': fractal,
-                      'unit': SIZE_UNITS[u]}
+        while value >= 1024 and u < len(SIZE_UNITS) - 1:
+            value /= 1024.0
+            u += 1
 
-    def doSuspend(self, suspended=''):
-        if suspended:
-            self.poll_enabled = False
-        else:
+        return f"{value:.1f} {SIZE_UNITS[u]}" if value >= 10 else f"{value:.2f} {SIZE_UNITS[u]}"
+
+    def doSuspend(self, suspended):
+        self.poll_enabled = not suspended
+        if not suspended:
             self.downstream_elements.changed((self.CHANGED_POLL,))
-            self.poll_enabled = True
