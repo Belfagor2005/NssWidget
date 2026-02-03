@@ -182,18 +182,8 @@ msgid "UPDATE TERRESTRIAL.XML"
 msgstr "UPDATE TERRESTRIAL.XML"
 
 #: plugin.py:759
-msgid ""
-"This operation restore your Favorite channel Dtt\n"
-"from =>>THISPLUGIN/temp/TerrestrialChannelListArchive\n"
-"Do you really want to continue?"
-msgstr ""
 
 #: plugin.py:766
-msgid ""
-"This operation save your Favorite channel Dtt\n"
-"to =>>/tmp/*_enigma2settingsbackup.tar.gz\n"
-"Do you really want to continue?"
-msgstr ""
 
 #: plugin.py:773 plugin.py:794 plugin.py:876 plugin.py:989 plugin.py:1125
 #: plugin.py:1221 plugin.py:1332 plugin.py:1444 plugin.py:1554 plugin.py:1653
@@ -325,10 +315,6 @@ msgid "... Not supported"
 msgstr "... Nicht unterstützt"
 
 #: plugin.py:1994
-msgid ""
-"Do you want to Download?\n"
-"It could take a few minutes, wait .."
-msgstr ""
 
 #: plugin.py:2025 plugin.py:2029
 msgid "Download canceled!"
@@ -354,12 +340,6 @@ msgstr ""
 #, fuzzy
 #| msgid ""
 #| "Put .ipk .tar.gz .deb .zip and install (Set folder from config path) "
-msgid ""
-"Path /tmp\n"
-"Put .ipk .tar.gz .deb .zip and install"
-msgstr ""
-"Setzen Sie .ipk .tar.gz .deb .zip und installieren Sie (Ordner aus "
-"Konfigurationspfad festlegen)"
 
 #: plugin.py:2172
 #, fuzzy
@@ -369,17 +349,9 @@ msgstr "Wollen Sie wirklich ausgewählt entfernen?"
 
 #: plugin.py:2178
 #, python-format
-msgid ""
-"%s has been successfully deleted\n"
-"wait time to refresh the list..."
-msgstr ""
 
 #: plugin.py:2182
 #, python-format
-msgid ""
-"%s not exist!\n"
-"wait time to refresh the list..."
-msgstr ""
 
 #: plugin.py:2200
 #, fuzzy
@@ -398,10 +370,6 @@ msgstr ""
 
 #: plugin.py:2267
 #, python-format
-msgid ""
-"File: %s\n"
-"Installation failed!"
-msgstr ""
 
 #: plugin.py:2280
 msgid "Restart Enigma to load the installed plugin?"
@@ -531,11 +499,6 @@ msgid "Install ..."
 msgstr ""
 
 #: plugin.py:3093
-msgid ""
-"Do you want to install?\n"
-"ATTENTION: MAKE SURE YOU HAVE ENOUGH SPACE\n"
-"THERE ARE A LOT OF PICONS AND IT TAKES TIME!!!"
-msgstr ""
 
 #: plugin.py:3202
 msgid "Nss Addons"
