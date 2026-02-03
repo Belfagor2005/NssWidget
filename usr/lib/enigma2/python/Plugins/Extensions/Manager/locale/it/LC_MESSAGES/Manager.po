@@ -1,7 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nssManager\n"
-"POT-Creation-Date: 2024-03-27 21:37+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
 "PO-Revision-Date: 2024-03-27 21:39+0100\n"
 "Last-Translator: \n"
 "Language-Team: lululla\n"
@@ -16,283 +17,932 @@ msgstr ""
 "X-Poedit-SearchPath-0: plugin.py\n"
 "X-Poedit-SearchPath-1: data/datas.py\n"
 
-#: data/datas.py:269 data/datas.py:272 data/datas.py:275 data/datas.py:278
-#: data/datas.py:281 data/datas.py:284
-msgid "Write"
-msgstr "Scrivi"
-
-#: data/datas.py:300 plugin.py:692 plugin.py:786 plugin.py:945
-msgid "Back"
-msgstr "Indietro"
-
-#: data/datas.py:306
-msgid "Wait please..."
-msgstr "Attendi prego..."
-
-#: data/datas.py:327 data/datas.py:451
-msgid "Get Link"
-msgstr "Ottieni link"
-
-#: data/datas.py:328 data/datas.py:446 data/datas.py:452
-msgid "Reset"
-msgstr "Reset"
-
-#: data/datas.py:341
-msgid "Select Your Choice"
-msgstr "Seleziona"
-
-#: data/datas.py:354 data/datas.py:399 data/datas.py:475
-msgid ""
-"\n"
-"....\n"
-".....\n"
+msgid "%s ( %s Cards )"
 msgstr ""
 
-#: data/datas.py:364 data/datas.py:407
-msgid "Card Updated!"
+msgid "%s Info - Configuration"
 msgstr ""
 
-#: data/datas.py:367 data/datas.py:410
-msgid "Card Not Updated!"
+msgid "%s Info - Main Menu"
 msgstr ""
 
-#: data/datas.py:378 data/datas.py:422 data/datas.py:487
-msgid "READ EMM....\n"
+msgid "%s webif disabled"
 msgstr ""
 
-#: data/datas.py:382 data/datas.py:426 data/datas.py:491
-msgid "CURRENT EMM IS:\n"
+msgid "(All readers)"
 msgstr ""
 
-#: data/datas.py:384 data/datas.py:428 data/datas.py:493
-msgid ""
-"\n"
-"Current Emm saved to /tmp/emm.txt"
+msgid "(Show only reader) (%s)"
 msgstr ""
 
-#: data/datas.py:387 data/datas.py:431 data/datas.py:496
-msgid "\n"
+msgid "About"
 msgstr ""
 
-#: data/datas.py:388 data/datas.py:432 data/datas.py:497
-#, python-format
-msgid "Please wait, %s."
+msgid "Activate"
 msgstr ""
 
-#: data/datas.py:390
-msgid "File no exist /tmp/emm.txt"
-msgstr ""
-
-#: data/datas.py:392
-msgid "The Cam is not active, send the command anyway?"
-msgstr ""
-
-#: data/datas.py:434 data/datas.py:499
-msgid ""
-"No Action!\n"
-"File no exist /tmp/emm.txt"
-msgstr ""
-
-#: data/datas.py:436
-msgid "Command Cancelled"
-msgstr ""
-
-#: data/datas.py:504
 msgid "Activate Insert line in Config File:"
 msgstr "Attivare inserimento in File Cfg 3C"
 
-#: data/datas.py:504
-msgid "If Active: Download/Reset Server Config"
-msgstr "Se Attivo: Scarica/Reset Config .serv"
+msgid "Activate screen:"
+msgstr ""
 
-#: data/datas.py:506
-msgid "Server Config"
+msgid "Active clients"
+msgstr ""
+
+msgid "Add"
+msgstr ""
+
+msgid "Add new CCcam line"
+msgstr ""
+
+msgid "Add new NewCamd line"
+msgstr ""
+
+msgid "Address"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+msgid "An error occurred in the green function."
+msgstr ""
+
+msgid "An unexpected error occurred: %s"
+msgstr ""
+
+msgid "Ask all caid"
+msgstr ""
+
+msgid "Ask for the selection caid"
+msgstr ""
+
+msgid "Automatically update Client/Server View?"
+msgstr ""
+
+msgid "Available shares:"
+msgstr ""
+
+msgid "Back"
+msgstr "Indietro"
+
+msgid "CCPrioMaker Settings"
+msgstr ""
+
+msgid "CCPrioMaker autostart"
+msgstr ""
+
+msgid "CCcam"
+msgstr "CCcam"
+
+msgid "CCcam Clients Info"
+msgstr ""
+
+msgid "CCcam Config Switcher"
+msgstr ""
+
+msgid "CCcam ECM Info"
+msgstr ""
+
+#, fuzzy
+msgid "CCcam Info"
+msgstr "CCcam"
+
+msgid "CCcam Info %s"
+msgstr ""
+
+msgid "CCcam Info Config"
+msgstr ""
+
+msgid "CCcam Info Config Menu"
+msgstr ""
+
+msgid "CCcam Info Main"
+msgstr ""
+
+msgid "CCcam Info Remote Box Menu"
+msgstr ""
+
+msgid "CCcam Info Server Menu"
+msgstr ""
+
+msgid "CCcam Info Sub Menu"
+msgstr ""
+
+msgid "CCcam Line Edit Actions"
+msgstr ""
+
+msgid "CCcam Line Editor"
+msgstr ""
+
+msgid "CCcam Organizer"
+msgstr ""
+
+msgid "CCcam Prio Maker"
+msgstr ""
+
+msgid "CCcam Provider Info"
+msgstr ""
+
+msgid "CCcam Remote Info"
+msgstr ""
+
+#, fuzzy
+msgid "CCcam Server Info"
 msgstr "Server Config"
 
-#: data/datas.py:507
-msgid "Server Link"
-msgstr "Url del Server"
+msgid "CCcam Share Info"
+msgstr ""
 
-#: data/datas.py:507
-msgid "Select Get Link"
-msgstr "Seleziona Link Server"
+msgid "CCcam Share View Menu"
+msgstr ""
 
-#: data/datas.py:508
-msgid "Server URL"
-msgstr "Server URL"
+msgid "CCcam Shares Info"
+msgstr ""
 
-#: data/datas.py:508
-msgid "Server Url i.e. 012.345.678.900"
-msgstr "Url Server Es. 012.345.678.900"
+msgid "CCcam.cfg Basic Line Editor"
+msgstr ""
 
-#: data/datas.py:509
-msgid "Server Port"
-msgstr "Porta del Server"
+msgid "CaID:"
+msgstr ""
 
-#: data/datas.py:509
-msgid "Port"
-msgstr "Port"
+msgid "Caid"
+msgstr ""
 
-#: data/datas.py:510
-msgid "Server Username"
-msgstr "Server Username"
+msgid "Caid:"
+msgstr ""
 
-#: data/datas.py:510
-msgid "Username"
-msgstr "Username"
+msgid "Caid:Srvid"
+msgstr ""
 
-#: data/datas.py:511
-msgid "Server Password"
-msgstr "Server Password"
-
-#: data/datas.py:511
-msgid "Password"
-msgstr "Password"
-
-#: data/datas.py:572
-msgid "Select CCcam"
-msgstr "Seleziona CCcam"
-
-#: data/datas.py:583 data/datas.py:601 data/datas.py:626
-msgid "Please Reset - No File CFG"
-msgstr "Prego Reset - nessun file di Config"
-
-#: data/datas.py:590 data/datas.py:608 data/datas.py:633
-msgid "Server Copy in "
-msgstr "Server copiato in "
-
-#: data/datas.py:613
-msgid "Select Ncam"
-msgstr "Seleziona Ncam"
-
-#: plugin.py:213
-msgid "Start/Restart"
-msgstr "Avvio/Riavvio"
-
-#: plugin.py:214
-msgid "Download"
+#, fuzzy
+msgid "Cam Download"
 msgstr "Download"
 
-#: plugin.py:215
-msgid "Stop"
-msgstr "Stop"
-
-#: plugin.py:216
-msgid "Softcam"
-msgstr "Softcam"
-
-#: plugin.py:219
-msgid "Scanning and retrieval list softcam ..."
-msgstr "Scansione e recupero lista softcam"
-
-#: plugin.py:341
-msgid "Update SoftcamKeys from google search?"
-msgstr "Aggiornamento SoftcamKeys da ricerca google?"
-
-#: plugin.py:351
-msgid "SoftcamKeys Updated!"
-msgstr "SoftcamKeys Aggiornata!"
-
-#: plugin.py:364
-msgid "Select a cam to run ..."
-msgstr "Selezionare una cam da avviare ..."
-
-#: plugin.py:366
-msgid "Install Cam first!!!"
-msgstr "Installa prima una Cam!!!"
-
-#: plugin.py:439
-msgid ""
-"Please wait..\n"
-"RESTART CAM"
+msgid "Cancel"
 msgstr ""
 
-#: plugin.py:444
-msgid ""
-"Please wait..\n"
-"STOP & RESTART CAM"
+msgid "Card info (CCcam-Reader)"
 msgstr ""
 
-#: plugin.py:452
-msgid ""
-"Please wait..\n"
-"START UP CAM"
+msgid "Cards:"
 msgstr ""
 
-#: plugin.py:519
-msgid ""
-"Please wait..\n"
-"STOP CAM"
+msgid "Cards: 0"
 msgstr ""
 
-#: plugin.py:638
-msgid "Autocam assigned to the current channel"
-msgstr "Autocam assegnato al canale corrente"
+msgid "Cardserial"
+msgstr ""
 
-#: plugin.py:690
+msgid "Channel"
+msgstr ""
+
+msgid "Channel Name"
+msgstr ""
+
+msgid "Choose CCcam-Reader"
+msgstr ""
+
+msgid "Choose reader"
+msgstr ""
+
+msgid "Client %s-%s"
+msgstr ""
+
+msgid "Clients"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Command Cancelled"
+msgstr ""
+
+msgid "Configfile %s saved."
+msgstr ""
+
+msgid "Connected clients"
+msgstr ""
+
+msgid "Connected:"
+msgstr ""
+
+msgid "Console"
+msgstr ""
+
+msgid "Content"
+msgstr ""
+
+msgid "Could not open the file %s!"
+msgstr ""
+
+msgid "Could not open the file %s! Error: %s"
+msgstr ""
+
+msgid "Could not save configfile %s!"
+msgstr ""
+
+msgid "Could not save configfile %s! Error: %s"
+msgstr ""
+
+msgid "Could not save the config file! Error: %s"
+msgstr ""
+
+msgid "Current time"
+msgstr ""
+
+msgid "Cut servername after (x) letters:"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Delete %s?"
+msgstr ""
+
+msgid "Delete Peer"
+msgstr ""
+
+msgid "Delete failed!"
+msgstr ""
+
+msgid "Deleted %s!"
+msgstr ""
+
+msgid "Do you install this plugin ?"
+msgstr ""
+
+#, fuzzy
+msgid "Do you want to execute the command?"
+msgstr "Vuoi installare?"
+
+#, fuzzy
+msgid "Do you want to remove?"
+msgstr "Vuoi installare?"
+
+#, fuzzy
+msgid "Do you want to restart Gui Interface?"
+msgstr "Vuoi installare?"
+
+msgid "Ecm Info"
+msgstr ""
+
+msgid "Ecm Statistics"
+msgstr ""
+
+msgid "Ecm Time"
+msgstr ""
+
+msgid "Ecm avg"
+msgstr ""
+
+msgid "Ecm last"
+msgstr ""
+
+msgid "Ecm time:"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Editing one caid"
+msgstr ""
+
+msgid "Emm Info"
+msgstr ""
+
+msgid "Encoding screen config menu"
+msgstr ""
+
+msgid "Entitlements"
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid "Error processing HTML!"
+msgstr ""
+
+msgid "Error processing server addons data"
+msgstr ""
+
+msgid "Error reading webpage!"
+msgstr ""
+
+msgid "Exit"
+msgstr ""
+
+msgid "Extended Shares"
+msgstr ""
+
+msgid "Failed to load plugin: %s"
+msgstr ""
+
+msgid "Find Fakes"
+msgstr ""
+
+msgid "Free memory"
+msgstr ""
+
+msgid "Free memory:"
+msgstr ""
+
+msgid "Free to Air"
+msgstr ""
+
+msgid "Free:"
+msgstr ""
+
+msgid "General"
+msgstr ""
+
+msgid "Get Link"
+msgstr "Ottieni link"
+
 msgid "Getting the list, please wait ..."
 msgstr "Getting the list, please wait ..."
 
-#: plugin.py:693
+msgid "Hide ecm.info after (x) seconds:"
+msgstr ""
+
+msgid "Hide ecm.info with InfoBar:"
+msgstr ""
+
+msgid "Hide/Show"
+msgstr ""
+
+msgid "Hops"
+msgstr ""
+
+msgid "Hops:"
+msgstr ""
+
+msgid "Hostname:"
+msgstr ""
+
+msgid "IP Address"
+msgstr ""
+
+msgid "IP address"
+msgstr ""
+
+msgid "IP:"
+msgstr ""
+
+msgid "Idle Time:"
+msgstr ""
+
+msgid "If Active: Download/Reset Server Config"
+msgstr "Se Attivo: Scarica/Reset Config .serv"
+
+msgid "Install Cam first!!!"
+msgstr "Installa prima una Cam!!!"
+
+msgid "Invalid HTML content!"
+msgstr ""
+
+msgid "Invalid URL!"
+msgstr ""
+
+msgid "Last Req."
+msgstr ""
+
+msgid "Last used share:"
+msgstr ""
+
 msgid "Load"
 msgstr ""
 
-#: plugin.py:737 plugin.py:754
-msgid "Try again later ..."
-msgstr "Riprova piu tardi ..."
-
-#: plugin.py:750
-msgid "Please select ..."
-msgstr "Seleziona prego..."
-
-#: plugin.py:785
-msgid "Select and Install"
-msgstr "Seleziona e Installa"
-
-#: plugin.py:825
-msgid "Do you want to install?"
-msgstr "Vuoi installare?"
-
-#: plugin.py:877 plugin.py:904
-#, fuzzy, python-format
-#| msgid "Installing: %s"
-msgid "Downloading-installing: %s"
-msgstr "Installazione: %s"
-
-#: plugin.py:896
-msgid "Unknow Image!"
-msgstr "Unknow Image!"
-
-#: plugin.py:908
-#, python-format
-msgid "Downloading: %s"
-msgstr "Downloading: %s"
-
-#: plugin.py:909
-msgid "Download file in /tmp successful!"
-msgstr "Download del file in /tmp riuscito!"
-
-#: plugin.py:912
-msgid "Download failur!"
+msgid "Local box"
 msgstr ""
 
-#: plugin.py:923
-msgid "All file Download are removed!"
-msgstr "Tutti i file scaricati sono stati rimossi!"
+msgid "Location"
+msgstr ""
 
-#: plugin.py:955
+msgid "Log"
+msgstr ""
+
+msgid "Log %s-%s"
+msgstr ""
+
+msgid "Maxdown +"
+msgstr ""
+
+msgid "Maxdown -"
+msgstr ""
+
+msgid "Maxdown:"
+msgstr ""
+
+msgid "Menu config"
+msgstr ""
+
+#, fuzzy
+msgid "NSS Cam Manager"
+msgstr "Cam tvManager"
+
+msgid "Name:"
+msgstr ""
+
+msgid "Ncam not running - start Cam to obtain information."
+msgstr ""
+
+msgid "New"
+msgstr ""
+
+msgid "New profile:"
+msgstr ""
+
+msgid "NewCamd"
+msgstr ""
+
+msgid "No ECM info is currently available. This is only available while decrypting."
+msgstr ""
+
+msgid "No card inserted!"
+msgstr ""
+
+msgid "No parse cannot emu"
+msgstr ""
+
+msgid "NodeID"
+msgstr ""
+
+msgid "NodeID:"
+msgstr ""
+
+msgid "OK"
+msgstr ""
+
+msgid "Oscam not running - start Cam to obtain information."
+msgstr ""
+
+msgid "PRESS RETURN"
+msgstr ""
+
+msgid "Password"
+msgstr "Password"
+
+#, fuzzy
+msgid "Password (httpwd)"
+msgstr "Password"
+
+#, fuzzy
+msgid "Password:"
+msgstr "Password"
+
 msgid "Path Configuration Folder"
 msgstr "Configurazione cartelle"
 
-#: plugin.py:1101
-msgid "Softcam Manager"
+msgid "Peak load (max queued requests per workerthread)"
 msgstr ""
+
+msgid "Pid"
+msgstr ""
+
+msgid "Please Reset - No File CFG"
+msgstr "Prego Reset - nessun file di Config"
+
+msgid "Please select ..."
+msgstr "Seleziona prego..."
+
+msgid "Please select a line to edit or select add to create new line."
+msgstr ""
+
+msgid "Please wait, %s."
+msgstr ""
+
+msgid "Port"
+msgstr "Port"
+
+#, fuzzy
+msgid "Port:"
+msgstr "Port"
+
+msgid "Position:"
+msgstr ""
+
+msgid "Profile"
+msgstr ""
+
+msgid "Profile: Local box"
+msgstr ""
+
+msgid "Protocol"
+msgstr ""
+
+msgid "Provider"
+msgstr ""
+
+msgid "Provider Name:"
+msgstr ""
+
+msgid "Provider:"
+msgstr ""
+
+msgid "Providers"
+msgstr ""
+
+msgid "Providers:"
+msgstr ""
+
+msgid "Read Userdata from %s.conf"
+msgstr ""
+
+msgid "Reader"
+msgstr ""
+
+msgid "Reader Statistics"
+msgstr ""
+
+msgid "Reader/User"
+msgstr ""
+
+#, fuzzy
+msgid "Recover Peer"
+msgstr "Porta del Server"
+
+msgid "Remote box"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "Remove the Line from CCcam.cfg"
+msgstr ""
+
+msgid "Removing %s"
+msgstr ""
+
+#, fuzzy
+msgid "Rename"
+msgstr "Username"
+
+msgid "Rename failed!"
+msgstr ""
+
+msgid "Rename to:"
+msgstr ""
+
+msgid "Renamed %s!"
+msgstr ""
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "Reshare"
+msgstr ""
+
+msgid "Reshare:"
+msgstr ""
+
+#, fuzzy
+msgid "Restart"
+msgstr "Avvio/Riavvio"
+
+msgid "Save"
+msgstr ""
+
+msgid "Scanning and retrieval list softcam ..."
+msgstr "Scansione e recupero lista softcam"
+
+msgid "Select CCcam"
+msgstr "Seleziona CCcam"
+
+msgid "Select Get Link"
+msgstr "Seleziona Link Server"
+
+msgid "Select Ncam"
+msgstr "Seleziona Ncam"
+
+#, fuzzy
+msgid "Select OScam"
+msgstr "Seleziona Oscam"
+
+msgid "Select Your Choice"
+msgstr "Seleziona"
+
+msgid "Select a cam to run ..."
+msgstr "Selezionare una cam da avviare ..."
+
+msgid "Select and Install"
+msgstr "Seleziona e Installa"
+
+#, fuzzy
+msgid "Server %s-%s"
+msgstr "Server Password"
+
+msgid "Server Config"
+msgstr "Server Config"
+
+#, fuzzy
+msgid "Server Copy in"
+msgstr "Server copiato in "
+
+msgid "Server Link"
+msgstr "Url del Server"
+
+msgid "Server Password"
+msgstr "Server Password"
+
+msgid "Server Port"
+msgstr "Porta del Server"
+
+msgid "Server URL"
+msgstr "Server URL"
+
+msgid "Server Url i.e. 012.345.678.900"
+msgstr "Url Server Es. 012.345.678.900"
+
+msgid "Server Username"
+msgstr "Server Username"
+
+#, fuzzy
+msgid "Server:"
+msgstr "Server URL"
+
+#, fuzzy
+msgid "Servers"
+msgstr "Server URL"
+
+#, fuzzy
+msgid "Servers:"
+msgstr "Server URL"
+
+msgid "Service"
+msgstr ""
+
+msgid "Set as UNIQUE PEER"
+msgstr ""
+
+msgid "Setup"
+msgstr ""
+
+msgid "Share View"
+msgstr ""
+
+msgid "Shares"
+msgstr ""
+
+msgid "Show CCcam Info in ext menu:"
+msgstr ""
+
+msgid "Show Clients"
+msgstr ""
+
+msgid "Show Ecm info"
+msgstr ""
+
+msgid "Show Log"
+msgstr ""
+
+msgid "Show Readers/Proxies"
+msgstr ""
+
+msgid "Show ecm.info:"
+msgstr ""
+
+msgid "Start"
+msgstr "Avvio"
+
+msgid "Status"
+msgstr ""
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Stop Finding Fakes"
+msgstr ""
+
+msgid "Switch config"
+msgstr ""
+
+msgid "System"
+msgstr ""
+
+msgid "System:"
+msgstr ""
+
+msgid "Temporarely DELETED"
+msgstr ""
+
+msgid "This plugin shows you the status of your CCcam"
+msgstr ""
+
+msgid "This plugin shows you the status of your CCcam."
+msgstr ""
+
+msgid "Total"
+msgstr ""
+
+msgid "Total cards:"
+msgstr ""
+
+msgid "Total handled client ecm's"
+msgstr ""
+
+msgid "Total handled client emm's"
+msgstr ""
+
+msgid "Total:"
+msgstr ""
+
+msgid "Try again later ..."
+msgstr "Riprova piu tardi ..."
+
+msgid "Type:"
+msgstr ""
+
+msgid "UNDELETED"
+msgstr ""
+
+msgid "Unknow Image!"
+msgstr "Unknow Image!"
+
+msgid "Update SoftcamKeys from google search?"
+msgstr "Aggiornamento SoftcamKeys da ricerca google?"
+
+msgid "Update interval (in seconds)"
+msgstr ""
+
+msgid "Uphops +"
+msgstr ""
+
+msgid "Uphops -"
+msgstr ""
+
+msgid "Uphops:"
+msgstr ""
+
+msgid "Uptime"
+msgstr ""
+
+msgid "Used:"
+msgstr ""
+
+msgid "Username"
+msgstr "Username"
+
+msgid "Username (httpuser)"
+msgstr ""
+
+#, fuzzy
+msgid "Username:"
+msgstr "Username"
+
+msgid "Using old profile:"
+msgstr ""
+
+msgid "Version:"
+msgstr ""
+
+msgid "Wait please..."
+msgstr "Attendi prego..."
+
+msgid "Write"
+msgstr "Scrivi"
+
+#, fuzzy
+msgid "Write-Debug"
+msgstr "Scrivi"
+
+msgid "Z position screen:"
+msgstr ""
+
+msgid "\n"
+msgstr ""
+
+msgid "\tProvid:"
+msgstr ""
+
+msgid "a NOTHING.TO.UNDELE"
+msgstr ""
+
+msgid "address:"
+msgstr ""
+
+msgid "and"
+msgstr ""
+
+msgid "caid:"
+msgstr ""
+
+msgid "card"
+msgstr ""
+
+msgid "card reader"
+msgstr ""
+
+msgid "close share view"
+msgstr ""
+
+msgid "decrease uphop by 1"
+msgstr ""
+
+msgid "ecm time:"
+msgstr ""
+
+msgid "ecm.info"
+msgstr ""
+
+msgid "ecm.info selection"
+msgstr ""
+
+msgid "get the cards' server"
+msgstr ""
+
+msgid "handled"
+msgstr ""
+
+msgid "hops:"
+msgstr ""
+
+msgid "increase uphop by 1"
+msgstr ""
+
+msgid "info"
+msgstr ""
+
+msgid "no or unknown card inserted"
+msgstr ""
+
+msgid "pid:"
+msgstr ""
+
+msgid "provid:"
+msgstr ""
+
+msgid "provider:"
+msgstr ""
+
+msgid "share:"
+msgstr ""
+
+msgid "show all cards"
+msgstr ""
+
+msgid "show cards with uphop 0"
+msgstr ""
+
+msgid "show cards with uphop 1"
+msgstr ""
+
+msgid "show cards with uphop 2"
+msgstr ""
+
+msgid "show cards with uphop 3"
+msgstr ""
+
+msgid "show cards with uphop 4"
+msgstr ""
+
+msgid "show cards with uphop 5"
+msgstr ""
+
+msgid "show cards with uphop 6"
+msgstr ""
+
+msgid "show cards with uphop 7"
+msgstr ""
+
+msgid "show cards with uphop 8"
+msgstr ""
+
+msgid "show cards with uphop 9"
+msgstr ""
+
+msgid "system:"
+msgstr ""
+
+msgid "using:"
+msgstr ""
+
+#~ msgid "Softcam"
+#~ msgstr "Softcam"
+
+#~ msgid "SoftcamKeys Updated!"
+#~ msgstr "SoftcamKeys Aggiornata!"
+
+#~ msgid "Autocam assigned to the current channel"
+#~ msgstr "Autocam assegnato al canale corrente"
+
+#, fuzzy, python-format
+#~| msgid "Installing: %s"
+#~ msgid "Downloading-installing: %s"
+#~ msgstr "Installazione: %s"
+
+#, python-format
+#~ msgid "Downloading: %s"
+#~ msgstr "Downloading: %s"
+
+#~ msgid "Download file in /tmp successful!"
+#~ msgstr "Download del file in /tmp riuscito!"
+
+#~ msgid "All file Download are removed!"
+#~ msgstr "Tutti i file scaricati sono stati rimossi!"
 
 #~ msgid "FTA"
 #~ msgstr "FTA"
-
-#~ msgid "Start"
-#~ msgstr "Avvio"
 
 #, python-format
 #~ msgid "Update Softcam.key: %s"
@@ -303,9 +953,6 @@ msgstr ""
 
 #~ msgid "SEND EMM TO OSCAM"
 #~ msgstr "INVIO EMM ALLA OSCAM"
-
-#~ msgid "CCcam"
-#~ msgstr "CCcam"
 
 #~ msgid "Oscam"
 #~ msgstr "Oscam"
@@ -331,17 +978,11 @@ msgstr ""
 #~ msgid "Link6"
 #~ msgstr "Link6"
 
-#~ msgid "Select Oscam"
-#~ msgstr "Seleziona Oscam"
-
 #~ msgid "PLEASE SELECT..."
 #~ msgstr "SELEZIONA PREGO..."
 
 #~ msgid "Folder Config Path tvManager"
 #~ msgstr "Percorso Config tvManager"
-
-#~ msgid "Cam tvManager"
-#~ msgstr "Cam tvManager"
 
 #~ msgid "TiVuStream Cam Manager..."
 #~ msgstr "TiVuStream Cam Manager..."
