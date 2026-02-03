@@ -18,7 +18,7 @@ from xml.etree import ElementTree as ET
 
 PLUGIN_NAME = "nssaddon"
 PLUGIN_DIR = os.path.dirname(os.path.abspath(__file__))
-LOCALE_DIR = os.path.join(PLUGIN_DIR, "locale")
+LOCALE_DIR = os.path.join(PLUGIN_DIR, "res", "locale")
 POT_FILE = os.path.join(LOCALE_DIR, "{}.pot".format(PLUGIN_NAME))
 STANDARD_LANGUAGES = [
     'af',         # Afrikaans
