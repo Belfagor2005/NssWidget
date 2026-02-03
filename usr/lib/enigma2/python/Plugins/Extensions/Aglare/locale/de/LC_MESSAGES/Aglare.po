@@ -161,10 +161,6 @@ msgid "Error by processing the skin file !!!"
 msgstr ""
 
 #: plugin.py:283
-msgid ""
-"GUI needs a restart to apply a new skin.\n"
-"Do you want to Restart the GUI now?"
-msgstr ""
 
 #: plugin.py:284 plugin.py:390
 #, fuzzy
@@ -190,14 +186,6 @@ msgstr ""
 #| "New update available!!\n"
 #| "Do you want update plugin ?\n"
 #| "Please Reboot GUI after install!"
-msgid ""
-"The update is available!\n"
-"\n"
-"Do you want to run the update now?"
-msgstr ""
-"Neues Update verfügbar!!\n"
-"Möchten Sie ein Update-Plugin?\n"
-"Bitte starten Sie die GUI nach der Installation neu!"
 
 #: plugin.py:323 plugin.py:350
 msgid "You have an experimental beta version!!!"
@@ -214,7 +202,3 @@ msgid "Installing updates!"
 msgstr "Installieren Sie Update: %s"
 
 #: plugin.py:389
-msgid ""
-"Aglare update was done!!!\n"
-"Do you want to restart the GUI now?"
-msgstr ""
